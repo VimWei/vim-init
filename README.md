@@ -26,7 +26,7 @@ mkdir vimfiles
 source d:\WeirdData\vim-init\init.vim
 ```
 
-- 安装包：
+- 打开vim，并安装包：
  
 ```batch
 :PlugUpdate
