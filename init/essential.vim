@@ -51,16 +51,6 @@ set formatoptions+=m    "如遇Unicode值大于255的文本，不必等到空格
 set formatoptions+=B    "合并两行中文时，不在中间加空格
 set errorformat+=[%f:%l]\ ->\ %m,[%f:%l]:%m     "错误格式
 
-" Tab related -------------------------------------------------------------{{{1
-set tabstop=8   "Tab所占用的空格数量
-set softtabstop=4
-set shiftwidth=4   "自动缩进所占用的空格数量
-set shiftround  "缩进取整到'shiftwidth'的倍数
-set expandtab   "编辑时将所有Tab替换为空格，若需替换已有文件则%retab!
-set smarttab    "行首Tab插入shiftwidth空格，按一次Backspace删除所有空格
-set autoindent  "普通文件类型的自动缩进，开启新行时，从当前行复制缩进
-set cindent     "打开 C/C++ 语言缩进优化
-
 " Editing related ---------------------------------------------------------{{{1
 set history=1000    "命令历史的保存数量
 set clipboard=unnamed   "与系统共享剪贴板

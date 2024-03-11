@@ -17,13 +17,14 @@ execute 'set runtimepath+='.s:home
 command! -nargs=1 LoadScript execute 'so '.s:home.'/'.'<args>'
 
 LoadScript init/essential.vim   " 加载基础配置
-LoadScript init/status.vim      " 加载status样式
-LoadScript init/search.vim      " 加载忽略列表
+LoadScript init/tabsize.vim     " 加载tabsize配置
+LoadScript init/statusline.vim  " 加载状态栏样式
+LoadScript init/search.vim      " 加载搜索补全
 LoadScript init/guistyle.vim    " 加载界面样式
 LoadScript init/keymaps.vim     " 加载按键映射
 LoadScript init/plugins.vim     " 加载功能插件
 LoadScript init/autoload.vim    " 延时自动加载
-LoadScript init/colorscheme.vim " 延时自动加载
+LoadScript init/colorscheme.vim " 加载色彩方案
 
 finish
 

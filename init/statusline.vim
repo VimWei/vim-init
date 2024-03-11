@@ -1,4 +1,8 @@
-" statusline --------------------------------------------------------------{{{1
+"===================================================
+" Statusline settings by W.Chen
+" Sourced by: ../init.vim
+"===================================================
+
 set laststatus=2                                " 总是显示状态栏
 set statusline=                                 " 清空状态
 let g:status_padding_left = "  "
