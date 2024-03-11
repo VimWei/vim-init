@@ -113,7 +113,7 @@ call plug#begin()
 
     " vim-auto-popmenu ----------------------------------------------------{{{2
     Plug 'skywind3000/vim-auto-popmenu'
-    " ins-completion 相关配置，请查看 essential.vim
+    " ins-completion 相关配置，请查看 search.vim
     " enable this plugin for filetypes, '*' for all files.
     let g:apc_enable_ft = {'*':1}
     let g:apc_enable_tab = 1
@@ -121,7 +121,11 @@ call plug#begin()
 
     " Vim-Cool ----------------------------------------------------------{{{2
     Plug 'romainl/vim-cool'
+    " disables search highlighting when you are done searching and re-enables it when you search again
     let g:cool_total_matches = 1
+
+    " Vim-quickui -------------------------------------------------------{{{2
+    Plug 'skywind3000/vim-quickui'
 
 " Note --------------------------------------------------------------------{{{1
 
