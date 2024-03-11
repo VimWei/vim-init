@@ -72,3 +72,48 @@ let g:quickui_color_scheme = 'borland'
 " multiple menu namespaces: https://github.com/skywind3000/vim-quickui/wiki/Menu-Namespaces
 " The default menus is located in the system namespace.
 noremap <Leader><Leader>m :call quickui#menu#open()<cr>
+
+" Navigator ---------------------------------------------------------------{{{1
+
+" initialize global keymap and declare prefix key
+let g:navigator = {'prefix':'\'}
+
+" buffer management
+let g:navigator.b = {
+            \ 'name' : '+buffer' ,
+            \ '1' : [':b1'        , 'buffer 1']        ,
+            \ '2' : [':b2'        , 'buffer 2']        ,
+            \ 'd' : [':bd'        , 'delete-buffer']   ,
+            \ 'f' : [':bfirst'    , 'first-buffer']    ,
+            \ 'n' : [':bnext'     , 'next-buffer']     ,
+            \ 'p' : [':bprevious' , 'previous-buffer'] ,
+            \ 'l' : [':blast'     , 'last-buffer']     ,
+            \ '?' : [':Leaderf buffer'   , 'Leaderf b']      ,
+            \ }
+
+" tab management
+let g:navigator.t = {
+            \ 'name': '+tab',
+            \ '1' : ['<key>1gt', 'tab-1'],
+            \ '2' : ['<key>2gt', 'tab-2'],
+            \ '3' : ['<key>3gt', 'tab-3'],
+            \ 'c' : [':tabnew', 'new-tab'],
+            \ 'q' : [':tabclose', 'close-current-tab'],
+            \ 'n' : [':tabnext', 'next-tab'],
+            \ 'p' : [':tabprev', 'previous-tab'],
+            \ 'o' : [':tabonly', 'close-all-other-tabs'],
+            \ }
+
+" Easymotion
+let g:navigator.m = ['<plug>(easymotion-bd-w)', 'easy-motion-bd-w']
+let g:navigator.n = ['<plug>(easymotion-s)', 'easy-motion-s']
+
+" let g:navigator.config = {
+"     \ 'icon_separator': '→',
+"     \ 'popup': 1,
+"     \ 'popup_position': 'center',
+"     \ 'popup_width': 60,
+"     \ 'popup_height': 5,
+"     \ }
+
+nnoremap <silent>\ :Navigator g:navigator<cr>
