@@ -1,6 +1,6 @@
-# Vimel Vim-init
+# Vim-init
 
-个性化 Vim 配置
+Vimel 个性化的 Vim 配置
 
 # Install （Windows）
 
