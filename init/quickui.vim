@@ -73,10 +73,37 @@ let g:quickui_color_scheme = 'borland'
 " The default menus is located in the system namespace.
 noremap <Leader><Leader>m :call quickui#menu#open()<cr>
 
+" Custom Command ----------------------------------------------------------{{{1
+
+command! RS call RoadShowIndex()
+function! RoadShowIndex()
+    execute "VimwikiTabIndex"
+    execute "find Research\\路演.md"
+endfunction
+
 " Navigator ---------------------------------------------------------------{{{1
 
 " initialize global keymap and declare prefix key
 let g:navigator = {'prefix':'\'}
+
+let g:navigator.m = [':call quickui#menu#open()', 'Open Menu']
+
+" Vimwiki
+let g:navigator.w = {
+            \ 'name' : '+vimwiki' ,
+            \ '0' : [':VimwikiTabIndex', 'Open VimWiki index in a new tab'],
+            \ '1' : [':VimwikiMakeDiaryNote', 'Open today diary'],
+            \ '2' : [':VimwikiTabMakeDiaryNote', 'Open today diary in a new tab'],
+            \ '3' : [':VimwikiMakeYesterdayDiaryNote', 'Open yesterday diary'],
+            \ '4' : [':VimwikiMakeTomorrowDiaryNote', 'Open tomorrow diary'],
+            \ '5' : [':VimwikiDiaryNextDay', 'Open next day diary'],
+            \ '6' : [':VimwikiDiaryPrevDay', 'Open previous day diary'],
+            \ '7' : [':VimwikiDeleteFile', 'Delete wiki page'],
+            \ '8' : [':VimwikiRenameFile', 'Rename wiki page'],
+            \ 'r' : [':RS', 'Open RoadShow index'],
+            \ 'i' : [':VimwikiDiaryIndex', 'Open diary index file'],
+            \ 'w' : [':VimwikiIndex', 'Open VimWiki index'],
+            \ }
 
 " buffer management
 let g:navigator.b = {
@@ -103,10 +130,6 @@ let g:navigator.t = {
             \ 'p' : [':tabprev', 'previous-tab'],
             \ 'o' : [':tabonly', 'close-all-other-tabs'],
             \ }
-
-" Easymotion
-let g:navigator.m = ['<plug>(easymotion-bd-w)', 'easy-motion-bd-w']
-let g:navigator.n = ['<plug>(easymotion-s)', 'easy-motion-s']
 
 " let g:navigator.config = {
 "     \ 'icon_separator': '→',
