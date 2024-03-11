@@ -36,6 +36,15 @@ function! TabeditVimrc()
     execute "cd %:p:h"
 endfunction
 
+" 新标签页打开VIMRC，并将目标文件所在目录设为当前工作目录
+command! TM call TabeditMenu()
+function! TabeditMenu()
+    execute "tabedit $MYVIMRC"
+    execute "normal! $gf"
+    execute "cd %:p:h"
+    execute "find init/quickui.vim"
+endfunction
+
 " 设置 vim 相关文件打开后默认折叠方式为 marker
 augroup filetype_vim
     autocmd!

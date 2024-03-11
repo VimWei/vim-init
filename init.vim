@@ -23,6 +23,7 @@ LoadScript init/search.vim      " 加载搜索补全
 LoadScript init/guistyle.vim    " 加载界面样式
 LoadScript init/keymaps.vim     " 加载按键映射
 LoadScript init/plugins.vim     " 加载功能插件
+LoadScript init/quickui.vim     " 加载QuickUI
 LoadScript init/autoload.vim    " 延时自动加载
 LoadScript init/colorscheme.vim " 加载色彩方案
 
