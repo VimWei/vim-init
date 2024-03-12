@@ -8,6 +8,7 @@ if has('patch-8.2.1') == 0 || has('nvim')
 endif
 
 " Menu --------------------------------------------------------------------{{{1
+" ref: https://github.com/skywind3000/vim-quickui/blob/master/MANUAL.md
 
 " clear all the menus
 call quickui#menu#reset()
@@ -46,6 +47,26 @@ call quickui#menu#install("&Option", [
     \ ["Options help", 'tab help options', '关于 options 的帮助文档'],
     \ ])
 
+" Vimwiki
+call quickui#menu#install("&Vimwiki", [
+    \ ['Toggle Todo status done [ ] [X] ', 'VimwikiToggleListItem', '切换列表的 Todo 状态'],
+    \ ['Increase done status [ ] [.] [o]', 'normal gln', '增加 Done 的成熟度'],
+    \ ['Decrease done status [o] [.] [ ]', 'normal glp', '降低 Done 的成熟度'],
+    \ ['Toggle Todo status Reject [ ] [-]', 'VimwikiToggleRejectedListItem', '切换 Todo 启用状态'],
+    \ ['Find next unfinished task', 'VimwikiNextTask', '跳到下一个未完成的任务'],
+    \ ['Remove checkbox [ ] from list item', 'VimwikiRemoveSingleCB', '移除 Todo checkbox'],
+    \ ["-"],
+    \ ['Change Symbol To *', 'VimwikiChangeSymbolTo *', '更改当前列表符号为 gl*'],
+    \ ['Change Symbol To -', 'VimwikiChangeSymbolTo -', '更改当前列表符号为 gl-'],
+    \ ['Change Symbol To 1', 'VimwikiChangeSymbolTo 1.', '更改当前列表符号为 gl1'],
+    \ ['Renumber list items', 'VimwikiRenumberList', '重建当前列表编号 glr'],
+    \ ['Renumber All list items', 'VimwikiRenumberAllLists', '重建全文列表编号 glR'],
+    \ ['Increase List Level', 'normal gll', '升高当前列表级别 gll'],
+    \ ['Decrease List Level', 'normal glh', '降低当前列表级别 glh'],
+    \ ["-"],
+    \ ["Rebuild Tags", 'VimwikiRebuildTags!', '重新生成Tags'],
+    \ ], '<auto>', 'vimwiki')
+
 " register HELP menu with weight 10000
 call quickui#menu#install('&Help', [
     \ ["&Help", 'tab help', '帮助文档'],
@@ -64,16 +85,47 @@ call quickui#menu#install('&Help', [
     \ ], 10000)
 
 let g:quickui_show_tip = 1
-let g:quickui_border_style = 1
+let g:quickui_border_style = 2
 " availabe color scheme：borland、gruvbox、solarized、papercol dark、papercol light
-let g:quickui_color_scheme = 'borland'
+let g:quickui_color_scheme = 'gruvbox'
 
-" hit space twice to open menu
+" open menu
 " multiple menu namespaces: https://github.com/skywind3000/vim-quickui/wiki/Menu-Namespaces
 " The default menus is located in the system namespace.
 noremap <Leader><Leader>m :call quickui#menu#open()<cr>
 
-" Custom Command ----------------------------------------------------------{{{1
+" Navigator ---------------------------------------------------------------{{{1
+" ref: https://github.com/skywind3000/vim-navigator?tab=readme-ov-file#configuration
+
+" initialize global keymap and declare prefix key
+let g:navigator = {'prefix':'\'}
+
+let g:navigator.m = [':call quickui#menu#open()', 'Open Menu']
+
+" buffer management
+let g:navigator.b = {
+    \ 'name' : '+buffer',
+    \ 'd' : [':bd', 'delete-buffer'],
+    \ 'f' : [':bfirst', 'first-buffer'],
+    \ 'n' : [':bnext', 'next-buffer'],
+    \ 'p' : [':bprevious', 'previous-buffer'],
+    \ 'l' : [':blast', 'last-buffer'],
+    \ '?' : [':Leaderf buffer', 'Leaderf b'],
+    \ }
+
+" tab management
+let g:navigator.t = {
+    \ 'name': '+tab',
+    \ 'c' : [':tabnew', 'New tab'],
+    \ 'l' : ['Tab_MoveRight()', 'Move tab to right'],
+    \ 'h' : ['Tab_MoveLeft()', 'Move tab to Left'],
+    \ 'q' : [':tabclose', 'Close current tab'],
+    \ 'o' : [':tabonly', 'Close all other tabs'],
+    \ 'n' : [':tabnext', 'Next tab'],
+    \ 'p' : [':tabprev', 'Previous tab'],
+    \ '0' : [':0tabmove', 'Move tab to the begin'],
+    \ '$' : [':tabmove', 'Move tab to the last'],
+    \ }
 
 command! RS call RoadShowIndex()
 function! RoadShowIndex()
@@ -81,62 +133,64 @@ function! RoadShowIndex()
     execute "find Research\\路演.md"
 endfunction
 
-" Navigator ---------------------------------------------------------------{{{1
-
-" initialize global keymap and declare prefix key
-let g:navigator = {'prefix':'\'}
-
-let g:navigator.m = [':call quickui#menu#open()', 'Open Menu']
-
 " Vimwiki
 let g:navigator.w = {
-            \ 'name' : '+vimwiki' ,
-            \ '0' : [':VimwikiTabIndex', 'Open VimWiki index in a new tab'],
-            \ '1' : [':VimwikiMakeDiaryNote', 'Open today diary'],
-            \ '2' : [':VimwikiTabMakeDiaryNote', 'Open today diary in a new tab'],
-            \ '3' : [':VimwikiMakeYesterdayDiaryNote', 'Open yesterday diary'],
-            \ '4' : [':VimwikiMakeTomorrowDiaryNote', 'Open tomorrow diary'],
-            \ '5' : [':VimwikiDiaryNextDay', 'Open next day diary'],
-            \ '6' : [':VimwikiDiaryPrevDay', 'Open previous day diary'],
-            \ '7' : [':VimwikiDeleteFile', 'Delete wiki page'],
-            \ '8' : [':VimwikiRenameFile', 'Rename wiki page'],
-            \ 'r' : [':RS', 'Open RoadShow index'],
-            \ 'i' : [':VimwikiDiaryIndex', 'Open diary index file'],
-            \ 'w' : [':VimwikiIndex', 'Open VimWiki index'],
-            \ }
+    \ 'name' : '+Vimwiki',
+    \ 'w' : [':VimwikiIndex', 'Open VimWiki index'],
+    \ 'v' : [':VimwikiTabIndex', 'Open VimWiki index in a new tab'],
+    \ 'i' : [':VimwikiDiaryIndex', 'Open diary index file'],
+    \ 'r' : [':RS', 'Open RoadShow index'],
+    \ 'x' : [':VimwikiDeleteFile', 'Delete wiki page'],
+    \ 'y' : [':VimwikiRenameFile', 'Rename wiki page'],
+    \ 'z' : [':VimwikiRebuildTags!', 'Rebuild Tags after deleted'],
+    \ 'd' : {
+        \ 'name' : '+Dairy',
+        \ '1' : [':VimwikiMakeDiaryNote', 'Open today diary'],
+        \ '2' : [':VimwikiTabMakeDiaryNote', 'Open today diary in a new tab'],
+        \ '3' : [':VimwikiMakeYesterdayDiaryNote', 'Open yesterday diary'],
+        \ '4' : [':VimwikiMakeTomorrowDiaryNote', 'Open tomorrow diary'],
+        \ '5' : [':VimwikiDiaryNextDay', 'Open next day diary'],
+        \ '6' : [':VimwikiDiaryPrevDay', 'Open previous day diary'],
+        \ },
+    \ 'l' : {
+        \ 'name' : '+List',
+        \ '1' : [':VimwikiChangeSymbolTo *', '更改当前列表符号为 *'],
+        \ '2' : [':VimwikiChangeSymbolTo -', '更改当前列表符号为 -'],
+        \ '3' : [':VimwikiChangeSymbolTo 1.', '更改当前列表符号为 1'],
+        \ '4' : [':VimwikiRenumberList', '重建当前列表编号'],
+        \ '5' : [':VimwikiRenumberAllLists', '重建全文列表编号'],
+        \ '6' : [':normal gll', '升高当前列表级别'],
+        \ '7' : [':normal glh', '降低当前列表级别'],
+        \ },
+    \ 't' : {
+        \ 'name' : '+Todo' ,
+        \ '1' : [':VimwikiToggleListItem', '切换列表的 Todo 状态 [ ] [X]'],
+        \ '2' : [':normal gln', '增加 Done 的成熟度 [ ] [.] [o]'],
+        \ '3' : [':normal glp', '降低 Done 的成熟度 [o] [.] [ ]'],
+        \ '4' : [':VimwikiToggleRejectedListItem', '切换 Todo 启用状态 [ ] [-]'],
+        \ '5' : [':VimwikiNextTask', '跳到下一个未完成的任务'],
+        \ '6' : [':VimwikiRemoveSingleCB', '移除 Todo checkbox [ ]'],
+        \ },
+    \ }
 
-" buffer management
-let g:navigator.b = {
-            \ 'name' : '+buffer' ,
-            \ '1' : [':b1'        , 'buffer 1']        ,
-            \ '2' : [':b2'        , 'buffer 2']        ,
-            \ 'd' : [':bd'        , 'delete-buffer']   ,
-            \ 'f' : [':bfirst'    , 'first-buffer']    ,
-            \ 'n' : [':bnext'     , 'next-buffer']     ,
-            \ 'p' : [':bprevious' , 'previous-buffer'] ,
-            \ 'l' : [':blast'     , 'last-buffer']     ,
-            \ '?' : [':Leaderf buffer'   , 'Leaderf b']      ,
-            \ }
-
-" tab management
-let g:navigator.t = {
-            \ 'name': '+tab',
-            \ '1' : ['<key>1gt', 'tab-1'],
-            \ '2' : ['<key>2gt', 'tab-2'],
-            \ '3' : ['<key>3gt', 'tab-3'],
-            \ 'c' : [':tabnew', 'new-tab'],
-            \ 'q' : [':tabclose', 'close-current-tab'],
-            \ 'n' : [':tabnext', 'next-tab'],
-            \ 'p' : [':tabprev', 'previous-tab'],
-            \ 'o' : [':tabonly', 'close-all-other-tabs'],
-            \ }
-
-" let g:navigator.config = {
-"     \ 'icon_separator': '→',
-"     \ 'popup': 1,
-"     \ 'popup_position': 'center',
-"     \ 'popup_width': 60,
-"     \ 'popup_height': 5,
-"     \ }
+let g:navigator.config = {
+    \ 'icon_separator': '→',
+    \ 'bracket': 0,
+    \ 'spacing': 3,
+    \ 'padding': [2,0,2,0],
+    \ 'vertical': 0,
+    \ 'position': 'botright',
+    \ 'fallback': 0,
+    \ 'max_height': '20',
+    \ 'min_height': '5',
+    \ 'max_width': '60',
+    \ 'min_width': '20',
+    \ 'popup': 0,
+    \ 'popup_position': 'top',
+    \ 'popup_width': '60%',
+    \ 'popup_height': '20%',
+    \ 'popup_border': 1,
+    \ 'char_display': {},
+    \ }
 
 nnoremap <silent>\ :Navigator g:navigator<cr>

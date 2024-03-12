@@ -22,7 +22,7 @@ if has('multi_byte')
     " 打开文件时自动尝试下面顺序的编码
     set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 endif
-set ambiwidth=double    "使用US-ASCII字符两倍的宽度显示宽度不明的字符
+" set ambiwidth=double    "使用US-ASCII字符两倍的宽度显示宽度不明的字符
 set nobomb    "取消UTF的BOMB文件头
 set ffs=unix,dos,mac    " 文件换行符，默认使用 unix 换行符
 set cm=blowfish2    "设置新的加密算法
