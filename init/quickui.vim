@@ -64,6 +64,7 @@ call quickui#menu#install("&Vimwiki", [
     \ ['Increase List Level', 'normal gll', '升高当前列表级别 gll'],
     \ ['Decrease List Level', 'normal glh', '降低当前列表级别 glh'],
     \ ["-"],
+    \ ['Update diary index', 'VimwikiDiaryGenerateLinks', '更新Diary索引目录'],
     \ ["Rebuild Tags", 'VimwikiRebuildTags!', '重新生成Tags'],
     \ ], '<auto>', 'vimwiki')
 
@@ -117,6 +118,7 @@ let g:navigator.b = {
 let g:navigator.t = {
     \ 'name': '+tab',
     \ 'c' : [':tabnew', 'New tab'],
+    \ 't' : [':tab split', 'Split in new tab'],
     \ 'l' : ['Tab_MoveRight()', 'Move tab to right'],
     \ 'h' : ['Tab_MoveLeft()', 'Move tab to Left'],
     \ 'q' : [':tabclose', 'Close current tab'],
@@ -127,30 +129,26 @@ let g:navigator.t = {
     \ '$' : [':tabmove', 'Move tab to the last'],
     \ }
 
-command! RS call RoadShowIndex()
-function! RoadShowIndex()
-    execute "VimwikiTabIndex"
-    execute "find Research\\路演.md"
-endfunction
-
 " Vimwiki
 let g:navigator.w = {
     \ 'name' : '+Vimwiki',
     \ 'w' : [':VimwikiIndex', 'Open VimWiki index'],
     \ 'v' : [':VimwikiTabIndex', 'Open VimWiki index in a new tab'],
-    \ 'i' : [':VimwikiDiaryIndex', 'Open diary index file'],
     \ 'r' : [':RS', 'Open RoadShow index'],
     \ 'x' : [':VimwikiDeleteFile', 'Delete wiki page'],
     \ 'y' : [':VimwikiRenameFile', 'Rename wiki page'],
     \ 'z' : [':VimwikiRebuildTags!', 'Rebuild Tags after deleted'],
     \ 'd' : {
         \ 'name' : '+Dairy',
+        \ '0' : [':VimwikiDiaryIndex', 'Open diary index file'],
         \ '1' : [':VimwikiMakeDiaryNote', 'Open today diary'],
         \ '2' : [':VimwikiTabMakeDiaryNote', 'Open today diary in a new tab'],
         \ '3' : [':VimwikiMakeYesterdayDiaryNote', 'Open yesterday diary'],
         \ '4' : [':VimwikiMakeTomorrowDiaryNote', 'Open tomorrow diary'],
         \ '5' : [':VimwikiDiaryNextDay', 'Open next day diary'],
         \ '6' : [':VimwikiDiaryPrevDay', 'Open previous day diary'],
+        \ 'u' : [':VimwikiDiaryGenerateLinks', 'Update diary index'],
+        \ 't' : ['<key>a<C-R>=strftime("%Y-%m-%d %A %H:%M:%S")<CR><Esc>', 'Insert datetime'],
         \ },
     \ 'l' : {
         \ 'name' : '+List',
@@ -175,18 +173,18 @@ let g:navigator.w = {
 
 let g:navigator.config = {
     \ 'icon_separator': '→',
-    \ 'bracket': 0,
+    \ 'bracket': 1,
     \ 'spacing': 3,
     \ 'padding': [2,0,2,0],
     \ 'vertical': 0,
-    \ 'position': 'botright',
+    \ 'position': 'top',
     \ 'fallback': 0,
     \ 'max_height': '20',
     \ 'min_height': '5',
     \ 'max_width': '60',
     \ 'min_width': '20',
-    \ 'popup': 0,
-    \ 'popup_position': 'top',
+    \ 'popup': 1,
+    \ 'popup_position': 'center',
     \ 'popup_width': '60%',
     \ 'popup_height': '20%',
     \ 'popup_border': 1,

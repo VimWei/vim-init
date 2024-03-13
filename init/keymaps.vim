@@ -126,6 +126,37 @@ nnoremap <M-k> :resize -5<CR>
 nnoremap <M-h> :vertical resize -5<CR>
 nnoremap <M-l> :vertical resize +5<CR>
 
+" Vimwiki -----------------------------------------------------------------{{{1
+
+command! RS call RoadShowIndex()
+function! RoadShowIndex()
+    execute "VimwikiTabIndex"
+    execute "find Research\\路演.md"
+endfunction
+
+" Markdown ----------------------------------------------------------------{{{1
+" 将文档类型设置为markdown
+nnoremap <leader>mm :set ft=markdown<CR>
+" 将行转为段落，explode
+nnoremap <leader>me :%s/.\@<=$\n^\(.\+\)\@=/\r\r/e<CR>:<C-u>nohlsearch<CR>ggVGgq
+vnoremap <leader>me :s/.\@<=$\n^\(.\+\)\@=/\r\r/e<CR>:<C-u>nohlsearch<CR>
+" 为选中的Markdown文字加粗，bold
+nnoremap <leader>mb viW"ms **** <Esc>hh"mPe
+vnoremap <leader>mb "ms **** <Esc>hh"mPe
+" 为选中的Markdown文字转为斜体，italic
+nnoremap <leader>mi viW"ms____<Esc>h"mPe
+vnoremap <leader>mi "ms____<Esc>h"mPe
+" 为选中的内容添加链接，link
+nnoremap <leader>ml viW<ESC>`>a]()<ESC>`<i[<ESC>`>4l
+vnoremap <leader>ml <ESC>`>a]()<ESC>`<i[<ESC>`>4l
+" 删除光标所在处的链接，link delete
+nnoremap <leader>mld F[xf]xda(
+" 为选中的内容添加图片链接，picture
+nnoremap <leader>mp viW<ESC>`>a]()<ESC>`<i![<ESC>`>5l
+vnoremap <leader>mp <ESC>`>a]()<ESC>`<i![<ESC>`>5l
+" 删除光标所在处的图片链接，picture delete
+nnoremap <leader>mpd F[h2xf]xda(
+
 " Word Processor ----------------------------------------------------------{{{1
 
 " 插入模式移动光标 alt + 方向键
@@ -162,29 +193,6 @@ nnoremap <leader>ts a<C-R>=strftime("%Y-%m-%d %A %H:%M:%S")<CR><Esc>
 inoremap <M-t> <C-R>=strftime("%Y-%m-%d %A %H:%M:%S")<CR>
 " 开启新行插入时间戳，并在其之后增加空行
 command! Timestamp exe "normal o".strftime("%Y-%m-%d %A %H:%M:%S")."<C-O>o"
-
-" Markdown ----------------------------------------------------------------{{{1
-" 将文档类型设置为markdown
-nnoremap <leader>mm :set ft=markdown<CR>
-" 将行转为段落，explode
-nnoremap <leader>me :%s/.\@<=$\n^\(.\+\)\@=/\r\r/e<CR>:<C-u>nohlsearch<CR>ggVGgq
-vnoremap <leader>me :s/.\@<=$\n^\(.\+\)\@=/\r\r/e<CR>:<C-u>nohlsearch<CR>
-" 为选中的Markdown文字加粗，bold
-nnoremap <leader>mb viW"ms **** <Esc>hh"mPe
-vnoremap <leader>mb "ms **** <Esc>hh"mPe
-" 为选中的Markdown文字转为斜体，italic
-nnoremap <leader>mi viW"ms____<Esc>h"mPe
-vnoremap <leader>mi "ms____<Esc>h"mPe
-" 为选中的内容添加链接，link
-nnoremap <leader>ml viW<ESC>`>a]()<ESC>`<i[<ESC>`>4l
-vnoremap <leader>ml <ESC>`>a]()<ESC>`<i[<ESC>`>4l
-" 删除光标所在处的链接，link delete
-nnoremap <leader>mld F[xf]xda(
-" 为选中的内容添加图片链接，picture
-nnoremap <leader>mp viW<ESC>`>a]()<ESC>`<i![<ESC>`>5l
-vnoremap <leader>mp <ESC>`>a]()<ESC>`<i![<ESC>`>5l
-" 删除光标所在处的图片链接，picture delete
-nnoremap <leader>mpd F[h2xf]xda(
 
 " FoldToggle --------------------------------------------------------------{{{1
 set nofoldenable

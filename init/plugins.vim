@@ -139,8 +139,8 @@ call plug#begin()
 
     " def wiki dict
     let wiki = {}
-    let wiki.name = 'ChenWei VimwikiMd'
-    let wiki.path = 'd:/WeirdData/VimwikiMd/'
+    let wiki.name = 'Vimel Vimwiki'
+    let wiki.path = expand("<sfile>:p:h:h:h") . "/Vimwiki/"
     let wiki.ext = '.md'
     let wiki.syntax = 'markdown'
     let wiki.nested_syntaxes = {'python': 'python'}
