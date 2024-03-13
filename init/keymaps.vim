@@ -11,38 +11,35 @@ let mapleader = "\<space>"
 " Windows 禁用 ALT 操作菜单（使得 ALT 可以用到 Vim里）
 set winaltkeys=no
 
+let s:init = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+
 " VIMRC -------------------------------------------------------------------{{{1
 " 在当前窗口打开VIMRC，并将目标文件所在目录设为当前工作目录
 command! EV call EditVimrc()
 function! EditVimrc()
-    execute "edit $MYVIMRC"
-    execute "normal! $gf"
+    execute "edit " . s:init . "/../init.vim"
     execute "cd %:p:h"
 endfunction
 
 " 垂直右侧打开VIMRC，并将目标文件所在目录设为当前工作目录
 command! VV call VertsplitVimrc()
 function! VertsplitVimrc()
-    execute "vert botright split $MYVIMRC"
-    execute "normal! $gf"
+    execute "vert botright split " . s:init . "/../init.vim"
     execute "cd %:p:h"
 endfunction
 
 " 新标签页打开VIMRC，并将目标文件所在目录设为当前工作目录
 command! TV call TabeditVimrc()
 function! TabeditVimrc()
-    execute "tabedit $MYVIMRC"
-    execute "normal! $gf"
+    execute "tabedit " . s:init . "/../init.vim"
     execute "cd %:p:h"
 endfunction
 
-" 新标签页打开VIMRC，并将目标文件所在目录设为当前工作目录
+" 新标签页打开quickui.vim，并将目标文件所在目录的父级设为当前工作目录
 command! TM call TabeditMenu()
 function! TabeditMenu()
-    execute "tabedit $MYVIMRC"
-    execute "normal! $gf"
-    execute "cd %:p:h"
-    execute "find init/quickui.vim"
+    execute "tabedit " . s:init . "/quickui.vim"
+    execute "cd %:p:h:h"
 endfunction
 
 " 设置 vim 相关文件打开后默认折叠方式为 marker
@@ -84,7 +81,7 @@ noremap <silent> <leader>bp :bp<cr>
 
 " Tab ---------------------------------------------------------------------{{{1
 " tab 新建、关闭
-noremap <silent> <leader>tn :tabnew<cr>
+noremap <silent> <leader>tc :tabnew<cr>
 noremap <silent> <leader>tq :tabclose<cr>
 noremap <silent> <leader>to :tabonly<cr>
 " tab 左移、右移

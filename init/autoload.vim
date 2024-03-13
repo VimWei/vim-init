@@ -169,15 +169,6 @@ command! OCRClean call OCRmyPDF#Clean()
 
 finish
 
-augroup terminal_focus
-    autocmd!
-    autocmd BufWinEnter,WinEnter term://* startinsert
-augroup END
-
-" 异步执行并显示在quickfix
-" 若要指定miniconda的python环境，则指定特定环境的python路径
-nnoremap <leader>py :exec 'AsyncRun! -raw python "$(VIM_FILEPATH)"' <CR>
-
 " 查阅python帮助文档
 " command! PyHelp call CondaPython#PyHelpTerminal()
 " nnoremap <leader>ph :exec "call CondaPython#PyHelpTerminal()" <CR>
