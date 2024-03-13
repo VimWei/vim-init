@@ -129,6 +129,14 @@ let g:navigator.t = {
     \ '$' : [':tabmove', 'Move tab to the last'],
     \ }
 
+" tab management
+let g:navigator.v = {
+    \ 'name': '+VIMRC',
+    \ 'v' : [':edit $MYVIMRC', 'VIMRC'],
+    \ 'i' : ['TabeditInit()', 'init.vim'],
+    \ 'm' : ['TabeditMenu()', 'quickui.vim'],
+    \ }
+
 " Vimwiki
 let g:navigator.w = {
     \ 'name' : '+Vimwiki',
@@ -176,14 +184,14 @@ let g:navigator.config = {
     \ 'bracket': 1,
     \ 'spacing': 3,
     \ 'padding': [2,0,2,0],
-    \ 'vertical': 0,
-    \ 'position': 'top',
-    \ 'fallback': 0,
-    \ 'max_height': '20',
+    \ 'max_height': '8',
     \ 'min_height': '5',
     \ 'max_width': '60',
     \ 'min_width': '20',
-    \ 'popup': 1,
+    \ 'vertical': 0,
+    \ 'position': 'top',
+    \ 'fallback': 0,
+    \ 'popup': 0,
     \ 'popup_position': 'center',
     \ 'popup_width': '60%',
     \ 'popup_height': '20%',
@@ -192,3 +200,5 @@ let g:navigator.config = {
     \ }
 
 nnoremap <silent>\ :Navigator g:navigator<cr>
+
+finish

@@ -5,33 +5,39 @@
 
 " Basic -------------------------------------------------------------------{{{1
 let mapleader = "\<space>"
-" let mapleader=","
-" noremap \ ,
 
 " Windows 禁用 ALT 操作菜单（使得 ALT 可以用到 Vim里）
 set winaltkeys=no
 
+let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 let s:init = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 
 " VIMRC -------------------------------------------------------------------{{{1
+
+" 设置 vim 相关文件打开后默认折叠方式为 marker
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+augroup END
+
 " 在当前窗口打开VIMRC，并将目标文件所在目录设为当前工作目录
-command! EV call EditVimrc()
-function! EditVimrc()
-    execute "edit " . s:init . "/../init.vim"
+command! EV call EditInit()
+function! EditInit()
+    execute "edit " . s:viminit . "/init.vim"
     execute "cd %:p:h"
 endfunction
 
 " 垂直右侧打开VIMRC，并将目标文件所在目录设为当前工作目录
-command! VV call VertsplitVimrc()
-function! VertsplitVimrc()
-    execute "vert botright split " . s:init . "/../init.vim"
+command! VV call VertsplitInit()
+function! VertsplitInit()
+    execute "vert botright split " . s:viminit . "/init.vim"
     execute "cd %:p:h"
 endfunction
 
 " 新标签页打开VIMRC，并将目标文件所在目录设为当前工作目录
-command! TV call TabeditVimrc()
-function! TabeditVimrc()
-    execute "tabedit " . s:init . "/../init.vim"
+command! TV call TabeditInit()
+function! TabeditInit()
+    execute "tabedit " . s:viminit . "/init.vim"
     execute "cd %:p:h"
 endfunction
 
@@ -41,12 +47,6 @@ function! TabeditMenu()
     execute "tabedit " . s:init . "/quickui.vim"
     execute "cd %:p:h:h"
 endfunction
-
-" 设置 vim 相关文件打开后默认折叠方式为 marker
-augroup filetype_vim
-    autocmd!
-    autocmd FileType vim setlocal foldmethod=marker
-augroup END
 
 " Vim Help -----------------------------------------------------{{{1
 " 垂直右侧窗口打开help
@@ -127,8 +127,7 @@ nnoremap <M-l> :vertical resize +5<CR>
 
 command! RS call RoadShowIndex()
 function! RoadShowIndex()
-    execute "VimwikiTabIndex"
-    execute "find Research\\路演.md"
+    execute "tabedit " . g:vimwiki_list[0].path. "Research/路演.md"
 endfunction
 
 " Markdown ----------------------------------------------------------------{{{1
