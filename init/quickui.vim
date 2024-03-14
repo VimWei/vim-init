@@ -15,17 +15,17 @@ call quickui#menu#reset()
 
 " install a 'File' menu, each item comprises its name and command to execute
 call quickui#menu#install('&File', [
-    \ [ "&New File", 'tabnew', '新建文档'],
-    \ [ "&Open File", 'call feedkeys(":bro edit")', '打开...'],
-    \ [ "&Close", 'close', '关闭当前窗口'],
+    \ [ "Quit", 'q', '退出'],
+    \ [ "&Close window", 'close', '关闭窗口'],
+    \ [ "Save all and Quit", 'wqa', '保存并退出'],
+    \ [ "Quit without saving", 'q!', '不保存退出'],
     \ [ "--", '' ],
     \ [ "&Save", 'w', '保存'],
-    \ [ "Save &as", 'call feedkey(":bro w")', '另存为...'],
     \ [ "Save all", 'wa', '保存所有文件'],
+    \ [ "Save &as", 'call feedkey("bro w")', '另存为...'],
     \ [ "--", '' ],
-    \ [ "Quit", 'q', '退出'],
-    \ [ "Quit without saving", 'q!', '不保存退出'],
-    \ [ "Save all and Quit", 'waq!', '保存并退出'],
+    \ [ "&New File", 'tabnew', '新建文档'],
+    \ [ "&Open File", 'call feedkeys("bro edit")', '打开...'],
     \ ])
 
 " items containing tips, tips will display in the cmdline
@@ -34,7 +34,7 @@ call quickui#menu#install("&Tools", [
     \ ["Upgrade vim-plug", "PlugUpgrade", 'upgrade vim-plug'],
     \ ["Plugin &List", "PlugStatus", 'list available plugins'],
     \ ["-"],
-    \ ["Edit MENU", 'TM', '在新窗口编辑菜单'],
+    \ ["Edit MENU", 'TU', '在新窗口编辑菜单'],
     \ ["Edit VIMRC", 'TV', '在新窗口编辑VIMRC'],
     \ ])
 
@@ -53,8 +53,8 @@ call quickui#menu#install("&Vimwiki", [
     \ ['Increase done status [ ] [.] [o]', 'normal gln', '增加 Done 的成熟度'],
     \ ['Decrease done status [o] [.] [ ]', 'normal glp', '降低 Done 的成熟度'],
     \ ['Toggle Todo status Reject [ ] [-]', 'VimwikiToggleRejectedListItem', '切换 Todo 启用状态'],
-    \ ['Find next unfinished task', 'VimwikiNextTask', '跳到下一个未完成的任务'],
     \ ['Remove checkbox [ ] from list item', 'VimwikiRemoveSingleCB', '移除 Todo checkbox'],
+    \ ['Find next unfinished task', 'VimwikiNextTask', '跳到下一个未完成的任务'],
     \ ["-"],
     \ ['Change Symbol To *', 'VimwikiChangeSymbolTo *', '更改当前列表符号为 gl*'],
     \ ['Change Symbol To -', 'VimwikiChangeSymbolTo -', '更改当前列表符号为 gl-'],
@@ -72,7 +72,7 @@ call quickui#menu#install("&Vimwiki", [
 call quickui#menu#install('&Help', [
     \ ["&Help", 'tab help', '帮助文档'],
     \ ["Help help", 'tab help help', '如何使用帮助文档'],
-    \ ["&Tutorial", 'tab help tutor', '初学者交互式教程'],
+    \ ["&Tutorial", 'tab help tutor', '初学者教程'],
     \ ['&Summary', 'tab help summary', '帮助小结'],
     \ ['--',''],
     \ ["&Cheatsheet", 'tab help index', '命令索引'],
@@ -129,20 +129,36 @@ let g:navigator.t = {
     \ '$' : [':tabmove', 'Move tab to the last'],
     \ }
 
+" vim help
+let g:navigator.h = {
+    \ 'name': '+Help',
+    \ 'h' : [':tab help', '帮助文档'],
+    \ 't' : [':tab help tutor', '初学者教程'],
+    \ 's' : [':tab help summary', '帮助小结'],
+    \ '0' : [':tab help help', '如何使用帮助文档'],
+    \ '1' : ['tab help index', '命令索引'],
+    \ '2' : ['tab help quickref', '常用命令总览'],
+    \ '3' : ['tab help function-list', '函数列表'],
+    \ '4' : ['tab help tips', 'Vim 的各种窍门'],
+    \ '5' : ['tab help pattern.txt', '模式'],
+    \ '6' : ['tab help registers', '寄存器'],
+    \ '7' : ['tab help eval', '表达式'],
+    \ }
+
 " tab management
 let g:navigator.v = {
     \ 'name': '+VIMRC',
     \ 'v' : [':edit $MYVIMRC', 'VIMRC'],
     \ 'i' : ['TabeditInit()', 'init.vim'],
-    \ 'm' : ['TabeditMenu()', 'quickui.vim'],
+    \ 'u' : ['TabeditQuickUI()', 'quickui.vim'],
     \ }
 
 " Vimwiki
 let g:navigator.w = {
     \ 'name' : '+Vimwiki',
-    \ 'w' : [':VimwikiIndex', 'Open VimWiki index'],
-    \ 'v' : [':VimwikiTabIndex', 'Open VimWiki index in a new tab'],
-    \ 'r' : [':RS', 'Open RoadShow index'],
+    \ '1' : [':RS', 'Open RoadShow index'],
+    \ '2' : [':VimwikiIndex', 'Open VimWiki index'],
+    \ '3' : [':VimwikiTabIndex', 'Open VimWiki index in a new tab'],
     \ 'x' : [':VimwikiDeleteFile', 'Delete wiki page'],
     \ 'y' : [':VimwikiRenameFile', 'Rename wiki page'],
     \ 'z' : [':VimwikiRebuildTags!', 'Rebuild Tags after deleted'],
@@ -170,10 +186,10 @@ let g:navigator.w = {
         \ },
     \ 't' : {
         \ 'name' : '+Todo' ,
-        \ '1' : [':VimwikiToggleListItem', '切换列表的 Todo 状态 [ ] [X]'],
-        \ '2' : [':normal gln', '增加 Done 的成熟度 [ ] [.] [o]'],
-        \ '3' : [':normal glp', '降低 Done 的成熟度 [o] [.] [ ]'],
-        \ '4' : [':VimwikiToggleRejectedListItem', '切换 Todo 启用状态 [ ] [-]'],
+        \ '1' : [':VimwikiToggleListItem', '切换 Todo 完成状态 [ ] [X]'],
+        \ '2' : [':VimwikiToggleRejectedListItem', '切换 Todo 启用状态 [ ] [-]'],
+        \ '3' : [':normal gln', '增加 Done 的成熟度 [ ] [.] [o]'],
+        \ '4' : [':normal glp', '降低 Done 的成熟度 [o] [.] [ ]'],
         \ '5' : [':VimwikiNextTask', '跳到下一个未完成的任务'],
         \ '6' : [':VimwikiRemoveSingleCB', '移除 Todo checkbox [ ]'],
         \ },

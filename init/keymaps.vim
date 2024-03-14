@@ -20,21 +20,21 @@ augroup filetype_vim
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
 
-" 在当前窗口打开VIMRC，并将目标文件所在目录设为当前工作目录
+" 在当前窗口打开init.vim，并将目标文件所在目录设为当前工作目录
 command! EV call EditInit()
 function! EditInit()
     execute "edit " . s:viminit . "/init.vim"
     execute "cd %:p:h"
 endfunction
 
-" 垂直右侧打开VIMRC，并将目标文件所在目录设为当前工作目录
+" 垂直右侧打开init.vim，并将目标文件所在目录设为当前工作目录
 command! VV call VertsplitInit()
 function! VertsplitInit()
     execute "vert botright split " . s:viminit . "/init.vim"
     execute "cd %:p:h"
 endfunction
 
-" 新标签页打开VIMRC，并将目标文件所在目录设为当前工作目录
+" 新标签页打开init.vim，并将目标文件所在目录设为当前工作目录
 command! TV call TabeditInit()
 function! TabeditInit()
     execute "tabedit " . s:viminit . "/init.vim"
@@ -42,8 +42,8 @@ function! TabeditInit()
 endfunction
 
 " 新标签页打开quickui.vim，并将目标文件所在目录的父级设为当前工作目录
-command! TM call TabeditMenu()
-function! TabeditMenu()
+command! TU call TabeditQuickUI()
+function! TabeditQuickUI()
     execute "tabedit " . s:init . "/quickui.vim"
     execute "cd %:p:h:h"
 endfunction
