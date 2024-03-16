@@ -7,6 +7,16 @@ if has('patch-8.2.1') == 0 || has('nvim')
     finish
 endif
 
+" 若修订后保存，则自动重新加载
+if has("autocmd")
+    let s:filepath = expand('<sfile>:p')
+    if has('win32') || has('win64')
+        let s:filepath = substitute(s:filepath, '\\', '/', 'g')
+    endif
+    let s:reload = 'autocmd! BufWritePost '.s:filepath.' source '.s:filepath
+    execute s:reload . ' | echomsg "Reloaded"'
+endif
+
 " Navigator ---------------------------------------------------------------{{{1
 " ref: https://github.com/skywind3000/vim-navigator?tab=readme-ov-file#configuration
 

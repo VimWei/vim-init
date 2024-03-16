@@ -12,6 +12,16 @@ set winaltkeys=no
 let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 let s:init = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 
+" 若修订后保存，则自动重新加载
+if has("autocmd")
+    let s:filepath = expand('<sfile>:p')
+    if has('win32') || has('win64')
+        let s:filepath = substitute(s:filepath, '\\', '/', 'g')
+    endif
+    let s:reload = 'autocmd! BufWritePost '.s:filepath.' source '.s:filepath
+    execute s:reload . ' | echomsg "Reloaded"'
+endif
+
 " VIMRC -------------------------------------------------------------------{{{1
 
 " 设置 vim 相关文件打开后默认折叠方式为 marker
