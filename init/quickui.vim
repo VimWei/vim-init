@@ -3,6 +3,8 @@
 " Sourced by: ../init.vim
 "===================================================
 
+" init --------------------------------------------------------------------{{{1
+
 if has('patch-8.2.1') == 0 || has('nvim')
     finish
 endif
@@ -24,60 +26,7 @@ endif
 let g:navigator = {'prefix':'\'}
 let g:navigator_v = {'prefix':'\'}
 
-" markdown
-let g:navigator.m = {
-    \ 'name' : '+Markdown',
-    \ 'f' : [':set ft=markdown', '将文件类型设置为markdown'],
-    \ 'e' : ['Explode2P()', '将全文的行转为段落 explode'],
-    \ }
-
-let g:navigator_v.m = {
-    \ 'name' : '+Markdown',
-    \ 'e' : ['Explode2P()', '将行转为段落 explode'],
-    \ }
-
-let g:navigator.g = {
-    \ 'name' : '+Git',
-    \ 'g' : [':Git', 'Summary window like git-status'],
-    \ 'b' : [':Git blame %', '在行级显示文件的修改历史 :git blame %'],
-    \ 'c' : [':Gcd', '切换目录到relative to the repository :Gcd'],
-    \ 'd' : [':Git diff', '显示工作目录和暂存区之间的差异 :git diff'],
-    \ 'e' : [':Git! difftool -y', 'git diff each changed file in a new tab'],
-    \ 'f' : [':Git diff --staged', '显示暂存区和上一次提交之间的差异 :git diff --staged'],
-    \ 'm' : [':Gdiffsplit!', '在处理冲突合并时进行三向对比 :Gdiffsplit!'],
-    \ 'o' : [':Git log --oneline', '显示提交历史记录，每个一行'],
-    \ 'l' : [':Git pull', ':git pull'],
-    \ 's' : [':Git push', ':git push'],
-    \ 'q' : [':Gclog', '显示提交历史记录，加载到 quickfix'],
-    \ }
-
-" buffer management
-let g:navigator.b = {
-    \ 'name' : '+Buffer',
-    \ 'd' : [':bd', 'delete-buffer'],
-    \ 'f' : [':bfirst', 'first-buffer'],
-    \ 'n' : [':bnext', 'next-buffer'],
-    \ 'p' : [':bprevious', 'previous-buffer'],
-    \ 'l' : [':blast', 'last-buffer'],
-    \ '?' : [':Leaderf buffer', 'Leaderf b'],
-    \ }
-
-" tab management
-let g:navigator.t = {
-    \ 'name': '+Tab',
-    \ 'c' : [':tabnew', 'New tab'],
-    \ 't' : [':tab split', 'Split in new tab'],
-    \ 'l' : ['Tab_MoveRight()', 'Move tab to right'],
-    \ 'h' : ['Tab_MoveLeft()', 'Move tab to Left'],
-    \ 'q' : [':tabclose', 'Close current tab'],
-    \ 'o' : [':tabonly', 'Close all other tabs'],
-    \ 'n' : [':tabnext', 'Next tab'],
-    \ 'p' : [':tabprev', 'Previous tab'],
-    \ '0' : [':0tabmove', 'Move tab to the begin'],
-    \ '$' : [':tabmove', 'Move tab to the last'],
-    \ }
-
-" vim help
+" help  -------------------------------------------------------------------{{{2
 let g:navigator.h = {
     \ 'name': '+Help',
     \ 'h' : [':tab help', '帮助文档'],
@@ -93,15 +42,85 @@ let g:navigator.h = {
     \ '7' : ['tab help eval', '表达式'],
     \ }
 
-" tab management
+" Vimrc -------------------------------------------------------------------{{{2
 let g:navigator.v = {
     \ 'name': '+VIMRC',
     \ 'v' : [':edit $MYVIMRC', 'VIMRC'],
-    \ 'i' : ['TabeditInit()', 'init.vim'],
-    \ 'u' : ['TabeditQuickUI()', 'quickui.vim'],
+    \ 'i' : ['EditInitVimrc("init.vim")', 'init.vim'],
+    \ 'q' : ['EditInitVimrc("quickui.vim")', 'quickui.vim'],
+    \ 'e' : ['EditInitVimrc("essential.vim")', 'essential.vim'],
+    \ 't' : ['EditInitVimrc("tabsize.vim")', 'tabsize.vim'],
+    \ 'l' : ['EditInitVimrc("statusline.vim")', 'statusline.vim'],
+    \ 's' : ['EditInitVimrc("search.vim")', 'search.vim'],
+    \ 'g' : ['EditInitVimrc("guistyle.vim")', 'guistyle.vim'],
+    \ 'k' : ['EditInitVimrc("keymaps.vim")', 'keymaps.vim'],
+    \ 'p' : ['EditInitVimrc("plugins.vim")', 'plugins.vim'],
+    \ 'a' : ['EditInitVimrc("autoload.vim")', 'autoload.vim'],
+    \ 'c' : ['EditInitVimrc("colorscheme.vim")', 'colorscheme.vim'],
     \ }
 
-" Vimwiki
+" buffer ------------------------------------------------------------------{{{2
+let g:navigator.b = {
+    \ 'name' : '+Buffer',
+    \ 'd' : [':bd', 'delete-buffer'],
+    \ 'f' : [':bfirst', 'first-buffer'],
+    \ 'n' : [':bnext', 'next-buffer'],
+    \ 'p' : [':bprevious', 'previous-buffer'],
+    \ 'l' : [':blast', 'last-buffer'],
+    \ '?' : [':Leaderf buffer', 'Leaderf b'],
+    \ }
+
+" tab ---------------------------------------------------------------------{{{2
+let g:navigator.t = {
+    \ 'name': '+Tab',
+    \ 'c' : [':tabnew', 'New tab'],
+    \ 't' : [':tab split', 'Split in new tab'],
+    \ 'l' : ['Tab_MoveRight()', 'Move tab to right'],
+    \ 'h' : ['Tab_MoveLeft()', 'Move tab to Left'],
+    \ 'q' : [':tabclose', 'Close current tab'],
+    \ 'o' : [':tabonly', 'Close all other tabs'],
+    \ 'n' : [':tabnext', 'Next tab'],
+    \ 'p' : [':tabprev', 'Previous tab'],
+    \ '0' : [':0tabmove', 'Move tab to the begin'],
+    \ '$' : [':tabmove', 'Move tab to the last'],
+    \ }
+
+" Options ---------------------------------------------------------------------{{{2
+let g:navigator.o = {
+    \ 'name': '+Options',
+    \ 'c' : {
+        \ 'name' : '+cursorline',
+        \ 'o' : [':set cursorline', 'Toggle cursorline on'],
+        \ 'f' : [':set nocursorline', 'Toggle cursorline off'],
+        \ },
+    \ 's' : {
+        \ 'name' : '+spell',
+        \ 's' : [':call Spell#Toggle()', 'Toggle spell check'],
+        \ 'n' : ['<key>]s', ']s Next spell'],
+        \ 'p' : ['<key>[s', '[s Previous spell'],
+        \ '=' : ['<key>z=', 'z= 选择用户拼写'],
+        \ 'g' : ['<key>zg', 'zg 将好词 (good) 加入到 spellfile'],
+        \ 'u' : ['<key>zug', 'zug 撤销zg，从 spellfile 里删除单词'],
+        \ 'w' : ['<key>zw', 'zw 将错词 (wrong) 加入到 spellfile'],
+        \ 'v' : ['<key>zuw', 'zuw 撤销zw，从 spellfile 里删除单词'],
+        \ },
+    \ }
+
+" markdown ----------------------------------------------------------------{{{2
+let g:navigator.m = {
+    \ 'name' : '+Markdown',
+    \ 'f' : [':set ft=markdown', '将文件类型设置为markdown'],
+    \ 'e' : ['Explode2P()', '将全文的行转为段落 explode'],
+    \ 't' : [':TOC', '列出目录 TOC'],
+    \ 'c' : [':OCRClean', '清理 OCR 文档的格式'],
+    \ }
+
+let g:navigator_v.m = {
+    \ 'name' : '+Markdown',
+    \ 'e' : ['Explode2P()', '将行转为段落 explode'],
+    \ }
+
+" Vimwiki -----------------------------------------------------------------{{{2
 let g:navigator.w = {
     \ 'name' : '+Vimwiki',
     \ 'r' : [':RS', 'Open RoadShow index'],
@@ -143,6 +162,32 @@ let g:navigator.w = {
         \ },
     \ }
 
+" git  --------------------------------------------------------------------{{{2
+let g:navigator.g = {
+    \ 'name' : '+Git',
+    \ 'g' : [':Git', 'Summary window like git-status'],
+    \ 'b' : [':Git blame %', '在行级显示文件的修改历史 :git blame %'],
+    \ 'c' : [':Gcd', '切换目录到relative to the repository :Gcd'],
+    \ 'd' : [':Git diff', '显示工作目录和暂存区之间的差异 :git diff'],
+    \ 'e' : [':Git! difftool -y', 'git diff each changed file in a new tab'],
+    \ 'f' : [':Git diff --staged', '显示暂存区和上一次提交之间的差异 :git diff --staged'],
+    \ 'm' : [':Gdiffsplit!', '在处理冲突合并时进行三向对比 :Gdiffsplit!'],
+    \ 'o' : [':Git log --oneline', '显示提交历史记录，每个一行'],
+    \ 'l' : [':Git pull', ':git pull'],
+    \ 's' : [':Git push', ':git push'],
+    \ 'q' : [':Gclog', '显示提交历史记录，加载到 quickfix'],
+    \ }
+
+" Python ------------------------------------------------------------------{{{2
+let g:navigator.p = {
+    \ 'name' : '+Python',
+    \ 't' : [':TerminalConda', 'Open Terminal in conda pymotw'],
+    \ 'p' : [':Python', 'Open Python in conda pymotw'],
+    \ 'i' : [':IPython', 'Open IPython in conda pymotw'],
+    \ 'r' : [':PyRun', 'Run python file in conda pymotw'],
+    \ }
+
+" navigator config --------------------------------------------------------{{{2
 let g:navigator.config = {
     \ 'icon_separator': '→',
     \ 'bracket': 1,

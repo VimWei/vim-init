@@ -5,12 +5,7 @@
 
 " Basic -------------------------------------------------------------------{{{1
 let mapleader = "\<space>"
-
-" Windows 禁用 ALT 操作菜单（使得 ALT 可以用到 Vim里）
-set winaltkeys=no
-
-let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
-let s:init = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+set winaltkeys=no  " Windows 禁用 ALT 操作菜单（使得 ALT 可以用到 Vim里）
 
 " 若修订后保存，则自动重新加载
 if has("autocmd")
@@ -30,33 +25,33 @@ augroup filetype_vim
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
 
-" 在当前窗口打开init.vim，并将目标文件所在目录设为当前工作目录
-command! EV call EditInit()
-function! EditInit()
-    execute "edit " . s:viminit . "/init.vim"
-    execute "cd %:p:h"
-endfunction
-
-" 垂直右侧打开init.vim，并将目标文件所在目录设为当前工作目录
-command! VV call VertsplitInit()
-function! VertsplitInit()
-    execute "vert botright split " . s:viminit . "/init.vim"
-    execute "cd %:p:h"
-endfunction
-
-" 新标签页打开init.vim，并将目标文件所在目录设为当前工作目录
-command! TV call TabeditInit()
-function! TabeditInit()
-    execute "tabedit " . s:viminit . "/init.vim"
-    execute "cd %:p:h"
-endfunction
-
-" 新标签页打开quickui.vim，并将目标文件所在目录的父级设为当前工作目录
-command! TU call TabeditQuickUI()
-function! TabeditQuickUI()
-    execute "tabedit " . s:init . "/quickui.vim"
+" 打开 vim-init/init.vim 或其子目录下的 VIMRC 文档
+let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h:h').'/'
+let s:init = fnamemodify(resolve(expand('<sfile>:p')), ':h') . '/'
+function! EditInitVimrc(filename, ...)
+    " 根据文件名称，决定文件所在路径
+    if a:filename == "init.vim"
+        let l:filepath = s:viminit . a:filename
+    else
+        let l:filepath = s:init . a:filename
+    endif
+    " 若提供了额外参数，则使用指定方案，否则使用 tabedit 打开
+    let splittype = a:0 > 0 ? a:1 : 'tabedit'
+    if splittype == "edit"
+        execute "edit " . l:filepath
+    elseif splittype == "vsp"
+        execute "vert botright split " . l:filepath
+    else
+        " 默认打开方式，没有参数或参数错误是时的打开方式
+        execute "tabedit " . l:filepath
+    endif
+    " 设置vim-init/为工作目录
     execute "cd %:p:h:h"
 endfunction
+command! VI call EditInitVimrc("init.vim", "edit")
+command! VV call EditInitVimrc("init.vim", "vsp")
+command! VT call EditInitVimrc("init.vim")
+command! VQ call EditInitVimrc("quickui.vim")
 
 " Vim Help -----------------------------------------------------{{{1
 " 垂直右侧窗口打开help
