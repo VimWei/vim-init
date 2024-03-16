@@ -35,6 +35,5 @@ Vimel 个性化的 Vim 配置
     * 需要先安装并配置好git
 
     ```VimCMD
-    :PlugUpgrade
-    :PlugUpdate
+    :PlugInstall
     ```
