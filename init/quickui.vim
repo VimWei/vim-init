@@ -104,9 +104,9 @@ let g:navigator.v = {
 " Vimwiki
 let g:navigator.w = {
     \ 'name' : '+Vimwiki',
-    \ 'a' : [':RS', 'Open RoadShow index'],
-    \ 'b' : [':VimwikiIndex', 'Open VimWiki index'],
-    \ 'c' : [':VimwikiTabIndex', 'Open VimWiki index in a new tab'],
+    \ 'r' : [':RS', 'Open RoadShow index'],
+    \ 'w' : [':VimwikiIndex', 'Open VimWiki index'],
+    \ 't' : [':VimwikiTabIndex', 'Open VimWiki index in a new tab'],
     \ 'x' : [':VimwikiDeleteFile', 'Delete wiki page'],
     \ 'y' : [':VimwikiRenameFile', 'Rename wiki page'],
     \ 'z' : [':VimwikiRebuildTags!', 'Rebuild Tags after deleted'],
@@ -132,7 +132,7 @@ let g:navigator.w = {
         \ '6' : [':normal gll', '升高当前列表级别-->'],
         \ '7' : [':normal glh', '降低当前列表级别<--'],
         \ },
-    \ 't' : {
+    \ 'a' : {
         \ 'name' : '+Todo' ,
         \ '1' : [':VimwikiToggleListItem', '切换 Todo 完成状态 [ ] [X]'],
         \ '2' : [':VimwikiToggleRejectedListItem', '切换 Todo 启用状态 [ ] [-]'],
