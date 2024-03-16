@@ -36,6 +36,21 @@ let g:navigator_v.m = {
     \ 'e' : ['Explode2P()', '将行转为段落 explode'],
     \ }
 
+let g:navigator.g = {
+    \ 'name' : '+Git',
+    \ 'g' : [':Git', 'Summary window like git-status'],
+    \ 'b' : [':Git blame %', '在行级显示文件的修改历史 :git blame %'],
+    \ 'c' : [':Gcd', '切换目录到relative to the repository :Gcd'],
+    \ 'd' : [':Git diff', '显示工作目录和暂存区之间的差异 :git diff'],
+    \ 'e' : [':Git! difftool -y', 'git diff each changed file in a new tab'],
+    \ 'f' : [':Git diff --staged', '显示暂存区和上一次提交之间的差异 :git diff --staged'],
+    \ 'm' : [':Gdiffsplit!', '在处理冲突合并时进行三向对比 :Gdiffsplit!'],
+    \ 'o' : [':Git log --oneline', '显示提交历史记录，每个一行'],
+    \ 'l' : [':Git pull', ':git pull'],
+    \ 's' : [':Git push', ':git push'],
+    \ 'q' : [':Gclog', '显示提交历史记录，加载到 quickfix'],
+    \ }
+
 " buffer management
 let g:navigator.b = {
     \ 'name' : '+Buffer',
