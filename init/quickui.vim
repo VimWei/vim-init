@@ -186,17 +186,28 @@ let g:navigator.w = {
 " git  --------------------------------------------------------------------{{{2
 let g:navigator.g = {
     \ 'name' : '+Git',
-    \ 'g' : [':Git', 'Summary window like git-status'],
-    \ 'b' : [':Git blame %', '在行级显示文件的修改历史 :git blame %'],
+    \ 'g' : {
+        \ 'name' : '+Git 常规流程 Summary window',
+        \ 'g' : [':Git', 'Summary window --> :git status'],
+        \ '0' : [':Git pull', ':git pull'],
+        \ 'a' : ['<key>s', 's --> :git add .'],
+        \ 'c' : ['<key>cc', 'cc --> :git commit -m'],
+        \ 'p' : [':Git push', ':git push'],
+        \ },
+    \ 'd' : {
+        \ 'name' : '+Diff',
+        \ 'd' : [':Git diff', '显示工作目录和暂存区之间的差异 :git diff'],
+        \ 'e' : [':Git! difftool -y', 'git diff each changed file in a new tab'],
+        \ 'f' : [':Git diff --staged', '显示暂存区和上一次提交之间的差异 :git diff --staged'],
+        \ 'm' : [':Gdiffsplit!', '在处理冲突合并时进行三向对比 :Gdiffsplit!'],
+        \ },
+    \ 'o' : {
+        \ 'name' : '+Log',
+        \ 'b' : [':Git blame %', '在行级显示文件的修改历史 :git blame %'],
+        \ 'o' : [':Git log --oneline', '显示提交历史记录，每个一行'],
+        \ 'q' : [':Gclog', '显示提交历史记录，加载到 quickfix'],
+        \ },
     \ 'c' : [':Gcd', '切换目录到relative to the repository :Gcd'],
-    \ 'd' : [':Git diff', '显示工作目录和暂存区之间的差异 :git diff'],
-    \ 'e' : [':Git! difftool -y', 'git diff each changed file in a new tab'],
-    \ 'f' : [':Git diff --staged', '显示暂存区和上一次提交之间的差异 :git diff --staged'],
-    \ 'm' : [':Gdiffsplit!', '在处理冲突合并时进行三向对比 :Gdiffsplit!'],
-    \ 'o' : [':Git log --oneline', '显示提交历史记录，每个一行'],
-    \ 'l' : [':Git pull', ':git pull'],
-    \ 's' : [':Git push', ':git push'],
-    \ 'q' : [':Gclog', '显示提交历史记录，加载到 quickfix'],
     \ }
 
 " Python ------------------------------------------------------------------{{{2
