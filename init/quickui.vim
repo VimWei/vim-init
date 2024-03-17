@@ -90,8 +90,9 @@ let g:navigator.f = {
 " Options ---------------------------------------------------------------------{{{2
 let g:navigator.o = {
     \ 'name': '+Options',
-    \ 'o' : [':tab options', '列出所有选项的说明文档'],
-    \ 'a' : [':set all', '列出所有选项的当前设置'],
+    \ 'a' : [':set all', '所有选项设置的简易列表'],
+    \ 'o' : [':tab options', '所有选项设置的详情列表'],
+    \ 'h' : [':tab help options.txt', 'Options help'],
     \ 'c' : {
         \ 'name' : '+Cursorline',
         \ 'o' : [':set cursorline', '打开高亮显示 cursorline'],
