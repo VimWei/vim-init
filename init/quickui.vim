@@ -189,8 +189,8 @@ let g:navigator.g = {
     \ 'g' : {
         \ 'name' : '+Git 常规流程 Summary window',
         \ 'g' : [':Git', 'Summary window --> :git status'],
-        \ '0' : [':Git pull', ':git pull'],
-        \ 'a' : ['<key>s', 's --> :git add .'],
+        \ 'l' : [':Git pull', ':git pull'],
+        \ 's' : ['<key>s', 's --> :git add .'],
         \ 'c' : ['<key>cc', 'cc --> :git commit -m'],
         \ 'p' : [':Git push', ':git push'],
         \ },
