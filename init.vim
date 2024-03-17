@@ -2,6 +2,7 @@
 " General Vim settings by W.Chen
 " Sourced by: $HOME/vimfiles/vimrc
 "===================================================
+
 " 防止重复加载
 if get(s:, 'loaded', 0) != 0
     finish
@@ -26,6 +27,24 @@ LoadScript init/plugins.vim     " 加载功能插件
 LoadScript init/quickui.vim     " 加载QuickUI
 LoadScript init/autoload.vim    " 延时自动加载
 LoadScript init/colorscheme.vim " 加载色彩方案
+
+" 当 VIMRC 文件被修订时，将自动加载
+augroup vimrcAutoReload
+  autocmd!
+  function! AutoReloadVimrc(file)
+    if has('win32') || has('win64')
+      let l:file = substitute(a:file, '\\', '/', 'g')
+    else
+      let l:file = a:file
+    endif
+    execute 'source' l:file
+    echomsg 'Reloaded ' . l:file
+  endfunction
+  " 匹配 init.vim 以及 init 和 autoload 目录下的所有 .vim 文件
+  autocmd BufWritePost init.vim call AutoReloadVimrc(expand('<afile>:p'))
+  autocmd BufWritePost init/*.vim call AutoReloadVimrc(expand('<afile>:p'))
+  autocmd BufWritePost autoload/*.vim call AutoReloadVimrc(expand('<afile>:p'))
+augroup END
 
 finish
 

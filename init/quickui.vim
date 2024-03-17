@@ -3,20 +3,8 @@
 " Sourced by: ../init.vim
 "===================================================
 
-" init --------------------------------------------------------------------{{{1
-
 if has('patch-8.2.1') == 0 || has('nvim')
     finish
-endif
-
-" 若修订后保存，则自动重新加载
-if has("autocmd")
-    let s:filepath = expand('<sfile>:p')
-    if has('win32') || has('win64')
-        let s:filepath = substitute(s:filepath, '\\', '/', 'g')
-    endif
-    let s:reload = 'autocmd! BufWritePost '.s:filepath.' source '.s:filepath
-    execute s:reload . ' | echomsg "Reloaded"'
 endif
 
 " Navigator ---------------------------------------------------------------{{{1
@@ -47,7 +35,6 @@ let g:navigator.v = {
     \ 'name': '+VIMRC',
     \ 'v' : [':edit $MYVIMRC', 'VIMRC'],
     \ 'i' : ['EditInitVimrc("init.vim")', 'init.vim'],
-    \ 'q' : ['EditInitVimrc("quickui.vim")', 'quickui.vim'],
     \ 'e' : ['EditInitVimrc("essential.vim")', 'essential.vim'],
     \ 't' : ['EditInitVimrc("tabsize.vim")', 'tabsize.vim'],
     \ 'l' : ['EditInitVimrc("statusline.vim")', 'statusline.vim'],
@@ -55,6 +42,7 @@ let g:navigator.v = {
     \ 'g' : ['EditInitVimrc("guistyle.vim")', 'guistyle.vim'],
     \ 'k' : ['EditInitVimrc("keymaps.vim")', 'keymaps.vim'],
     \ 'p' : ['EditInitVimrc("plugins.vim")', 'plugins.vim'],
+    \ 'q' : ['EditInitVimrc("quickui.vim")', 'quickui.vim'],
     \ 'a' : ['EditInitVimrc("autoload.vim")', 'autoload.vim'],
     \ 'c' : ['EditInitVimrc("colorscheme.vim")', 'colorscheme.vim'],
     \ }
@@ -123,9 +111,9 @@ let g:navigator_v.m = {
 " Vimwiki -----------------------------------------------------------------{{{2
 let g:navigator.w = {
     \ 'name' : '+Vimwiki',
-    \ 'r' : [':RS', 'Open RoadShow index'],
     \ 'w' : [':VimwikiIndex', 'Open VimWiki index'],
     \ 't' : [':VimwikiTabIndex', 'Open VimWiki index in a new tab'],
+    \ 'r' : ['VimwikiFile("Research/路演.md")', 'Open RoadShow index'],
     \ 'x' : [':VimwikiDeleteFile', 'Delete wiki page'],
     \ 'y' : [':VimwikiRenameFile', 'Rename wiki page'],
     \ 'z' : [':VimwikiRebuildTags!', 'Rebuild Tags after deleted'],

@@ -3,21 +3,11 @@
 " Sourced by: ../init.vim
 "===================================================
 
-" Basic -------------------------------------------------------------------{{{1
+" basic -------------------------------------------------------------------{{{1
 let mapleader = "\<space>"
-set winaltkeys=no  " Windows 禁用 ALT 操作菜单（使得 ALT 可以用到 Vim里）
 
-" 若修订后保存，则自动重新加载
-if has("autocmd")
-    let s:filepath = expand('<sfile>:p')
-    if has('win32') || has('win64')
-        let s:filepath = substitute(s:filepath, '\\', '/', 'g')
-    endif
-    let s:reload = 'autocmd! BufWritePost '.s:filepath.' source '.s:filepath
-    execute s:reload . ' | echomsg "Reloaded"'
-endif
-
-" VIMRC -------------------------------------------------------------------{{{1
+" Windows 禁用 ALT 操作菜单（使得 ALT 可以用到 Vim里）
+set winaltkeys=no
 
 " 设置 vim 相关文件打开后默认折叠方式为 marker
 augroup filetype_vim
@@ -25,6 +15,7 @@ augroup filetype_vim
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
 
+" VIMRC -------------------------------------------------------------------{{{1
 " 打开 vim-init/init.vim 或其子目录下的 VIMRC 文档
 let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h:h').'/'
 let s:init = fnamemodify(resolve(expand('<sfile>:p')), ':h') . '/'
@@ -46,12 +37,20 @@ function! EditInitVimrc(filename, ...)
         execute "tabedit " . l:filepath
     endif
     " 设置vim-init/为工作目录
-    execute "cd %:p:h:h"
+    execute "cd " . s:viminit
 endfunction
-command! VI call EditInitVimrc("init.vim", "edit")
+command! VI call EditInitVimrc("init.vim")
 command! VV call EditInitVimrc("init.vim", "vsp")
-command! VT call EditInitVimrc("init.vim")
+command! VE call EditInitVimrc("essential.vim")
+command! VT call EditInitVimrc("tabsize.vim")
+command! VL call EditInitVimrc("statusline.vim")
+command! VS call EditInitVimrc("search.vim")
+command! VG call EditInitVimrc("guistyle.vim")
+command! VK call EditInitVimrc("keymaps.vim")
+command! VP call EditInitVimrc("plugins.vim")
 command! VQ call EditInitVimrc("quickui.vim")
+command! VA call EditInitVimrc("autoload.vim")
+command! VC call EditInitVimrc("colorscheme.vim")
 
 " Vim Help -----------------------------------------------------{{{1
 " 垂直右侧窗口打开help
@@ -130,10 +129,21 @@ nnoremap <M-l> :vertical resize +5<CR>
 
 " Vimwiki -----------------------------------------------------------------{{{1
 
-command! RS call RoadShowIndex()
-function! RoadShowIndex()
-    execute "tabedit " . g:vimwiki_list[0].path. "Research/路演.md"
+" command! VR call RoadShowIndex()
+" function! RoadShowIndex()
+"     execute "tabedit " . g:vimwiki_list[0].path. "Research/路演.md"
+" endfunction
+
+" 定义一个接受一个参数的命令，参数为要打开的文件名
+function! VimwikiFile(filename)
+    let l:file_to_open = g:vimwiki_list[0].path . a:filename
+    if empty(a:filename) || !filereadable(l:file_to_open)
+        let l:file_to_open = g:vimwiki_list[0].path . "index.md"
+    endif
+    execute "tabedit " . l:file_to_open
 endfunction
+command! -nargs=? VF call VimwikiFile(<q-args>)
+command! RS call VimwikiFile('Research/路演.md')
 
 " Markdown ----------------------------------------------------------------{{{1
 " 将文档类型设置为markdown
