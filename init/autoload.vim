@@ -147,7 +147,9 @@ autocmd BufWritePre * call Strip#TrailingWhitespace()
 " inoremap <Leader>s <C-o>:call Spell#Toggle()<CR>
 nnoremap <Leader>s :call Spell#Toggle()<CR>
 
-" Markdown TOC ------------------------------------------------------------{{{1
+" Markdown ----------------------------------------------------------------{{{1
+
+" TOC ---------------------------------------------------------------------{{{2
 " 详情查阅 ../autoload/TOC.vim
 nnoremap <leader><Leader>t :TOC<CR>
 let g:TOC#position = "left"
@@ -155,17 +157,28 @@ let g:TOC#autofit = 1
 let g:TOC#close_after_navigating = 0
 autocmd FileType markdown call TOC#Init()
 
+" UngqFormat --------------------------------------------------------------{{{2
+" 详情查阅 ../autoload/Markdown.vim
+
+" 恢复被 gq 格式化的文档格式
+" :UngqFormat：处理整个文件。
+" :'<,'>UngqFormat：处理当前选区。
+command! -range=% UngqFormat call Markdown#UngqFormat(<line1>, <line2>)
+
+" 全角数字转半角 ----------------------------------------------------------{{{2
+" 详情查阅 ../autoload/Markdown.vim
+
+command! FullToHalfDigit call Markdown#FullToHalfDigit()
+
+" OCRClean ----------------------------------------------------------------{{{2
+" 详情查阅 ../autoload/OCRmyPDF.vim
+command! OCRClean call OCRmyPDF#Clean()
+
 " Redir -------------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Redir.vim
 command! -nargs=1 -complete=command Redir silent call Redir#redir(<q-args>)
 
-" 全角数字转半角 ----------------------------------------------------------{{{1
-
-command! FullToHalfDigitConvert :%s/１/1/ge | %s/２/2/ge | %s/３/3/ge | %s/４/4/ge | %s/５/5/ge | %s/６/6/ge | %s/７/7/ge | %s/８/8/ge | %s/９/9/ge | %s/０/0/ge | %s/％/%/ge
-
-" OCRClean ----------------------------------------------------------------{{{1
-" 详情查阅 ../autoload/OCRmyPDF.vim
-command! OCRClean call OCRmyPDF#Clean()
+" Finish ------------------------------------------------------------------{{{1
 
 finish
 

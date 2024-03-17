@@ -28,6 +28,8 @@ let g:navigator.h = {
     \ '5' : ['tab help pattern.txt', '模式'],
     \ '6' : ['tab help registers', '寄存器'],
     \ '7' : ['tab help eval', '表达式'],
+    \ 'c' : ['set hlg=cn', '帮助语言：中文'],
+    \ 'e' : ['set hlg=en', '帮助语言：English'],
     \ }
 
 " Vimrc -------------------------------------------------------------------{{{2
@@ -50,11 +52,12 @@ let g:navigator.v = {
 " buffer ------------------------------------------------------------------{{{2
 let g:navigator.b = {
     \ 'name' : '+Buffer',
+    \ 'l' : [':ls', '查看缓存列表'],
     \ 'd' : [':bd', 'delete-buffer'],
-    \ 'f' : [':bfirst', 'first-buffer'],
+    \ '0' : [':bfirst', 'first-buffer'],
     \ 'n' : [':bnext', 'next-buffer'],
     \ 'p' : [':bprevious', 'previous-buffer'],
-    \ 'l' : [':blast', 'last-buffer'],
+    \ '$' : [':blast', 'last-buffer'],
     \ '?' : [':Leaderf buffer', 'Leaderf b'],
     \ }
 
@@ -73,16 +76,41 @@ let g:navigator.t = {
     \ '$' : [':tabmove', 'Move tab to the last'],
     \ }
 
+" Fold --------------------------------------------------------------------{{{2
+let g:navigator.f = {
+    \ 'name': '+Fold',
+    \ 'a' : ['<key>za', 'za，<M-space> 切换折叠状态'],
+    \ 'A' : ['<key>zA', 'zA，以循环方式切换折叠状态'],
+    \ 'm' : ['<key>zm', 'zm，关闭所有折叠'],
+    \ 'i' : ['<key>zi', 'zi，展开所有折叠'],
+    \ 'v' : ['<key>zMzv', 'zMzv，<S-space> 打开当前折叠并关闭其他'],
+    \ 'T' : ['FoldColumnToggle()', 'Toggle FoldColumn'],
+    \ }
+
 " Options ---------------------------------------------------------------------{{{2
 let g:navigator.o = {
     \ 'name': '+Options',
+    \ 'o' : [':tab options', '列出所有选项的说明文档'],
+    \ 'a' : [':set all', '列出所有选项的当前设置'],
     \ 'c' : {
-        \ 'name' : '+cursorline',
-        \ 'o' : [':set cursorline', 'Toggle cursorline on'],
-        \ 'f' : [':set nocursorline', 'Toggle cursorline off'],
+        \ 'name' : '+Cursorline',
+        \ 'o' : [':set cursorline', '打开高亮显示 cursorline'],
+        \ 'f' : [':set nocursorline', '关闭高亮显示 cursorline'],
+        \ },
+    \ 'n' : {
+        \ 'name' : '+Number',
+        \ 'n' : [':set number', '显示行号'],
+        \ 'N' : [':set nonumber', '不显示行号'],
+        \ 'r' : [':set relativenumber', '显示相对行号'],
+        \ 'R' : [':set norelativenumber', '不显示相对行号'],
+        \ },
+    \ 'w' : {
+        \ 'name' : '+Wrap',
+        \ 'w' : [':set wrap', '自动换行'],
+        \ 'W' : [':set nowrap', '关闭自动换行'],
         \ },
     \ 's' : {
-        \ 'name' : '+spell',
+        \ 'name' : '+Spell',
         \ 's' : [':call Spell#Toggle()', 'Toggle spell check'],
         \ 'n' : ['<key>]s', ']s Next spell'],
         \ 'p' : ['<key>[s', '[s Previous spell'],
@@ -94,18 +122,23 @@ let g:navigator.o = {
         \ },
     \ }
 
-" markdown ----------------------------------------------------------------{{{2
+" Markdown ----------------------------------------------------------------{{{2
 let g:navigator.m = {
     \ 'name' : '+Markdown',
     \ 'f' : [':set ft=markdown', '将文件类型设置为markdown'],
-    \ 'e' : ['Explode2P()', '将全文的行转为段落 explode'],
     \ 't' : [':TOC', '列出目录 TOC'],
     \ 'c' : [':OCRClean', '清理 OCR 文档的格式'],
+    \ 'd' : [':FullToHalfDigit', '全角数字转半角'],
+    \ 'q' : ['<key>ggVGgq', '全文 gq 格式化'],
+    \ 'u' : [':UngqFormat', '恢复 gq 格式化'],
+    \ 'e' : ['Explode2P()', '将全文的行转为段落 explode'],
     \ }
 
 let g:navigator_v.m = {
     \ 'name' : '+Markdown',
-    \ 'e' : ['Explode2P()', '将行转为段落 explode'],
+    \ 'q' : ['<key>gq', '选区 gq 格式化'],
+    \ 'u' : [":UngqFormat", '恢复 gq 格式化'],
+    \ 'e' : ['Explode2P()', '将选区的行转为段落 explode'],
     \ }
 
 " Vimwiki -----------------------------------------------------------------{{{2
@@ -175,6 +208,18 @@ let g:navigator.p = {
     \ 'r' : [':PyRun', 'Run python file in conda pymotw'],
     \ }
 
+" let g:navigator_python = {
+"     \ 'prefix' : '\',
+"     \ 'p' : {
+"         \ 'name' : '+Python',
+"         \ 't' : [':TerminalConda', 'Open Terminal in conda pymotw'],
+"         \ 'p' : [':Python', 'Open Python in conda pymotw'],
+"         \ 'i' : [':IPython', 'Open IPython in conda pymotw'],
+"         \ 'r' : [':PyRun', 'Run python file in conda pymotw'],
+"         \ },
+"     \ }
+" autocmd FileType python let b:navigator = g:navigator_python
+
 " navigator config --------------------------------------------------------{{{2
 let g:navigator.config = {
     \ 'icon_separator': '→',
@@ -196,7 +241,27 @@ let g:navigator.config = {
     \ 'char_display': {},
     \ }
 
-nnoremap <silent>\ :Navigator g:navigator<cr>
+let g:navigator_v.config = {
+    \ 'icon_separator': '→',
+    \ 'bracket': 1,
+    \ 'spacing': 3,
+    \ 'padding': [2,0,2,0],
+    \ 'max_height': 20,
+    \ 'min_height': 5,
+    \ 'max_width': 60,
+    \ 'min_width': 20,
+    \ 'vertical': 0,
+    \ 'position': 'top',
+    \ 'fallback': 0,
+    \ 'popup': 0,
+    \ 'popup_position': 'center',
+    \ 'popup_width': '60%',
+    \ 'popup_height': '20%',
+    \ 'popup_border': 1,
+    \ 'char_display': {},
+    \ }
+
+nnoremap <silent>\ :Navigator *:navigator<cr>
 vnoremap <silent>\ :NavigatorVisual g:navigator_v<cr>
 
 " Menu --------------------------------------------------------------------{{{1
@@ -272,9 +337,11 @@ call quickui#menu#install('&Help', [
     \ ['&Function List', 'tab help function-list', '函数列表'],
     \ ['T&ips', 'tab help tips', 'Vim 的各种窍门'],
     \ ['--',''],
-    \ ["&Pattern", 'tab help pattern.txt', '模式'],
+    \ ["&Pattern", 'tab help pattern.txt', '正则表达式'],
     \ ["&Registers", 'tab help registers', '寄存器'],
-    \ ['&Vim Script', 'tab help eval', '表达式'],
+    \ ['&Vim Script', 'tab help eval', 'Vim Script'],
+    \ ['--',''],
+    \ ["&About", 'version', 'VIM 版本'],
     \ ], 10000)
 
 let g:quickui_show_tip = 1
