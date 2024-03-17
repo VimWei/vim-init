@@ -142,7 +142,7 @@ function! VimwikiFile(filename)
     endif
     execute "tabedit " . l:file_to_open
 endfunction
-command! -nargs=? VF call VimwikiFile(<q-args>)
+command! -nargs=? VW call VimwikiFile(<q-args>)
 command! RS call VimwikiFile('Research/路演.md')
 
 " Markdown ----------------------------------------------------------------{{{1
