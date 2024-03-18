@@ -189,11 +189,11 @@ let g:navigator.g = {
     \ 'name' : '+Git',
     \ 'g' : {
         \ 'name' : '+Git 常规流程 Summary window',
-        \ 'g' : [':Git', 'Summary window --> :git status'],
-        \ 'l' : [':Git pull', ':git pull'],
-        \ 's' : ['<key>s', 's --> :git add .'],
-        \ 'c' : ['<key>cc', 'cc --> :git commit -m'],
-        \ 'p' : [':Git push', ':git push'],
+        \ '1' : [':Git pull', ':git pull'],
+        \ '2' : [':Git', ':git status --> Summary window'],
+        \ '3' : ['<key>s', ':git add . --> s'],
+        \ '4' : ['<key>cc', ':git commit -m --> cc'],
+        \ '5' : [':Git push', ':git push'],
         \ },
     \ 'd' : {
         \ 'name' : '+Diff',
