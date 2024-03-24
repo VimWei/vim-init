@@ -28,7 +28,7 @@ LoadScript init/quickui.vim     " 加载QuickUI
 LoadScript init/autoload.vim    " 延时自动加载
 LoadScript init/colorscheme.vim " 加载色彩方案
 
-" 当pwd为vim-init/时，一旦VIMRC文件被修订时，将自动加载
+" 当pwd为vim-init/时，保存 VIMRC 文件后，系统将自动加载它
 augroup vimrcAutoReload
   autocmd!
   function! AutoReloadVimrc(file)

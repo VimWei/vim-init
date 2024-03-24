@@ -25,7 +25,9 @@ endif
 " set ambiwidth=double    "使用US-ASCII字符两倍的宽度显示宽度不明的字符
 set nobomb    "取消UTF的BOMB文件头
 set ffs=unix,dos,mac    " 文件换行符，默认使用 unix 换行符
-set cm=blowfish2    "设置新的加密算法
+if !has('nvim')
+    set cryptmethod=blowfish2    "设置新的加密算法
+endif
 
 " Display related ---------------------------------------------------------{{{1
 source $VIMRUNTIME/delmenu.vim

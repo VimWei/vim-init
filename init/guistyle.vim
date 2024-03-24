@@ -17,7 +17,9 @@ if has("gui_running")
 
     set lines=35 columns=140    "非最大化时，窗口的高度和宽度
     set guifont=Consolas:h14:cANSI:qDRAFT   "字体及大小
-    set renderoptions=type:directx,renmode:5    "增强显示
+    if !has('nvim')
+        set renderoptions=type:directx,renmode:5    "增强显示
+    endif
     set linespace=6    "行间距
 
     "==========================guifont++===============
