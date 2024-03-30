@@ -4,6 +4,8 @@
 "===================================================
 
 " basic -------------------------------------------------------------------{{{1
+" Use space as leader key
+nnoremap <space> <nop>
 let mapleader = "\<space>"
 
 " Windows 禁用 ALT 操作菜单（使得 ALT 可以用到 Vim里）
@@ -55,6 +57,7 @@ command! VC call EditInitVimrc("colorscheme.vim")
 " Vim Help -----------------------------------------------------{{{1
 " 垂直右侧窗口打开help
 cabbrev vh vert botright help
+cabbrev th tab help
 
 "在新标签页打开帮助
 nnoremap <leader>h :tab help<CR>
@@ -127,27 +130,42 @@ nnoremap <M-k> :resize -5<CR>
 nnoremap <M-h> :vertical resize -5<CR>
 nnoremap <M-l> :vertical resize +5<CR>
 
-" Vimwiki -----------------------------------------------------------------{{{1
+" wiki.vim -----------------------------------------------------------------{{{1
 
-" command! VR call RoadShowIndex()
-" function! RoadShowIndex()
-"     execute "tabedit " . g:vimwiki_list[0].path. "Research/路演.md"
-" endfunction
+nnoremap <leader>wt :tabnew \| WikiIndex<CR>
 
-" 定义一个接受一个参数的命令，参数为要打开的文件名
-function! VimwikiFile(filename)
-    let l:file_to_open = g:vimwiki_list[0].path . a:filename
+"不同于WikiOpen：采用相对wikiroot的路径，tab打开
+function! WikiFile(filename)
+    let l:file_to_open = g:wiki_root . a:filename
     if empty(a:filename) || !filereadable(l:file_to_open)
-        let l:file_to_open = g:vimwiki_list[0].path . "index.md"
+        let l:file_to_open = g:wiki_root . "index.md"
     endif
     execute "tabedit " . l:file_to_open
 endfunction
-command! -nargs=? VW call VimwikiFile(<q-args>)
-command! RS call VimwikiFile('Research/路演.md')
+command! -nargs=? VW call WikiFile(<q-args>)
+command! RS call WikiFile('Research/路演.md')
 
 " Markdown ----------------------------------------------------------------{{{1
 " 将文档类型设置为markdown
 nnoremap <leader>mm :set ft=markdown<CR>
+
+" 对 Markdown 文件设置格式化选项
+augroup markdown_settings
+    autocmd!
+    autocmd FileType markdown setlocal formatoptions=tqmBn
+    autocmd FileType markdown setlocal comments=
+    autocmd FileType markdown setlocal formatlistpat=^\\s*\\%(\\(-\\\|\\*\\\|+\\)\\\|\\(\\C\\%(\\d\\+\\.\\)\\)\\)\\s\\+\\%(\\[\\([\ .oOX-]\\)\\]\\s\\)\\?
+augroup END
+
+" 对新建文档，设置格式化选项
+augroup general_settings
+    autocmd!
+    autocmd BufEnter * if empty(&filetype)
+        \ | setlocal formatoptions=tqmBn
+        \ | setlocal comments=
+        \ | setlocal formatlistpat=^\\s*\\%(\\(-\\\|\\*\\\|+\\)\\\|\\(\\C\\%(\\d\\+\\.\\)\\)\\)\\s\\+\\%(\\[\\([\ .oOX-]\\)\\]\\s\\)\\?
+        \ | endif
+augroup END
 
 " 将行转为段落，并格式化，explode
 " nnoremap <leader>me :%s/.\@<=$\n^\(.\+\)\@=/\r\r/e<CR>:<C-u>nohlsearch<CR>ggVGgq
@@ -258,6 +276,10 @@ set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的
 " nnoremap <M-space> zMzv
 nnoremap <M-space> za
 nnoremap <S-space> zMzv
+nnoremap          zv zMzvzz
+nnoremap <silent> zj zcjzOzz
+nnoremap <silent> zk zckzOzz
+
 " 切换是否显示foldcolumn
 command! FoldColumnToggle call FoldColumnToggle()
 function! FoldColumnToggle()

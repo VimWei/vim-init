@@ -46,16 +46,25 @@ set display=lastline    "窗口末行内容较多时，尽量显示内容而非@
 set listchars=tab:\|\ ,trail:.,extends:>,precedes:<     "设置分隔符可视
 
 " Format related ----------------------------------------------------------{{{1
+
 set textwidth=0    "光标超过指定列的时候折行
 set wrap    "自动折行，超过窗口宽度的行会回绕，并在下一行继续显示
+set wrapmargin=0    "确保 Vim 不会基于窗口宽度减去 wrapmargin 的值来自动折行
 set linebreak   "不在单词中间断行
 set formatoptions+=m    "如遇Unicode值大于255的文本，不必等到空格再折行
 set formatoptions+=B    "合并两行中文时，不在中间加空格
+set formatoptions+=n    "在格式化列表时尝试保持相同的编号或项目符号
+set comments=b:*,b:-,b:+ " *-+ 是可以格式化的项目符号
+set formatlistpat=^\\s*\\([-*+]\\)\\s\\+
+
 set errorformat+=[%f:%l]\ ->\ %m,[%f:%l]:%m     "错误格式
+
+set conceallevel=2
 
 " Editing related ---------------------------------------------------------{{{1
 set history=1000    "命令历史的保存数量
 set clipboard=unnamed   "与系统共享剪贴板
+set nrformats-=octal    "CTRL-A增CTRL-X减数字时，以十进制处理0开头的数字
 " 允许在自动缩进、换行符、插入开始的位置上退格
 set backspace=indent,eol,start
 " 对某一个或几个按键开启到头后自动折向下一行的功能

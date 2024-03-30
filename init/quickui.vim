@@ -142,28 +142,24 @@ let g:navigator_v.m = {
     \ 'e' : ['Explode2P()', '将选区的行转为段落 explode'],
     \ }
 
-" Vimwiki -----------------------------------------------------------------{{{2
+" Wiki.vim ----------------------------------------------------------------{{{2
 let g:navigator.w = {
-    \ 'name' : '+Vimwiki',
-    \ 'w' : [':VimwikiIndex', 'Open VimWiki index'],
-    \ 't' : [':VimwikiTabIndex', 'Open VimWiki index in a new tab'],
-    \ 'r' : ['VimwikiFile("Research/路演.md")', 'Open RoadShow index'],
-    \ 'x' : [':VimwikiDeleteFile', 'Delete wiki page'],
-    \ 'y' : [':VimwikiRenameFile', 'Rename wiki page'],
-    \ 'z' : [':VimwikiRebuildTags!', 'Rebuild Tags after deleted'],
-    \ 'd' : {
-        \ 'name' : '+Dairy',
-        \ '0' : [':VimwikiDiaryIndex', 'Open diary index file'],
-        \ '1' : [':VimwikiMakeDiaryNote', 'Open today diary'],
-        \ '2' : [':VimwikiTabMakeDiaryNote', 'Open today diary in a new tab'],
-        \ '3' : [':VimwikiMakeYesterdayDiaryNote', 'Open yesterday diary'],
-        \ '4' : [':VimwikiMakeTomorrowDiaryNote', 'Open tomorrow diary'],
-        \ '5' : [':VimwikiDiaryNextDay', 'Open next day diary'],
-        \ '6' : [':VimwikiDiaryPrevDay', 'Open previous day diary'],
-        \ 'u' : [':VimwikiDiaryGenerateLinks', 'Update diary index'],
+    \ 'name' : '+Wiki.vim',
+    \ 'w' : [':WikiIndex', 'Open Wiki index'],
+    \ 't' : [':tabnew | WikiIndex', 'Open Wiki index in a new tab'],
+    \ 's' : [':call WikiFile("Research/路演.md")', 'Open RoadShow index'],
+    \ 'd' : ['<plug>(wiki-page-delete)', 'Delete wiki page'],
+    \ 'r' : ['<plug>(wiki-page-rename)', 'Rename wiki page'],
+    \ 'j' : {
+        \ 'name' : '+Journal',
+        \ '0' : [':call WikiFile("journal/Journal.md")', 'Open diary index file'],
+        \ '1' : [':WikiJournal', 'Open today diary'],
+        \ '5' : ['<plug>(wiki-journal-next)', 'Open next day diary'],
+        \ '6' : ['<plug>(wiki-journal-prev)', 'Open previous day diary'],
+        \ 'u' : [':WikiJournalIndex', 'Update Journal index'],
         \ 't' : ['<key>a<C-R>=strftime("%Y-%m-%d %A %H:%M:%S")<CR><Esc>', 'Insert datetime'],
         \ },
-    \ 'l' : {
+    \ 'L' : {
         \ 'name' : '+List',
         \ '1' : [':VimwikiChangeSymbolTo *', '更改当前列表符号为 *'],
         \ '2' : [':VimwikiChangeSymbolTo -', '更改当前列表符号为 -'],
@@ -173,7 +169,7 @@ let g:navigator.w = {
         \ '6' : [':normal gll', '升高当前列表级别-->'],
         \ '7' : [':normal glh', '降低当前列表级别<--'],
         \ },
-    \ 'a' : {
+    \ 'T' : {
         \ 'name' : '+Todo' ,
         \ '1' : [':VimwikiToggleListItem', '切换 Todo 完成状态 [ ] [X]'],
         \ '2' : [':VimwikiToggleRejectedListItem', '切换 Todo 启用状态 [ ] [-]'],

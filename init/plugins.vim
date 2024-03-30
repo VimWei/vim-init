@@ -3,13 +3,25 @@
 " Sourced by: ../init.vim
 "===================================================
 
-" vim-plug begin ----------------------------------------------------------{{{1
-
 "激活matchit，增强%在配对关键字间跳转
 packadd! matchit
 
+" ToggleShellslashForVimPlug ----------------------------------------------{{{1
+
+" 解决：wiki.vim 要求 set shellslash，但 vim-plug 要求 set noshellslash
+function! ToggleShellslashForVimPlug()
+  if exists('g:plugs')
+    autocmd User PlugBegin set noshellslash
+    autocmd User PlugEnd set shellslash
+  endif
+endfunction
+
+" vim-plug begin ----------------------------------------------------------{{{1
 " Plug自身是一个自动延时加载函数，可放在任意&rtp/autoload目录中即可生效
 " 在 Win10 下，其所管理的插件安装目录默认为 ~/vimfiles/plugged/
+
+set noshellslash
+
 call plug#begin()
 
 " Basic -------------------------------------------------------------------{{{1
@@ -18,9 +30,24 @@ call plug#begin()
     Plug 'dstein64/vim-startuptime'
 
     " ColorScheme ---------------------------------------------------------{{{2
-    Plug 'morhetz/gruvbox'
+    Plug 'lifepillar/vim-solarized8'
+    Plug 'lifepillar/vim-gruvbox8'
+    Plug 'kaicataldo/material.vim'
+    Plug 'sainnhe/sonokai'
+    Plug 'NLKNguyen/papercolor-theme'
+    Plug 'rakr/vim-one'
     Plug 'itchyny/landscape.vim'
-    Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
+    Plug 'arcticicestudio/nord-vim'
+
+    Plug 'zefei/vim-colortuner'
+    let g:colortuner_enabled = 1
+    let g:colortuner_preferred_schemes = ['lucius', 'landscape']
+
+    Plug 'lifepillar/vim-colortemplate'
+    Plug 'skywind3000/vim-color-patch'
+    " 按需在cpatch_path目录下构建colorscheme同名的文件
+    let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h:h').'/'
+    let g:cpatch_path = s:viminit . 'colors/patch'
 
     " vimcdoc -------------------------------------------------------------{{{2
     Plug 'yianwillis/vimcdoc'
@@ -35,7 +62,7 @@ call plug#begin()
     " 在当前窗口打开当前缓冲区所在目录，但在vimwiki中被覆盖为其他功能
     map - :<C-u>e %:p:h<CR>
     " 在左侧显示当前缓冲区所在目录
-    map <C-n> :Lexplore %:p:h<CR>
+    " map <C-n> :Lexplore %:p:h<CR>
     " 指定新建的 :Lexplore 窗口宽度，单位是屏幕的百分比
     let g:netrw_winsize =20
 
@@ -63,6 +90,9 @@ call plug#begin()
     augroup END
 
 " Search ------------------------------------------------------------------{{{1
+
+    " fzf -----------------------------------------------------------------{{{2
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
     " EasyMotion ----------------------------------------------------------{{{2
     " 全文快速移动，使用<leader><leader>w/b/s/j/k/l，或者f触发
@@ -132,50 +162,44 @@ call plug#begin()
 
 " Note --------------------------------------------------------------------{{{1
 
-    " Vimwiki -------------------------------------------------------------{{{2
-    " Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
-    " Plug 'vimwiki/vimwiki', { 'tag': 'v2.4.1' }
-    Plug 'vimwiki/vimwiki', { 'commit': 'c9e6afe' }
+    " wiki ----------------------------------------------------------------{{{2
+    Plug 'lervag/wiki.vim'
+    let g:wiki_root = expand("<sfile>:p:h:h:h") . "/wiki/"
+    augroup wiki_vim_autochdir
+        autocmd!
+        autocmd BufEnter *.md,*.wiki if getbufvar(expand('%'), '&filetype') == 'markdown' | execute 'cd ' . g:wiki_root | endif
+    augroup END
 
-    " def wiki dict
-    let wiki = {}
-    let wiki.name = 'Vimel Vimwiki'
-    let wiki.path = expand("<sfile>:p:h:h:h") . "/Vimwiki/"
-    let wiki.ext = '.md'
-    let wiki.syntax = 'markdown'
-    let wiki.nested_syntaxes = {'python': 'python'}
-    let wiki.links_space_char = '_'
-    let wiki.list_margin = 0
-    let wiki.auto_toc = 1
-    let wiki.auto_tags = 1
-    let wiki.auto_generate_tags = 1
+    let g:wiki_journal = {
+          \ 'name': 'journal',
+          \ 'root': '',
+          \ 'frequency': 'daily',
+          \ 'date_format': {
+          \   'daily' : '%Y/%Y-%m-%d',
+          \   'weekly' : '%Y/%Y_w%V',
+          \   'monthly' : '%Y/%Y_m%m',
+          \ },
+          \}
+    let g:wiki_link_creation = {
+          \ 'md': { 'link_type': 'md', 'url_extension': '' },
+          \ 'org': { 'link_type': 'org', 'url_extension': '.org' },
+          \ 'adoc': { 'link_type': 'adoc_xref_bracket', 'url_extension': '' },
+          \ '_': { 'link_type': 'wiki', 'url_extension': '' },
+          \}
 
-    " dev wiki dict for convert markdown to html
-    " let wiki.template_path = 'd:/WeirdData/VimwikiMd/templates/'
-    " let wiki.template_default = 'default'
-    " let wiki.path_html = 'd:/WeirdData/VimwikiMd/site_html/'
-    " let wiki.custom_wiki2html = 'vimwiki_markdown'
-    " let wiki.template_ext = '.tpl'
+    let g:wiki_journal_index = {
+          \ 'link_text_parser': { b, d, p -> wiki#toc#get_page_title(p) }
+          \}
 
-    " def vimwiki_list and so on.
-    let g:vimwiki_list = [wiki]
-    let g:vimwiki_ext2syntax = {'.md': 'markdown'}
-    let g:vimwiki_global_ext = 1
-    let g:vimwiki_autowriteall = 1
-    let g:vimwiki_auto_chdir = 1
-    let g:vimwiki_folding = 'expr'
+    let g:wiki_mappings_global = {
+          \ '<plug>(wiki-page-toc)' : '',
+          \}
+    let g:wiki_mappings_local_journal = {
+          \ '<plug>(wiki-journal-prev)' : '[w',
+          \ '<plug>(wiki-journal-next)' : ']w',
+          \}
 
-    " Edit ----------------------------------------------------------------{{{2
-
-    " Repeatable surround.vim、unimpaired.vim、vim-sneak
-    Plug 'tpope/vim-repeat'
-    " 方便对引号等成对出现的文本进行处理
-    Plug 'tpope/vim-surround'
-    " 使用[和]作为先导进行导航
-    Plug 'tpope/vim-unimpaired'
-    " 使用gcc切换注释
-    Plug 'tpope/vim-commentary'
-    autocmd FileType autohotkey setlocal commentstring=;\ %s
+    let g:markdown_folding = 1
 
     " table ---------------------------------------------------------------{{{2
     " 将文本按{pattern}对齐，使用 :Tabularize /{pattern}
@@ -190,6 +214,88 @@ call plug#begin()
 
     " 将文本按{pattern}转为表格，使用 :Tableize /{pattern}
     Plug 'dhruvasagar/vim-table-mode'
+
+    " Vim-Markdown --------------------------------------------------------{{{2
+    Plug 'preservim/vim-markdown'
+
+    let g:vim_markdown_autowrite = 1
+
+    set nofoldenable
+    let g:vim_markdown_folding_disabled = 0
+    set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
+    let g:vim_markdown_folding_level = 2
+    let g:vim_markdown_folding_style_pythonic = 1
+    let g:vim_markdown_override_foldtext = 0
+
+    set conceallevel=2
+    let g:tex_conceal = ""
+    let g:vim_markdown_math = 1
+    let g:vim_markdown_conceal_code_blocks = 0
+
+    let g:vim_markdown_emphasis_multiline = 1
+    let g:vim_markdown_strikethrough = 1
+    let g:vim_markdown_auto_insert_bullets = 1
+    let g:vim_markdown_new_list_item_indent = 0
+
+    let g:vim_markdown_toc_autofit = 1
+
+    let g:vim_markdown_fenced_languages = ['viml=vim', 'python=python', 'ahk=autohotkey']
+
+    " bullets -------------------------------------------------------------{{{2
+    Plug 'bullets-vim/bullets.vim'
+    let g:bullets_enabled_file_types = [ 'markdown', 'scratch' , 'text', 'vimwiki' ]
+    let g:bullets_enable_in_empty_buffers = 1
+    function! SmartBulletsNewlineAbove()
+        let l:save_cursor = getcurpos()
+        let l:current_line_num = l:save_cursor[1]
+        execute "normal! \<Plug>(bullets-newline)"
+        if line('.') > l:current_line_num
+            execute line('.') . 'move ' . (l:current_line_num - 1)
+        endif
+        execute "normal! \<Plug>(bullets-renumber)"
+        call setpos('.', [0, l:current_line_num, 0, 0])
+        call feedkeys('A', 'n')
+    endfunction
+    let g:bullets_set_mappings = 0
+    let g:bullets_custom_mappings = [
+        \ ['imap', '<cr>', '<Plug>(bullets-newline)'],
+        \ ['inoremap', '<C-cr>', '<cr>'],
+        \ ['nmap', 'o', '<Plug>(bullets-newline)'],
+        \ ['nmap', 'O', ':call SmartBulletsNewlineAbove()<CR>'],
+        \ ['vmap', 'glr', '<Plug>(bullets-renumber)'],
+        \ ['nmap', 'glr', '<Plug>(bullets-renumber)'],
+        \ ['nmap', 'glx', '<Plug>(bullets-toggle-checkbox)'],
+        \ ['imap', '<C-t>', '<Plug>(bullets-demote)'],
+        \ ['nmap', 'gl>', '<Plug>(bullets-demote)'],
+        \ ['vmap', '>', '<Plug>(bullets-demote)'],
+        \ ['imap', '<C-d>', '<Plug>(bullets-promote)'],
+        \ ['nmap', 'gl<', '<Plug>(bullets-promote)'],
+        \ ['vmap', '<', '<Plug>(bullets-promote)'],
+    \ ]
+
+    let g:bullets_delete_last_bullet_if_empty = 1
+    let g:bullets_line_spacing = 1
+    let g:bullets_pad_right = 0
+    let g:bullets_auto_indent_after_colon = 1
+    let g:bullets_max_alpha_characters = 2
+    " let g:bullets_outline_levels = ['ROM', 'ABC', 'num', 'abc', 'rom', 'std*', 'std-', 'std+']
+    let g:bullets_outline_levels = ['num', 'std*', 'std-', 'std+']
+    let g:bullets_renumber_on_change = 1
+    let g:bullets_nested_checkboxes = 1
+    let g:bullets_checkbox_markers = ' .oOX'
+    let g:bullets_checkbox_partials_toggle = 1
+
+    " Edit ----------------------------------------------------------------{{{2
+
+    " Repeatable surround.vim、unimpaired.vim、vim-sneak
+    Plug 'tpope/vim-repeat'
+    " 方便对引号等成对出现的文本进行处理
+    Plug 'tpope/vim-surround'
+    " 使用[和]作为先导进行导航
+    Plug 'tpope/vim-unimpaired'
+    " 使用gcc切换注释
+    Plug 'tpope/vim-commentary'
+    autocmd FileType autohotkey setlocal commentstring=;\ %s
 
     " Undotree ------------------------------------------------------------{{{2
     Plug 'mbbill/undotree'
@@ -285,6 +391,9 @@ call plug#begin()
 " vim-plug end ------------------------------------------------------------{{{1
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
+
+set shellslash
+call ToggleShellslashForVimPlug()
 
 " Finish ------------------------------------------------------------------{{{1
 " Plugins Inbox
@@ -453,14 +562,6 @@ finish
 
     Plug 'vim-pandoc/vim-pandoc-syntax'
 
-    " Vim-Markdown --------------------------------------------------------{{{2
-    " 评论：使用Vimwiki足以
-    Plug 'plasticboy/vim-markdown'
-    let g:vim_markdown_toc_autofit = 1
-    " let g:vim_markdown_folding_style_pythonic = 1
-    " attempt to follow a named anchor in a link
-    let g:vim_markdown_follow_anchor = 1
-
     " Python-mode ---------------------------------------------------------{{{2
     Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 
@@ -622,3 +723,87 @@ finish
     " 使用Conda指定python环境
     Plug 'ubaldot/vim-conda-activate'
     " 命令 :CondaActivate
+    " Vimwiki -------------------------------------------------------------{{{2
+    " Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+    " Plug 'vimwiki/vimwiki', { 'tag': 'v2.4.1' }
+    Plug 'vimwiki/vimwiki', { 'commit': 'c9e6afe' }
+
+    " def wiki dict
+    let wiki = {}
+    let wiki.name = 'Vimel Vimwiki'
+    let wiki.path = expand("<sfile>:p:h:h:h") . "/Vimwiki/"
+    let wiki.ext = '.md'
+    let wiki.syntax = 'markdown'
+    let wiki.nested_syntaxes = {'python': 'python'}
+    let wiki.links_space_char = '_'
+    let wiki.list_margin = 0
+    let wiki.auto_toc = 1
+    let wiki.auto_tags = 1
+    let wiki.auto_generate_tags = 1
+
+    " def vimwiki_list and so on.
+    let g:vimwiki_list = [wiki]
+    let g:vimwiki_ext2syntax = {'.md': 'markdown'}
+    let g:vimwiki_global_ext = 1
+    let g:vimwiki_autowriteall = 1
+    let g:vimwiki_auto_chdir = 1
+
+    set conceallevel=2
+    set nofoldenable
+    set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
+    let g:vimwiki_folding = 'expr'
+    " SidOfc/mkdx ---------------------------------------------------------{{{2
+    " Plug 'SidOfc/mkdx'
+    let g:mkdx#settings = {
+        \ 'auto_update': { 'enable': 0 },
+        \ 'map': { 'enable': 0, 'prefix': '<leader>' },
+        \ 'tab': { 'enable': 0 },
+        \ 'enter': { 'enable': 1, 'shift': 1, 'o': 1, 'shifto': 1, 'increment': 1 },
+        \ 'checkbox': {
+            \ 'toggles': [' ', '-', 'x'],
+            \ 'update_tree': 2,
+            \ 'initial_state': ' ',
+            \ 'match_attrs': {'mkdxCheckboxEmpty': '', 'mkdxCheckboxPending': '', 'mkdxCheckboxComplete': '' },
+            \},
+        \ 'links': {'conceal': 1, 'external': { 'enable': 0 } },
+        \ 'toc': { 'enable': 0, 'text': 'Table of Contents', 'update_on_write': 1 },
+        \ 'fold': { 'enable': 1, 'components': ['toc', 'fence'] },
+        \ 'insert_indent_mappings' : 1,
+        \'tokens': {
+            \ 'header': '#',
+            \ 'enter': ['-', '*', '>'],
+            \ 'bold': '**', 'list': '-',
+            \ 'fence': ['`', '~'],
+            \},
+        \ 'highlight': { 'enable': 1, 'frontmatter': { 'yaml': 1, 'toml': 1, 'json': 1 } },
+        \ }
+
+    set conceallevel=2
+    set nofoldenable
+    set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
+    let g:markdown_folding = 1
+
+    let g:polyglot_disabled = ['markdown']
+
+    " gabrielelana/Vim-Markdown -------------------------------------------{{{2
+    Plug 'gabrielelana/vim-markdown'
+
+    let g:markdown_enable_mappings = 1
+
+    " let g:markdown_folding = 1
+    set conceallevel=2
+    let g:markdown_enable_conceal = 1
+
+    set nofoldenable
+    set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
+    let g:markdown_enable_folding = 1
+
+    let g:markdown_include_jekyll_support = 0
+    let g:markdown_enable_spell_checking = 0
+
+    let g:markdown_mapping_switch_status = '<Leader>s'
+    " lists.vim -----------------------------------------------------------{{{2
+    Plug 'lervag/lists.vim'
+
+    let g:lists_filetypes = ['markdown', 'scratch' , 'text', 'wiki']
+    let g:lists_maps_default_enable = 1
