@@ -166,41 +166,24 @@ if index(g:plug_group, 'notetaking') >= 0   " ---------------------------------{
     " wiki.vim ---------------------------------------------------------------
     Plug 'lervag/wiki.vim'
     let g:wiki_root = expand("<sfile>:p:h:h:h") . "/wiki/"
-    augroup wiki_vim_autochdir
-        autocmd!
-        autocmd BufEnter *.md,*.wiki if getbufvar(expand('%'), '&filetype') == 'markdown' | execute 'cd ' . g:wiki_root | endif
-    augroup END
-
     let g:wiki_journal = {
-          \ 'name': 'journal',
-          \ 'root': '',
-          \ 'frequency': 'daily',
           \ 'date_format': {
-          \   'daily' : '%Y/%Y-%m-%d',
-          \   'weekly' : '%Y/%Y_w%V',
-          \   'monthly' : '%Y/%Y_m%m',
-          \ },
+                \ 'daily' : '%Y/%Y-%m-%d',
+                \ 'weekly' : '%Y/%Y_w%V',
+                \ 'monthly' : '%Y/%Y_m%m',
+                \ },
           \}
-    let g:wiki_link_creation = {
-          \ 'md': { 'link_type': 'md', 'url_extension': '' },
-          \ 'org': { 'link_type': 'org', 'url_extension': '.org' },
-          \ 'adoc': { 'link_type': 'adoc_xref_bracket', 'url_extension': '' },
-          \ '_': { 'link_type': 'wiki', 'url_extension': '' },
-          \}
-
     let g:wiki_journal_index = {
-          \ 'link_text_parser': { b, d, p -> wiki#toc#get_page_title(p) }
-          \}
-
-    let g:wiki_mappings_global = {
-          \ '<plug>(wiki-page-toc)' : '',
+          \ 'link_text_parser': { b, d, p -> wiki#toc#get_page_title(p) },
           \}
     let g:wiki_mappings_local_journal = {
           \ '<plug>(wiki-journal-prev)' : '[w',
           \ '<plug>(wiki-journal-next)' : ']w',
           \}
-
-    let g:markdown_folding = 1
+    " augroup wiki_vim_autochdir
+    "     autocmd!
+    "     autocmd BufEnter *.md,*.wiki if getbufvar(expand('%'), '&filetype') == 'markdown' | execute 'cd ' . g:wiki_root | endif
+    " augroup END
 
     " table ------------------------------------------------------------------
     " 将文本按{pattern}对齐，使用 :Tabularize /{pattern}
@@ -222,6 +205,7 @@ if index(g:plug_group, 'notetaking') >= 0   " ---------------------------------{
     let g:vim_markdown_autowrite = 1
 
     set nofoldenable
+    " let g:markdown_folding = 1
     let g:vim_markdown_folding_disabled = 0
     set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
     let g:vim_markdown_folding_level = 2
