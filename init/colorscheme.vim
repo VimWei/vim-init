@@ -3,11 +3,11 @@
 " Sourced by: ../init.vim
 "===================================================
 
+" default colorscheme ------------------------------------------------------{{{1
+
 if has('termguicolors')
     set termguicolors
 endif
-
-" default colorscheme ------------------------------------------------------{{{1
 
 colorscheme lucius
 exe (strftime('%H') % 18) >= 6 ? 'LuciusLightHighContrast' : 'LuciusDarkLowContrast'
