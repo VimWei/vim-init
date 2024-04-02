@@ -17,6 +17,23 @@ augroup filetype_vim
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
 
+" 对新建文档，设置格式化选项
+augroup general_settings
+    autocmd!
+    autocmd BufEnter * if empty(&filetype)
+        \ | setlocal autoindent
+        \ | setlocal nosmartindent
+        \ | setlocal nocindent
+        \ | setlocal comments=""
+        \ | setlocal formatoptions-=c
+        \ | setlocal formatoptions-=r
+        \ | setlocal formatoptions-=o
+        \ | setlocal formatoptions-=2
+        \ | setlocal formatoptions+=n
+        \ | setlocal formatlistpat=^\\s*\\%(\\(-\\\|\\*\\\|+\\)\\\|\\(\\C\\%(\\d\\+\\.\\)\\)\\)\\s\\+\\%(\\[\\([\ .oOX-]\\)\\]\\s\\)\\?
+        \ | endif
+augroup END
+
 " VIMRC -------------------------------------------------------------------{{{1
 " 打开 vim-init/init.vim 或其子目录下的 VIMRC 文档
 let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h:h').'/'
@@ -148,69 +165,6 @@ command! RS call WikiFile('Research/路演.md')
 " Markdown ----------------------------------------------------------------{{{1
 " 将文档类型设置为markdown
 nnoremap <leader>mm :set ft=markdown<CR>
-
-" 对 Markdown 文件设置格式化选项
-augroup markdown_settings
-    autocmd!
-    autocmd FileType markdown setlocal formatoptions=tqmBn
-    autocmd FileType markdown setlocal comments=
-    autocmd FileType markdown setlocal formatlistpat=^\\s*\\%(\\(-\\\|\\*\\\|+\\)\\\|\\(\\C\\%(\\d\\+\\.\\)\\)\\)\\s\\+\\%(\\[\\([\ .oOX-]\\)\\]\\s\\)\\?
-augroup END
-
-" 对新建文档，设置格式化选项
-augroup general_settings
-    autocmd!
-    autocmd BufEnter * if empty(&filetype)
-        \ | setlocal formatoptions=tqmBn
-        \ | setlocal comments=
-        \ | setlocal formatlistpat=^\\s*\\%(\\(-\\\|\\*\\\|+\\)\\\|\\(\\C\\%(\\d\\+\\.\\)\\)\\)\\s\\+\\%(\\[\\([\ .oOX-]\\)\\]\\s\\)\\?
-        \ | endif
-augroup END
-
-" 将行转为段落，并格式化，explode
-" nnoremap <leader>me :%s/.\@<=$\n^\(.\+\)\@=/\r\r/e<CR>:<C-u>nohlsearch<CR>ggVGgq
-" vnoremap <leader>me :s/.\@<=$\n^\(.\+\)\@=/\r\r/e<CR>:<C-u>nohlsearch<CR>
-function! Explode2P() abort range
-    let firstline = a:firstline
-    let lastline = a:lastline
-    if a:firstline == a:lastline
-        let firstline = 1
-        let lastline = line('$')
-    endif
-    let l:pattern = '.\@<=$\n^\(.\+\)\@='
-
-    " 计算有多少个满足pattern的匹配，并设计若没有匹配时的处理
-    let l:cmd_match = firstline . ',' . lastline . 's/' . l:pattern . '//gn'
-    redir => l:output_match
-    try
-        silent! execute l:cmd_match
-    catch
-        redir END
-        return
-    endtry
-    redir END
-    let l:match_count = split(l:output_match)[0] + 0
-
-    " 执行满足pattern的替换
-    let l:pattern = 's/' . l:pattern . '/\r\r/e'
-    let l:pattern = firstline . ',' . lastline . l:pattern
-    execute l:pattern
-    nohlsearch
-
-    " 对满足pattern的结果进行格式化
-    if a:firstline == a:lastline
-        let firstline = 1
-        let lastline = line('$')
-    else
-        let firstline = a:firstline
-        let lastline = a:lastline + l:match_count
-    endif
-    let addlines = lastline - firstline
-    let l:cmd_format = 'normal! ' . firstline. 'GV' . addlines . 'jgq'
-    execute l:cmd_format
-endfunction
-nnoremap <leader>me :call Explode2P()<CR>
-vnoremap <leader>me :call Explode2P()<CR>
 
 " 为选中的Markdown文字加粗，bold
 nnoremap <leader>mb viW"ms **** <Esc>hh"mPe

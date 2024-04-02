@@ -21,7 +21,7 @@ if has("gui_running")
     if !has('nvim')
         set renderoptions=type:directx,renmode:5    "增强显示
     endif
-    set linespace=10    "行间距
+    set linespace=7    "行间距
 
     "==========================guifont++===============
     "让vim像IDE一样一键放大缩小字号，M即Alt键

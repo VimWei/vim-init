@@ -157,6 +157,11 @@ let g:TOC#autofit = 1
 let g:TOC#close_after_navigating = 0
 autocmd FileType markdown call TOC#Init()
 
+" Explode2P ---------------------------------------------------------------{{{2
+" 详情查阅 ../autoload/Markdown.vim
+nnoremap <leader>me :call Markdown#Explode2P()<CR>
+vnoremap <leader>me :call Markdown#Explode2P()<CR>
+
 " UngqFormat --------------------------------------------------------------{{{2
 " 详情查阅 ../autoload/Markdown.vim
 

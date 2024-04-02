@@ -54,8 +54,8 @@ set linebreak   "不在单词中间断行
 set formatoptions+=m    "如遇Unicode值大于255的文本，不必等到空格再折行
 set formatoptions+=B    "合并两行中文时，不在中间加空格
 set formatoptions+=n    "在格式化列表时尝试保持相同的编号或项目符号
-set comments=b:*,b:-,b:+ " *-+ 是可以格式化的项目符号
-set formatlistpat=^\\s*\\([-*+]\\)\\s\\+
+" set comments=b:*,b:-,b:+ " *-+ 是可以格式化的项目符号
+" set formatlistpat=^\\s*\\([-*+]\\)\\s\\+
 set errorformat+=[%f:%l]\ ->\ %m,[%f:%l]:%m     "错误格式
 set conceallevel=2
 
