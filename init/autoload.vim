@@ -6,64 +6,32 @@
 " Python ------------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/CondaPython.vim
 
-" 定义一个公共函数，用于处理可选的 Conda 环境参数
-function! CondaEnvCommand(env, command, ...)
-    " a:0 指函数被调用时传递的参数的数量
-    if a:0 == 0
-        if a:command == 'PASS'
-            " 不执行命令PASS
-            call CondaPython#CondaEnv(a:env)
-        else
-            call CondaPython#CondaEnv(a:env, a:command)
-        endif
-    elseif a:0 == 1
-        if a:command == 'PASS'
-            " 不执行命令PASS
-            " a:1、a:2、a:3 等值函数被调用时传递的第1-3个参数
-            call CondaPython#CondaEnv(a:1)
-        else
-            call CondaPython#CondaEnv(a:1, a:command)
-        endif
-    else
-        " 若参数为2个及以上，则将参数全部传入
-        let l:args = []
-        for i in range(1, a:0)
-            call add(l:args, get(a:, i))
-        endfor
-        " 如果a:1为空，则设置为默认值 a:env
-        if a:1 == '""' || a:1 == ''''''
-            let l:args[0] = a:env
-        endif
-        call call('CondaPython#CondaEnv', l:args)
-    endif
-endfunction
-
 " 以下4个命令，运行格式一样，第1个参数代表conda env，之后的代表cmd命令
 " command! YourCommand call CondaPython#CondaEnv("env", "cmd1", "cmd2", ...)
-"
+
 "使用:TerminalConda，打开默认的conda环境pymotw
 "使用:TerminalConda myEnv，打开指定的conda环境myEnv
 "使用:TerminalConda myEnv ipython，打开指定的conda环境myEnv，并执行ipython
-command! -nargs=* TerminalConda call CondaEnvCommand('pymotw', 'PASS', <f-args>)
+command! -nargs=* TerminalConda call CondaPython#CondaEnvCommand('pymotw', 'PASS', <f-args>)
 
 "使用:Python，在默认的conda环境pymotw中，运行python
 "使用:Python myEnv，在指定的conda环境myEnv中，运行python
 "使用:Python myEnv ipython，在指定的conda环境myEnv中，运行ipython
 " 使用:Python "" ipython，在默认的conda环境pymotw中，运行ipython
-command! -nargs=* Python call CondaEnvCommand('pymotw', 'python', <f-args>)
+command! -nargs=* Python call CondaPython#CondaEnvCommand('pymotw', 'python', <f-args>)
 
 "使用:IPython，在默认的conda环境pymotw中，打开IPython
 "使用:IPython myEnv，在指定的conda环境myEnv中，打开IPython
 "使用:IPython myEnv python，在指定的conda环境myEnv中，打开python
 " 使用:IPython "" python，在默认的conda环境pymotw中，运行python
-command! -nargs=* IPython call CondaEnvCommand('pymotw', 'ipython', <f-args>)
+command! -nargs=* IPython call CondaPython#CondaEnvCommand('pymotw', 'ipython', <f-args>)
 
 " 使用:PyRun 或者 F5，在默认的conda环境pymotw中，使用python执行当前buffer
 " 使用:PyRun myEnv，在指定的conda环境myEnv中，使用python执行当前buffer
 " 使用:PyRun myEnv ipython，在指定的conda环境myEnv中，运行ipython
 " 使用:PyRun "" ipython，在默认的conda环境pymotw中，运行ipython
-command! -nargs=* PyRun call CondaEnvCommand('pymotw', 'python "' . expand('%:p') . '"', <f-args>)
-map <F5> :call CondaEnvCommand('pymotw', 'python "' . expand('%:p') . '"')<CR>
+command! -nargs=* PyRun call CondaPython#CondaEnvCommand('pymotw', 'python "' . expand('%:p') . '"', <f-args>)
+map <F5> :call CondaPython#CondaEnvCommand('pymotw', 'python "' . expand('%:p') . '"')<CR>
 
 " translator在线翻译 ------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Translator.vim

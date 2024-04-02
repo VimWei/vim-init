@@ -11,65 +11,20 @@ let mapleader = "\<space>"
 " Windows 禁用 ALT 操作菜单（使得 ALT 可以用到 Vim里）
 set winaltkeys=no
 
-" 设置 vim 相关文件打开后默认折叠方式为 marker
-augroup filetype_vim
-    autocmd!
-    autocmd FileType vim setlocal foldmethod=marker
-augroup END
-
-" 对新建文档，设置格式化选项
-augroup general_settings
-    autocmd!
-    autocmd BufEnter * if empty(&filetype)
-        \ | setlocal autoindent
-        \ | setlocal nosmartindent
-        \ | setlocal nocindent
-        \ | setlocal comments=""
-        \ | setlocal formatoptions-=c
-        \ | setlocal formatoptions-=r
-        \ | setlocal formatoptions-=o
-        \ | setlocal formatoptions-=2
-        \ | setlocal formatoptions+=n
-        \ | setlocal formatlistpat=^\\s*\\%(\\(-\\\|\\*\\\|+\\)\\\|\\(\\C\\%(\\d\\+\\.\\)\\)\\)\\s\\+\\%(\\[\\([\ .oOX-]\\)\\]\\s\\)\\?
-        \ | endif
-augroup END
-
 " VIMRC -------------------------------------------------------------------{{{1
-" 打开 vim-init/init.vim 或其子目录下的 VIMRC 文档
-let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h:h').'/'
-let s:init = fnamemodify(resolve(expand('<sfile>:p')), ':h') . '/'
-function! EditInitVimrc(filename, ...)
-    " 根据文件名称，决定文件所在路径
-    if a:filename == "init.vim"
-        let l:filepath = s:viminit . a:filename
-    else
-        let l:filepath = s:init . a:filename
-    endif
-    " 若提供了额外参数，则使用指定方案，否则使用 tabedit 打开
-    let splittype = a:0 > 0 ? a:1 : 'tabedit'
-    if splittype == "edit"
-        execute "edit " . l:filepath
-    elseif splittype == "vsp"
-        execute "vert botright split " . l:filepath
-    else
-        " 默认打开方式，没有参数或参数错误是时的打开方式
-        execute "tabedit " . l:filepath
-    endif
-    " 设置vim-init/为工作目录
-    execute "cd " . s:viminit
-endfunction
-command! VI call EditInitVimrc("init.vim")
-command! VV call EditInitVimrc("init.vim", "vsp")
-command! VE call EditInitVimrc("essential.vim")
-command! VT call EditInitVimrc("tabsize.vim")
-command! VL call EditInitVimrc("statusline.vim")
-command! VS call EditInitVimrc("search.vim")
-command! VG call EditInitVimrc("guistyle.vim")
-command! VK call EditInitVimrc("keymaps.vim")
-command! VP call EditInitVimrc("plugins.vim")
-command! VQ call EditInitVimrc("quickui.vim")
-command! VA call EditInitVimrc("autoload.vim")
-command! VC call EditInitVimrc("colorscheme.vim")
+" 详情查阅 ../autoload/Vimrc.vim
+command! VI call Vimrc#EditInitVimrc("init.vim")
+command! VV call Vimrc#EditInitVimrc("init.vim", "vsp")
+command! VE call Vimrc#EditInitVimrc("essential.vim")
+command! VT call Vimrc#EditInitVimrc("tabsize.vim")
+command! VL call Vimrc#EditInitVimrc("statusline.vim")
+command! VS call Vimrc#EditInitVimrc("search.vim")
+command! VG call Vimrc#EditInitVimrc("guistyle.vim")
+command! VK call Vimrc#EditInitVimrc("keymaps.vim")
+command! VP call Vimrc#EditInitVimrc("plugins.vim")
+command! VQ call Vimrc#EditInitVimrc("quickui.vim")
+command! VA call Vimrc#EditInitVimrc("autoload.vim")
+command! VC call Vimrc#EditInitVimrc("colorscheme.vim")
 
 " Vim Help -----------------------------------------------------{{{1
 " 垂直右侧窗口打开help
@@ -109,22 +64,10 @@ noremap <silent> <leader>tc :tabnew<cr>
 noremap <silent> <leader>tq :tabclose<cr>
 noremap <silent> <leader>to :tabonly<cr>
 " tab 左移、右移
-noremap <silent><leader>th :call Tab_MoveLeft()<cr>
-noremap <silent><leader>tl :call Tab_MoveRight()<cr>
-noremap <silent><m-left> :call Tab_MoveLeft()<cr>
-noremap <silent><m-right> :call Tab_MoveRight()<cr>
-function! Tab_MoveLeft()
-    let l:tabnr = tabpagenr() - 2
-    if l:tabnr >= 0
-        exec 'tabmove '.l:tabnr
-    endif
-endfunc
-function! Tab_MoveRight()
-    let l:tabnr = tabpagenr() + 1
-    if l:tabnr <= tabpagenr('$')
-        exec 'tabmove '.l:tabnr
-    endif
-endfunc
+noremap <silent><leader>th :call Tab#MoveLeft()<cr>
+noremap <silent><leader>tl :call Tab#MoveRight()<cr>
+noremap <silent><m-left> :call Tab#MoveLeft()<cr>
+noremap <silent><m-right> :call Tab#MoveRight()<cr>
 
 " tab 切换: <leader>+N 或 ALT+N
 let s:array = [')', '!', '@', '#', '$', '%', '^', '&', '*', '(']
@@ -165,6 +108,23 @@ command! RS call WikiFile('Research/路演.md')
 " Markdown ----------------------------------------------------------------{{{1
 " 将文档类型设置为markdown
 nnoremap <leader>mm :set ft=markdown<CR>
+
+" 对新建文档，设置格式化选项
+augroup general_settings
+    autocmd!
+    autocmd BufEnter * if empty(&filetype)
+        \ | setlocal autoindent
+        \ | setlocal nosmartindent
+        \ | setlocal nocindent
+        \ | setlocal comments=""
+        \ | setlocal formatoptions-=c
+        \ | setlocal formatoptions-=r
+        \ | setlocal formatoptions-=o
+        \ | setlocal formatoptions-=2
+        \ | setlocal formatoptions+=n
+        \ | setlocal formatlistpat=^\\s*\\%(\\(-\\\|\\*\\\|+\\)\\\|\\(\\C\\%(\\d\\+\\.\\)\\)\\)\\s\\+\\%(\\[\\([\ .oOX-]\\)\\]\\s\\)\\?
+        \ | endif
+augroup END
 
 " 为选中的Markdown文字加粗，bold
 nnoremap <leader>mb viW"ms **** <Esc>hh"mPe

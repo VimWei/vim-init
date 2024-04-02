@@ -29,6 +29,38 @@ function! CondaPython#CondaEnv(...)
     execute 'file Terminal'
 endfunction
 
+" 定义一个公共函数，用于处理可选的 Conda 环境参数
+function! CondaPython#CondaEnvCommand(env, command, ...)
+    " a:0 指函数被调用时传递的参数的数量
+    if a:0 == 0
+        if a:command == 'PASS'
+            " 不执行命令PASS
+            call CondaPython#CondaEnv(a:env)
+        else
+            call CondaPython#CondaEnv(a:env, a:command)
+        endif
+    elseif a:0 == 1
+        if a:command == 'PASS'
+            " 不执行命令PASS
+            " a:1、a:2、a:3 等值函数被调用时传递的第1-3个参数
+            call CondaPython#CondaEnv(a:1)
+        else
+            call CondaPython#CondaEnv(a:1, a:command)
+        endif
+    else
+        " 若参数为2个及以上，则将参数全部传入
+        let l:args = []
+        for i in range(1, a:0)
+            call add(l:args, get(a:, i))
+        endfor
+        " 如果a:1为空，则设置为默认值 a:env
+        if a:1 == '""' || a:1 == ''''''
+            let l:args[0] = a:env
+        endif
+        call call('CondaPython#CondaEnv', l:args)
+    endif
+endfunction
+
 finish
 
 " 查阅python帮助文档
