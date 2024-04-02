@@ -56,9 +56,7 @@ set formatoptions+=B    "合并两行中文时，不在中间加空格
 set formatoptions+=n    "在格式化列表时尝试保持相同的编号或项目符号
 set comments=b:*,b:-,b:+ " *-+ 是可以格式化的项目符号
 set formatlistpat=^\\s*\\([-*+]\\)\\s\\+
-
 set errorformat+=[%f:%l]\ ->\ %m,[%f:%l]:%m     "错误格式
-
 set conceallevel=2
 
 " Editing related ---------------------------------------------------------{{{1

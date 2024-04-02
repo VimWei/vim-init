@@ -3,14 +3,15 @@
 " Sourced by: ../init.vim
 "===================================================
 
-" plug setting ------------------------------------------------------------{{{1
+" plug group setting ------------------------------------------------------{{{1
 
 " 默认情况下的分组，可以在前面覆盖之
 if !exists('g:plug_group')
     let g:plug_group = ['basic']
     let g:plug_group += ['colorscheme']
     let g:plug_group += ['search']
-    let g:plug_group += ['notetaking']
+    let g:plug_group += ['wiki']
+    " let g:plug_group += ['markdown']
     let g:plug_group += ['program']
 endif
 
@@ -85,6 +86,7 @@ if index(g:plug_group, 'colorscheme') >= 0  " -----------------------------{{{1
     Plug 'rakr/vim-one'
     Plug 'itchyny/landscape.vim'
     Plug 'arcticicestudio/nord-vim'
+    Plug 'micke/vim-hybrid'
 
     Plug 'zefei/vim-colortuner'
     Plug 'lifepillar/vim-colortemplate'
@@ -161,7 +163,7 @@ if index(g:plug_group, 'search') >= 0   " ---------------------------------{{{1
 
 endif
 
-if index(g:plug_group, 'notetaking') >= 0   " ---------------------------------{{{1
+if index(g:plug_group, 'wiki') >= 0   " -----------------------------------{{{1
 
     " wiki.vim ---------------------------------------------------------------
     Plug 'lervag/wiki.vim'
@@ -185,6 +187,8 @@ if index(g:plug_group, 'notetaking') >= 0   " ---------------------------------{
     "     autocmd BufEnter *.md,*.wiki if getbufvar(expand('%'), '&filetype') == 'markdown' | execute 'cd ' . g:wiki_root | endif
     " augroup END
 
+    let g:markdown_folding = 1
+
     " table ------------------------------------------------------------------
     " 将文本按{pattern}对齐，使用 :Tabularize /{pattern}
     " video http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
@@ -198,33 +202,6 @@ if index(g:plug_group, 'notetaking') >= 0   " ---------------------------------{
 
     " 将文本按{pattern}转为表格，使用 :Tableize /{pattern}
     Plug 'dhruvasagar/vim-table-mode'
-
-    " Vim-Markdown -----------------------------------------------------------
-    Plug 'preservim/vim-markdown'
-
-    let g:vim_markdown_autowrite = 1
-
-    set nofoldenable
-    " let g:markdown_folding = 1
-    let g:vim_markdown_folding_disabled = 0
-    set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
-    let g:vim_markdown_folding_level = 2
-    let g:vim_markdown_folding_style_pythonic = 1
-    let g:vim_markdown_override_foldtext = 0
-
-    set conceallevel=2
-    let g:tex_conceal = ""
-    let g:vim_markdown_math = 1
-    let g:vim_markdown_conceal_code_blocks = 0
-
-    let g:vim_markdown_emphasis_multiline = 1
-    let g:vim_markdown_strikethrough = 1
-    let g:vim_markdown_auto_insert_bullets = 1
-    let g:vim_markdown_new_list_item_indent = 0
-
-    let g:vim_markdown_toc_autofit = 1
-
-    let g:vim_markdown_fenced_languages = ['viml=vim', 'python=python', 'ahk=autohotkey']
 
     " bullets ----------------------------------------------------------------
     Plug 'bullets-vim/bullets.vim'
@@ -297,6 +274,36 @@ if index(g:plug_group, 'notetaking') >= 0   " ---------------------------------{
     endif
     let g:undotree_WindowLayout = 3
     let g:undotree_ShortIndicators  = 1
+
+endif
+
+if index(g:plug_group, 'markdown') >= 0   " -------------------------------{{{1
+
+    " Vim-Markdown -----------------------------------------------------------
+    Plug 'preservim/vim-markdown'
+
+    let g:vim_markdown_autowrite = 1
+
+    set nofoldenable
+    let g:vim_markdown_folding_disabled = 0
+    set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
+    let g:vim_markdown_folding_level = 2
+    let g:vim_markdown_folding_style_pythonic = 1
+    let g:vim_markdown_override_foldtext = 0
+
+    set conceallevel=2
+    let g:tex_conceal = ""
+    let g:vim_markdown_math = 1
+    let g:vim_markdown_conceal_code_blocks = 0
+
+    let g:vim_markdown_emphasis_multiline = 1
+    let g:vim_markdown_strikethrough = 1
+    let g:vim_markdown_auto_insert_bullets = 1
+    let g:vim_markdown_new_list_item_indent = 0
+
+    let g:vim_markdown_toc_autofit = 1
+
+    let g:vim_markdown_fenced_languages = ['viml=vim', 'python=python', 'ahk=autohotkey']
 
 endif
 

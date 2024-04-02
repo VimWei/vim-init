@@ -86,6 +86,13 @@ function! RandomMaterial()
     execute 'colorscheme material'
 endfunction
 
+"随机更换 hybrid 的配置方案
+command! ColorHybrid call RandomHybrid()
+function! RandomHybrid()
+    let g:hybrid_italic = 0
+    execute 'colorscheme hybrid'
+endfunction
+
 "随机更换 sonokai 的配置方案
 command! ColorSonokai call RandomSonokai()
 function! RandomSonokai()
@@ -112,6 +119,7 @@ function! RandomColorScheme()
         \ 'ColorMaterial',
         \ 'ColorPaperColor',
         \ 'ColorSonokai',
+        \ 'ColorHybrid',
         \ 'ColorNord',
         \ 'ColorOne',
     \ ]

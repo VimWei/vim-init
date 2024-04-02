@@ -286,11 +286,11 @@ call quickui#menu#install('&File', [
     \ [ "Quit without saving", 'q!', '不保存退出'],
     \ [ "--", '' ],
     \ [ "&Save", 'w', '保存'],
-    \ [ "Save all", 'wa', '保存所有文件'],
-    \ [ "Save &as", 'call feedkey("bro w")', '另存为...'],
+    \ [ "Save &all", 'wa', '保存所有文件'],
+    \ [ "Save as", 'bro w', '另存为...'],
     \ [ "--", '' ],
     \ [ "&New File", 'tabnew', '新建文档'],
-    \ [ "&Open File", 'call feedkeys("bro edit")', '打开...'],
+    \ [ "&Open File", 'bro edit', '打开...'],
     \ ])
 
 " items containing tips, tips will display in the cmdline
@@ -299,21 +299,20 @@ call quickui#menu#install("&Tools", [
     \ ["Upgrade vim-plug", "PlugUpgrade", 'upgrade vim-plug'],
     \ ["Plugin &List", "PlugStatus", 'list available plugins'],
     \ ["-"],
-    \ ["Edit MENU", 'TU', '在新窗口编辑菜单'],
-    \ ["Edit VIMRC", 'TV', '在新窗口编辑VIMRC'],
+    \ ["Edit MENU", 'VQ', '在新窗口编辑菜单'],
+    \ ["Edit VIMRC", 'VI', '在新窗口编辑VIMRC'],
     \ ])
 
 " script inside %{...} will be evaluated and expanded in the string
 call quickui#menu#install("&Option", [
     \ ['Set &Spell %{&spell? "Off":"On"}', 'set spell!', 'Toggle spell check %{&spell? "off" : "on"}'],
     \ ['Set &Cursor Line %{&cursorline? "Off":"On"}', 'set cursorline!', 'Toggle cursor line %{&cursorline? "off" : "on"}'],
-    \ ['Set &Paste %{&paste? "Off":"On"}', 'set paste!', 'Toggle paste mode %{&paste? "off" : "on"}'],
     \ ["-"],
     \ ["Options help", 'tab help options', '关于 options 的帮助文档'],
     \ ])
 
-" Vimwiki
-call quickui#menu#install("&Vimwiki", [
+" wiki
+call quickui#menu#install("&Wiki", [
     \ ['Toggle Todo status done [ ] [X] ', 'VimwikiToggleListItem', '切换 Todo 完成状态'],
     \ ['Toggle Todo status Reject [ ] [-]', 'VimwikiToggleRejectedListItem', '切换 Todo 启用状态'],
     \ ['Increase done status [ ] [.] [o]', 'normal gln', '增加 Done 的成熟度'],
@@ -331,7 +330,7 @@ call quickui#menu#install("&Vimwiki", [
     \ ["-"],
     \ ['Update diary index', 'VimwikiDiaryGenerateLinks', '更新Diary索引目录'],
     \ ["Rebuild Tags", 'VimwikiRebuildTags!', '重新生成Tags'],
-    \ ], '<auto>', 'vimwiki')
+    \ ], '<auto>', 'markdown')
 
 " register HELP menu with weight 10000
 call quickui#menu#install('&Help', [
