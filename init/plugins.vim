@@ -11,6 +11,7 @@ if !exists('g:plug_group')
     let g:plug_group += ['colorscheme']
     let g:plug_group += ['search']
     let g:plug_group += ['wiki']
+    let g:plug_group += ['list']
     " let g:plug_group += ['markdown']
     let g:plug_group += ['program']
 endif
@@ -234,33 +235,7 @@ if index(g:plug_group, 'wiki') >= 0   " -----------------------------------{{{1
 
 endif
 
-if index(g:plug_group, 'markdown') >= 0   " -------------------------------{{{1
-
-    " Vim-Markdown -----------------------------------------------------------
-    Plug 'preservim/vim-markdown'
-
-    let g:vim_markdown_autowrite = 1
-
-    set nofoldenable
-    let g:vim_markdown_folding_disabled = 0
-    set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
-    let g:vim_markdown_folding_level = 2
-    let g:vim_markdown_folding_style_pythonic = 1
-    let g:vim_markdown_override_foldtext = 0
-
-    let g:tex_conceal = ""
-    let g:vim_markdown_math = 1
-    let g:vim_markdown_conceal_code_blocks = 0
-
-    let g:vim_markdown_emphasis_multiline = 1
-    let g:vim_markdown_strikethrough = 1
-    let g:vim_markdown_auto_insert_bullets = 1
-    let g:vim_markdown_new_list_item_indent = 0
-
-    let g:vim_markdown_toc_autofit = 1
-
-    let g:vim_markdown_fenced_languages = ['viml=vim', 'python=python', 'ahk=autohotkey']
-
+if index(g:plug_group, 'list') >= 0   " -----------------------------------{{{1
     " bullets ----------------------------------------------------------------
     Plug 'bullets-vim/bullets.vim'
     let g:bullets_enabled_file_types = [ 'markdown', 'scratch' , 'text', 'vimwiki' ]
@@ -304,6 +279,35 @@ if index(g:plug_group, 'markdown') >= 0   " -------------------------------{{{1
     let g:bullets_nested_checkboxes = 1
     let g:bullets_checkbox_markers = ' .oOX'
     let g:bullets_checkbox_partials_toggle = 1
+
+endif
+
+if index(g:plug_group, 'markdown') >= 0   " -------------------------------{{{1
+
+    " Vim-Markdown -----------------------------------------------------------
+    Plug 'preservim/vim-markdown'
+
+    let g:vim_markdown_autowrite = 1
+
+    set nofoldenable
+    let g:vim_markdown_folding_disabled = 0
+    set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
+    let g:vim_markdown_folding_level = 2
+    let g:vim_markdown_folding_style_pythonic = 1
+    let g:vim_markdown_override_foldtext = 0
+
+    let g:tex_conceal = ""
+    let g:vim_markdown_math = 1
+    let g:vim_markdown_conceal_code_blocks = 0
+
+    let g:vim_markdown_emphasis_multiline = 1
+    let g:vim_markdown_strikethrough = 1
+    let g:vim_markdown_auto_insert_bullets = 1
+    let g:vim_markdown_new_list_item_indent = 0
+
+    let g:vim_markdown_toc_autofit = 1
+
+    let g:vim_markdown_fenced_languages = ['viml=vim', 'python=python', 'ahk=autohotkey']
 
 endif
 
