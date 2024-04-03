@@ -311,8 +311,8 @@ call quickui#menu#install("&Option", [
     \ ["Options help", 'tab help options', '关于 options 的帮助文档'],
     \ ])
 
-" wiki
-call quickui#menu#install("&Wiki", [
+" Markdown
+call quickui#menu#install("&Markdown", [
     \ ['Toggle Todo status done [ ] [X] ', 'VimwikiToggleListItem', '切换 Todo 完成状态'],
     \ ['Toggle Todo status Reject [ ] [-]', 'VimwikiToggleRejectedListItem', '切换 Todo 启用状态'],
     \ ['Increase done status [ ] [.] [o]', 'normal gln', '增加 Done 的成熟度'],
