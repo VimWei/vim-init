@@ -8,50 +8,44 @@
 " 默认情况下的分组，可以在前面覆盖之
 if !exists('g:plug_group')
     let g:plug_group = {}
+    let g:plug_group['basic'] = [
+        \ 'startup',
+        \ 'essential',
+        \ 'colorscheme',
+        \ 'whichkey',
+        \ ]
+    let g:plug_group['search'] = [
+        \ 'auto-popmenu',
+        \ 'EasyMotion',
+        \ 'pinyin',
+        \ 'Leaderf',
+        \ 'vim-cool',
+        \ 'fzf',
+        \ ]
+    let g:plug_group['Notetaking'] = [
+        \ 'wiki',
+        \ 'edit',
+        \ 'table',
+        \ 'list',
+        \ ]
+        " \ 'vimwiki',
+        " \ 'markdown',
+    let g:plug_group['program'] = [
+        \ 'git',
+        \ 'AsyncRun',
+        \ 'python',
+        \ 'REPL',
+        \ 'terminal',
+        \]
+    let g:plug_group['inbox'] = []
 endif
-
-let g:plug_group['basic'] = [
-    \ 'startup',
-    \ 'essential',
-    \ 'colorscheme',
-    \ 'whichkey',
-    \ ]
-
-let g:plug_group['search'] = [
-    \ 'auto-popmenu',
-    \ 'EasyMotion',
-    \ 'pinyin',
-    \ 'Leaderf',
-    \ 'vim-cool',
-    \ 'fzf',
-    \ ]
-
-let g:plug_group['Notetaking'] = [
-    \ 'wiki',
-    \ 'edit',
-    \ 'table',
-    \ 'list',
-    \ ]
-    " \ 'vimwiki',
-    " \ 'markdown',
-
-let g:plug_group['program'] = [
-    \ 'git',
-    \ 'AsyncRun',
-    \ 'python',
-    \ 'REPL',
-    \ 'terminal',
-    \]
-
-" vim-plug begin ----------------------------------------------------------{{{1
-" Plug自身是一个自动延时加载函数，可放在任意&rtp/autoload目录中即可生效
-" 在 Windows 下，其所管理的插件安装目录默认为 ~/vimfiles/plugged/
 
 "激活matchit，增强%在配对关键字间跳转 ----------------------------------------
 packadd! matchit
 
 " viminit subpath ------------------------------------------------------------
 let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h:h').'/'
+let s:viminitparent = fnamemodify(resolve(expand('<sfile>:p')), ':h:h:h').'/'
 function! s:viminitsub(subpath)
     let l:path = expand(s:viminit . a:subpath )
     return substitute(l:path, '\\', '/', 'g')
@@ -68,6 +62,9 @@ endfunction
 
 set noshellslash
 
+" vim-plug begin ----------------------------------------------------------{{{1
+" Plug自身是一个自动延时加载函数，可放在任意&rtp/autoload目录中即可生效
+" 在 Windows 下，其所管理的插件安装目录默认为 ~/vimfiles/plugged/
 call plug#begin()
 
 if has_key(g:plug_group, 'basic')  " --------------------------------------{{{1
@@ -154,7 +151,7 @@ if has_key(g:plug_group, 'search')  " -------------------------------------{{{1
         Plug 'ppwwyyxx/vim-PinyinSearch'
         let g:PinyinSearch_Dict = $HOME . '/vimfiles/plugged/vim-PinyinSearch/PinyinSearch.dict'
         nnoremap F :call PinyinSearch()<CR>
-        nnoremap <Leader><leader>f :call PinyinNext()<CR>
+        nnoremap <Leader>pn :call PinyinNext()<CR>
     endif
 
     if index(g:plug_group['search'], 'Leaderf') >= 0   " ------------------{{{2
@@ -232,7 +229,12 @@ if has_key(g:plug_group, 'Notetaking')  " ---------------------------------{{{1
 
     if index(g:plug_group['Notetaking'], 'wiki') >= 0   " -----------------{{{2
         Plug 'lervag/wiki.vim'
-        let g:wiki_root = expand("<sfile>:p:h:h:h") . "/wiki/"
+        let g:wiki_root = substitute((s:viminitparent . 'wiki/'), '\\', '/', 'g')
+        augroup wiki_vim_autochdir
+            autocmd!
+            autocmd BufEnter *.md,*.wiki if getbufvar(expand('%'), '&filetype') == 'markdown' | execute 'cd ' . g:wiki_root | endif
+        augroup END
+
         let g:wiki_journal = {
             \ 'date_format': {
                     \ 'daily' : '%Y/%Y-%m-%d',
@@ -247,13 +249,10 @@ if has_key(g:plug_group, 'Notetaking')  " ---------------------------------{{{1
             \ '<plug>(wiki-journal-prev)' : '[w',
             \ '<plug>(wiki-journal-next)' : ']w',
             \}
-        " augroup wiki_vim_autochdir
-        "     autocmd!
-        "     autocmd BufEnter *.md,*.wiki if getbufvar(expand('%'), '&filetype') == 'markdown' | execute 'cd ' . g:wiki_root | endif
-        " augroup END
 
         set conceallevel=2
         let g:markdown_folding = 1
+
     endif
 
     if index(g:plug_group['Notetaking'], 'edit') >= 0   " -----------------{{{2
@@ -282,7 +281,6 @@ if has_key(g:plug_group, 'Notetaking')  " ---------------------------------{{{1
         endif
         let g:undotree_WindowLayout = 3
         let g:undotree_ShortIndicators  = 1
-
     endif
 
     if index(g:plug_group['Notetaking'], 'table') >= 0   " -----------------{{{2
@@ -465,6 +463,10 @@ if has_key(g:plug_group, 'program')  " ------------------------------------{{{1
         " 使用 exit 彻底退出terminal，并关闭窗口
         " let g:terminal_shell='pwsh'   " 使用PowerShell Core 7.x
     endif
+
+endif
+
+if has_key(g:plug_group, 'inbox')  " ------------------------------------{{{1
 
 endif
 

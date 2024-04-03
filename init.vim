@@ -30,20 +30,20 @@ LoadScript init/colorscheme.vim " 加载色彩方案
 
 " 当pwd为vim-init/时，保存 VIMRC 文件后，系统将自动加载它
 augroup vimrcAutoReload
-  autocmd!
-  function! AutoReloadVimrc(file)
-    if has('win32') || has('win64')
-      let l:file = substitute(a:file, '\\', '/', 'g')
-    else
-      let l:file = a:file
-    endif
-    execute 'source' l:file
-    echomsg 'Reloaded ' . l:file
-  endfunction
-  " 匹配 init.vim 以及 init 和 autoload 目录下的所有 .vim 文件
-  autocmd BufWritePost init.vim call AutoReloadVimrc(expand('<afile>:p'))
-  autocmd BufWritePost init/*.vim call AutoReloadVimrc(expand('<afile>:p'))
-  autocmd BufWritePost autoload/*.vim call AutoReloadVimrc(expand('<afile>:p'))
+    autocmd!
+    function! AutoReloadVimrc(file)
+        if has('win32') || has('win64')
+            let l:file = substitute(a:file, '\\', '/', 'g')
+        else
+            let l:file = a:file
+        endif
+        execute 'source' l:file
+        echomsg 'Reloaded ' . l:file
+    endfunction
+    " 匹配 init.vim 以及 init 和 autoload 目录下的所有 .vim 文件
+    autocmd BufWritePost init.vim call AutoReloadVimrc(expand('<afile>:p'))
+    autocmd BufWritePost init/*.vim call AutoReloadVimrc(expand('<afile>:p'))
+    autocmd BufWritePost autoload/*.vim call AutoReloadVimrc(expand('<afile>:p'))
 augroup END
 
 finish
