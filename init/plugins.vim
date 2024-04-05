@@ -3,7 +3,7 @@
 " Sourced by: ../init.vim
 "===================================================
 
-" plug group setting ------------------------------------------------------{{{1
+" plug group and basic setting ------------------------------------------------------{{{1
 
 " 默认情况下的分组，可以在前面覆盖之
 if !exists('g:plug_group')
@@ -43,12 +43,10 @@ endif
 packadd! matchit
 
 " viminit subpath ------------------------------------------------------------
-let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h:h').'/'
-let s:viminitparent = fnamemodify(resolve(expand('<sfile>:p')), ':h:h:h').'/'
-function! s:viminitsub(subpath)
-    let l:path = expand(s:viminit . a:subpath )
-    return substitute(l:path, '\\', '/', 'g')
-endfunc
+
+let s:viminitparent = fnamemodify(resolve(expand('<sfile>:p')), ':h:h:h')
+let s:viminitparent = substitute(s:viminitparent . '/', '\\', '/', 'g')
+let s:viminit = s:viminitparent . 'init/'
 
 " ToggleShellslashForVimPlug -------------------------------------------------
 " 解决：wiki.vim 要求 set shellslash，但 vim-plug 要求 set noshellslash
@@ -130,7 +128,7 @@ if has_key(g:plug_group, 'basic')  " --------------------------------------{{{1
         Plug 'lifepillar/vim-colortemplate'
         Plug 'skywind3000/vim-color-patch'
         " 按需在cpatch_path目录下构建colorscheme同名的文件
-        let g:cpatch_path = s:viminitsub('colors/patch')
+        let g:cpatch_path = s:viminit . 'colors/patch'
     endif
 
     if index(g:plug_group['basic'], 'whichkey') >= 0  " -------------------{{{2
@@ -245,7 +243,7 @@ if has_key(g:plug_group, 'Notetaking')  " ---------------------------------{{{1
         Plug 'lervag/wiki.vim'
         Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
-        let g:wiki_root = substitute((s:viminitparent . 'wiki/'), '\\', '/', 'g')
+        let g:wiki_root = s:viminitparent . 'wiki/'
         augroup wiki_vim_autochdir
             autocmd!
             autocmd BufEnter *.md,*.wiki if getbufvar(expand('%'), '&filetype') == 'markdown' | execute 'cd ' . g:wiki_root | endif

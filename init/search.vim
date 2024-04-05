@@ -20,9 +20,10 @@ set infercase       " 匹配的大小写会根据输入进行调整
 set shortmess+=c    " suppress annoy messages.
 
 " 指定字典文件，可以使用CTRL-X CTRL-K调用
-let s:home=fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
+let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
+let s:viminit = substitute(s:viminit . '/', '\\', '/', 'g')
 " 综合高频前20K及其变形，合计40多K
-exec 'set dictionary+='.s:home.'/tools/dict/WordMax2K.dict'
+exec 'set dictionary+='.s:viminit.'tools/dict/WordMax2K.dict'
 
 " 文件搜索和补全时忽略下面扩展名 ------------------------------------------{{{1
 set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.pyc,.pyo,.egg-info,.class

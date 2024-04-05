@@ -1,6 +1,7 @@
 " 打开 vim-init/init.vim 或其子目录下的 VIMRC 文档
-let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h:h').'/'
-let s:init = fnamemodify(resolve(expand('<sfile>:p')), ':h:h') . '/init/'
+let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
+let s:viminit = substitute(s:viminit . '/', '\\', '/', 'g')
+let s:init = s:viminit . 'init/'
 function! Vimrc#EditInitVimrc(filename, ...)
     " 根据文件名称，决定文件所在路径
     if a:filename == "init.vim"

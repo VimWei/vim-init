@@ -11,11 +11,12 @@ else
 endif
 
 " 取得本文件所在的目录，并加入 runtimepath
-let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h')
-execute 'set runtimepath+='.s:home
+let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+execute 'set runtimepath+='.s:viminit
+let s:viminit = substitute(s:viminit . '/', '\\', '/', 'g')
 
 " 定义加载命令
-command! -nargs=1 LoadScript execute 'so '.s:home.'/'.'<args>'
+command! -nargs=1 LoadScript execute 'so '.s:viminit.'<args>'
 
 LoadScript init/essential.vim   " 加载基础配置
 LoadScript init/tabsize.vim     " 加载tabsize配置
