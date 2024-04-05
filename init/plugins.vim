@@ -20,16 +20,15 @@ if !exists('g:plug_group')
         \ 'pinyin',
         \ 'Leaderf',
         \ 'vim-cool',
-        \ 'fzf',
         \ ]
     let g:plug_group['Notetaking'] = [
         \ 'wiki',
         \ 'edit',
         \ 'table',
+        \ 'markdown',
         \ 'list',
         \ ]
         " \ 'vimwiki',
-        " \ 'markdown',
     let g:plug_group['program'] = [
         \ 'git',
         \ 'AsyncRun',
@@ -71,9 +70,29 @@ if has_key(g:plug_group, 'basic')  " --------------------------------------{{{1
     if index(g:plug_group['basic'], 'startup') >= 0  " --------------------{{{2
         " Plug 'mhinz/vim-startify'
         Plug 'dstein64/vim-startuptime'
+        Plug 'yianwillis/vimcdoc'
     endif
 
     if index(g:plug_group['basic'], 'essential') >= 0  " ------------------{{{2
+
+        " Undotree ----------------------
+        Plug 'mbbill/undotree'
+        nnoremap <Leader>u :UndotreeToggle<CR>
+        " Keep undo history across sessions by storing it in a file
+        if has('persistent_undo')
+            if !isdirectory($HOME.'\vimfiles')
+                " 0700 full permissions for the owner, no for anyone else
+                call mkdir($HOME.'\vimfiles', "", 0770)
+            endif
+            if !isdirectory($HOME.'\vimfiles\undodir')
+                call mkdir($HOME.'\vimfiles\undodir', "", 0700)
+            endif
+            let &undodir = $HOME . '\vimfiles\undodir'
+            set undofile
+        endif
+        let g:undotree_WindowLayout = 3
+        let g:undotree_ShortIndicators  = 1
+
         " Netrw ------------------
         " 不显示横幅，可以用I轮换
         let g:netrw_banner = 0
@@ -115,8 +134,7 @@ if has_key(g:plug_group, 'basic')  " --------------------------------------{{{1
     endif
 
     if index(g:plug_group['basic'], 'whichkey') >= 0  " -------------------{{{2
-        " 帮助、菜单、导航
-        Plug 'yianwillis/vimcdoc'
+        " 菜单、导航
         Plug 'skywind3000/vim-quickui'
         Plug 'skywind3000/vim-navigator'
     endif
@@ -189,10 +207,6 @@ if has_key(g:plug_group, 'search')  " -------------------------------------{{{1
         let g:cool_total_matches = 1
     endif
 
-    if index(g:plug_group['search'], 'fzf') >= 0   " ----------------------{{{2
-        Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    endif
-
 endif
 
 if has_key(g:plug_group, 'Notetaking')  " ---------------------------------{{{1
@@ -229,6 +243,8 @@ if has_key(g:plug_group, 'Notetaking')  " ---------------------------------{{{1
 
     if index(g:plug_group['Notetaking'], 'wiki') >= 0   " -----------------{{{2
         Plug 'lervag/wiki.vim'
+        Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
         let g:wiki_root = substitute((s:viminitparent . 'wiki/'), '\\', '/', 'g')
         augroup wiki_vim_autochdir
             autocmd!
@@ -264,23 +280,6 @@ if has_key(g:plug_group, 'Notetaking')  " ---------------------------------{{{1
         Plug 'tpope/vim-unimpaired'
         " 使用gcc切换注释
 
-        " Undotree ----------------------
-        Plug 'mbbill/undotree'
-        nnoremap <Leader>u :UndotreeToggle<CR>
-        " Keep undo history across sessions by storing it in a file
-        if has('persistent_undo')
-            if !isdirectory($HOME.'\vimfiles')
-                " 0700 full permissions for the owner, no for anyone else
-                call mkdir($HOME.'\vimfiles', "", 0770)
-            endif
-            if !isdirectory($HOME.'\vimfiles\undodir')
-                call mkdir($HOME.'\vimfiles\undodir', "", 0700)
-            endif
-            let &undodir = $HOME . '\vimfiles\undodir'
-            set undofile
-        endif
-        let g:undotree_WindowLayout = 3
-        let g:undotree_ShortIndicators  = 1
     endif
 
     if index(g:plug_group['Notetaking'], 'table') >= 0   " -----------------{{{2
@@ -296,6 +295,31 @@ if has_key(g:plug_group, 'Notetaking')  " ---------------------------------{{{1
 
         " 将文本按{pattern}转为表格，使用 :Tableize /{pattern}
         Plug 'dhruvasagar/vim-table-mode'
+    endif
+
+    if index(g:plug_group['Notetaking'], 'markdown') >= 0   " -----------------{{{2
+        Plug 'preservim/vim-markdown'
+        let g:vim_markdown_autowrite = 1
+
+        set nofoldenable
+        let g:vim_markdown_folding_disabled = 0
+        set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
+        let g:vim_markdown_folding_level = 2
+        let g:vim_markdown_folding_style_pythonic = 1
+        let g:vim_markdown_override_foldtext = 0
+
+        let g:tex_conceal = ""
+        let g:vim_markdown_math = 1
+        let g:vim_markdown_conceal_code_blocks = 0
+
+        let g:vim_markdown_emphasis_multiline = 1
+        let g:vim_markdown_strikethrough = 1
+        let g:vim_markdown_auto_insert_bullets = 1
+        let g:vim_markdown_new_list_item_indent = 0
+
+        let g:vim_markdown_toc_autofit = 1
+
+        let g:vim_markdown_fenced_languages = ['viml=vim', 'python=python', 'ahk=autohotkey']
     endif
 
     if index(g:plug_group['Notetaking'], 'list') >= 0   " -----------------{{{2
@@ -341,31 +365,6 @@ if has_key(g:plug_group, 'Notetaking')  " ---------------------------------{{{1
         let g:bullets_nested_checkboxes = 1
         let g:bullets_checkbox_markers = ' .oOX'
         let g:bullets_checkbox_partials_toggle = 1
-    endif
-
-    if index(g:plug_group['Notetaking'], 'markdown') >= 0   " -----------------{{{2
-        Plug 'preservim/vim-markdown'
-        let g:vim_markdown_autowrite = 1
-
-        set nofoldenable
-        let g:vim_markdown_folding_disabled = 0
-        set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
-        let g:vim_markdown_folding_level = 2
-        let g:vim_markdown_folding_style_pythonic = 1
-        let g:vim_markdown_override_foldtext = 0
-
-        let g:tex_conceal = ""
-        let g:vim_markdown_math = 1
-        let g:vim_markdown_conceal_code_blocks = 0
-
-        let g:vim_markdown_emphasis_multiline = 1
-        let g:vim_markdown_strikethrough = 1
-        let g:vim_markdown_auto_insert_bullets = 1
-        let g:vim_markdown_new_list_item_indent = 0
-
-        let g:vim_markdown_toc_autofit = 1
-
-        let g:vim_markdown_fenced_languages = ['viml=vim', 'python=python', 'ahk=autohotkey']
     endif
 
 endif
