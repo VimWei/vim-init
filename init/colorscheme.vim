@@ -112,6 +112,7 @@ noremap <silent> <leader>c :call RandomColorScheme()<cr>:color<cr>
 let s:last_colorscheme_cmd = ''
 function! RandomColorScheme()
     let l:colorscheme_cmds = [
+        \ 'color default',
         \ 'ColorLucius',
         \ 'ColorGruvbox8',
         \ 'ColorSolarized8',
