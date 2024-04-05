@@ -3,7 +3,7 @@
 " Sourced by: ../init.vim
 "===================================================
 
-" plug group and basic setting ------------------------------------------------------{{{1
+" plug group and basic setting --------------------------------------------{{{1
 
 " 默认情况下的分组，可以在前面覆盖之
 if !exists('g:plug_group')
@@ -22,13 +22,13 @@ if !exists('g:plug_group')
         \ 'vim-cool',
         \ ]
     let g:plug_group['Notetaking'] = [
+        "\ 'vimwiki',
         \ 'wiki',
         \ 'edit',
         \ 'table',
         \ 'markdown',
         \ 'list',
         \ ]
-        " \ 'vimwiki',
     let g:plug_group['program'] = [
         \ 'git',
         \ 'AsyncRun',
@@ -42,7 +42,7 @@ endif
 "激活matchit，增强%在配对关键字间跳转 ----------------------------------------
 packadd! matchit
 
-" viminit subpath ------------------------------------------------------------
+" viminit path ---------------------------------------------------------------
 
 let s:viminitparent = fnamemodify(resolve(expand('<sfile>:p')), ':h:h:h')
 let s:viminitparent = substitute(s:viminitparent . '/', '\\', '/', 'g')
