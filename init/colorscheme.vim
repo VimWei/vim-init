@@ -3,7 +3,7 @@
 " Sourced by: ../init.vim
 "===================================================
 
-" default colorscheme ------------------------------------------------------{{{1
+" Default colorscheme ------------------------------------------------------{{{1
 
 if has('termguicolors')
     set termguicolors
@@ -12,36 +12,40 @@ endif
 colorscheme lucius
 exe (strftime('%H') % 18) >= 6 ? 'LuciusLightHighContrast' : 'LuciusDarkLowContrast'
 
-" colorscheme command -----------------------------------------------------{{{1
-" 设置常用 colorescheme 的调用命令
-" 通过命令 color + tab 快速切换常用样式
+" Vim inbuilt colorscheme -------------------------------------------------{{{1
 
-command! ColorLandscape colorscheme landscape
-
-"随机更换 Vim-One 的配置方案
-command! ColorOne call RandomOne()
-function! RandomOne()
-    let g:one_allow_italics = 0
-    let backgrounds = ['dark', 'light']
-    let &background = backgrounds[rand() % len(backgrounds)]
-    execute 'colorscheme one'
+"随机更换 vim 自带的颜色方案
+command! ColorVimInbuiltScheme call RandomVimInbuiltScheme()
+function! RandomVimInbuiltScheme()
+    let l:styles = [
+        \ 'blue', 'darkblue', 'default', 'delek', 'desert',
+        \ 'elflord', 'evening', 'habamax', 'industry', 'koehler',
+        \ 'lunaperche', 'morning', 'murphy', 'pablo', 'peachpuff',
+        \ 'quiet', 'retrobox', 'ron', 'shine', 'slate', 'sorbet',
+        \ 'torte', 'wildcharm', 'zaibatsu', 'zellner'
+        \ ]
+    let l:random_vim_inbuild_scheme = l:styles[rand() % len(l:styles)]
+    execute 'colorscheme ' . l:random_vim_inbuild_scheme
 endfunction
 
-"随机更换 PaperColor 的配置方案
-command! ColorPaperColor call RandomPaperColor()
-function! RandomPaperColor()
-    let backgrounds = ['dark', 'light']
-    let &background = backgrounds[rand() % len(backgrounds)]
-    execute 'colorscheme PaperColor'
-endfunction
+" Third party colorscheme -------------------------------------------------{{{1
 
-"随机更换 nord 的配置方案
-command! ColorNord call RandomNord()
-function! RandomNord()
-    let g:nord_underline = 1
-    let g:nord_italic = 0
-    let g:nord_italic_comments = 0
-    execute 'colorscheme nord'
+"随机更换第三方的颜色方案
+command! ColorThirdPartyScheme call RandomThirdPartyScheme()
+function! RandomThirdPartyScheme()
+    let l:styles = [
+        \ 'ColorLucius',
+        \ 'ColorGruvbox8',
+        \ 'ColorSolarized8',
+        \ 'ColorLandscape',
+        \ 'ColorMaterial',
+        \ 'ColorPaperColor',
+        \ 'ColorSonokai',
+        \ 'ColorNord',
+        \ 'ColorOne',
+        \ ]
+    let l:random_third_party_scheme_cmd = l:styles[rand() % len(l:styles)]
+    execute l:random_third_party_scheme_cmd
 endfunction
 
 "随机更换 Lucius 的配置方案
@@ -78,6 +82,8 @@ function! RandomSolarized8()
     execute 'colorscheme ' . l:styles[rand() % len(l:styles)]
 endfunction
 
+command! ColorLandscape colorscheme landscape
+
 "随机更换 material 的配置方案
 command! ColorMaterial call RandomMaterial()
 function! RandomMaterial()
@@ -86,11 +92,12 @@ function! RandomMaterial()
     execute 'colorscheme material'
 endfunction
 
-"随机更换 hybrid 的配置方案
-command! ColorHybrid call RandomHybrid()
-function! RandomHybrid()
-    let g:hybrid_italic = 0
-    execute 'colorscheme hybrid'
+"随机更换 PaperColor 的配置方案
+command! ColorPaperColor call RandomPaperColor()
+function! RandomPaperColor()
+    let backgrounds = ['dark', 'light']
+    let &background = backgrounds[rand() % len(backgrounds)]
+    execute 'colorscheme PaperColor'
 endfunction
 
 "随机更换 sonokai 的配置方案
@@ -105,30 +112,33 @@ function! RandomSonokai()
     execute 'colorscheme sonokai'
 endfunction
 
-" random colorscheme ------------------------------------------------------{{{1
+"随机更换 nord 的配置方案
+command! ColorNord call RandomNord()
+function! RandomNord()
+    let g:nord_underline = 1
+    let g:nord_italic = 0
+    let g:nord_italic_comments = 0
+    execute 'colorscheme nord'
+endfunction
+
+"随机更换 Vim-One 的配置方案
+command! ColorOne call RandomOne()
+function! RandomOne()
+    let g:one_allow_italics = 0
+    let backgrounds = ['dark', 'light']
+    let &background = backgrounds[rand() % len(backgrounds)]
+    execute 'colorscheme one'
+endfunction
+
+" Random colorscheme ------------------------------------------------------{{{1
+
+" 通过命令 color + tab 快速切换常用样式
 
 " 使用 <leader>c 随机更换颜色方案，每次都不同
 noremap <silent> <leader>c :call RandomColorScheme()<cr>:color<cr>
 let s:last_colorscheme_cmd = ''
 function! RandomColorScheme()
-    let l:colorscheme_cmds = [
-        \ 'color default',
-        \ 'ColorLucius',
-        \ 'ColorGruvbox8',
-        \ 'ColorSolarized8',
-        \ 'ColorLandscape',
-        \ 'ColorMaterial',
-        \ 'ColorPaperColor',
-        \ 'ColorSonokai',
-        \ 'ColorHybrid',
-        \ 'ColorNord',
-        \ 'ColorOne',
-    \ ]
-    let l:random_index = rand() % len(l:colorscheme_cmds)
-    while l:colorscheme_cmds[l:random_index] == s:last_colorscheme_cmd
-        let l:random_index = rand() % len(l:colorscheme_cmds)
-    endwhile
-    let l:random_color_cmd = l:colorscheme_cmds[l:random_index]
-    let s:last_colorscheme_cmd = l:random_color_cmd
-    execute l:random_color_cmd
+    let l:styles = [ 'ColorVimInbuiltScheme', 'ColorThirdPartyScheme' ]
+    let l:random_color_scheme_cmd = l:styles[rand() % len(l:styles)]
+    execute l:random_color_scheme_cmd
 endfunction
