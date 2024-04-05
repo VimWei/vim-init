@@ -15,8 +15,7 @@ if has("gui_running")
     set guioptions-=e   "使用非 GUI 标签页行
     set showtabline=2   "总是显示标签栏
 
-    " set lines=35 columns=140    "非最大化时，窗口的高度和宽度
-    set lines=8 columns=80    "非最大化时，窗口的高度和宽度
+    set lines=18 columns=85    "非最大化时，窗口的高度和宽度
     set guifont=Consolas:h14:cANSI:qDRAFT   "字体及大小
     if !has('nvim')
         set renderoptions=type:directx,renmode:5    "增强显示
