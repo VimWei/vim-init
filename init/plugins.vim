@@ -221,7 +221,7 @@ if has_key(g:plug_group, 'Notetaking')  " ---------------------------------{{{1
         let g:vimwiki_autowriteall = 1
         let g:vimwiki_auto_chdir = 1
 
-        set conceallevel=2
+        " set conceallevel=2
         set nofoldenable
         set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
         let g:vimwiki_folding = 'expr'
@@ -250,7 +250,7 @@ if has_key(g:plug_group, 'Notetaking')  " ---------------------------------{{{1
             \ '<plug>(wiki-journal-next)' : ']w',
             \}
 
-        set conceallevel=2
+        " set conceallevel=2
         let g:markdown_folding = 1
 
     endif
@@ -416,8 +416,6 @@ if has_key(g:plug_group, 'program')  " ------------------------------------{{{1
         " 彩虹括号增强版
         Plug 'luochen1990/rainbow'
 
-        " Python 补全或提醒 ------------------------------------------------------
-        " Plug 'davidhalter/jedi-vim'
     endif
 
     if index(g:plug_group['program'], 'REPL') >= 0   " ------------------{{{2
@@ -777,35 +775,6 @@ finish
     " 使用Conda指定python环境
     Plug 'ubaldot/vim-conda-activate'
     " 命令 :CondaActivate
-    " Vimwiki -------------------------------------------------------------{{{2
-    " Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
-    " Plug 'vimwiki/vimwiki', { 'tag': 'v2.4.1' }
-    Plug 'vimwiki/vimwiki', { 'commit': 'c9e6afe' }
-
-    " def wiki dict
-    let wiki = {}
-    let wiki.name = 'Vimel Vimwiki'
-    let wiki.path = expand("<sfile>:p:h:h:h") . "/Vimwiki/"
-    let wiki.ext = '.md'
-    let wiki.syntax = 'markdown'
-    let wiki.nested_syntaxes = {'python': 'python'}
-    let wiki.links_space_char = '_'
-    let wiki.list_margin = 0
-    let wiki.auto_toc = 1
-    let wiki.auto_tags = 1
-    let wiki.auto_generate_tags = 1
-
-    " def vimwiki_list and so on.
-    let g:vimwiki_list = [wiki]
-    let g:vimwiki_ext2syntax = {'.md': 'markdown'}
-    let g:vimwiki_global_ext = 1
-    let g:vimwiki_autowriteall = 1
-    let g:vimwiki_auto_chdir = 1
-
-    set conceallevel=2
-    set nofoldenable
-    set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
-    let g:vimwiki_folding = 'expr'
     " SidOfc/mkdx ---------------------------------------------------------{{{2
     " Plug 'SidOfc/mkdx'
     let g:mkdx#settings = {
