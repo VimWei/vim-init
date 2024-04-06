@@ -6,6 +6,11 @@
 " plug group and basic setting --------------------------------------------{{{1
 
 " plug_group --------------------------------------------------------------{{{2
+
+" 用于快速测试仅使用某几个插件的情况
+" let g:plug_group = {}
+" let g:plug_group['Notetaking'] = [ 'wiki' ]
+
 " 默认情况下的分组，可以在前面覆盖之
 if !exists('g:plug_group')
     let g:plug_group = {}
@@ -27,6 +32,10 @@ if !exists('g:plug_group')
     let g:plug_group['program'] = [ 'git', 'terminal', 'AsyncRun' ]
     let g:plug_group['program'] += [ 'python', 'REPL' ]
 endif
+
+function! IsInPlugGroup(group, item)
+    return has_key(g:plug_group, a:group) && index(g:plug_group[a:group], a:item) >= 0
+endfunction
 
 " viminit path ------------------------------------------------------------{{{2
 let s:viminitparent = fnamemodify(resolve(expand('<sfile>:p')), ':h:h:h')

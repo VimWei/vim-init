@@ -30,7 +30,7 @@ endfunction
 
 " Third party colorscheme -------------------------------------------------{{{1
 
-if index(g:plug_group['basic'], 'colorscheme') >= 0
+if IsInPlugGroup('basic', 'colorscheme')
 
     "随机更换第三方的颜色方案
     command! ColorThirdPartyScheme call RandomThirdPartyScheme()
@@ -141,7 +141,7 @@ endif
 noremap <silent> <leader>c :call RandomColorScheme()<cr>:color<cr>
 let s:last_colorscheme_cmd = ''
 function! RandomColorScheme()
-    if index(g:plug_group['basic'], 'colorscheme') >= 0
+    if IsInPlugGroup('basic', 'colorscheme')
         let l:styles = [ 'ColorVimInbuiltScheme', 'ColorThirdPartyScheme' ]
     else
         let l:styles = [ 'ColorVimInbuiltScheme' ]
