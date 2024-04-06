@@ -29,10 +29,10 @@ if !exists('g:plug_group')
 endif
 
 " viminit path ------------------------------------------------------------{{{2
-
 let s:viminitparent = fnamemodify(resolve(expand('<sfile>:p')), ':h:h:h')
 let s:viminitparent = substitute(s:viminitparent . '/', '\\', '/', 'g')
-let s:viminit = s:viminitparent . 'init/'
+let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
+let s:viminit = substitute(s:viminit . '/', '\\', '/', 'g')
 
 " 增强%在配对关键字间跳转 -------------------------------------------------{{{2
 packadd! matchit
@@ -234,7 +234,7 @@ if has_key(g:plug_group, 'Notetaking')  " ---------------------------------{{{1
         " def wiki dict
         let wiki = {}
         let wiki.name = 'Vimel Vimwiki'
-        let wiki.path = expand("<sfile>:p:h:h:h") . "/Vimwiki/"
+        let wiki.path = s:viminitparent . 'wiki/'
         let wiki.ext = '.md'
         let wiki.syntax = 'markdown'
         let wiki.nested_syntaxes = {'python': 'python'}
@@ -244,14 +244,12 @@ if has_key(g:plug_group, 'Notetaking')  " ---------------------------------{{{1
         let wiki.auto_tags = 1
         let wiki.auto_generate_tags = 1
 
-        " def vimwiki_list and so on.
         let g:vimwiki_list = [wiki]
         let g:vimwiki_ext2syntax = {'.md': 'markdown'}
         let g:vimwiki_global_ext = 1
         let g:vimwiki_autowriteall = 1
         let g:vimwiki_auto_chdir = 1
 
-        " set conceallevel=2
         set nofoldenable
         set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
         let g:vimwiki_folding = 'expr'
