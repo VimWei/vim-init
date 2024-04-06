@@ -21,7 +21,7 @@ if !exists('g:plug_group')
     let g:plug_group['Notetaking'] = [ 'edit', 'table' ]
     " let g:plug_group['Notetaking'] += [ 'vimwiki' ]
     let g:plug_group['Notetaking'] += [ 'wiki' ]
-    let g:plug_group['Notetaking'] += [ 'markdown' ]
+    " let g:plug_group['Notetaking'] += [ 'markdown' ]
     let g:plug_group['Notetaking'] += [ 'list' ]
 
     let g:plug_group['program'] = [ 'git', 'terminal', 'AsyncRun' ]

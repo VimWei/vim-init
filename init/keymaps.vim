@@ -109,23 +109,6 @@ command! RS call WikiFile('Research/路演.md')
 " 将文档类型设置为markdown
 nnoremap <leader>mm :set ft=markdown<CR>
 
-" 对新建文档，设置格式化选项
-augroup general_settings
-    autocmd!
-    autocmd BufEnter * if empty(&filetype)
-        \ | setlocal autoindent
-        \ | setlocal nosmartindent
-        \ | setlocal nocindent
-        \ | setlocal comments=""
-        \ | setlocal formatoptions-=c
-        \ | setlocal formatoptions-=r
-        \ | setlocal formatoptions-=o
-        \ | setlocal formatoptions-=2
-        \ | setlocal formatoptions+=n
-        \ | setlocal formatlistpat=^\\s*\\%(\\(-\\\|\\*\\\|+\\)\\\|\\(\\C\\%(\\d\\+\\.\\)\\)\\)\\s\\+\\%(\\[\\([\ .oOX-]\\)\\]\\s\\)\\?
-        \ | endif
-augroup END
-
 " 为选中的Markdown文字加粗，bold
 nnoremap <leader>mb viW"ms **** <Esc>hh"mPe
 vnoremap <leader>mb "ms **** <Esc>hh"mPe
