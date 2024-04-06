@@ -75,6 +75,12 @@ augroup Newfile_settings
         \ | endif
 augroup END
 
+" 进入 wiki 后，让 pwd 转到 wiki_root
+" augroup wiki_vim_autochdir
+"     autocmd!
+"     autocmd BufEnter *.md,*.wiki if getbufvar(expand('%'), '&filetype') == 'markdown' | execute 'cd ' . g:wiki_root | endif
+" augroup END
+
 " 解决自定义 ftplugin/markdown.vim 与 plugged/vim-markdown 冲突
 " augroup markdown_customizations
 "     autocmd!

@@ -269,10 +269,6 @@ if has_key(g:plug_group, 'Notetaking')  " ---------------------------------{{{1
         Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
         let g:wiki_root = s:viminitparent . 'wiki/'
-        augroup wiki_vim_autochdir
-            autocmd!
-            autocmd BufEnter *.md,*.wiki if getbufvar(expand('%'), '&filetype') == 'markdown' | execute 'cd ' . g:wiki_root | endif
-        augroup END
 
         let g:wiki_journal = {
             \ 'date_format': {
