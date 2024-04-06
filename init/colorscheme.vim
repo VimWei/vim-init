@@ -46,6 +46,7 @@ if IsInPlugGroup('basic', 'colorscheme')
             \ 'ColorOne',
             \ 'color landscape',
             \ 'color gotham',
+            \ 'color oceanicnext',
             \ ]
         let l:random_third_party_scheme_cmd = l:styles[rand() % len(l:styles)]
         execute l:random_third_party_scheme_cmd

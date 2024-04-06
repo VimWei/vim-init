@@ -127,6 +127,7 @@ if IsInPlugGroup('basic', 'colorscheme')  " -------------------------------{{{1
     Plug 'itchyny/landscape.vim'
     Plug 'arcticicestudio/nord-vim'
     Plug 'whatyouhide/vim-gotham'
+    Plug 'adrian5/oceanic-next-vim'
 
     Plug 'zefei/vim-colortuner'
     Plug 'lifepillar/vim-colortemplate'
