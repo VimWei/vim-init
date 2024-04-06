@@ -122,6 +122,7 @@ if has_key(g:plug_group, 'basic')  " --------------------------------------{{{1
         Plug 'rakr/vim-one'
         Plug 'itchyny/landscape.vim'
         Plug 'arcticicestudio/nord-vim'
+        Plug 'whatyouhide/vim-gotham'
 
         Plug 'zefei/vim-colortuner'
         Plug 'lifepillar/vim-colortemplate'
