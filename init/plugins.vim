@@ -5,50 +5,39 @@
 
 " plug group and basic setting --------------------------------------------{{{1
 
+" plug_group --------------------------------------------------------------{{{2
 " 默认情况下的分组，可以在前面覆盖之
 if !exists('g:plug_group')
     let g:plug_group = {}
-    let g:plug_group['basic'] = [
-        \ 'startup',
-        \ 'essential',
-        \ 'colorscheme',
-        \ 'whichkey',
-        \ ]
-    let g:plug_group['search'] = [
-        \ 'auto-popmenu',
-        \ 'EasyMotion',
-        \ 'pinyin',
-        \ 'Leaderf',
-        \ 'vim-cool',
-        \ ]
-    let g:plug_group['Notetaking'] = [
-        "\ 'vimwiki',
-        \ 'wiki',
-        \ 'edit',
-        \ 'table',
-        \ 'markdown',
-        \ 'list',
-        \ ]
-    let g:plug_group['program'] = [
-        \ 'git',
-        \ 'AsyncRun',
-        \ 'python',
-        \ 'REPL',
-        \ 'terminal',
-        \]
     let g:plug_group['inbox'] = []
+
+    let g:plug_group['basic'] = [ 'startup', 'essential']
+    let g:plug_group['basic'] += [ 'colorscheme' ]
+    let g:plug_group['basic'] += [ 'whichkey' ]
+
+    let g:plug_group['search'] = [ 'auto-popmenu', 'EasyMotion', 'Leaderf' ]
+    let g:plug_group['search'] += [ 'pinyin', 'vim-cool' ]
+
+    let g:plug_group['Notetaking'] = [ 'edit', 'table' ]
+    " let g:plug_group['Notetaking'] += [ 'vimwiki' ]
+    let g:plug_group['Notetaking'] += [ 'wiki' ]
+    let g:plug_group['Notetaking'] += [ 'markdown' ]
+    let g:plug_group['Notetaking'] += [ 'list' ]
+
+    let g:plug_group['program'] = [ 'git', 'terminal', 'AsyncRun' ]
+    let g:plug_group['program'] += [ 'python', 'REPL' ]
 endif
 
-"激活matchit，增强%在配对关键字间跳转 ----------------------------------------
-packadd! matchit
-
-" viminit path ---------------------------------------------------------------
+" viminit path ------------------------------------------------------------{{{2
 
 let s:viminitparent = fnamemodify(resolve(expand('<sfile>:p')), ':h:h:h')
 let s:viminitparent = substitute(s:viminitparent . '/', '\\', '/', 'g')
 let s:viminit = s:viminitparent . 'init/'
 
-" ToggleShellslashForVimPlug -------------------------------------------------
+" 增强%在配对关键字间跳转 -------------------------------------------------{{{2
+packadd! matchit
+
+" ToggleShellslashForVimPlug ----------------------------------------------{{{2
 " 解决：wiki.vim 要求 set shellslash，但 vim-plug 要求 set noshellslash
 function! ToggleShellslashForVimPlug()
   if exists('g:plugs')
@@ -63,6 +52,10 @@ set noshellslash
 " Plug自身是一个自动延时加载函数，可放在任意&rtp/autoload目录中即可生效
 " 在 Windows 下，其所管理的插件安装目录默认为 ~/vimfiles/plugged/
 call plug#begin()
+
+if has_key(g:plug_group, 'inbox')  " ------------------------------------{{{1
+    " 新插件
+endif
 
 if has_key(g:plug_group, 'basic')  " --------------------------------------{{{1
     if index(g:plug_group['basic'], 'startup') >= 0  " --------------------{{{2
@@ -162,14 +155,6 @@ if has_key(g:plug_group, 'search')  " -------------------------------------{{{1
         nmap f <Plug>(easymotion-sn)
     endif
 
-    if index(g:plug_group['search'], 'pinyin') >= 0   " -------------------{{{2
-        " 拼音首字母查询 -----------------------
-        Plug 'ppwwyyxx/vim-PinyinSearch'
-        let g:PinyinSearch_Dict = $HOME . '/vimfiles/plugged/vim-PinyinSearch/PinyinSearch.dict'
-        nnoremap F :call PinyinSearch()<CR>
-        nnoremap <Leader>pn :call PinyinNext()<CR>
-    endif
-
     if index(g:plug_group['search'], 'Leaderf') >= 0   " ------------------{{{2
         Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
         let g:Lf_StlColorscheme = 'gruvbox_material'
@@ -199,6 +184,14 @@ if has_key(g:plug_group, 'search')  " -------------------------------------{{{1
         noremap [f :<C-U>Leaderf --previous<CR>
     endif
 
+    if index(g:plug_group['search'], 'pinyin') >= 0   " -------------------{{{2
+        " 拼音首字母查询 -----------------------
+        Plug 'ppwwyyxx/vim-PinyinSearch'
+        let g:PinyinSearch_Dict = $HOME . '/vimfiles/plugged/vim-PinyinSearch/PinyinSearch.dict'
+        nnoremap F :call PinyinSearch()<CR>
+        nnoremap <Leader>pn :call PinyinNext()<CR>
+    endif
+
     if index(g:plug_group['search'], 'vim-cool') >= 0   " -----------------{{{2
         Plug 'romainl/vim-cool'
         " disables search highlighting automate
@@ -208,6 +201,31 @@ if has_key(g:plug_group, 'search')  " -------------------------------------{{{1
 endif
 
 if has_key(g:plug_group, 'Notetaking')  " ---------------------------------{{{1
+    if index(g:plug_group['Notetaking'], 'edit') >= 0   " -----------------{{{2
+        " Repeatable、surround、unimpaired ----------------------
+        Plug 'tpope/vim-repeat'
+        " 方便对引号等成对出现的文本进行处理
+        Plug 'tpope/vim-surround'
+        " 使用[和]作为先导进行导航
+        Plug 'tpope/vim-unimpaired'
+
+    endif
+
+    if index(g:plug_group['Notetaking'], 'table') >= 0   " -----------------{{{2
+        " 将文本按{pattern}对齐，使用 :Tabularize /{pattern}
+        " video http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
+        Plug 'godlygeek/tabular'
+        if exists(":Tabularize")
+            nmap <leader>a= :Tablularize /=<CR>
+            vmap <leader>a= :Tablularize /=<CR>
+            nmap <leader>a: :Tablularize /:\zs<CR>
+            vmap <leader>a: :Tablularize /:\zs<CR>
+        endif
+
+        " 将文本按{pattern}转为表格，使用 :Tableize /{pattern}
+        Plug 'dhruvasagar/vim-table-mode'
+    endif
+
     if index(g:plug_group['Notetaking'], 'vimwiki') >= 0   " --------------{{{2
         " Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
         " Plug 'vimwiki/vimwiki', { 'tag': 'v2.4.1' }
@@ -267,32 +285,6 @@ if has_key(g:plug_group, 'Notetaking')  " ---------------------------------{{{1
         " set conceallevel=2
         let g:markdown_folding = 1
 
-    endif
-
-    if index(g:plug_group['Notetaking'], 'edit') >= 0   " -----------------{{{2
-        " Repeatable、surround、unimpaired ----------------------
-        Plug 'tpope/vim-repeat'
-        " 方便对引号等成对出现的文本进行处理
-        Plug 'tpope/vim-surround'
-        " 使用[和]作为先导进行导航
-        Plug 'tpope/vim-unimpaired'
-        " 使用gcc切换注释
-
-    endif
-
-    if index(g:plug_group['Notetaking'], 'table') >= 0   " -----------------{{{2
-        " 将文本按{pattern}对齐，使用 :Tabularize /{pattern}
-        " video http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
-        Plug 'godlygeek/tabular'
-        if exists(":Tabularize")
-            nmap <leader>a= :Tablularize /=<CR>
-            vmap <leader>a= :Tablularize /=<CR>
-            nmap <leader>a: :Tablularize /:\zs<CR>
-            vmap <leader>a: :Tablularize /:\zs<CR>
-        endif
-
-        " 将文本按{pattern}转为表格，使用 :Tableize /{pattern}
-        Plug 'dhruvasagar/vim-table-mode'
     endif
 
     if index(g:plug_group['Notetaking'], 'markdown') >= 0   " -----------------{{{2
@@ -371,8 +363,25 @@ if has_key(g:plug_group, 'program')  " ------------------------------------{{{1
 
     if index(g:plug_group['program'], 'git') >= 0   " ---------------------{{{2
         Plug 'tpope/vim-fugitive'
+        " 使用gcc切换注释
         Plug 'tpope/vim-commentary'
         autocmd FileType autohotkey setlocal commentstring=;\ %s
+    endif
+
+    if index(g:plug_group['program'], 'terminal') >= 0   " ------------------{{{2
+        Plug 'skywind3000/vim-terminal-help'
+        let g:terminal_cwd = 0
+        let g:terminal_pos = 'vert botright'    " 默认为rightbelow
+        let g:terminal_height = 70  " 设置高度(split，默认10)或宽度(vsplit，建议70)
+        let g:terminal_kill = 'term'
+        let g:terminal_close = 1
+        " 在vim，使用 ALT+= 切换打开/关闭terminal
+        " 在Vim和terminal，ALT+SHIFT+hjkl 用来在终端窗口和其他窗口之间跳转
+        " 在terminal，使用 drop 打开文件
+        " 在terminal，使用 ALT+- 粘贴 0 号复制专用寄存器
+        " 在terminal，使用 ALT+q 进入normal模式，之后用i或a等则进入insert模式
+        " 使用 exit 彻底退出terminal，并关闭窗口
+        " let g:terminal_shell='pwsh'   " 使用PowerShell Core 7.x
     endif
 
     if index(g:plug_group['program'], 'AsyncRun') >= 0   " ----------------{{{2
@@ -442,26 +451,6 @@ if has_key(g:plug_group, 'program')  " ------------------------------------{{{1
         " 在普通模式下在代码块的第一行按<leader>w，把一块代码发送到REPL窗口
         " 在选择模式下选中多行代码按<leader>w把一块代码发送到REPL窗口
     endif
-
-    if index(g:plug_group['program'], 'terminal') >= 0   " ------------------{{{2
-        Plug 'skywind3000/vim-terminal-help'
-        let g:terminal_cwd = 0
-        let g:terminal_pos = 'vert botright'    " 默认为rightbelow
-        let g:terminal_height = 70  " 设置高度(split，默认10)或宽度(vsplit，建议70)
-        let g:terminal_kill = 'term'
-        let g:terminal_close = 1
-        " 在vim，使用 ALT+= 切换打开/关闭terminal
-        " 在Vim和terminal，ALT+SHIFT+hjkl 用来在终端窗口和其他窗口之间跳转
-        " 在terminal，使用 drop 打开文件
-        " 在terminal，使用 ALT+- 粘贴 0 号复制专用寄存器
-        " 在terminal，使用 ALT+q 进入normal模式，之后用i或a等则进入insert模式
-        " 使用 exit 彻底退出terminal，并关闭窗口
-        " let g:terminal_shell='pwsh'   " 使用PowerShell Core 7.x
-    endif
-
-endif
-
-if has_key(g:plug_group, 'inbox')  " ------------------------------------{{{1
 
 endif
 
