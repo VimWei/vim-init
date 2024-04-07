@@ -138,6 +138,15 @@ command! -nargs=? VW call WikiFile(<q-args>)
 command! RS call WikiFile('Research/路演.md')
 
 " Markdown ----------------------------------------------------------------{{{1
+" 自动隐藏链接
+augroup markdownSettings
+    autocmd!
+    autocmd FileType markdown
+        \ syn region markdownLink matchgroup=markdownLinkDelimiter
+        \ start="(" end=")" keepend contained conceal contains=markdownUrl
+    autocmd FileType markdown
+        \ syn match markdownExt /{[.:#][^}]*}/ conceal contains=ALL
+augroup END
 
 " 将文档类型设置为markdown
 nnoremap <leader>mm :set ft=markdown<CR>
