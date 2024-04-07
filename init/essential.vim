@@ -50,43 +50,9 @@ set textwidth=0    "光标超过指定列的时候折行
 set wrap    "自动折行，超过窗口宽度的行会回绕，并在下一行继续显示
 set wrapmargin=0    "确保 Vim 不会基于窗口宽度减去 wrapmargin 的值来自动折行
 set linebreak   "不在单词中间断行
-set errorformat+=[%f:%l]\ ->\ %m,[%f:%l]:%m     "错误格式
-
-" 让新建页面也能正常处理 lists 和 gq 格式化
 set formatoptions+=m    "如遇Unicode值大于255的文本，不必等到空格再折行
 set formatoptions+=B    "合并两行中文时，不在中间加空格
-set formatoptions+=n    "在格式化列表时尝试保持相同的编号或项目符号
-" set comments=b:*,b:-,b:+ " *-+ 是可以格式化的项目符号
-set formatlistpat=^\\s*\\%(\\(-\\\|\\*\\\|+\\)\\\|\\(\\C\\%(\\d\\+\\.\\)\\)\\)\\s\\+\\%(\\[\\([\ .oOX-]\\)\\]\\s\\)\\?
-
-" 对新建文档，设置格式化选项
-augroup Newfile_settings
-    autocmd!
-    autocmd BufEnter * if empty(&filetype)
-        \ | setlocal autoindent
-        \ | setlocal nosmartindent
-        \ | setlocal nocindent
-        \ | setlocal comments=""
-        \ | setlocal formatoptions-=c
-        \ | setlocal formatoptions-=r
-        \ | setlocal formatoptions-=o
-        \ | setlocal formatoptions-=2
-        \ | setlocal formatoptions+=n
-        \ | endif
-augroup END
-
-" 进入 wiki 后，让 pwd 转到 wiki_root
-" augroup wiki_vim_autochdir
-"     autocmd!
-"     autocmd BufEnter *.md,*.wiki if getbufvar(expand('%'), '&filetype') == 'markdown' | execute 'cd ' . g:wiki_root | endif
-" augroup END
-
-" 解决自定义 ftplugin/markdown.vim 与 plugged/vim-markdown 冲突
-" augroup markdown_customizations
-"     autocmd!
-"     autocmd FileType markdown setlocal formatoptions-=r
-"     autocmd FileType markdown setlocal comments=""
-" augroup END
+set errorformat+=[%f:%l]\ ->\ %m,[%f:%l]:%m     "错误格式
 
 " Editing related ---------------------------------------------------------{{{1
 set history=1000    "命令历史的保存数量

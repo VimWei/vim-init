@@ -21,10 +21,10 @@ if !exists('g:plug_group')
     let g:plug_group['search'] += [ 'pinyin', 'vim-cool' ]
 
     let g:plug_group['Notetaking'] = [ 'edit', 'table' ]
+    let g:plug_group['Notetaking'] += [ 'list' ]
     " let g:plug_group['Notetaking'] += [ 'vimwiki' ]
     let g:plug_group['Notetaking'] += [ 'wiki' ]
     " let g:plug_group['Notetaking'] += [ 'markdown' ]
-    let g:plug_group['Notetaking'] += [ 'list' ]
 
     let g:plug_group['program'] = [ 'git', 'terminal', 'AsyncRun' ]
     let g:plug_group['program'] += [ 'python', 'REPL' ]
@@ -232,84 +232,6 @@ if IsInPlugGroup('Notetaking', 'table')  " --------------------------------{{{1
     Plug 'dhruvasagar/vim-table-mode'
 endif
 
-if IsInPlugGroup('Notetaking', 'vimwiki')  " ------------------------------{{{1
-    " Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
-    " Plug 'vimwiki/vimwiki', { 'tag': 'v2.4.1' }
-    Plug 'vimwiki/vimwiki', { 'commit': 'c9e6afe' }
-
-    " def wiki dict
-    let wiki = {}
-    let wiki.name = 'Vimel Vimwiki'
-    let wiki.path = s:viminitparent . 'wiki/'
-    let wiki.ext = '.md'
-    let wiki.syntax = 'markdown'
-    let wiki.nested_syntaxes = {'python': 'python'}
-    let wiki.links_space_char = '_'
-    let wiki.list_margin = 0
-    let wiki.auto_toc = 1
-    let wiki.auto_tags = 1
-    let wiki.auto_generate_tags = 1
-
-    let g:vimwiki_list = [wiki]
-    let g:vimwiki_ext2syntax = {'.md': 'markdown'}
-    let g:vimwiki_global_ext = 1
-    let g:vimwiki_autowriteall = 1
-    let g:vimwiki_auto_chdir = 1
-
-    set nofoldenable
-    set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
-    let g:vimwiki_folding = 'expr'
-endif
-
-if IsInPlugGroup('Notetaking', 'wiki')  " ---------------------------------{{{1
-    Plug 'lervag/wiki.vim'
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-
-    let g:wiki_root = s:viminitparent . 'wiki/'
-
-    let g:wiki_journal = {
-        \ 'date_format': {
-                \ 'daily' : '%Y/%Y-%m-%d',
-                \ 'weekly' : '%Y/%Y_w%V',
-                \ 'monthly' : '%Y/%Y_m%m',
-                \ },
-        \}
-    let g:wiki_journal_index = {
-        \ 'link_text_parser': { b, d, p -> wiki#toc#get_page_title(p) },
-        \}
-    let g:wiki_mappings_local_journal = {
-        \ '<plug>(wiki-journal-prev)' : '[w',
-        \ '<plug>(wiki-journal-next)' : ']w',
-        \}
-
-    let g:markdown_folding = 1
-endif
-
-if IsInPlugGroup('Notetaking', 'markdown')  " -----------------------------{{{1
-    Plug 'preservim/vim-markdown'
-    let g:vim_markdown_autowrite = 1
-
-    set nofoldenable
-    let g:vim_markdown_folding_disabled = 0
-    set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
-    let g:vim_markdown_folding_level = 2
-    let g:vim_markdown_folding_style_pythonic = 1
-    let g:vim_markdown_override_foldtext = 0
-
-    let g:tex_conceal = ""
-    let g:vim_markdown_math = 1
-    let g:vim_markdown_conceal_code_blocks = 0
-
-    let g:vim_markdown_emphasis_multiline = 1
-    let g:vim_markdown_strikethrough = 1
-    let g:vim_markdown_auto_insert_bullets = 1
-    let g:vim_markdown_new_list_item_indent = 0
-
-    let g:vim_markdown_toc_autofit = 1
-
-    let g:vim_markdown_fenced_languages = ['viml=vim', 'python=python', 'ahk=autohotkey']
-endif
-
 if IsInPlugGroup('Notetaking', 'list')  " ---------------------------------{{{1
     Plug 'bullets-vim/bullets.vim'
     let g:bullets_enabled_file_types = [ 'markdown', 'scratch' , 'text', 'vimwiki' ]
@@ -353,6 +275,90 @@ if IsInPlugGroup('Notetaking', 'list')  " ---------------------------------{{{1
     let g:bullets_nested_checkboxes = 1
     let g:bullets_checkbox_markers = ' .oOX'
     let g:bullets_checkbox_partials_toggle = 1
+endif
+
+if IsInPlugGroup('Notetaking', 'vimwiki')  " ------------------------------{{{1
+    " Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+    " Plug 'vimwiki/vimwiki', { 'tag': 'v2.4.1' }
+    Plug 'vimwiki/vimwiki', { 'commit': 'c9e6afe' }
+
+    " def wiki dict
+    let wiki = {}
+    let wiki.name = 'Vimel Vimwiki'
+    let wiki.path = s:viminitparent . 'wiki/'
+    let wiki.ext = '.md'
+    let wiki.syntax = 'markdown'
+    let wiki.nested_syntaxes = {'python': 'python'}
+    let wiki.links_space_char = '_'
+    let wiki.list_margin = 0
+    let wiki.auto_toc = 1
+    let wiki.auto_tags = 1
+    let wiki.auto_generate_tags = 1
+
+    let g:vimwiki_list = [wiki]
+    let g:vimwiki_ext2syntax = {'.md': 'markdown'}
+    let g:vimwiki_global_ext = 1
+    let g:vimwiki_autowriteall = 1
+    let g:vimwiki_auto_chdir = 1
+
+    set nofoldenable
+    set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
+    let g:vimwiki_folding = 'expr'
+endif
+
+if IsInPlugGroup('Notetaking', 'wiki')  " ---------------------------------{{{1
+    Plug 'lervag/wiki.vim'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
+    let g:wiki_root = s:viminitparent . 'wiki/'
+    " 进入 wiki 后，让 pwd 转到 wiki_root
+    augroup wiki_vim_autochdir
+        autocmd!
+        autocmd BufEnter *.md,*.wiki if getbufvar(expand('%'), '&filetype') == 'markdown' | execute 'cd ' . g:wiki_root | endif
+    augroup END
+
+    let g:wiki_journal = {
+        \ 'date_format': {
+                \ 'daily' : '%Y/%Y-%m-%d',
+                \ 'weekly' : '%Y/%Y_w%V',
+                \ 'monthly' : '%Y/%Y_m%m',
+                \ },
+        \}
+    let g:wiki_journal_index = {
+        \ 'link_text_parser': { b, d, p -> wiki#toc#get_page_title(p) },
+        \}
+    let g:wiki_mappings_local_journal = {
+        \ '<plug>(wiki-journal-prev)' : '[w',
+        \ '<plug>(wiki-journal-next)' : ']w',
+        \}
+
+    let g:markdown_folding = 1
+endif
+
+if IsInPlugGroup('Notetaking', 'markdown')  " -----------------------------{{{1
+    Plug 'preservim/vim-markdown'
+    let g:vim_markdown_autowrite = 1
+
+    set nofoldenable
+    let g:vim_markdown_folding_disabled = 0
+    set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
+    let g:vim_markdown_folding_level = 2
+    let g:vim_markdown_folding_style_pythonic = 1
+    let g:vim_markdown_override_foldtext = 0
+
+    let g:tex_conceal = ""
+    let g:vim_markdown_math = 1
+    let g:vim_markdown_conceal_code_blocks = 0
+
+    let g:vim_markdown_emphasis_multiline = 1
+    let g:vim_markdown_strikethrough = 1
+    let g:vim_markdown_auto_insert_bullets = 0
+    let g:vim_markdown_new_list_item_indent = 0
+    au FileType markdown setlocal formatlistpat=^\\s*\\d\\+[.\)]\\s\\+\\\|^\\s*[*+~-]\\s\\+\\\|^\\(\\\|[*#]\\)\\[^[^\\]]\\+\\]:\\s | setlocal comments=n:> | setlocal formatoptions+=cn
+
+    let g:vim_markdown_toc_autofit = 1
+
+    let g:vim_markdown_fenced_languages = ['viml=vim', 'python=python', 'ahk=autohotkey']
 endif
 
 if IsInPlugGroup('program', 'git')  " -------------------------------------{{{1
