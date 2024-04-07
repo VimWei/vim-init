@@ -139,7 +139,7 @@ endif
 " 通过命令 color + tab 快速切换常用样式
 
 " 使用 <leader>c 随机更换颜色方案，每次都不同
-noremap <silent> <leader>c :call RandomColorScheme()<cr>:color<cr>
+nnoremap <silent> <Leader>c :call RandomColorScheme()<CR>:color<CR>
 let s:last_colorscheme_cmd = ''
 function! RandomColorScheme()
     if IsInPlugGroup('basic', 'colorscheme')
