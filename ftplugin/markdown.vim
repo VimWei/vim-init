@@ -11,3 +11,5 @@ setlocal formatoptions+=n
 setlocal formatlistpat=^\\s*\\%(\\(-\\\|\\*\\\|+\\)\\\|\\(\\C\\%(\\d\\+\\.\\)\\)\\)\\s\\+\\%(\\[\\([\ .oOX-]\\)\\]\\s\\)\\?
 
 setlocal conceallevel=2
+
+" Todo: conceal link
