@@ -10,6 +10,10 @@ else
     let s:loaded = 1
 endif
 
+" Use space as leader key
+nnoremap <space> <nop>
+let mapleader = "\<space>"
+
 " 取得本文件所在的目录，并加入 runtimepath
 let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 execute 'set runtimepath+='.s:viminit

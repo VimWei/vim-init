@@ -4,10 +4,6 @@
 "===================================================
 
 " basic -------------------------------------------------------------------{{{1
-" Use space as leader key
-nnoremap <space> <nop>
-let mapleader = "\<space>"
-
 " Windows 禁用 ALT 操作菜单（使得 ALT 可以用到 Vim里）
 set winaltkeys=no
 
