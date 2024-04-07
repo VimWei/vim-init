@@ -234,7 +234,7 @@ endif
 
 if IsInPlugGroup('Notetaking', 'list')  " ---------------------------------{{{1
     Plug 'bullets-vim/bullets.vim'
-    let g:bullets_enabled_file_types = [ 'markdown', 'scratch' , 'text', 'vimwiki' ]
+    let g:bullets_enabled_file_types = [ 'markdown', 'scratch' , 'text', 'wiki' ]
     let g:bullets_enable_in_empty_buffers = 1
     function! SmartBulletsNewlineAbove()
         let l:save_cursor = getcurpos()
@@ -269,8 +269,12 @@ if IsInPlugGroup('Notetaking', 'list')  " ---------------------------------{{{1
     let g:bullets_pad_right = 0
     let g:bullets_auto_indent_after_colon = 1
     let g:bullets_max_alpha_characters = 2
-    " let g:bullets_outline_levels = ['ROM', 'ABC', 'num', 'abc', 'rom', 'std*', 'std-', 'std+']
-    let g:bullets_outline_levels = ['num', 'std*', 'std-', 'std+']
+
+    let g:bullets_outline_levels = []
+    " let g:bullets_outline_levels += ['ROM', 'ABC']
+    let g:bullets_outline_levels += ['num', 'abc', 'rom']
+    let g:bullets_outline_levels += ['std*', 'std-', 'std+']
+
     let g:bullets_renumber_on_change = 1
     let g:bullets_nested_checkboxes = 1
     let g:bullets_checkbox_markers = ' .oOX'
