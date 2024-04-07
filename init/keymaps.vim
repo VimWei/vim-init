@@ -93,7 +93,7 @@ nnoremap <M-l> :vertical resize +5<CR>
 " 将新建文档的类型设置为 markdown，从而可以对 list 正常使用 gqip 等格式化命令
 augroup NewBufferDefaults
   autocmd!
-  autocmd BufEnter * if &buftype == '' && @% == '' | setlocal filetype=markdown | endif
+  autocmd BufEnter * if &buftype == '' && @% == '' && bufnr('%') != 1 | setlocal filetype=markdown | endif
 augroup END
 
 " 适应任何文档，对常见列表进行 gq 格式化
