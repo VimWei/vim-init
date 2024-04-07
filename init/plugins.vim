@@ -321,6 +321,22 @@ if IsInPlugGroup('Notetaking', 'wiki')  " ---------------------------------{{{1
         autocmd BufEnter *.md,*.wiki if getbufvar(expand('%'), '&filetype') == 'markdown' | execute 'cd ' . g:wiki_root | endif
     augroup END
 
+    " 将wiki链接文本转为合法且清晰的文件名
+    function! MyUrlTransform(text)
+        " 首先替换文件名中的非法字符，包括中英文的冒号和其他特殊字符
+        let l:valid_filename_text = substitute(a:text, '[/:：*\?"<>|`]', '', 'g')
+        " 然后替换空格、中英文逗号为短横线 '-'
+        let l:formatted_text = substitute(l:valid_filename_text, '\s\+\|,\|，', '-', 'g')
+        " 将连续的短横线 '-' 替换为单个 '-'
+        let l:cleaned_text = substitute(l:formatted_text, '\-\+', '-', 'g')
+        return tolower(l:cleaned_text)
+    endfunction
+    let g:wiki_link_creation = {
+        \ 'md': {
+            \ 'url_transform': function('MyUrlTransform'),
+        \ },
+    \ }
+
     let g:wiki_journal = {
         \ 'date_format': {
                 \ 'daily' : '%Y/%Y-%m-%d',
