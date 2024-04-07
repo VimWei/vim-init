@@ -86,6 +86,51 @@ nnoremap <M-k> :resize -5<CR>
 nnoremap <M-h> :vertical resize -5<CR>
 nnoremap <M-l> :vertical resize +5<CR>
 
+" Format ------------------------------------------------------------------{{{1
+
+" 适应任何文档，对常见列表进行 gq 格式化
+nnoremap <Leader>gl :call GqiList()<CR>
+function! GqiList()
+    " 保存当前的格式化选项
+    let l:old_fo = &l:formatoptions
+    let l:old_flp = &l:formatlistpat
+    let l:old_comments = &l:comments
+
+    setlocal autoindent
+    setlocal nosmartindent
+    setlocal nocindent
+    setlocal comments=""
+    setlocal formatoptions-=c
+    setlocal formatoptions-=r
+    setlocal formatoptions-=o
+    setlocal formatoptions-=2
+    setlocal formatoptions+=n
+    setlocal formatlistpat=^\\s*\\%(\\(-\\\|\\*\\\|+\\)\\\|\\(\\C\\%(\\d\\+\\.\\)\\)\\)\\s\\+\\%(\\[\\([\ .oOX-]\\)\\]\\s\\)\\?
+    execute "normal! gqip"
+
+    " 恢复格式化选项
+    let &l:formatoptions = l:old_fo
+    let &l:formatlistpat = l:old_flp
+    let &l:comments = l:old_comments
+endfunction
+
+" 对新建文档，设置格式化选项
+" 但是该设置与 wiki_autochdir 冲突
+" augroup Newfile_settings
+"     autocmd!
+"     autocmd BufEnter * if empty(&filetype)
+"         \ | setlocal autoindent
+"         \ | setlocal nosmartindent
+"         \ | setlocal nocindent
+"         \ | setlocal comments=""
+"         \ | setlocal formatoptions-=c
+"         \ | setlocal formatoptions-=r
+"         \ | setlocal formatoptions-=o
+"         \ | setlocal formatoptions-=2
+"         \ | setlocal formatoptions+=n
+"         \ | endif
+" augroup END
+
 " wiki.vim -----------------------------------------------------------------{{{1
 
 nnoremap <leader>wt :tabnew \| WikiIndex<CR>
@@ -121,6 +166,13 @@ nnoremap <leader>mp viW<ESC>`>a]()<ESC>`<i![<ESC>`>5l
 vnoremap <leader>mp <ESC>`>a]()<ESC>`<i![<ESC>`>5l
 " 删除光标所在处的图片链接，picture delete
 nnoremap <leader>mpd F[h2xf]xda(
+
+" 解决自定义 ftplugin/markdown.vim 与 plugged/vim-markdown 冲突
+" augroup markdown_customizations
+"     autocmd!
+"     autocmd FileType markdown setlocal formatoptions-=r
+"     autocmd FileType markdown setlocal comments=""
+" augroup END
 
 " Word Processor ----------------------------------------------------------{{{1
 
