@@ -42,7 +42,7 @@ Vimel 个性化的 Vim 配置
 
 ## 使用 Tips
 
-1. <Leader> 是空格键 `<space>`
+1. `<Leader>` 是空格键 `<space>`
 
 2. 使用命令 `:VI` 打开并配置 VIMRC
     * 使用 `:VK` 自定义快捷键
