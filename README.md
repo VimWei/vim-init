@@ -45,10 +45,9 @@ Vimel 个性化的 Vim 配置
 1. `<Leader>` 是空格键 `<space>`
 
 2. 使用命令 `:VI` 打开并配置 VIMRC
-    * 使用 `:VK` 自定义快捷键
 
 3. 使用 `\` 打开 Navigator 按键导航
-    * 使用 `:VQ` 自定义 Navigator 导航
+    * 使用 `:VN` 自定义 Navigator 导航
 
 4. 使用 `<Leader><Leader>m` 打开菜单
-    * 使用 `:VQ` 自定义 QuickUI Menu 菜单
+    * 使用 `:VM` 自定义 Menu 菜单
