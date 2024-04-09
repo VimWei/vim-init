@@ -169,6 +169,12 @@ vnoremap <leader>mp <ESC>`>a]()<ESC>`<i![<ESC>`>5l
 " 删除光标所在处的图片链接，picture delete
 nnoremap <leader>mpd F[h2xf]xda(
 
+" 复制或删除两个标记之间的内容
+command! ABDelete 'a,'bd
+command! ABYank 'a,'by
+nnoremap <Leader>md :ABDelete<CR>
+nnoremap <Leader>my :ABYank<CR>
+
 " Word Processor ----------------------------------------------------------{{{1
 
 " 插入模式移动光标 alt + 方向键
