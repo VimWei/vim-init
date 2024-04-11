@@ -359,13 +359,12 @@ if IsInPlugGroup('Notetaking', 'wiki')  " ---------------------------------{{{1
         let g:pre_transform_text = 'Title'
     endfunction
     let g:wiki_templates = [
-                \ { 'match_re': '\d\{4\}-\d\{2\}-\d\{2\}',
+                \ { 'match_re': '^\d\{4\}-\d\{2\}-\d\{2\}$',
                 \   'source_func': function('JournalTemplate') },
                 \ { 'match_re': '\d\{8\}\(-\)\?' .
                 \   '\(周[一二三四五六日]\|' .
-                \   '\|mon\|tue\|wed\|thu\|fri\|sat\|sun\)' .
-                \   '\|monday\|tuesday\|wednesday\|thursday\|friday\|saturday\|sunday' .
-                \   '\(\(-\)\?\d\{4\}\)\?-.*',
+                \   '\|mon\|tue\|wed\|thu\|fri\|sat\|sun' .
+                \   '\|monday\|tuesday\|wednesday\|thursday\|friday\|saturday\|sunday\).*',
                 \   'source_func': function('MeetingTemplate') },
                 \ { 'match_re': '.*',
                 \   'source_func': function('GeneralTemplate') },
