@@ -321,21 +321,55 @@ if IsInPlugGroup('Notetaking', 'wiki')  " ---------------------------------{{{1
         autocmd BufEnter *.md,*.wiki if getbufvar(expand('%'), '&filetype') == 'markdown' | execute 'cd ' . g:wiki_root | endif
     augroup END
 
+    " 设置新页面的默认标题名
+    let g:pre_transform_text = 'Title'
     " 将wiki链接文本转为合法且清晰的文件名
     function! MyUrlTransform(text)
-        " 删除常见的文件名非法字符，及中英文:和@#$等可能会造成跨平台困扰的字符
-        let l:valid_filename_text = substitute(a:text, '[:*\?"<>|`：@#$]', '', 'g')
-        " 替换空格、中英文逗号及/（它是文件名非法字符）为短横线 '-'
-        let l:formatted_text = substitute(l:valid_filename_text, '/\|\s\+\|,\|，', '-', 'g')
-        " 将连续的短横线 '-' 替换为单个 '-'
-        let l:cleaned_text = substitute(l:formatted_text, '\-\+', '-', 'g')
-        return tolower(l:cleaned_text)
+        let g:pre_transform_text = a:text
+        let l:valid_filename = substitute(a:text, '[:*\?"<>|`：!@#$%&*‘’'']', '', 'g')
+        let l:formatted_filename = substitute(l:valid_filename, '\s\+\|[.。,，/+"“”<>()（）《》]', '-', 'g')
+        let l:formatted_filename = substitute(l:formatted_filename, '-\+', '-', 'g')
+        let l:cleaned_filename = substitute(l:formatted_filename, '^-\|-$', '', 'g')
+        return tolower(l:cleaned_filename)
     endfunction
     let g:wiki_link_creation = {
         \ 'md': {
             \ 'url_transform': function('MyUrlTransform'),
         \ },
     \ }
+
+    " 为新建的各种 wiki page 创建模版
+    function! JournalTemplate(context) abort
+        call append(0, '# ' . strftime("%Y-%m-%d %A %H:%M:%S"))
+        call append(1, '')
+        execute "normal! I## "
+    endfunction
+    function! MeetingTemplate(context) abort
+        call append(0, '# ' . g:pre_transform_text)
+        call append(1, '')
+        call append(2, strftime("%Y-%m-%d %A %H:%M:%S"))
+        call append(3, '')
+        execute "normal! I## "
+        let g:pre_transform_text = 'Title'
+    endfunction
+    function! GeneralTemplate(context) abort
+        call append(0, '# ' . g:pre_transform_text)
+        call append(1, '')
+        execute "normal! I## "
+        let g:pre_transform_text = 'Title'
+    endfunction
+    let g:wiki_templates = [
+                \ { 'match_re': '\d\{4\}-\d\{2\}-\d\{2\}',
+                \   'source_func': function('JournalTemplate') },
+                \ { 'match_re': '\d\{8\}\(-\)\?' .
+                \   '\(周[一二三四五六日]\|' .
+                \   '\|mon\|tue\|wed\|thu\|fri\|sat\|sun\)' .
+                \   '\|monday\|tuesday\|wednesday\|thursday\|friday\|saturday\|sunday' .
+                \   '\(\(-\)\?\d\{4\}\)\?-.*',
+                \   'source_func': function('MeetingTemplate') },
+                \ { 'match_re': '.*',
+                \   'source_func': function('GeneralTemplate') },
+                \]
 
     let g:wiki_journal = {
         \ 'date_format': {
