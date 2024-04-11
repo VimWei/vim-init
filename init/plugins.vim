@@ -321,11 +321,8 @@ if IsInPlugGroup('Notetaking', 'wiki')  " ---------------------------------{{{1
         autocmd BufEnter *.md,*.wiki if getbufvar(expand('%'), '&filetype') == 'markdown' | execute 'cd ' . g:wiki_root | endif
     augroup END
 
-    " 设置新页面的默认标题名
-    let g:pre_transform_text = 'Title'
     " 将wiki链接文本转为合法且清晰的文件名
     function! MyUrlTransform(text)
-        let g:pre_transform_text = a:text
         let l:valid_filename = substitute(a:text, '[:*\?"<>|`：!@#$%&*‘’'']', '', 'g')
         let l:formatted_filename = substitute(l:valid_filename, '\s\+\|[.。,，/+"“”<>()（）《》]', '-', 'g')
         let l:formatted_filename = substitute(l:formatted_filename, '-\+', '-', 'g')
@@ -345,18 +342,18 @@ if IsInPlugGroup('Notetaking', 'wiki')  " ---------------------------------{{{1
         execute "normal! I## "
     endfunction
     function! MeetingTemplate(context) abort
-        call append(0, '# ' . g:pre_transform_text)
+        let title = get(a:context.origin.link, 'text', a:context.name)
+        call append(0, '# ' . title)
         call append(1, '')
         call append(2, strftime("%Y-%m-%d %A %H:%M:%S"))
         call append(3, '')
         execute "normal! I## "
-        let g:pre_transform_text = 'Title'
     endfunction
     function! GeneralTemplate(context) abort
-        call append(0, '# ' . g:pre_transform_text)
+        let title = get(a:context.origin.link, 'text', a:context.name)
+        call append(0, '# ' . title)
         call append(1, '')
         execute "normal! I## "
-        let g:pre_transform_text = 'Title'
     endfunction
     let g:wiki_templates = [
                 \ { 'match_re': '^\d\{4\}-\d\{2\}-\d\{2\}$',
