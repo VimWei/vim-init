@@ -13,7 +13,7 @@ if !exists('g:plug_group')
     let g:plug_group = {}
     let g:plug_group['inbox'] = []
 
-    let g:plug_group['basic'] = [ 'startup', 'essential']
+    let g:plug_group['basic'] = [ 'startup', 'essential' ]
     let g:plug_group['basic'] += [ 'colorscheme' ]
     let g:plug_group['basic'] += [ 'whichkey' ]
 
@@ -97,12 +97,12 @@ if IsInPlugGroup('basic', 'essential')  " ---------------------------------{{{1
 
     " Netrw ------------------
     " 不显示横幅，可以用I轮换
-    let g:netrw_banner = 0
+    let g:netrw_banner = 1
     " 瘦列表 (每个文件一行)，可以用i轮换
     let g:netrw_liststyle = 0
     " 排序时忽略大小写，可以用s轮换排序依据
     let g:netrw_sort_options="i"
-    " 在当前窗口打开当前缓冲区所在目录，但在vimwiki中被覆盖为其他功能
+    " 在当前窗口打开当前缓冲区所在目录
     map - :<C-u>e %:p:h<CR>
     " 在左侧显示当前缓冲区所在目录
     " map <C-n> :Lexplore %:p:h<CR>

@@ -93,7 +93,8 @@ let s:viminit = substitute(s:viminit . '/', '\\', '/', 'g')
 " 综合高频前20K及其变形，合计40多K
 exec 'set dictionary+='.s:viminit.'tools/dict/WordMax2K.dict'
 
-" 文件搜索和补全时忽略下面扩展名 ------------------------------------------{{{1
+" ignore list -------------------------------------------------------------{{{1
+" 文件搜索和补全时忽略下面扩展名
 set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.pyc,.pyo,.egg-info,.class
 
 set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib "stuff to ignore when tab completing
