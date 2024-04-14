@@ -16,10 +16,13 @@ function! s:cfg(path)
 endfunction
 
 " 使用Leaderf查询单字的拼音、双拼、同音字、常用词组 -----------------------{{{1
-function! PinYin#WordStar()
+function! PinYin#SingleWord()
     " 复制光标所在的单字
-    normal! yl
-    let l:selection = @0
+    let l:original_reg = getreg('z')
+    normal! "zyl
+    let l:text = getreg('z')
+    call setreg('z', l:original_reg)
+
     " 若存在已有Leaderf prompt窗口，则先将其退出
     if bufwinnr('*/LeaderF$') != -1
         execute ":" . bufwinnr('*/LeaderF$') . "q"
@@ -28,7 +31,7 @@ function! PinYin#WordStar()
     let l:source1 = s:cfg("tools/dict/汉语拼音索引.md")
     let l:source2 = s:cfg("tools/dict/现代汉语常用词.md")
     let l:source3 = s:cfg("tools/dict/易混拼音识记.md")
-    execute ":Leaderf! rg -e " . l:selection .
+    execute ":Leaderf! rg -e " . l:text .
         \ " " . l:source1
         \ " " . l:source2
         \ " " . l:source3
@@ -61,27 +64,34 @@ endfunction
 " Requirements: 先在conda环境中安装 $ pip install pypinyin
 " 可以使用参数调整拼音格式，如 $ pypinyin -s TONE3
 
-" 使用 conda python 查询光标位置词汇的拼音
-" function! PinYin#PyNormal()
-"     let l:conda_python = $USERPROFILE . '\miniconda3\envs\pinyin\python.exe'
-"     let l:current_word = expand('<cword>')
-"     let l:cmd = '"' . l:conda_python . '" -m pypinyin -s TONE3 ' . l:current_word
-"     " execute '!' . l:cmd
-"     execute 'AsyncRun! -strip ' . l:cmd
-" endfunction
-
-" 使用 conda python 查询光标位置词汇的拼音
-function! PinYin#PyNormal()
-    let l:current_word = expand('<cword>')
-    let l:command = 'pypinyin -s TONE3 ' . l:current_word
-    call CondaPython#CondaEnvCommand('pinyin', 'async', l:command)
+" 查询光标下的单词或选中文本的拼音
+function! PinYin#Words(mode)
+    if a:mode == 'v'
+        let l:original_reg = getreg('z')
+        normal! gv"zy
+        let l:text = getreg('z')
+        call setreg('z', l:original_reg)
+    else
+        let l:text = expand('<cword>')
+    endif
+    let l:command = 'pypinyin -s TONE3 ' . l:text
+    call CondaPython#CondaEnvCommand('pymotw', 'async', l:command)
 endfunction
 
-" 查询选中内容的拼音
-function! PinYin#PyVisual()
-    let l:selection = @0
-    let l:command = 'pypinyin -s TONE3 ' . l:selection
-    call CondaPython#CondaEnvCommand('pinyin', 'async', l:command)
+function! PinYin#Insert(mode)
+    " 设置 Conda 环境中的 Python 路径
+    let l:conda_python = $USERPROFILE . '\miniconda3\envs\pymotw\python.exe'
+    if a:mode == 'v'
+        let l:original_reg = getreg('z')
+        normal! gv"zy
+        let l:text = getreg('z')
+        call setreg('z', l:original_reg)
+    else
+        let l:text = expand('<cword>')
+    endif
+    execute "normal! m`"
+    execute ":-r!" . l:conda_python . " -m pypinyin " . shellescape(l:text, 1)
+    execute "normal! `"
 endfunction
 
 finish

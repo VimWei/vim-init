@@ -43,17 +43,17 @@ vnoremap <leader>dt y:call Translator#PyVisual('tools/dict/translator.py')<CR>
 " PinYin拼音查询 ----------------------------------------------------------{{{1
 " 详情查阅 ../autoload/PinYin.vim
 " 使用Leaderf查询光标所在位置单字的拼音、双拼、同音字、常用词组
-nnoremap <leader>yf :call PinYin#WordStar()<CR>
-command! PinYin call PinYin#WordStar()
+nnoremap <leader>ps :call PinYin#SingleWord()<CR>
+command! PinYinSingleWord call PinYin#SingleWord()
 
 " 使用pypinyin查询词汇拼音，并显示在Quickfix
-command! PinYinWords call PinYin#PyNormal()
-nnoremap <leader>yq :call PinYin#PyNormal()<CR>
-vnoremap <leader>yq y:call PinYin#PyVisual()<CR>
+command! PinYinWords call PinYin#Words('n')
+nnoremap <leader>pw :call PinYin#Words('n')<CR>
+vnoremap <leader>pw :call PinYin#Words('v')<CR>
 
 " 使用pypinyin查询词汇拼音，并显示在词汇所在行的上方
-nnoremap <leader>yi :-r!pypinyin <C-r><C-w><CR>
-vnoremap <leader>yi y:-r!pypinyin <C-r>0<CR>
+nnoremap <leader>pi :call PinYin#Insert('n')<CR>
+vnoremap <leader>pi :call PinYin#Insert('v')<CR>
 
 " 查询输入的汉语单字或拼音 - 拼音索引
 command! -nargs=1 PinyinIndex call PinYin#Index(<f-args>)<CR>
