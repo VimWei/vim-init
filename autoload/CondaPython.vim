@@ -26,7 +26,8 @@ function! CondaPython#CondaEnv(...)
     " execute 'AsyncRun! -mode=terminal -pos=thelp -raw python "$(VIM_FILEPATH)"'
 
     " 更改Statusline名称
-    execute 'file Terminal'
+    let l:termName = GetUniqueBufferName('Terminal')
+    execute 'file ' . l:termName
 endfunction
 
 " 定义一个公共函数，用于处理可选的 Conda 环境参数
@@ -59,6 +60,17 @@ function! CondaPython#CondaEnvCommand(env, command, ...)
         endif
         call call('CondaPython#CondaEnv', l:args)
     endif
+endfunction
+
+" 用于生成不重复的名称
+function! GetUniqueBufferName(baseName)
+    let l:counter = 1
+    let l:uniqueName = a:baseName
+    while bufexists(l:uniqueName)
+        let l:uniqueName = a:baseName . ' ' . l:counter
+        let l:counter += 1
+    endwhile
+    return l:uniqueName
 endfunction
 
 finish
