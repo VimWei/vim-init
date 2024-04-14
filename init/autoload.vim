@@ -35,6 +35,9 @@ command! -nargs=* IPython call CondaPython#CondaEnvCommand('pymotw', 'terminal',
 command! -nargs=* PyRun call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'python "' . expand('%:p') . '"', <f-args>)
 map <F5> :call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'python "' . expand('%:p') . '"')<CR>
 
+" 查阅python帮助文档
+nnoremap <leader>ph :call CondaPython#Help()<CR>
+
 " translator在线翻译 ------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Translator.vim
 nnoremap <leader>dt :call Translator#Words('n')<CR>

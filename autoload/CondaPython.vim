@@ -93,12 +93,9 @@ function! GetUniqueBufferName(baseName)
     return l:uniqueName
 endfunction
 
-finish
-
 " 查阅python帮助文档
-function! CondaPython#PyHelpTerminal()
-	" 异步输出结果到在quickfix
-    " execute "AsyncRun! -raw python -c \"help('".expand("<cword>")."')\""
-	" 使用异步插件AsyncRun 及 vim-terminal-help输出结果，并可以继续使用terminal
-	execute "AsyncRun! -mode=terminal -pos=thelp -raw python -c \"help('".expand("<cword>")."')\""
+function! CondaPython#Help()
+    " 若要异步输出结果到在quickfix，则更改 terminal 为 async
+    let l:command = "python -c \"help('".expand("<cword>")."')\""
+    call CondaPython#CondaEnvCommand('pymotw', 'terminal', l:command)
 endfunction
