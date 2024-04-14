@@ -447,9 +447,7 @@ if IsInPlugGroup('program', 'AsyncRun')  " --------------------------------{{{1
     " let g:asynctasks_term_focus = 1
     augroup QuickfixStatus
         au! BufWinEnter quickfix setlocal
-            \ statusline=%t\ [%{g:asyncrun_status}]
-            \ \ %{exists('w:quickfix_title')?
-            \ \ '\ '.w:quickfix_title\ :\ ''}\ %=%-15(%l,%c%V%)\ %P
+                    \ statusline=%t\ [%{g:asyncrun_status}]\ %{exists('w:quickfix_title')?\ '\ '.w:quickfix_title\ :\ ''}\ %=%-15(%l,%c%V%)\ %P
     augroup END
 endif
 
