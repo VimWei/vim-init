@@ -61,27 +61,27 @@ endfunction
 " Requirements: 先在conda环境中安装 $ pip install pypinyin
 " 可以使用参数调整拼音格式，如 $ pypinyin -s TONE3
 
-" 查询光标位置词汇的拼音
-function! PinYin#PyNormal()
-    let l:current_word = expand('<cword>')
-    let l:command = 'pypinyin -s TONE3 ' . l:current_word
-    call CondaPython#CondaEnvCommand('pinyin', l:command)
-endfunction
-
-" 直接调用 conda_python
+" 使用 conda python 查询光标位置词汇的拼音
 " function! PinYin#PyNormal()
 "     let l:conda_python = $USERPROFILE . '\miniconda3\envs\pinyin\python.exe'
 "     let l:current_word = expand('<cword>')
 "     let l:cmd = '"' . l:conda_python . '" -m pypinyin -s TONE3 ' . l:current_word
-"     execute '!' . l:cmd
-"     " execute 'AsyncRun! -strip ' . l:cmd
+"     " execute '!' . l:cmd
+"     execute 'AsyncRun! -strip ' . l:cmd
 " endfunction
+
+" 使用 conda python 查询光标位置词汇的拼音
+function! PinYin#PyNormal()
+    let l:current_word = expand('<cword>')
+    let l:command = 'pypinyin -s TONE3 ' . l:current_word
+    call CondaPython#CondaEnvCommand('pinyin', 'async', l:command)
+endfunction
 
 " 查询选中内容的拼音
 function! PinYin#PyVisual()
     let l:selection = @0
     let l:command = 'pypinyin -s TONE3 ' . l:selection
-    call CondaPython#CondaEnvCommand('pinyin', l:command)
+    call CondaPython#CondaEnvCommand('pinyin', 'async', l:command)
 endfunction
 
 finish
