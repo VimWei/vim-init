@@ -35,8 +35,8 @@ map <F5> :call CondaPython#CondaEnvCommand('pymotw', 'python "' . expand('%:p') 
 
 " translator在线翻译 ------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Translator.vim
-nnoremap <leader>dt :call Translator#PyNormal('tools/dict/', 'translator.py')<CR>
-vnoremap <leader>dt y:call Translator#PyVisual('tools/dict/', 'translator.py')<CR>
+nnoremap <leader>dt :call Translator#PyNormal('tools/dict/translator.py')<CR>
+vnoremap <leader>dt y:call Translator#PyVisual('tools/dict/translator.py')<CR>
 
 " PinYin拼音查询 ----------------------------------------------------------{{{1
 " 详情查阅 ../autoload/PinYin.vim
