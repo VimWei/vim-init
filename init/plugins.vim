@@ -105,7 +105,7 @@ if IsInPlugGroup('basic', 'essential')  " ---------------------------------{{{1
     " 在当前窗口打开当前缓冲区所在目录
     map - :<C-u>e %:p:h<CR>
     " 在左侧显示当前缓冲区所在目录
-    " map <C-n> :Lexplore %:p:h<CR>
+    map <C-n> :Lexplore %:p:h<CR>
     " 指定新建的 :Lexplore 窗口宽度，单位是屏幕的百分比
     let g:netrw_winsize =20
 

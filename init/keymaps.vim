@@ -45,7 +45,7 @@ cnoremap <expr> %% getcmdtype( ) == ':' ? expand('%:p:h').'/' : '%%'
 " 改变当前工作目录为当前缓冲区所在的目录
 command! CD cd %:p:h
 
-" 快速进入当前缓冲区所在目录
+" 使用Netrw快速进入当前缓冲区所在目录
 map <leader>ew :<C-u>e %%<CR>
 map <leader>es :<C-u>sp %%<CR>
 map <leader>ev :<C-u>vsp %%<CR>

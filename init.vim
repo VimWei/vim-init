@@ -76,7 +76,7 @@ finish
     * 用 :cd.. 切换工作目录为上一级目录
 
  * gf: 在当前窗口打开光标下的文件
-    *  借助vim-sneak，使用f<char><char> 快速定位到适当位置
+    *  借助EasyMotion，使用f<char><char> 快速定位到适当位置
     *  借助EasyMotion，使用<leader><leader>w 快速定位到适当位置
     *  Ctrl-w_f: 分割窗口并打开光标下的文件
     *  Ctrl-w_gf: 在新标签页打开光标下的文件
