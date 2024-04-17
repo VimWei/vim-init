@@ -337,7 +337,12 @@ if IsInPlugGroup('Notetaking', 'wiki')  " ---------------------------------{{{1
 
     " 为新建的各种 wiki page 创建模版
     function! JournalTemplate(context) abort
-        call append(0, '# ' . strftime("%Y-%m-%d %A %H:%M:%S"))
+        let today = strftime("%Y-%m-%d")
+        if a:context.name == today
+            call append(0, '# ' . strftime("%Y-%m-%d %A %H:%M:%S"))
+        else
+            call append(0, '# ' . a:context.name)
+        endif
         call append(1, '')
         execute "normal! I## "
     endfunction
@@ -350,7 +355,10 @@ if IsInPlugGroup('Notetaking', 'wiki')  " ---------------------------------{{{1
         execute "normal! I## "
     endfunction
     function! GeneralTemplate(context) abort
-        let title = get(a:context.origin.link, 'text', a:context.name)
+        let title = a:context.name
+        if exists('a:context.origin.link.text')
+          let title = a:context.origin.link.text
+        endif
         call append(0, '# ' . title)
         call append(1, '')
         execute "normal! I## "
@@ -363,7 +371,7 @@ if IsInPlugGroup('Notetaking', 'wiki')  " ---------------------------------{{{1
                 \   '\|mon\|tue\|wed\|thu\|fri\|sat\|sun' .
                 \   '\|monday\|tuesday\|wednesday\|thursday\|friday\|saturday\|sunday\).*',
                 \   'source_func': function('MeetingTemplate') },
-                \ { 'match_re': '.*',
+                \ { 'match_func': { x -> x.path_wiki !~# 'journal' },
                 \   'source_func': function('GeneralTemplate') },
                 \]
 
