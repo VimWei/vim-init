@@ -5,10 +5,10 @@
 call textobj#user#plugin('markdown', {
 \   'list_item_text': {
 \     'pattern': '^\s*\*\s\+\(\[\(\s\+\|[.oOxX]\)\]\)\?\s*\zs.*$',
-\     'select': ['il'],
+\     'select': ['al'],
 \   },
 \   'markdown_link_name': {
-\     'pattern': '\[.*\](\zs.*\ze\(.md)\)',
-\     'select': ['al'],
+\     'pattern': '\[.\{-}\](\zs.\{-}\ze\(\.md\)\?)',
+\     'select': ['il'],
 \   },
 \ })
