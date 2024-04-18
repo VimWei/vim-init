@@ -215,6 +215,8 @@ if IsInPlugGroup('Notetaking', 'edit')  " ---------------------------------{{{1
     Plug 'tpope/vim-surround'
     " 使用[和]作为先导进行导航
     Plug 'tpope/vim-unimpaired'
+    " 基础插件：提供让用户方便的自定义文本对象的接口
+    Plug 'kana/vim-textobj-user'
 endif
 
 if IsInPlugGroup('Notetaking', 'table')  " --------------------------------{{{1
