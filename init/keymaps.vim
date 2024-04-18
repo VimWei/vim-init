@@ -90,18 +90,6 @@ nnoremap <M-l> :vertical resize +5<CR>
 
 " Format ------------------------------------------------------------------{{{1
 
-" 将新建文档的类型设置为 markdown，从而可以对 list 正常使用 gqip 等格式化命令
-function! CheckAndSetMarkdownFileType(timer_id)
-    " 检查当前缓冲区是否应该设置为 markdown
-    if &buftype == '' && &filetype == '' && @% == '' && bufnr('%') != 1
-        setlocal filetype=markdown
-    endif
-endfunction
-augroup NewBufferDefaults
-    autocmd!
-    autocmd BufEnter * call timer_start(1, 'CheckAndSetMarkdownFileType')
-augroup END
-
 " 适应任何文档，对常见列表进行 gq 格式化
 nnoremap <Leader>gl :call GqiList()<CR>
 function! GqiList()
@@ -144,6 +132,20 @@ command! -nargs=? VW call WikiFile(<q-args>)
 command! RS call WikiFile('Research/路演.md')
 
 " Markdown ----------------------------------------------------------------{{{1
+
+" 设置新建文档类型为 markdown，从而可以对 list 使用 gqip 格式化命令
+augroup NewBufferFiletype
+    autocmd!
+    " 避免将 terminal 设置为 markdown
+    autocmd BufEnter * call timer_start(1, 'CheckAndSetFiletype')
+augroup END
+function! CheckAndSetFiletype(timer_id)
+    " 避免设置刚启动的页面为 markdown，否则启动画面将消失
+    if &buftype == '' && &filetype == '' && @% == '' && bufnr('%') != 1
+        setlocal filetype=markdown
+    endif
+endfunction
+
 " 自动隐藏链接
 augroup markdownLinkConceal
     autocmd!
