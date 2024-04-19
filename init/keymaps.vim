@@ -146,12 +146,14 @@ function! CheckAndSetFiletype(timer_id)
     endif
 endfunction
 
-" 自动隐藏链接
-augroup markdownLinkConceal
+" 自动隐藏 markdown 链接
+augroup MarkdownLinkConceal
     autocmd!
     autocmd FileType markdown
         \ syn region markdownLink matchgroup=markdownLinkDelimiter
         \ start="(" end=")" keepend conceal contains=markdownUrl
+    autocmd FileType markdown
+        \ syn region markdownLinkText matchgroup=markdownLinkTextDelimiter start="!\=\[\%(\_[^][]*\%(\[\_[^][]*\]\_[^][]*\)*]\%( \=[[(]\)\)\@=" end="\]\%( \=[[(]\)\@=" nextgroup=markdownLink,markdownId skipwhite contains=@markdownInline,markdownLineStart concealends
 augroup END
 
 " 将文档类型设置为markdown
