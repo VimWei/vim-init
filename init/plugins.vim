@@ -13,20 +13,24 @@ if !exists('g:plug_group')
     let g:plug_group = {}
     let g:plug_group['inbox'] = []
 
-    let g:plug_group['basic'] = [ 'startup', 'essential' ]
+    let g:plug_group['basic'] = []
+    let g:plug_group['basic'] += [ 'startup', 'essential' ]
     let g:plug_group['basic'] += [ 'colorscheme' ]
     let g:plug_group['basic'] += [ 'whichkey' ]
 
-    let g:plug_group['search'] = [ 'auto-popmenu', 'EasyMotion', 'Leaderf' ]
+    let g:plug_group['search'] = []
+    let g:plug_group['search'] += [ 'auto-popmenu', 'EasyMotion', 'Leaderf' ]
     let g:plug_group['search'] += [ 'pinyin', 'vim-cool' ]
 
-    let g:plug_group['Notetaking'] = [ 'edit', 'table' ]
+    let g:plug_group['Notetaking'] = []
+    let g:plug_group['Notetaking'] += [ 'edit', 'table' ]
     let g:plug_group['Notetaking'] += [ 'list' ]
     " let g:plug_group['Notetaking'] += [ 'vimwiki' ]
     let g:plug_group['Notetaking'] += [ 'wiki' ]
     " let g:plug_group['Notetaking'] += [ 'markdown' ]
 
-    let g:plug_group['program'] = [ 'git', 'terminal', 'AsyncRun' ]
+    let g:plug_group['program'] = []
+    let g:plug_group['program'] += [ 'git', 'terminal', 'AsyncRun' ]
     let g:plug_group['program'] += [ 'python', 'REPL' ]
 endif
 
@@ -67,7 +71,7 @@ set noshellslash
 call plug#begin()
 
 if IsInPlugGroup('inbox')  " ----------------------------------------------{{{1
-    " 新插件
+    " 插件试验场
 endif
 
 if IsInPlugGroup('basic', 'startup')  " -----------------------------------{{{1

@@ -30,6 +30,8 @@ endfunction
 
 " Third party colorscheme -------------------------------------------------{{{1
 
+" 通过命令 :color + tab 快速切换常用样式
+
 if IsInPlugGroup('basic', 'colorscheme')
 
     "随机更换第三方的颜色方案
@@ -135,8 +137,6 @@ if IsInPlugGroup('basic', 'colorscheme')
 endif
 
 " Random colorscheme ------------------------------------------------------{{{1
-
-" 通过命令 color + tab 快速切换常用样式
 
 " 使用 <leader>c 随机更换颜色方案，每次都不同
 nnoremap <silent> <Leader>c :call RandomColorScheme()<CR>:color<CR>

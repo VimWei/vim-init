@@ -53,6 +53,8 @@ augroup vimrcAutoReload
     autocmd BufWritePost autoload/*.vim call AutoReloadVimrc(expand('<afile>:p'))
 augroup END
 
+" finish {{{
+
 finish
 
 导航Tips：
