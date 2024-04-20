@@ -347,7 +347,9 @@ if IsInPlugGroup('Notetaking', 'wiki')  " ---------------------------------{{{1
         if a:context.name == today
             call append(0, '# ' . strftime("%Y-%m-%d %A %H:%M:%S"))
         else
-            call append(0, '# ' . a:context.name)
+            let timestamp = wiki#date#strptime("%Y-%m-%d", a:context.name)
+            let formatted_date_with_weekday = strftime("%Y-%m-%d %A", timestamp)
+            call append(0, '# ' . formatted_date_with_weekday)
         endif
         call append(1, '')
         execute "normal! I## "
