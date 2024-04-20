@@ -33,7 +33,8 @@ call quickui#menu#install("&Tools", [
     \ ["Upgrade vim-plug", "PlugUpgrade", 'upgrade vim-plug'],
     \ ["Plugin &List", "PlugStatus", 'list available plugins'],
     \ ["-"],
-    \ ["Edit MENU", 'VQ', '在新窗口编辑菜单'],
+    \ ["Edit Menu", 'VM', '在新窗口编辑菜单'],
+    \ ["Edit Navigator", 'VN', '在新窗口编辑导航'],
     \ ["Edit VIMRC", 'VI', '在新窗口编辑VIMRC'],
     \ ])
 

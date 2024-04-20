@@ -25,15 +25,15 @@ command! -nargs=1 LoadScript execute 'so '.s:viminit.'<args>'
 LoadScript init/essential.vim   " 加载基础配置
 LoadScript init/tabsize.vim     " 加载tabsize配置
 LoadScript init/statusline.vim  " 加载状态栏样式
-LoadScript init/guistyle.vim    " 加载界面样式
-LoadScript init/keymaps.vim     " 加载按键映射
 LoadScript init/plugins.vim     " 加载功能插件
-if IsInPlugGroup('basic', 'whichkey')
-    LoadScript init/menu.vim     " 加载自定义菜单
-    LoadScript init/navigator.vim     " 加载navigator
+LoadScript init/keymaps.vim     " 加载按键映射
+LoadScript init/colorscheme.vim " 加载色彩方案
+if IsInPlugGroup('basic', 'guistyle')
+    LoadScript init/guistyle.vim    " 加载界面样式
+    LoadScript init/quickmenu.vim     " 加载自定义菜单
+    LoadScript init/navigator.vim     " 加载 navigator
 endif
 LoadScript init/autoload.vim    " 延时自动加载
-LoadScript init/colorscheme.vim " 加载色彩方案
 
 " VimrcAutoReload --------------------------------------------------------{{{1
 " 当pwd为vim-init/时，保存 VIMRC 文件后，系统将自动加载它

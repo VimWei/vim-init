@@ -42,7 +42,7 @@ let g:navigator.v = {
     \ 'g' : ['EditInitVimrc("guistyle.vim")', 'guistyle.vim'],
     \ 'k' : ['EditInitVimrc("keymaps.vim")', 'keymaps.vim'],
     \ 'p' : ['EditInitVimrc("plugins.vim")', 'plugins.vim'],
-    \ 'm' : ['EditInitVimrc("menu.vim")', 'menu.vim'],
+    \ 'm' : ['EditInitVimrc("quickmenu.vim")', 'quickmenu.vim'],
     \ 'n' : ['EditInitVimrc("navigator.vim")', 'navigator.vim'],
     \ 'a' : ['EditInitVimrc("autoload.vim")', 'autoload.vim'],
     \ 'c' : ['EditInitVimrc("colorscheme.vim")', 'colorscheme.vim'],
