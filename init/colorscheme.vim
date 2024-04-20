@@ -3,8 +3,7 @@
 " Sourced by: ../init.vim
 "===================================================
 
-" Default colorscheme ------------------------------------------------------{{{1
-
+" Default colorscheme ----------------------------------------------------{{{1
 if has('termguicolors')
     set termguicolors
 endif
@@ -13,7 +12,6 @@ colorscheme lucius
 exe (strftime('%H') % 18) >= 6 ? 'LuciusLightHighContrast' : 'LuciusDarkLowContrast'
 
 " Vim inbuilt colorscheme -------------------------------------------------{{{1
-
 "随机更换 vim 自带的颜色方案
 command! ColorVimInbuiltScheme call RandomVimInbuiltScheme()
 function! RandomVimInbuiltScheme()
@@ -22,30 +20,28 @@ function! RandomVimInbuiltScheme()
         \ 'elflord', 'evening', 'habamax', 'industry', 'koehler',
         \ 'lunaperche', 'morning', 'murphy', 'pablo', 'peachpuff',
         \ 'quiet', 'retrobox', 'ron', 'shine', 'slate', 'sorbet',
-        \ 'torte', 'wildcharm', 'zaibatsu', 'zellner'
+        \ 'torte', 'wildcharm', 'zaibatsu', 'zellner',
         \ ]
     let l:random_vim_inbuild_scheme = l:styles[rand() % len(l:styles)]
     execute 'colorscheme ' . l:random_vim_inbuild_scheme
 endfunction
 
 " Third party colorscheme -------------------------------------------------{{{1
-
 " 通过命令 :color + tab 快速切换常用样式
 
 if IsInPlugGroup('basic', 'colorscheme')
-
     "随机更换第三方的颜色方案
     command! ColorThirdPartyScheme call RandomThirdPartyScheme()
     function! RandomThirdPartyScheme()
         let l:styles = [
-            \ 'ColorLucius',
-            \ 'ColorGruvbox8',
-            \ 'ColorSolarized8',
-            \ 'ColorMaterial',
-            \ 'ColorPaperColor',
-            \ 'ColorSonokai',
-            \ 'ColorNord',
-            \ 'ColorOne',
+            \ 'call RandomLucius()',
+            \ 'call RandomGruvbox8()',
+            \ 'call RandomSolarized8()',
+            \ 'call RandomMaterial()',
+            \ 'call RandomPaperColor()',
+            \ 'call RandomSonokai()',
+            \ 'call RandomNord()',
+            \ 'call RandomOne()',
             \ 'color landscape',
             \ 'color gotham',
             \ 'color oceanicnext',
@@ -57,18 +53,12 @@ if IsInPlugGroup('basic', 'colorscheme')
     "随机更换 Lucius 的配置方案
     command! ColorLucius call RandomLucius()
     function! RandomLucius()
-        let l:styles = ['light', 'dark']
+        let l:styles = ['LuciusLightHighContrast', 'LuciusDarkLowContrast']
         let l:style = l:styles[rand() % len(l:styles)]
-        let l:contrasts = ['normal', 'low', 'hight']
-        let l:contrast = l:contrasts[rand() % len(l:contrasts)]
-        let l:contrast_bgs = ['normal', 'hight']
-        let l:contrast_bg = l:contrast_bgs[rand() % len(l:contrast_bgs)]
-        call SetLucius(l:style, l:contrast, l:contrast_bg)
-        execute 'colorscheme lucius'
+        execute l:style
     endfunction
 
     "随机更换 gruvbox8 的配置方案
-    command! ColorGruvbox8 call RandomGruvbox8()
     function! RandomGruvbox8()
         let g:gruvbox_italics = 0
         let g:gruvbox_italicize_strings = 0
@@ -79,7 +69,6 @@ if IsInPlugGroup('basic', 'colorscheme')
     endfunction
 
     "随机更换 solarized8 的配置方案
-    command! ColorSolarized8 call RandomSolarized8()
     function! RandomSolarized8()
         let g:solarized_italics = 0
         let backgrounds = ['dark', 'light']
@@ -89,7 +78,6 @@ if IsInPlugGroup('basic', 'colorscheme')
     endfunction
 
     "随机更换 material 的配置方案
-    command! ColorMaterial call RandomMaterial()
     function! RandomMaterial()
         let l:styles = ['default', 'palenight', 'ocean', 'lighter', 'darker']
         let g:material_theme_style = l:styles[rand() % len(l:styles)]
@@ -97,7 +85,6 @@ if IsInPlugGroup('basic', 'colorscheme')
     endfunction
 
     "随机更换 PaperColor 的配置方案
-    command! ColorPaperColor call RandomPaperColor()
     function! RandomPaperColor()
         let backgrounds = ['dark', 'light']
         let &background = backgrounds[rand() % len(backgrounds)]
@@ -105,7 +92,6 @@ if IsInPlugGroup('basic', 'colorscheme')
     endfunction
 
     "随机更换 sonokai 的配置方案
-    command! ColorSonokai call RandomSonokai()
     function! RandomSonokai()
         let g:sonokai_enable_italic = 0
         let g:sonokai_disable_italic_comment = 1
@@ -117,7 +103,6 @@ if IsInPlugGroup('basic', 'colorscheme')
     endfunction
 
     "随机更换 nord 的配置方案
-    command! ColorNord call RandomNord()
     function! RandomNord()
         let g:nord_underline = 1
         let g:nord_italic = 0
@@ -126,18 +111,15 @@ if IsInPlugGroup('basic', 'colorscheme')
     endfunction
 
     "随机更换 Vim-One 的配置方案
-    command! ColorOne call RandomOne()
     function! RandomOne()
         let g:one_allow_italics = 0
         let backgrounds = ['dark', 'light']
         let &background = backgrounds[rand() % len(backgrounds)]
         execute 'colorscheme one'
     endfunction
-
 endif
 
 " Random colorscheme ------------------------------------------------------{{{1
-
 " 使用 <leader>c 随机更换颜色方案，每次都不同
 nnoremap <silent> <Leader>c :call RandomColorScheme()<CR>:color<CR>
 let s:last_colorscheme_cmd = ''
