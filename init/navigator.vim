@@ -200,6 +200,7 @@ let g:navigator.g = {
     \ 'o' : {
         \ 'name' : '+Log',
         \ 'b' : [':Git blame %', '在行级显示文件的修改历史 :git blame %'],
+        \ 'g' : [':Git log --graph --oneline --all --decorate', '显示提交历史记录，每个一行，以图形方式显示提交关系'],
         \ 'o' : [':Git log --oneline', '显示提交历史记录，每个一行'],
         \ 'q' : [':Gclog', '显示提交历史记录，加载到 quickfix'],
         \ },
