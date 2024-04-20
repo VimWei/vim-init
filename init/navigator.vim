@@ -35,17 +35,17 @@ let g:navigator.h = {
 let g:navigator.v = {
     \ 'name': '+VIMRC',
     \ 'v' : [':edit $MYVIMRC', 'VIMRC'],
-    \ 'i' : ['EditInitVimrc("init.vim")', 'init.vim'],
-    \ 'e' : ['EditInitVimrc("essential.vim")', 'essential.vim'],
-    \ 't' : ['EditInitVimrc("tabsize.vim")', 'tabsize.vim'],
-    \ 's' : ['EditInitVimrc("statusline.vim")', 'statusline.vim'],
-    \ 'g' : ['EditInitVimrc("guistyle.vim")', 'guistyle.vim'],
-    \ 'k' : ['EditInitVimrc("keymaps.vim")', 'keymaps.vim'],
-    \ 'p' : ['EditInitVimrc("plugins.vim")', 'plugins.vim'],
-    \ 'm' : ['EditInitVimrc("quickmenu.vim")', 'quickmenu.vim'],
-    \ 'n' : ['EditInitVimrc("navigator.vim")', 'navigator.vim'],
-    \ 'a' : ['EditInitVimrc("autoload.vim")', 'autoload.vim'],
-    \ 'c' : ['EditInitVimrc("colorscheme.vim")', 'colorscheme.vim'],
+    \ 'i' : ['Vimrc#EditInitVimrc("init.vim")', 'init.vim'],
+    \ 'e' : ['Vimrc#EditInitVimrc("essential.vim")', 'essential.vim'],
+    \ 't' : ['Vimrc#EditInitVimrc("tabsize.vim")', 'tabsize.vim'],
+    \ 's' : ['Vimrc#EditInitVimrc("statusline.vim")', 'statusline.vim'],
+    \ 'g' : ['Vimrc#EditInitVimrc("guistyle.vim")', 'guistyle.vim'],
+    \ 'k' : ['Vimrc#EditInitVimrc("keymaps.vim")', 'keymaps.vim'],
+    \ 'p' : ['Vimrc#EditInitVimrc("plugins.vim")', 'plugins.vim'],
+    \ 'm' : ['Vimrc#EditInitVimrc("quickmenu.vim")', 'quickmenu.vim'],
+    \ 'n' : ['Vimrc#EditInitVimrc("navigator.vim")', 'navigator.vim'],
+    \ 'a' : ['Vimrc#EditInitVimrc("autoload.vim")', 'autoload.vim'],
+    \ 'c' : ['Vimrc#EditInitVimrc("colorscheme.vim")', 'colorscheme.vim'],
     \ }
 
 " buffer ------------------------------------------------------------------{{{1
