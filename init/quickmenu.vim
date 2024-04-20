@@ -7,12 +7,12 @@ if has('patch-8.2.1') == 0 || has('nvim')
     finish
 endif
 
-" ref: https://github.com/skywind3000/vim-quickui/blob/master/MANUAL.md
-
-" clear all the menus
+" clear all the menus ----------------------------------------------------{{{1
 call quickui#menu#reset()
 
-" install a 'File' menu, each item comprises its name and command to execute
+" ref: https://github.com/skywind3000/vim-quickui/blob/master/MANUAL.md
+
+" File -------------------------------------------------------------------{{{1
 call quickui#menu#install('&File', [
     \ [ "Quit", 'q', '退出'],
     \ [ "&Close window", 'close', '关闭窗口'],
@@ -27,7 +27,7 @@ call quickui#menu#install('&File', [
     \ [ "&Open File", 'bro edit', '打开...'],
     \ ])
 
-" items containing tips, tips will display in the cmdline
+" Tools ------------------------------------------------------------------{{{1
 call quickui#menu#install("&Tools", [
     \ ["&Update plugins", "PlugUpdate", 'update plugins'],
     \ ["Upgrade vim-plug", "PlugUpgrade", 'upgrade vim-plug'],
@@ -38,6 +38,7 @@ call quickui#menu#install("&Tools", [
     \ ["Edit VIMRC", 'VI', '在新窗口编辑VIMRC'],
     \ ])
 
+" Option -----------------------------------------------------------------{{{1
 " script inside %{...} will be evaluated and expanded in the string
 call quickui#menu#install("&Option", [
     \ ['Set &Spell %{&spell? "Off":"On"}', 'set spell!', 'Toggle spell check %{&spell? "off" : "on"}'],
@@ -46,7 +47,7 @@ call quickui#menu#install("&Option", [
     \ ["Options help", 'tab help options', '关于 options 的帮助文档'],
     \ ])
 
-" Markdown
+" Markdown ---------------------------------------------------------------{{{1
 call quickui#menu#install("&Markdown", [
     \ ['Toggle Todo status done [ ] [X] ', 'VimwikiToggleListItem', '切换 Todo 完成状态'],
     \ ['Toggle Todo status Reject [ ] [-]', 'VimwikiToggleRejectedListItem', '切换 Todo 启用状态'],
@@ -67,7 +68,7 @@ call quickui#menu#install("&Markdown", [
     \ ["Rebuild Tags", 'VimwikiRebuildTags!', '重新生成Tags'],
     \ ], '<auto>', 'markdown')
 
-" register HELP menu with weight 10000
+" Help -------------------------------------------------------------------{{{1
 call quickui#menu#install('&Help', [
     \ ["&Help", 'tab help', '帮助文档'],
     \ ["Help help", 'tab help helphelp', '如何使用帮助文档'],
@@ -86,6 +87,7 @@ call quickui#menu#install('&Help', [
     \ ["&About", 'version', 'VIM 版本'],
     \ ], 10000)
 
+" Menu Setting -----------------------------------------------------------{{{1
 let g:quickui_show_tip = 1
 let g:quickui_border_style = 2
 " availabe color scheme：borland、gruvbox、solarized、papercol dark、papercol light
