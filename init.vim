@@ -3,7 +3,7 @@
 " Sourced by: $HOME/vimfiles/vimrc
 "===================================================
 
-" 防止重复加载 -----------------------------------------------------------{{{1
+" Prevent reloading ------------------------------------------------------{{{1
 if get(s:, 'loaded', 0) != 0
     finish
 else
@@ -14,7 +14,7 @@ endif
 nnoremap <space> <nop>
 let mapleader = "\<space>"
 
-" 取得本文件所在的目录，并加入 runtimepath -------------------------------{{{1
+" defining s:viminit and adding it to runtimepath ------------------------{{{1
 let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 execute 'set runtimepath+='.s:viminit
 let s:viminit = substitute(s:viminit . '/', '\\', '/', 'g')
