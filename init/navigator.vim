@@ -86,6 +86,28 @@ let g:navigator.f = {
     \ 'T' : ['FoldColumnToggle()', 'Toggle FoldColumn'],
     \ }
 
+" vimtweak ---------------------------------------------------------------{{{1
+let g:navigator.t = {
+    \ 'name': '+vimTweak',
+    \ '0' : ['VimTweakSetAlpha 250', '不透明'],
+    \ '1' : ['VimTweakSetAlpha 240', '透明度+10'],
+    \ '2' : ['VimTweakSetAlpha 230', '透明度+20'],
+    \ '3' : ['VimTweakSetAlpha 220', '透明度+30'],
+    \ '4' : ['VimTweakSetAlpha 210', '透明度+40'],
+    \ '5' : ['VimTweakSetAlpha 200', '透明度+50'],
+    \ '6' : ['VimTweakSetAlpha 190', '透明度+60'],
+    \ '7' : ['VimTweakSetAlpha 180', '透明度+70'],
+    \ '8' : ['VimTweakSetAlpha 170', '透明度+80'],
+    \ '9' : ['VimTweakSetAlpha 160', '透明度+90'],
+    \ 'a' : ['VimTweakEnableMaximize', '最大化窗口'],
+    \ 'M' : ['VimTweakEnableMaximize', '最大化窗口'],
+    \ 'm' : ['VimTweakDisableMaximize', '向下还原窗口'],
+    \ 'T' : ['VimTweakEnableTopMost', '窗口置顶'],
+    \ 't' : ['VimTweakDisableTopMost', '不要窗口置顶'],
+    \ 'C' : ['VimTweakDisableCaption', '隐藏窗口标题栏'],
+    \ 'c' : ['VimTweakEnableCaption', '不要隐藏窗口标题栏'],
+    \ }
+
 " Options ---------------------------------------------------------------------{{{1
 let g:navigator.o = {
     \ 'name': '+Options',
