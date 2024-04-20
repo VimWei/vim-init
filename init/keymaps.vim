@@ -153,7 +153,10 @@ augroup MarkdownLinkConceal
         \ syn region markdownLink matchgroup=markdownLinkDelimiter
         \ start="(" end=")" keepend conceal contains=markdownUrl
     autocmd FileType markdown
-        \ syn region markdownLinkText matchgroup=markdownLinkTextDelimiter start="!\=\[\%(\_[^][]*\%(\[\_[^][]*\]\_[^][]*\)*]\%( \=[[(]\)\)\@=" end="\]\%( \=[[(]\)\@=" nextgroup=markdownLink,markdownId skipwhite contains=@markdownInline,markdownLineStart concealends
+        \ syn region markdownLinkText matchgroup=markdownLinkTextDelimiter
+        \ start="!\=\[\%(\_[^][]*\%(\[\_[^][]*\]\_[^][]*\)*]\%( \=[[(]\)\)\@="
+        \ end="\]\%( \=[[(]\)\@=" nextgroup=markdownLink,markdownId skipwhite
+        \ contains=@markdownInline,markdownLineStart concealends
 augroup END
 
 " 将文档类型设置为markdown
