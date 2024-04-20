@@ -155,3 +155,7 @@ command! OCRClean call OCRmyPDF#Clean()
 " Redir -------------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Redir.vim
 command! -nargs=1 -complete=command Redir silent call Redir#redir(<q-args>)
+
+" Fold -------------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/Fold.vim
+nnoremap <Leader>am :call Fold#AddMarker()<CR>

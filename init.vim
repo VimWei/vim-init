@@ -3,23 +3,23 @@
 " Sourced by: $HOME/vimfiles/vimrc
 "===================================================
 
-" 防止重复加载
+" 防止重复加载 -----------------------------------------------------------{{{1
 if get(s:, 'loaded', 0) != 0
     finish
 else
     let s:loaded = 1
 endif
 
-" Use space as leader key
+" Use space as leader key ------------------------------------------------{{{1
 nnoremap <space> <nop>
 let mapleader = "\<space>"
 
-" 取得本文件所在的目录，并加入 runtimepath
+" 取得本文件所在的目录，并加入 runtimepath -------------------------------{{{1
 let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 execute 'set runtimepath+='.s:viminit
 let s:viminit = substitute(s:viminit . '/', '\\', '/', 'g')
 
-" 定义加载命令
+" LoadScript -------------------------------------------------------------{{{1
 command! -nargs=1 LoadScript execute 'so '.s:viminit.'<args>'
 
 LoadScript init/essential.vim   " 加载基础配置
@@ -35,8 +35,9 @@ endif
 LoadScript init/autoload.vim    " 延时自动加载
 LoadScript init/colorscheme.vim " 加载色彩方案
 
+" VimrcAutoReload --------------------------------------------------------{{{1
 " 当pwd为vim-init/时，保存 VIMRC 文件后，系统将自动加载它
-augroup vimrcAutoReload
+augroup VimrcAutoReload
     autocmd!
     function! AutoReloadVimrc(file)
         if has('win32') || has('win64')
@@ -53,9 +54,7 @@ augroup vimrcAutoReload
     autocmd BufWritePost autoload/*.vim call AutoReloadVimrc(expand('<afile>:p'))
 augroup END
 
-" finish {{{
-
-finish
+finish " -----------------------------------------------------------------{{{1
 
 导航Tips：
  * :find  在 'path' 里找到 {file}，然后编辑 :edit 它
