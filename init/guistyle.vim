@@ -3,47 +3,76 @@
 " Sourced by: ../init.vim
 "===================================================
 
-" GUI settings Basic ------------------------------------------------------{{{1
+" Essential --------------------------------------------------------------{{{1
 
-if has("gui_running")
-    autocmd GUIEnter * simalt ~x    "GVIM启动时最大化
-
-    set guioptions-=m   "隐藏菜单
-    set guioptions-=T   "隐藏工具栏
-    set guioptions-=r   "隐藏右滚动条
-    set guioptions-=L   "隐藏垂直分割窗口的左滚动条
-    set guioptions-=e   "使用非 GUI 标签页行
-    set showtabline=2   "总是显示标签栏
-
-    set lines=18 columns=85    "非最大化时，窗口的高度和宽度
-    set guifont=Consolas:h14:cANSI:qDRAFT   "字体及大小
-    if !has('nvim')
-        set renderoptions=type:directx,renmode:5    "增强显示
-    endif
-    set linespace=7    "行间距
-
-    "==========================guifont++===============
-    "让vim像IDE一样一键放大缩小字号，M即Alt键
-    let guifontpp_size_increment=1 "每次更改的字号
-    let guifontpp_smaller_font_map="<M-Down>"
-    let guifontpp_larger_font_map="<M-Up>"
-    let guifontpp_original_font_map="<M-Home>"
-
-    " 从 normal 进入 edit 模式时，自动激活 Rime 并进入中文输入模式
-    " set imactivatekey=C-space
-    inoremap <ESC> <ESC>:set iminsert=2<CR>
-
-    "----------------------------------------------------------------------
-    " 标签栏文字风格：默认为零，GUI 模式下空间大，按风格 3 显示
-    " 0: filename.txt +
-    " 1: 1-b1 - filename.txt +
-    " 2: [1-b1] filename.txt +
-    let g:config_vim_tab_style = 2
-    set tabline=%!Vim_NeatTabLine()
-    set guitablabel=%{Vim_NeatGuiTabLabel()}
+if !has("gui_running")
+    finish
 endif
 
-" 终端下的 tabline  -------------------------------------------------------{{{1
+set guioptions-=m   "隐藏菜单
+set guioptions-=T   "隐藏工具栏
+set guioptions-=r   "隐藏右滚动条
+set guioptions-=L   "隐藏垂直分割窗口的左滚动条
+set guioptions-=e   "使用非 GUI 标签页行
+set showtabline=2   "总是显示标签栏
+
+set lines=18 columns=85    "非最大化时，窗口的高度和宽度
+set guifont=Consolas:h14:cANSI:qDRAFT   "字体及大小
+if !has('nvim')
+    set renderoptions=type:directx,renmode:5    "增强显示
+endif
+set linespace=7    "行间距
+
+" guifont++ --------------------------------------------------------------{{{1
+"让vim像IDE一样一键放大缩小字号，M即Alt键
+let guifontpp_size_increment=1 "每次更改的字号
+let guifontpp_smaller_font_map="<M-Down>"
+let guifontpp_larger_font_map="<M-Up>"
+let guifontpp_original_font_map="<M-Home>"
+
+" vimtweak ---------------------------------------------------------------{{{1
+
+" 启动时窗口最大化
+" autocmd GUIEnter * simalt ~x
+au GUIEnter * call libcallnr(g:vimtweak_dll_path, "EnableMaximize", 1)
+" 窗口最大化、最小化，
+map _+ <ESC>:call libcallnr(g:vimtweak_dll_path, "EnableMaximize", 1)<CR>
+map __ <ESC>:call libcallnr(g:vimtweak_dll_path, "EnableMaximize", 0)<CR>
+
+" 启动时设置一定透明度
+au GUIEnter * call libcallnr(g:vimtweak_dll_path, "SetAlpha", 230)
+" <Leader>a[0-9] 设置透明度程度，数字越大越透明
+for i in range(0, 9)
+    execute 'nnoremap <silent> <leader>a' . i
+          \ . ' :call libcallnr(g:vimtweak_dll_path, "SetAlpha", '
+          \ . (255 - i * 10) . ')<CR>'
+endfor
+
+" 切换窗口的置顶状态
+nnoremap <silent> <leader>tw :call <SID>ToggleWindowTopMost()<CR>
+function! s:ToggleWindowTopMost()
+    if !exists('s:window_top_most')
+        let s:window_top_most = 0
+    endif
+    if s:window_top_most
+        call libcallnr(g:vimtweak_dll_path, "EnableTopMost", 0)
+        let s:window_top_most = 0
+    else
+        call libcallnr(g:vimtweak_dll_path, "EnableTopMost", 1)
+        let s:window_top_most = 1
+    endif
+endfunction
+
+" tabline ----------------------------------------------------------------{{{1
+" 标签栏文字风格：默认为零，GUI 模式下空间大，按风格 3 显示
+" 0: filename.txt +
+" 1: 1-b1 - filename.txt +
+" 2: [1-b1] filename.txt +
+let g:config_vim_tab_style = 2
+set tabline=%!Vim_NeatTabLine()
+set guitablabel=%{Vim_NeatGuiTabLabel()}
+
+" 终端下的 tabline  ------------------------------------------------------{{{2
 function! Vim_NeatTabLine()
     let s = ''
     for i in range(tabpagenr('$'))
@@ -67,7 +96,7 @@ function! Vim_NeatTabLine()
     return s
 endfunc
 
-" 需要显示到标签上的文件名  ----------------------------------------------{{{1
+" 需要显示到标签上的文件名  ---------------------------------------------{{{2
 function! Vim_NeatBuffer(bufnr, fullname)
     let l:name = bufname(a:bufnr)
     if getbufvar(a:bufnr, '&modifiable')
@@ -104,7 +133,7 @@ function! Vim_NeatBuffer(bufnr, fullname)
     endif
 endfunc
 
-" 标签栏文字，使用 [1] filename 的模式  -----------------------------------{{{1
+" 标签栏文字，使用 [1] filename 的模式  ----------------------------------{{{2
 function! Vim_NeatTabLabel(n)
     let l:buflist = tabpagebuflist(a:n)
     let l:winnr = tabpagewinnr(a:n)
@@ -125,7 +154,7 @@ function! Vim_NeatTabLabel(n)
     return l:tablabel
 endfunc
 
-" GUI 下的标签文字，使用 [1] filename 的模式  -----------------------------{{{1
+" GUI 下的标签文字，使用 [1] filename 的模式  ----------------------------{{{2
 function! Vim_NeatGuiTabLabel()
     let l:num = v:lnum
     let l:buflist = tabpagebuflist(l:num)

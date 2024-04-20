@@ -16,7 +16,7 @@ if !exists('g:plug_group')
     let g:plug_group['basic'] = []
     let g:plug_group['basic'] += [ 'startup', 'essential' ]
     let g:plug_group['basic'] += [ 'colorscheme' ]
-    let g:plug_group['basic'] += [ 'whichkey' ]
+    let g:plug_group['basic'] += [ 'guistyle' ]
 
     let g:plug_group['search'] = []
     let g:plug_group['search'] += [ 'auto-popmenu', 'EasyMotion', 'Leaderf' ]
@@ -142,8 +142,8 @@ if IsInPlugGroup('basic', 'colorscheme')  " -------------------------------{{{1
     let g:cpatch_path = s:viminit . 'colors/patch'
 endif
 
-if IsInPlugGroup('basic', 'whichkey')  " ----------------------------------{{{1
-    " 菜单、导航
+if IsInPlugGroup('basic', 'guistyle') " ----------------------------------{{{1
+    Plug 'mattn/vimtweak'
     Plug 'skywind3000/vim-quickui'
     Plug 'skywind3000/vim-navigator'
 endif
