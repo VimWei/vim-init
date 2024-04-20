@@ -86,14 +86,16 @@ if IsInPlugGroup('basic', 'essential')  " ---------------------------------{{{1
     nnoremap <Leader>u :UndotreeToggle<CR>
     " Keep undo history across sessions by storing it in a file
     if has('persistent_undo')
-        if !isdirectory($HOME.'\vimfiles')
-            " 0700 full permissions for the owner, no for anyone else
-            call mkdir($HOME.'\vimfiles', "", 0770)
+        if has('nvim')
+            let undotree_dir = expand('~/.local/share/nvim/undodir')
+        else
+            let undotree_dir = expand('~/vimfiles/undodir')
         endif
-        if !isdirectory($HOME.'\vimfiles\undodir')
-            call mkdir($HOME.'\vimfiles\undodir', "", 0700)
+        if !isdirectory(undotree_dir)
+            call mkdir(undotree_dir, "p", 0700)
         endif
-        let &undodir = $HOME . '\vimfiles\undodir'
+        let g:undotree_UndoDir = undotree_dir
+        set undodir+=g:undotree_UndoDir
         set undofile
     endif
     let g:undotree_WindowLayout = 3
