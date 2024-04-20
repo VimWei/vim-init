@@ -155,13 +155,3 @@ command! OCRClean call OCRmyPDF#Clean()
 " Redir -------------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Redir.vim
 command! -nargs=1 -complete=command Redir silent call Redir#redir(<q-args>)
-
-" Finish ------------------------------------------------------------------{{{1
-
-finish
-
-" 查阅python帮助文档
-" command! PyHelp call CondaPython#PyHelpTerminal()
-" nnoremap <leader>ph :exec "call CondaPython#PyHelpTerminal()" <CR>
-command! PyHelp call CondaPython#PyHelpTerminal()
-command! -nargs=1 PyRun call CondaPython#CondaEnv(<f-args>, 'python "$(VIM_FILEPATH)"')
