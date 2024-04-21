@@ -31,37 +31,27 @@ let guifontpp_larger_font_map="<M-Up>"
 let guifontpp_original_font_map="<M-Home>"
 
 " vimtweak ---------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/Vimtweak.vim
 
-" 启动时窗口最大化
-" autocmd GUIEnter * simalt ~x
-au GUIEnter * call libcallnr(g:vimtweak_dll_path, "EnableMaximize", 1)
-" 窗口最大化、最小化，
-map _+ <ESC>:call libcallnr(g:vimtweak_dll_path, "EnableMaximize", 1)<CR>
-map __ <ESC>:call libcallnr(g:vimtweak_dll_path, "EnableMaximize", 0)<CR>
-
-" 启动时设置一定透明度
+" 切换窗口透明度
 au GUIEnter * call libcallnr(g:vimtweak_dll_path, "SetAlpha", 230)
-" <Leader>a[0-9] 设置透明度程度，数字越大越透明
+" <Leader>tw[0-9] 设置透明度程度，数字越大越透明
 for i in range(0, 9)
-    execute 'nnoremap <silent> <leader>a' . i
+    execute 'nnoremap <silent> <leader>tw' . i
           \ . ' :call libcallnr(g:vimtweak_dll_path, "SetAlpha", '
           \ . (255 - i * 10) . ')<CR>'
 endfor
 
+" 切换窗口的最大化状态
+au GUIEnter * call libcallnr(g:vimtweak_dll_path, "EnableMaximize", 1)
+nnoremap <silent> <leader>twm :call Vimtweak#ToggleWindowMaximize()<CR>
+
+" 切换窗口的标题栏状态
+" au GUIEnter * call libcallnr(g:vimtweak_dll_path, "EnableCaption", 0)
+nnoremap <silent> <leader>twc :call Vimtweak#ToggleWindowCaption()<CR>
+
 " 切换窗口的置顶状态
-nnoremap <silent> <leader>tw :call <SID>ToggleWindowTopMost()<CR>
-function! s:ToggleWindowTopMost()
-    if !exists('s:window_top_most')
-        let s:window_top_most = 0
-    endif
-    if s:window_top_most
-        call libcallnr(g:vimtweak_dll_path, "EnableTopMost", 0)
-        let s:window_top_most = 0
-    else
-        call libcallnr(g:vimtweak_dll_path, "EnableTopMost", 1)
-        let s:window_top_most = 1
-    endif
-endfunction
+nnoremap <silent> <leader>twt :call Vimtweak#ToggleWindowTopMost()<CR>
 
 " tabline ----------------------------------------------------------------{{{1
 " 标签栏文字风格：默认为零，GUI 模式下空间大，按风格 3 显示
