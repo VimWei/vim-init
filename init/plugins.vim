@@ -17,7 +17,7 @@ if !exists('g:plug_group')
     let g:plug_group['basic'] += [ 'startup', 'essential' ]
     let g:plug_group['basic'] += [ 'colorscheme' ]
     let g:plug_group['basic'] += [ 'guistyle' ]
-    " let g:plug_group['basic'] += [ 'session' ]
+    let g:plug_group['basic'] += [ 'session' ]
 
     let g:plug_group['search'] = []
     let g:plug_group['search'] += [ 'auto-popmenu', 'EasyMotion', 'Leaderf' ]
@@ -150,10 +150,10 @@ if IsInPlugGroup('basic', 'guistyle') " ----------------------------------{{{1
     Plug 'skywind3000/vim-navigator'
 endif
 
-if IsInPlugGroup('basic', 'session') " ----------------------------------{{{1
+if IsInPlugGroup('basic', 'session') " -----------------------------------{{{1
     Plug 'jamescherti/vim-easysession'
-    let g:easysession_auto_load = 1
-    let g:easysession_auto_save = 1
+    " let g:easysession_auto_load = 1
+    " let g:easysession_auto_save = 1
 endif
 
 if IsInPlugGroup('search', 'auto-popmenu')  " -----------------------------{{{1
