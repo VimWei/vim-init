@@ -56,7 +56,6 @@ function! Color#RandomThirdPartyScheme()
 endfunction
 
 function! RandomXcode()
-    set termguicolors
     let backgrounds = ['dark', 'light']
     let &background = backgrounds[rand() % len(backgrounds)]
     let l:styles = ['xcode', 'xcodehc']

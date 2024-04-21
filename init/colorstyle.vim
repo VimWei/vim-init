@@ -4,6 +4,9 @@
 "===================================================
 
 " Default colorscheme ----------------------------------------------------{{{1
+if has('termguicolors')
+    set termguicolors
+endif
 
 if !exists('s:default_colorscheme')
     let s:default_colorscheme = []
