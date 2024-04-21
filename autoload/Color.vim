@@ -31,8 +31,9 @@ endfunction
 
 function! RandomLucius()
     let l:styles = ['LuciusLightHighContrast', 'LuciusDarkLowContrast']
-    let l:style = l:styles[rand() % len(l:styles)]
-    execute l:style
+    let l:style_cmd = l:styles[rand() % len(l:styles)]
+    execute 'color lucius'
+    execute l:style_cmd
 endfunction
 
 " Third party colorscheme ------------------------------------------------{{{1
