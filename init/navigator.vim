@@ -173,13 +173,13 @@ let g:navigator_v.m = {
 let g:navigator.w = {
     \ 'name' : '+Wiki.vim',
     \ 'w' : [':WikiIndex', 'Open Wiki index'],
-    \ 't' : [':tabnew | WikiIndex', 'Open Wiki index in a new tab'],
-    \ 's' : [':call WikiFile("Research/路演.md")', 'Open RoadShow index'],
+    \ 't' : [':call Wikivim#OpenWikiIndexTab()', 'Open Wiki index in a new tab'],
+    \ 's' : [':call Wikivim#OpenWikiPage("Research/路演.md")', 'Open RoadShow index'],
     \ 'd' : ['<plug>(wiki-page-delete)', 'Delete wiki page'],
     \ 'r' : ['<plug>(wiki-page-rename)', 'Rename wiki page'],
     \ 'j' : {
         \ 'name' : '+Journal',
-        \ '0' : [':call WikiFile("journal/Journal.md")', 'Open diary index file'],
+        \ '0' : [':call Wikivim#OpenWikiPage("journal/Journal.md")', 'Open diary index file'],
         \ '1' : [':WikiJournal', 'Open today diary'],
         \ '5' : ['<plug>(wiki-journal-next)', 'Open next day diary'],
         \ '6' : ['<plug>(wiki-journal-prev)', 'Open previous day diary'],
@@ -196,16 +196,16 @@ let g:navigator.w = {
         \ '6' : [':normal gll', '升高当前列表级别-->'],
         \ '7' : [':normal glh', '降低当前列表级别<--'],
         \ },
-    \ 'T' : {
-        \ 'name' : '+Todo' ,
-        \ '1' : [':VimwikiToggleListItem', '切换 Todo 完成状态 [ ] [X]'],
-        \ '2' : [':VimwikiToggleRejectedListItem', '切换 Todo 启用状态 [ ] [-]'],
-        \ '3' : [':normal gln', '增加 Done 的成熟度 [ ] [.] [o]'],
-        \ '4' : [':normal glp', '降低 Done 的成熟度 [o] [.] [ ]'],
-        \ '5' : [':VimwikiNextTask', '跳到下一个未完成的任务'],
-        \ '6' : [':VimwikiRemoveSingleCB', '移除 Todo checkbox [ ]'],
-        \ },
     \ }
+    " \ 'T' : {
+    "     \ 'name' : '+Todo' ,
+    "     \ '1' : [':VimwikiToggleListItem', '切换 Todo 完成状态 [ ] [X]'],
+    "     \ '2' : [':VimwikiToggleRejectedListItem', '切换 Todo 启用状态 [ ] [-]'],
+    "     \ '3' : [':normal gln', '增加 Done 的成熟度 [ ] [.] [o]'],
+    "     \ '4' : [':normal glp', '降低 Done 的成熟度 [o] [.] [ ]'],
+    "     \ '5' : [':VimwikiNextTask', '跳到下一个未完成的任务'],
+    "     \ '6' : [':VimwikiRemoveSingleCB', '移除 Todo checkbox [ ]'],
+    "     \ },
 
 " git  --------------------------------------------------------------------{{{1
 let g:navigator.g = {

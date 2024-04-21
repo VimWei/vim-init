@@ -331,11 +331,6 @@ if IsInPlugGroup('Notetaking', 'wiki')  " ---------------------------------{{{1
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
     let g:wiki_root = s:viminitparent . 'wiki/'
-    " 进入 wiki 后，让 pwd 转到 wiki_root
-    " augroup wiki_vim_autochdir
-    "     autocmd!
-    "     autocmd BufEnter *.md,*.wiki if getbufvar(expand('%'), '&filetype') == 'markdown' | execute 'cd ' . g:wiki_root | endif
-    " augroup END
 
     " 将wiki链接文本转为合法且清晰的文件名
     function! MyUrlTransform(text)

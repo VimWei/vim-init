@@ -117,19 +117,9 @@ function! GqiList()
 endfunction
 
 " wiki.vim -----------------------------------------------------------------{{{1
-
-nnoremap <leader>wt :tabnew \| WikiIndex<CR>
-
-"不同于WikiOpen：采用相对wikiroot的路径，tab打开
-function! WikiFile(filename)
-    let l:file_to_open = g:wiki_root . a:filename
-    if empty(a:filename) || !filereadable(l:file_to_open)
-        let l:file_to_open = g:wiki_root . "index.md"
-    endif
-    execute "tabedit " . l:file_to_open
-endfunction
-command! -nargs=? VW call WikiFile(<q-args>)
-command! RS call WikiFile('Research/路演.md')
+nnoremap <leader>wt :call Wikivim#OpenWikiIndexTab()<CR>
+command! -nargs=? VW call Wikivim#OpenWikiPage(<q-args>)
+command! RS call Wikivim#OpenWikiPage('Research/路演.md')
 
 " Markdown ----------------------------------------------------------------{{{1
 
