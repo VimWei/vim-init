@@ -14,7 +14,7 @@ endif
 nnoremap <space> <nop>
 let mapleader = "\<space>"
 
-" defining s:viminit and adding it to runtimepath ------------------------{{{1
+" s:viminit and runtimepath ----------------------------------------------{{{1
 let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 execute 'set runtimepath+='.s:viminit
 let s:viminit = substitute(s:viminit . '/', '\\', '/', 'g')
@@ -22,21 +22,21 @@ let s:viminit = substitute(s:viminit . '/', '\\', '/', 'g')
 " LoadScript -------------------------------------------------------------{{{1
 command! -nargs=1 LoadScript execute 'so '.s:viminit.'<args>'
 
-LoadScript init/essential.vim   " 加载基础配置
-LoadScript init/tabsize.vim     " 加载tabsize配置
-LoadScript init/statusline.vim  " 加载状态栏样式
-LoadScript init/plugins.vim     " 加载功能插件
-LoadScript init/keymaps.vim     " 加载按键映射
-LoadScript init/colorscheme.vim " 加载色彩方案
+LoadScript init/essential.vim
+LoadScript init/tabsize.vim
+LoadScript init/statusline.vim
+LoadScript init/plugins.vim
+LoadScript init/keymaps.vim
+LoadScript init/colorscheme.vim
 if IsInPlugGroup('basic', 'guistyle')
-    LoadScript init/guistyle.vim    " 加载界面样式
-    LoadScript init/quickmenu.vim     " 加载自定义菜单
-    LoadScript init/navigator.vim     " 加载 navigator
+    LoadScript init/guistyle.vim
+    LoadScript init/quickmenu.vim
+    LoadScript init/navigator.vim
 endif
-LoadScript init/autoload.vim    " 延时自动加载
+LoadScript init/autoload.vim
 
 " VimrcAutoReload --------------------------------------------------------{{{1
-" 当pwd为vim-init/时，保存 VIMRC 文件后，系统将自动加载它
+" 当pwd为vim-init/时，修订并保存相关文件后，系统将自动重新加载
 augroup VimrcAutoReload
     autocmd!
     function! AutoReloadVimrc(file)
