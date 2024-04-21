@@ -107,6 +107,14 @@ let g:navigator.t = {
     \ 'c' : ['VimTweakEnableCaption', '不要隐藏窗口标题栏'],
     \ }
 
+" Session ----------------------------------------------------------------{{{1
+let g:navigator.s = {
+    \ 'name': '+session',
+    \ 's' : ['EasySessionSave', 'EasySessionSave 保存 session'],
+    \ 'o' : ['EasySessionLoad', 'EasySessionLoad 加载 session'],
+    \ 'l' : ['EasySessionList', 'EasySessionList 列示 sessions'],
+    \ }
+
 " Options ---------------------------------------------------------------------{{{1
 let g:navigator.o = {
     \ 'name': '+Options',

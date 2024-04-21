@@ -17,6 +17,7 @@ if !exists('g:plug_group')
     let g:plug_group['basic'] += [ 'startup', 'essential' ]
     let g:plug_group['basic'] += [ 'colorscheme' ]
     let g:plug_group['basic'] += [ 'guistyle' ]
+    let g:plug_group['basic'] += [ 'session' ]
 
     let g:plug_group['search'] = []
     let g:plug_group['search'] += [ 'auto-popmenu', 'EasyMotion', 'Leaderf' ]
@@ -147,6 +148,12 @@ if IsInPlugGroup('basic', 'guistyle') " ----------------------------------{{{1
     Plug 'mattn/vimtweak'
     Plug 'skywind3000/vim-quickui'
     Plug 'skywind3000/vim-navigator'
+endif
+
+if IsInPlugGroup('basic', 'session') " ----------------------------------{{{1
+    Plug 'jamescherti/vim-easysession'
+    let g:easysession_auto_load = 1
+    let g:easysession_auto_save = 1
 endif
 
 if IsInPlugGroup('search', 'auto-popmenu')  " -----------------------------{{{1
@@ -325,10 +332,10 @@ if IsInPlugGroup('Notetaking', 'wiki')  " ---------------------------------{{{1
 
     let g:wiki_root = s:viminitparent . 'wiki/'
     " 进入 wiki 后，让 pwd 转到 wiki_root
-    augroup wiki_vim_autochdir
-        autocmd!
-        autocmd BufEnter *.md,*.wiki if getbufvar(expand('%'), '&filetype') == 'markdown' | execute 'cd ' . g:wiki_root | endif
-    augroup END
+    " augroup wiki_vim_autochdir
+    "     autocmd!
+    "     autocmd BufEnter *.md,*.wiki if getbufvar(expand('%'), '&filetype') == 'markdown' | execute 'cd ' . g:wiki_root | endif
+    " augroup END
 
     " 将wiki链接文本转为合法且清晰的文件名
     function! MyUrlTransform(text)
