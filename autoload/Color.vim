@@ -39,6 +39,7 @@ endfunction
 " Third party colorscheme ------------------------------------------------{{{1
 function! Color#RandomThirdPartyScheme()
     let l:styles = [
+        \ 'call RandomXcode()',
         \ 'call RandomGruvbox8()',
         \ 'call RandomSolarized8()',
         \ 'call RandomMaterial()',
@@ -52,6 +53,14 @@ function! Color#RandomThirdPartyScheme()
         \ ]
     let l:random_third_party_scheme_cmd = l:styles[rand() % len(l:styles)]
     execute l:random_third_party_scheme_cmd
+endfunction
+
+function! RandomXcode()
+    set termguicolors
+    let backgrounds = ['dark', 'light']
+    let &background = backgrounds[rand() % len(backgrounds)]
+    let l:styles = ['xcode', 'xcodehc']
+    execute 'colorscheme ' . l:styles[rand() % len(l:styles)]
 endfunction
 
 function! RandomGruvbox8()
@@ -111,8 +120,10 @@ endfunction
 function! Color#RandomFavoriteScheme()
     let l:styles = [
         \ 'call RandomQuiet()',
+        \ 'call RandomXcode()',
         \ 'call RandomLucius()',
         \ 'color gaea',
+        \ 'color delek',
         \ ]
     let l:random_scheme_cmd = l:styles[rand() % len(l:styles)]
     execute l:random_scheme_cmd

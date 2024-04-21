@@ -134,6 +134,7 @@ if IsInPlugGroup('basic', 'colorscheme')  " -------------------------------{{{1
     Plug 'arcticicestudio/nord-vim'
     Plug 'whatyouhide/vim-gotham'
     Plug 'adrian5/oceanic-next-vim'
+    Plug 'arzg/vim-colors-xcode'
 
     Plug 'zefei/vim-colortuner'
     Plug 'lifepillar/vim-colortemplate'
