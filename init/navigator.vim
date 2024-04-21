@@ -110,9 +110,8 @@ let g:navigator.t = {
 " Session ----------------------------------------------------------------{{{1
 let g:navigator.s = {
     \ 'name': '+session',
-    \ 's' : ['EasySessionSave', 'EasySessionSave 保存 session'],
-    \ 'o' : ['EasySessionLoad', 'EasySessionLoad 加载 session'],
-    \ 'l' : ['EasySessionList', 'EasySessionList 列示 sessions'],
+    \ 'm' : ['mksession! ~/vimfiles/session/main.vim', '保存 session：mksession'],
+    \ 's' : ['so ~/vimfiles/session/main.vim', '加载 session: so session'],
     \ }
 
 " Options ---------------------------------------------------------------------{{{1

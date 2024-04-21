@@ -17,7 +17,7 @@ if !exists('g:plug_group')
     let g:plug_group['basic'] += [ 'startup', 'essential' ]
     let g:plug_group['basic'] += [ 'colorscheme' ]
     let g:plug_group['basic'] += [ 'guistyle' ]
-    let g:plug_group['basic'] += [ 'session' ]
+    " let g:plug_group['basic'] += [ 'session' ]
 
     let g:plug_group['search'] = []
     let g:plug_group['search'] += [ 'auto-popmenu', 'EasyMotion', 'Leaderf' ]
