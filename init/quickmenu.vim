@@ -73,7 +73,7 @@ call quickui#menu#install('&Help', [
     \ ["&Help", 'tab help', '帮助文档'],
     \ ["Help help", 'tab help helphelp', '如何使用帮助文档'],
     \ ["&Tutorial", 'tab help tutor', '初学者教程'],
-    \ ['&Summary', 'tab help summary', '帮助小结'],
+    \ ['&Summary', 'tab help help-summary', '帮助小结'],
     \ ['--',''],
     \ ["&Cheatsheet", 'tab help index', '命令索引'],
     \ ['&Quick Reference', 'tab help quickref', '常用命令总览'],
