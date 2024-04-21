@@ -2,7 +2,7 @@
 function! Wikivim#OpenWikiIndexTab()
     tabnew
     WikiIndex
-    execute 'cd ' . g:wiki_root
+    execute 'cd ' . fnameescape(g:wiki_root)
 endfunction
 
 " 不同于WikiOpen：采用相对 wikiroot 的路径，tab 打开 ---------------------{{{1
@@ -12,7 +12,7 @@ function! Wikivim#OpenWikiPage(filename)
         let l:file_to_open = g:wiki_root . "index.md"
     endif
     execute "tabedit " . l:file_to_open
-    execute 'cd ' . g:wiki_root
+    execute 'cd ' . fnameescape(g:wiki_root)
 endfunction
 
 finish " -----------------------------------------------------------------{{{1
