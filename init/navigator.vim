@@ -232,6 +232,8 @@ let g:navigator.g = {
         \ 'o' : [':Git log --oneline', '显示提交历史记录，每个一行'],
         \ 'q' : [':Gclog', '显示提交历史记录，加载到 quickfix'],
         \ },
+    \ 'r' : [':Git reset --hard HEAD', '丢弃所有的本地修改'],
+    \ 's' : [':Git checkout .', '放弃工作目录中的未暂存更改，但保留暂存区'],
     \ 'c' : [':Gcd', '切换目录到relative to the repository :Gcd'],
     \ }
 
