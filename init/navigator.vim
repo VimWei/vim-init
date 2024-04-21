@@ -39,13 +39,13 @@ let g:navigator.v = {
     \ 'e' : ['Vimrc#EditInitVimrc("essential.vim")', 'essential.vim'],
     \ 't' : ['Vimrc#EditInitVimrc("tabsize.vim")', 'tabsize.vim'],
     \ 's' : ['Vimrc#EditInitVimrc("statusline.vim")', 'statusline.vim'],
-    \ 'g' : ['Vimrc#EditInitVimrc("guistyle.vim")', 'guistyle.vim'],
-    \ 'k' : ['Vimrc#EditInitVimrc("keymaps.vim")', 'keymaps.vim'],
     \ 'p' : ['Vimrc#EditInitVimrc("plugins.vim")', 'plugins.vim'],
+    \ 'k' : ['Vimrc#EditInitVimrc("keymaps.vim")', 'keymaps.vim'],
+    \ 'c' : ['Vimrc#EditInitVimrc("colorstyle.vim")', 'colorstyle.vim'],
+    \ 'g' : ['Vimrc#EditInitVimrc("guistyle.vim")', 'guistyle.vim'],
     \ 'm' : ['Vimrc#EditInitVimrc("quickmenu.vim")', 'quickmenu.vim'],
     \ 'n' : ['Vimrc#EditInitVimrc("navigator.vim")', 'navigator.vim'],
     \ 'a' : ['Vimrc#EditInitVimrc("autoload.vim")', 'autoload.vim'],
-    \ 'c' : ['Vimrc#EditInitVimrc("colorscheme.vim")', 'colorscheme.vim'],
     \ }
 
 " buffer ------------------------------------------------------------------{{{1

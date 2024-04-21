@@ -16,13 +16,13 @@ command! VV call Vimrc#EditInitVimrc("init.vim", "vsp")
 command! VE call Vimrc#EditInitVimrc("essential.vim")
 command! VT call Vimrc#EditInitVimrc("tabsize.vim")
 command! VS call Vimrc#EditInitVimrc("statusline.vim")
-command! VG call Vimrc#EditInitVimrc("guistyle.vim")
-command! VK call Vimrc#EditInitVimrc("keymaps.vim")
 command! VP call Vimrc#EditInitVimrc("plugins.vim")
+command! VK call Vimrc#EditInitVimrc("keymaps.vim")
+command! VC call Vimrc#EditInitVimrc("colorstyle.vim")
+command! VG call Vimrc#EditInitVimrc("guistyle.vim")
 command! VM call Vimrc#EditInitVimrc("quickmenu.vim")
 command! VN call Vimrc#EditInitVimrc("navigator.vim")
 command! VA call Vimrc#EditInitVimrc("autoload.vim")
-command! VC call Vimrc#EditInitVimrc("colorscheme.vim")
 
 " Vim Help -----------------------------------------------------{{{1
 " 垂直右侧窗口打开help

@@ -27,7 +27,7 @@ LoadScript init/tabsize.vim
 LoadScript init/statusline.vim
 LoadScript init/plugins.vim
 LoadScript init/keymaps.vim
-LoadScript init/colorscheme.vim
+LoadScript init/colorstyle.vim
 if IsInPlugGroup('basic', 'guistyle')
     LoadScript init/guistyle.vim
     LoadScript init/quickmenu.vim
