@@ -4,12 +4,22 @@
 "===================================================
 
 " Default colorscheme ----------------------------------------------------{{{1
-if has('termguicolors')
-    set termguicolors
+
+if !exists('s:default_colorscheme')
+    let s:default_colorscheme = []
+    let s:default_colorscheme += ['quiet']
+    " let s:default_colorscheme += ['lucius']
 endif
 
-colorscheme lucius
-exe (strftime('%H') % 18) >= 6 ? 'LuciusLightHighContrast' : 'LuciusDarkLowContrast'
+if index(s:default_colorscheme, 'quiet') >= 0
+    execute 'set background=' . ((strftime('%H') + 0) >= 6 ? 'light' : 'dark')
+    colorscheme quiet
+endif
+
+if index(s:default_colorscheme, 'lucius') >= 0
+    colorscheme lucius
+    exe (strftime('%H') % 18) >= 6 ? 'LuciusLightHighContrast' : 'LuciusDarkLowContrast'
+endif
 
 " Random colorscheme ------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Color.vim

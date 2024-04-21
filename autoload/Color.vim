@@ -1,6 +1,6 @@
 " colorscheme
 
-" Vim inbuilt colorscheme -------------------------------------------------{{{1
+" Vim inbuilt colorscheme ------------------------------------------------{{{1
 function! Color#RandomVimInbuiltScheme()
     let l:styles = [
         \ 'blue', 'darkblue', 'default', 'delek', 'desert',
@@ -9,14 +9,35 @@ function! Color#RandomVimInbuiltScheme()
         \ 'quiet', 'retrobox', 'ron', 'shine', 'slate', 'sorbet',
         \ 'torte', 'wildcharm', 'zaibatsu', 'zellner',
         \ ]
-    let l:random_vim_inbuild_scheme = l:styles[rand() % len(l:styles)]
-    execute 'colorscheme ' . l:random_vim_inbuild_scheme
+    let l:random_scheme = l:styles[rand() % len(l:styles)]
+    execute 'colorscheme ' . l:random_scheme
 endfunction
 
-" Third party colorscheme -------------------------------------------------{{{1
-function! Color#RandomThirdPartyScheme()
+" VimInit colorscheme ----------------------------------------------------{{{1
+function! Color#RandomVimInitScheme()
     let l:styles = [
         \ 'call RandomLucius()',
+        \ 'color borland256',
+        \ 'color borlandc',
+        \ 'color eclipse',
+        \ 'color sublime',
+        \ 'color monokai',
+        \ 'color monokai-vim',
+        \ 'color gaea',
+        \ ]
+    let l:random_scheme_cmd = l:styles[rand() % len(l:styles)]
+    execute l:random_scheme_cmd
+endfunction
+
+function! RandomLucius()
+    let l:styles = ['LuciusLightHighContrast', 'LuciusDarkLowContrast']
+    let l:style = l:styles[rand() % len(l:styles)]
+    execute l:style
+endfunction
+
+" Third party colorscheme ------------------------------------------------{{{1
+function! Color#RandomThirdPartyScheme()
+    let l:styles = [
         \ 'call RandomGruvbox8()',
         \ 'call RandomSolarized8()',
         \ 'call RandomMaterial()',
@@ -30,12 +51,6 @@ function! Color#RandomThirdPartyScheme()
         \ ]
     let l:random_third_party_scheme_cmd = l:styles[rand() % len(l:styles)]
     execute l:random_third_party_scheme_cmd
-endfunction
-
-function! RandomLucius()
-    let l:styles = ['LuciusLightHighContrast', 'LuciusDarkLowContrast']
-    let l:style = l:styles[rand() % len(l:styles)]
-    execute l:style
 endfunction
 
 function! RandomGruvbox8()
@@ -91,13 +106,32 @@ function! RandomOne()
     execute 'colorscheme one'
 endfunction
 
-" Random colorscheme ------------------------------------------------------{{{1
+" Favorite colorscheme ---------------------------------------------------{{{1
+function! Color#RandomFavoriteScheme()
+    let l:styles = [
+        \ 'call RandomQuiet()',
+        \ 'call RandomLucius()',
+        \ 'color gaea',
+        \ ]
+    let l:random_scheme_cmd = l:styles[rand() % len(l:styles)]
+    execute l:random_scheme_cmd
+endfunction
+
+function! RandomQuiet()
+    let backgrounds = ['dark', 'light']
+    let &background = backgrounds[rand() % len(backgrounds)]
+    execute 'colorscheme quiet'
+endfunction
+
+" Random colorscheme -----------------------------------------------------{{{1
 let s:last_colorscheme_cmd = ''
 function! Color#RandomColorScheme()
     if IsInPlugGroup('basic', 'colorscheme')
         let l:styles = [
                     \ 'call Color#RandomVimInbuiltScheme()',
+                    \ 'call Color#RandomVimInitScheme()',
                     \ 'call Color#RandomThirdPartyScheme()',
+                    \ 'call Color#RandomFavoriteScheme()',
                     \ ]
     else
         let l:styles = [ 'call Color#RandomVimInbuiltScheme()' ]
