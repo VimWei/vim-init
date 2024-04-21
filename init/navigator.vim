@@ -99,7 +99,6 @@ let g:navigator.t = {
     \ '7' : ['VimTweakSetAlpha 180', '透明度+70'],
     \ '8' : ['VimTweakSetAlpha 170', '透明度+80'],
     \ '9' : ['VimTweakSetAlpha 160', '透明度+90'],
-    \ 'a' : ['VimTweakEnableMaximize', '最大化窗口'],
     \ 'M' : ['VimTweakEnableMaximize', '最大化窗口'],
     \ 'm' : ['VimTweakDisableMaximize', '向下还原窗口'],
     \ 'T' : ['VimTweakEnableTopMost', '窗口置顶'],
