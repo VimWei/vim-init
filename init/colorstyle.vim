@@ -21,7 +21,7 @@ elseif index(s:default_colorscheme, 'lucius') >= 0
     colorscheme lucius
     exe (strftime('%H') % 18) >= 6 ? 'LuciusLightHighContrast' : 'LuciusDarkLowContrast'
 else
-    " colorscheme default
+    call Color#RandomFavoriteScheme()
 endif
 
 " Random colorscheme ------------------------------------------------------{{{1
