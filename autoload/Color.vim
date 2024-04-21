@@ -134,7 +134,11 @@ function! Color#RandomColorScheme()
                     \ 'call Color#RandomFavoriteScheme()',
                     \ ]
     else
-        let l:styles = [ 'call Color#RandomVimInbuiltScheme()' ]
+        let l:styles = [
+                    \ 'call Color#RandomVimInbuiltScheme()',
+                    \ 'call Color#RandomVimInitScheme()',
+                    \ 'call Color#RandomFavoriteScheme()',
+                    \ ]
     endif
     let l:random_color_scheme_cmd = l:styles[rand() % len(l:styles)]
     execute l:random_color_scheme_cmd
