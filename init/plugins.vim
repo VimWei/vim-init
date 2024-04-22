@@ -24,7 +24,8 @@ if !exists('g:plug_group')
     let g:plug_group['search'] += [ 'pinyin', 'vim-cool' ]
 
     let g:plug_group['Notetaking'] = []
-    let g:plug_group['Notetaking'] += [ 'edit', 'table' ]
+    let g:plug_group['Notetaking'] += [ 'edit', 'textobj' ]
+    let g:plug_group['Notetaking'] += [ 'table' ]
     let g:plug_group['Notetaking'] += [ 'list' ]
     " let g:plug_group['Notetaking'] += [ 'vimwiki' ]
     let g:plug_group['Notetaking'] += [ 'wiki' ]
@@ -229,8 +230,20 @@ if IsInPlugGroup('Notetaking', 'edit')  " ---------------------------------{{{1
     Plug 'tpope/vim-surround'
     " 使用[和]作为先导进行导航
     Plug 'tpope/vim-unimpaired'
+endif
+
+if IsInPlugGroup('Notetaking', 'textobj') " ------------------------------{{{1
     " 基础插件：提供让用户方便的自定义文本对象的接口
+    " 详情查阅 ../plugin/textobjs.vim
     Plug 'kana/vim-textobj-user'
+    " indent 文本对象：ii/ai 表示当前缩进，vii 选中当缩进，cii 改写缩进
+    Plug 'kana/vim-textobj-indent'
+    " 语法文本对象：iy/ay 基于语法的文本对象
+    Plug 'kana/vim-textobj-syntax'
+    " 函数文本对象：if/af 支持 c/c++/vim/java
+    Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
+    " 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
+    Plug 'bps/vim-textobj-python', {'for': 'python'}
 endif
 
 if IsInPlugGroup('Notetaking', 'table')  " --------------------------------{{{1
