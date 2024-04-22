@@ -91,7 +91,7 @@ call quickui#menu#install('&Help', [
 let g:quickui_show_tip = 1
 let g:quickui_border_style = 2
 " availabe color scheme：borland、gruvbox、solarized、papercol dark、papercol light
-let g:quickui_color_scheme = 'gruvbox'
+let g:quickui_color_scheme = 'borland'
 
 " open menu
 " multiple menu namespaces: https://github.com/skywind3000/vim-quickui/wiki/Menu-Namespaces
