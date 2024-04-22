@@ -7,4 +7,4 @@ endfor
 hi TabLineSel guifg=#000000 guibg=darkgrey gui=bold cterm=bold
 
 " 去除非选中标签页背景色
-hi TabLine guifg=#000000 guibg=NONE gui=NONE cterm=NONE
+hi TabLine guifg=#666666 guibg=NONE gui=NONE cterm=NONE
