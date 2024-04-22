@@ -13,6 +13,12 @@ function! Color#RandomVimInbuiltScheme()
     execute 'colorscheme ' . l:random_scheme
 endfunction
 
+function! RandomQuiet()
+    let backgrounds = ['dark', 'light']
+    let &background = backgrounds[rand() % len(backgrounds)]
+    execute 'colorscheme quiet'
+endfunction
+
 " VimInit colorscheme ----------------------------------------------------{{{1
 function! Color#RandomVimInitScheme()
     let l:styles = [
@@ -116,22 +122,21 @@ function! RandomOne()
 endfunction
 
 " Favorite colorscheme ---------------------------------------------------{{{1
-function! Color#RandomFavoriteScheme()
-    let l:styles = [
-        \ 'call RandomQuiet()',
-        \ 'call RandomXcode()',
-        \ 'call RandomLucius()',
-        \ 'color gaea',
-        \ 'color delek',
-        \ ]
-    let l:random_scheme_cmd = l:styles[rand() % len(l:styles)]
-    execute l:random_scheme_cmd
-endfunction
-
-function! RandomQuiet()
-    let backgrounds = ['dark', 'light']
-    let &background = backgrounds[rand() % len(backgrounds)]
-    execute 'colorscheme quiet'
+function! Color#RandomFavoriteScheme(...)
+    if a:0 == 0 || empty(a:1)
+        let l:styles = [
+            \ 'call RandomQuiet()',
+            \ 'call RandomXcode()',
+            \ 'call RandomLucius()',
+            \ 'color gaea',
+            \ 'color delek',
+            \ 'color eclipse',
+            \ ]
+        let l:random_scheme_cmd = l:styles[rand() % len(l:styles)]
+        execute l:random_scheme_cmd
+    else
+        execute 'colorscheme ' . a:1
+    endif
 endfunction
 
 " Random colorscheme -----------------------------------------------------{{{1
