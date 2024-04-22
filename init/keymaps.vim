@@ -141,7 +141,7 @@ augroup MarkdownLinkConceal
     autocmd!
     autocmd FileType markdown
         \ syn region markdownLink matchgroup=markdownLinkDelimiter
-        \ start="(" end=")" keepend conceal contains=markdownUrl
+        \ start="(" end=")" contains=markdownUrl keepend contained conceal
     autocmd FileType markdown
         \ syn region markdownLinkText matchgroup=markdownLinkTextDelimiter
         \ start="!\=\[\%(\_[^][]*\%(\[\_[^][]*\]\_[^][]*\)*]\%( \=[[(]\)\)\@="
