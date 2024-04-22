@@ -14,8 +14,9 @@ endif
 if !exists('s:default_colorscheme')
     let s:default_colorscheme = []
     let s:default_colorscheme += ['quiet']
-    " let s:default_colorscheme += ['eclipse']
+    let s:default_colorscheme += ['eclipse']
     " let s:default_colorscheme += ['delek']
+    " let s:default_colorscheme += ['borland256']
     " let s:default_colorscheme += ['lucius']
     " let s:default_colorscheme += ['gaea']
 endif
@@ -30,4 +31,5 @@ endif
 
 " Random colorscheme ------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Color.vim
-nnoremap <silent> <Leader>c :call Color#RandomColorScheme()<CR>:color<CR>
+nnoremap <silent> <Leader>ca :call Color#RandomColorScheme()<CR>:color<CR>
+nnoremap <silent> <Leader>cc :call Color#RandomFavoriteScheme()<CR>:color<CR>

@@ -124,7 +124,7 @@ endfunction
 " Favorite colorscheme ---------------------------------------------------{{{1
 function! Color#RandomFavoriteScheme(...)
     " 配置 favorite colorschemes，按启用复杂度来分类
-    let l:styles_simple = ['gaea', 'delek', 'eclipse']
+    let l:styles_simple = ['gaea', 'delek', 'eclipse', 'borland256']
     let l:styles_complex = ['quiet', 'xcode', 'lucius']
 
     " 默认行为：采用随机的colorscheme
