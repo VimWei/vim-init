@@ -80,7 +80,7 @@ function! Vim_NeatTabLine()
     let s .= '%#TabLineFill#%T'
     " right-align the label to close the current tab page
     if tabpagenr('$') > 1
-        let s .= '%=%#TabLine#%999XX'
+        " let s .= '%=%#TabLine#%999XX'
     endif
 
     return s
