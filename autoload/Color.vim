@@ -123,20 +123,36 @@ endfunction
 
 " Favorite colorscheme ---------------------------------------------------{{{1
 function! Color#RandomFavoriteScheme(...)
-    if a:0 == 0 || empty(a:1)
-        let l:styles = [
-            \ 'call RandomQuiet()',
-            \ 'call RandomXcode()',
-            \ 'call RandomLucius()',
-            \ 'color gaea',
-            \ 'color delek',
-            \ 'color eclipse',
-            \ ]
-        let l:random_scheme_cmd = l:styles[rand() % len(l:styles)]
-        execute l:random_scheme_cmd
-    else
-        execute 'colorscheme ' . a:1
+    " 配置 favorite colorschemes，按启用复杂度来分类
+    let l:styles_simple = ['gaea', 'delek', 'eclipse']
+    let l:styles_complex = ['quiet', 'xcode', 'lucius']
+
+    " 默认行为：采用随机的colorscheme
+    let l:styles = []
+    for l:style in l:styles_simple
+        call add(l:styles, 'color ' . l:style)
+    endfor
+    for l:style in l:styles_complex
+        let l:firstChar = toupper(strpart(l:style, 0, 1))
+        let l:restChars = strpart(l:style, 1)
+        let l:style_ucfirst = l:firstChar . l:restChars
+        call add(l:styles, 'call Random' . l:style_ucfirst . '()')
+    endfor
+    let l:colorscheme_cmd = l:styles[rand() % len(l:styles)]
+
+    " 若指定了有效的 colorscheme，则采用该 colorscheme
+    if a:0 > 0 && !empty(a:1)
+        if index(l:styles_simple, a:1) >= 0
+            let l:colorscheme_cmd = 'color ' . a:1
+        elseif index(l:styles_complex, a:1) >= 0
+            let l:firstChar = toupper(strpart(a:1, 0, 1))
+            let l:restChars = strpart(a:1, 1)
+            let l:style_ucfirst = l:firstChar . l:restChars
+            let l:colorscheme_cmd = 'call Random' . l:style_ucfirst . '()'
+        endif
     endif
+
+    execute l:colorscheme_cmd
 endfunction
 
 " Random colorscheme -----------------------------------------------------{{{1
