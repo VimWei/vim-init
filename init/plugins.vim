@@ -154,7 +154,8 @@ endif
 if IsInPlugGroup('basic', 'session') " -----------------------------------{{{1
     Plug 'jamescherti/vim-easysession'
     let g:easysession_auto_save = 1
-    " let g:easysession_auto_load = 1
+    let g:easysession_auto_load = 0
+    set sessionoptions=blank,curdir,folds,help,tabpages,unix,slash,winsize
 endif
 
 if IsInPlugGroup('search', 'auto-popmenu')  " -----------------------------{{{1
