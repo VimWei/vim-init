@@ -11,6 +11,7 @@ set statusline+=\%{CurrentMode()}               " INSERT/NORMAL/VISUAL
 set statusline+=\ [b%nw%{winnr()}               " buffer number, winnr
 set statusline+=\%R%H]                          " 是否只读或帮助文档
 set statusline+=\ %f                            " 文件名(相对路径)
+set statusline+=\ %{FugitiveStatusline()}       " git 状态
 set statusline+=\ %m                            " 编辑状态
 set statusline+=%=                              " 向右对齐
 set statusline+=\ %y                            " 文件类型

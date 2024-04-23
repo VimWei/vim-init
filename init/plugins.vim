@@ -32,7 +32,8 @@ if !exists('g:plug_group')
     " let g:plug_group['Notetaking'] += [ 'markdown' ]
 
     let g:plug_group['program'] = []
-    let g:plug_group['program'] += [ 'git', 'terminal', 'AsyncRun' ]
+    let g:plug_group['program'] += [ 'git' ]
+    let g:plug_group['program'] += [ 'terminal', 'AsyncRun' ]
     let g:plug_group['program'] += [ 'python', 'REPL' ]
 endif
 
@@ -225,12 +226,14 @@ if IsInPlugGroup('search', 'vim-cool')  " ---------------------------------{{{1
 endif
 
 if IsInPlugGroup('Notetaking', 'edit')  " ---------------------------------{{{1
-    " Repeatable、surround、unimpaired ----------------------
-    Plug 'tpope/vim-repeat'
+    " 使用gcc切换注释
+    Plug 'tpope/vim-commentary'
+    autocmd FileType autohotkey setlocal commentstring=;\ %s
     " 方便对引号等成对出现的文本进行处理
     Plug 'tpope/vim-surround'
     " 使用[和]作为先导进行导航
     Plug 'tpope/vim-unimpaired'
+    Plug 'tpope/vim-repeat'
 endif
 
 if IsInPlugGroup('Notetaking', 'textobj') " ------------------------------{{{1
@@ -448,9 +451,12 @@ endif
 
 if IsInPlugGroup('program', 'git')  " -------------------------------------{{{1
     Plug 'tpope/vim-fugitive'
-    " 使用gcc切换注释
-    Plug 'tpope/vim-commentary'
-    autocmd FileType autohotkey setlocal commentstring=;\ %s
+else
+    if !exists('*fugitive#statusline')
+    function! FugitiveStatusline()
+        return ''
+    endfunction
+    endif
 endif
 
 if IsInPlugGroup('program', 'terminal')  " --------------------------------{{{1
