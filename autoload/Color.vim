@@ -124,8 +124,11 @@ endfunction
 " Favorite colorscheme ---------------------------------------------------{{{1
 function! Color#RandomFavoriteScheme(...)
     " 配置 favorite colorschemes，按启用复杂度来分类
-    let l:styles_simple = ['gaea', 'delek', 'eclipse', 'borland256']
-    let l:styles_complex = ['quiet', 'xcode', 'lucius']
+    let l:styles_simple = [
+            \ 'gaea', 'delek', 'eclipse',
+            \ 'borland256', 'wildcharm', 'murphy',
+            \ ]
+    let l:styles_complex = ['quiet', 'lucius']
 
     " 默认行为：采用随机的colorscheme
     let l:styles = []
@@ -162,8 +165,8 @@ function! Color#RandomColorScheme()
         let l:styles = [
                     \ 'call Color#RandomVimInbuiltScheme()',
                     \ 'call Color#RandomVimInitScheme()',
-                    \ 'call Color#RandomThirdPartyScheme()',
                     \ 'call Color#RandomFavoriteScheme()',
+                    \ 'call Color#RandomThirdPartyScheme()',
                     \ ]
     else
         let l:styles = [
