@@ -1,3 +1,13 @@
+## Tab
+							*hl-TabLine*
+TabLine		标签页行，非活动标签页标签。
+							*hl-TabLineFill*
+TabLineFill	标签页行，没有标签的地方。
+							*hl-TabLineSel*
+TabLineSel	标签页行，活动标签页标签。
+							*hl-Terminal*
+
+
 ## Color names
 
 - Added
