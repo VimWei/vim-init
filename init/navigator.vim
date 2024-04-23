@@ -60,6 +60,12 @@ let g:navigator.b = {
     \ '?' : [':Leaderf buffer', 'Leaderf b'],
     \ }
 
+" Colorscheme ------------------------------------------------------------{{{1
+let g:navigator.c = {
+    \ 'name' : '+Colorscheme',
+    \ 'a' : [':call Color#RandomColorScheme()', '随机采用所有的colorscheme'],
+    \ 'c' : [':call Color#RandomFavoriteScheme()', '随机采用最喜欢的colorscheme'],
+    \ }
 " tab ---------------------------------------------------------------------{{{1
 let g:navigator.t = {
     \ 'name': '+Tab',
@@ -110,6 +116,7 @@ let g:navigator.t = {
 " Session ----------------------------------------------------------------{{{1
 let g:navigator.s = {
     \ 'name': '+session',
+    \ 'e' : ['EasySessionLoad', 'EasySessionLoad：加载默认的session'],
     \ 'm' : ['mksession! ~/vimfiles/session/main.vim', '保存 session：mksession'],
     \ 's' : ['so ~/vimfiles/session/main.vim', '加载 session: so session'],
     \ }
