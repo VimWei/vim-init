@@ -456,11 +456,9 @@ if IsInPlugGroup('program', 'git')  " -------------------------------------{{{1
         return fugitive#Head()
     endfunction
 else
-    if !exists('*fugitive#Head')
-        function! g:Git_status()
-            return ''
-        endfunction
-    endif
+    function! g:Git_status()
+        return ''
+    endfunction
 endif
 
 if IsInPlugGroup('program', 'terminal')  " --------------------------------{{{1
