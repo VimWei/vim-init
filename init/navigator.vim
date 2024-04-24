@@ -58,6 +58,7 @@ let g:navigator.b = {
     \ 'p' : [':bprevious', 'previous-buffer'],
     \ '$' : [':blast', 'last-buffer'],
     \ '?' : [':Leaderf buffer', 'Leaderf b'],
+    \ 'o' : ['Buffer#CloseDuplicateBuffers()', '每个buffer只保留一个窗口'],
     \ }
 
 " Colorscheme ------------------------------------------------------------{{{1
