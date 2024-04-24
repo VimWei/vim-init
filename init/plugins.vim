@@ -452,11 +452,14 @@ endif
 
 if IsInPlugGroup('program', 'git')  " -------------------------------------{{{1
     Plug 'tpope/vim-fugitive'
-else
-    if !exists('*fugitive#statusline')
-    function! FugitiveStatusline()
-        return ''
+    function! g:Git_status()
+        return fugitive#Head()
     endfunction
+else
+    if !exists('*fugitive#Head')
+        function! g:Git_status()
+            return ''
+        endfunction
     endif
 endif
 
