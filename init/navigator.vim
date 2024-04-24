@@ -20,15 +20,15 @@ let g:navigator.h = {
     \ 't' : [':tab help tutor', '初学者教程'],
     \ 's' : [':tab help summary', '帮助小结'],
     \ '0' : [':tab help helphelp', '如何使用帮助文档'],
-    \ '1' : ['tab help index', '命令索引'],
-    \ '2' : ['tab help quickref', '常用命令总览'],
-    \ '3' : ['tab help function-list', '函数列表'],
-    \ '4' : ['tab help tips', 'Vim 的各种窍门'],
-    \ '5' : ['tab help pattern.txt', '模式'],
-    \ '6' : ['tab help registers', '寄存器'],
-    \ '7' : ['tab help eval', '表达式'],
-    \ 'c' : ['set hlg=cn', '帮助语言：中文'],
-    \ 'e' : ['set hlg=en', '帮助语言：English'],
+    \ '1' : [':tab help index', '命令索引'],
+    \ '2' : [':tab help quickref', '常用命令总览'],
+    \ '3' : [':tab help function-list', '函数列表'],
+    \ '4' : [':tab help tips', 'Vim 的各种窍门'],
+    \ '5' : [':tab help pattern.txt', '模式'],
+    \ '6' : [':tab help registers', '寄存器'],
+    \ '7' : [':tab help eval', '表达式'],
+    \ 'c' : [':set hlg=cn', '帮助语言：中文'],
+    \ 'e' : [':set hlg=en', '帮助语言：English'],
     \ }
 
 " Vimrc -------------------------------------------------------------------{{{1
@@ -63,8 +63,8 @@ let g:navigator.b = {
 " Colorscheme ------------------------------------------------------------{{{1
 let g:navigator.c = {
     \ 'name' : '+Colorscheme',
-    \ 'a' : [':call Color#RandomColorScheme()', '随机采用所有的colorscheme'],
-    \ 'c' : [':call Color#RandomFavoriteScheme()', '随机采用最喜欢的colorscheme'],
+    \ 'a' : ['Color#RandomColorScheme()', '随机采用所有的colorscheme'],
+    \ 'c' : ['Color#RandomFavoriteScheme()', '随机采用最喜欢的colorscheme'],
     \ }
 " tab ---------------------------------------------------------------------{{{1
 let g:navigator.t = {
@@ -95,30 +95,30 @@ let g:navigator.f = {
 " vimtweak ---------------------------------------------------------------{{{1
 let g:navigator.t = {
     \ 'name': '+vimTweak',
-    \ '0' : ['VimTweakSetAlpha 250', '不透明'],
-    \ '1' : ['VimTweakSetAlpha 240', '透明度+10'],
-    \ '2' : ['VimTweakSetAlpha 230', '透明度+20'],
-    \ '3' : ['VimTweakSetAlpha 220', '透明度+30'],
-    \ '4' : ['VimTweakSetAlpha 210', '透明度+40'],
-    \ '5' : ['VimTweakSetAlpha 200', '透明度+50'],
-    \ '6' : ['VimTweakSetAlpha 190', '透明度+60'],
-    \ '7' : ['VimTweakSetAlpha 180', '透明度+70'],
-    \ '8' : ['VimTweakSetAlpha 170', '透明度+80'],
-    \ '9' : ['VimTweakSetAlpha 160', '透明度+90'],
-    \ 'M' : ['VimTweakEnableMaximize', '最大化窗口'],
-    \ 'm' : ['VimTweakDisableMaximize', '向下还原窗口'],
-    \ 'T' : ['VimTweakEnableTopMost', '窗口置顶'],
-    \ 't' : ['VimTweakDisableTopMost', '不要窗口置顶'],
-    \ 'C' : ['VimTweakDisableCaption', '隐藏窗口标题栏'],
-    \ 'c' : ['VimTweakEnableCaption', '不要隐藏窗口标题栏'],
+    \ '0' : [':VimTweakSetAlpha 250', '不透明'],
+    \ '1' : [':VimTweakSetAlpha 240', '透明度+10'],
+    \ '2' : [':VimTweakSetAlpha 230', '透明度+20'],
+    \ '3' : [':VimTweakSetAlpha 220', '透明度+30'],
+    \ '4' : [':VimTweakSetAlpha 210', '透明度+40'],
+    \ '5' : [':VimTweakSetAlpha 200', '透明度+50'],
+    \ '6' : [':VimTweakSetAlpha 190', '透明度+60'],
+    \ '7' : [':VimTweakSetAlpha 180', '透明度+70'],
+    \ '8' : [':VimTweakSetAlpha 170', '透明度+80'],
+    \ '9' : [':VimTweakSetAlpha 160', '透明度+90'],
+    \ 'M' : [':VimTweakEnableMaximize', '最大化窗口'],
+    \ 'm' : [':VimTweakDisableMaximize', '向下还原窗口'],
+    \ 'T' : [':VimTweakEnableTopMost', '窗口置顶'],
+    \ 't' : [':VimTweakDisableTopMost', '不要窗口置顶'],
+    \ 'C' : [':VimTweakDisableCaption', '隐藏窗口标题栏'],
+    \ 'c' : [':VimTweakEnableCaption', '不要隐藏窗口标题栏'],
     \ }
 
 " Session ----------------------------------------------------------------{{{1
 let g:navigator.s = {
     \ 'name': '+session',
-    \ 'e' : ['EasySessionLoad', 'EasySessionLoad：加载默认的session'],
-    \ 'm' : ['mksession! ~/vimfiles/session/main.vim', '保存 session：mksession'],
-    \ 's' : ['so ~/vimfiles/session/main.vim', '加载 session: so session'],
+    \ 'e' : [':EasySessionLoad', 'EasySessionLoad：加载默认的session'],
+    \ 'm' : ['Session#MK("mk")', '保存 session：mksession'],
+    \ 's' : ['Session#MK("so")', '加载 session: so session'],
     \ }
 
 " Options ---------------------------------------------------------------------{{{1
@@ -180,13 +180,13 @@ let g:navigator_v.m = {
 let g:navigator.w = {
     \ 'name' : '+Wiki.vim',
     \ 'w' : [':WikiIndex', 'Open Wiki index'],
-    \ 't' : [':call Wikivim#OpenWikiIndexTab()', 'Open Wiki index in a new tab'],
-    \ 's' : [':call Wikivim#OpenWikiPage("Research/路演.md")', 'Open RoadShow index'],
+    \ 't' : ['Wikivim#OpenWikiIndexTab()', 'Open Wiki index in a new tab'],
+    \ 's' : ['Wikivim#OpenWikiPage("Research/路演.md")', 'Open RoadShow index'],
     \ 'd' : ['<plug>(wiki-page-delete)', 'Delete wiki page'],
     \ 'r' : ['<plug>(wiki-page-rename)', 'Rename wiki page'],
     \ 'j' : {
         \ 'name' : '+Journal',
-        \ '0' : [':call Wikivim#OpenWikiPage("journal/Journal.md")', 'Open diary index file'],
+        \ '0' : ['Wikivim#OpenWikiPage("journal/Journal.md")', 'Open diary index file'],
         \ '1' : [':WikiJournal', 'Open today diary'],
         \ '5' : ['<plug>(wiki-journal-next)', 'Open next day diary'],
         \ '6' : ['<plug>(wiki-journal-prev)', 'Open previous day diary'],
