@@ -156,8 +156,6 @@ if IsInPlugGroup('basic', 'session') " -----------------------------------{{{1
     Plug 'jamescherti/vim-easysession'
     let g:easysession_auto_save = 1
     let g:easysession_auto_load = 0
-    let g:easysession_save_guifont = 0
-    let g:easysession_save_colorscheme = 0
 endif
 
 if IsInPlugGroup('search', 'auto-popmenu')  " -----------------------------{{{1
