@@ -2,7 +2,8 @@ function! Session#MK(...)
     " 配置默认session的保存位置
     let default_session = '~/vimfiles/session/main.vim'
     " 检查目录是否存在，如果不存在则创建
-    if !isdirectory(fnamemodify(expand(default_session), ':h'))
+    let session_dir = fnamemodify(expand(default_session), ':h')
+    if !isdirectory(session_dir)
         call mkdir(session_dir, 'p')
     endif
     if a:0 > 0 && !empty(a:1)
