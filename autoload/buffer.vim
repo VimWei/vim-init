@@ -3,6 +3,9 @@ function! Buffer#CloseDuplicateBuffers()
     let s:current_buffer = bufnr('%')
     let s:current_winid = win_getid()
 
+    " 记录要关闭的新建未修改的文档窗口 ID
+    let l:new_unmodified_winids = []
+
     " 记录每个 buffer 打开的所有窗口 ID
     let l:buffer_windows = {}
     for l:tabnr in range(1, tabpagenr('$'))
@@ -12,11 +15,25 @@ function! Buffer#CloseDuplicateBuffers()
             if l:bufnr == -1
                 continue
             endif
+            " 检查 buffer 是否未经修改且是新建的
+            if !getbufvar(l:bufnr, '&modified') && bufname(l:bufnr) == ''
+                " 如果不是当前窗口，加入到待关闭列表
+                if l:winid != s:current_winid
+                    call add(l:new_unmodified_winids, l:winid)
+                endif
+            endif
+            " 继续处理重复的 buffer 窗口
             if !has_key(l:buffer_windows, l:bufnr)
                 let l:buffer_windows[l:bufnr] = []
             endif
             call add(l:buffer_windows[l:bufnr], l:winid)
         endfor
+    endfor
+
+    " 关闭记录的新建未修改的文档窗口
+    for l:winid in l:new_unmodified_winids
+        call win_gotoid(l:winid)
+        execute 'wincmd c'
     endfor
 
     " 关闭重复打开的 buffer
