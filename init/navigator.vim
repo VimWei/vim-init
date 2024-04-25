@@ -58,7 +58,7 @@ let g:navigator.b = {
     \ 'p' : [':bprevious', 'previous-buffer'],
     \ '$' : [':blast', 'last-buffer'],
     \ '?' : [':Leaderf buffer', 'Leaderf b'],
-    \ 'o' : ['Buffer#CloseDuplicateBuffers()', '清理未修订的空文档及重复buffer的窗口'],
+    \ 'o' : ['Buffer#CloseDuplicate()', '关闭 duplicate 窗口'],
     \ }
 
 " Colorscheme ------------------------------------------------------------{{{1

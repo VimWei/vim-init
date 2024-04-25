@@ -1,4 +1,4 @@
-function! Buffer#CloseDuplicateBuffers()
+function! Buffer#CloseDuplicate()
     " 保存当前 buffer 的编号和所在的窗口 ID
     let s:current_buffer = bufnr('%')
     let s:current_winid = win_getid()
