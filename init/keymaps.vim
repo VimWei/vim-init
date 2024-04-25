@@ -83,8 +83,8 @@ endfor
 
 " Window ------------------------------------------------------------------{{{1
 " 正常模式下 alt+j,k,h,l 调整分割窗口大小
-nnoremap <M-j> :resize +5<CR>
-nnoremap <M-k> :resize -5<CR>
+nnoremap <M-k> :resize +5<CR>
+nnoremap <M-j> :resize -5<CR>
 nnoremap <M-h> :vertical resize -5<CR>
 nnoremap <M-l> :vertical resize +5<CR>
 
