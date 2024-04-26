@@ -29,15 +29,15 @@ call quickui#menu#install('&File', [
 
 " Tools ------------------------------------------------------------------{{{1
 call quickui#menu#install("&Tools", [
-    \ ["&Update plugins", "PlugUpdate", 'update plugins'],
-    \ ["Upgrade vim-plug", "PlugUpgrade", 'upgrade vim-plug'],
+    \ ["&Update VIMRC", "call Vimrc#Update()", 'update VIMRC'],
+    \ ["&Edit VIMRC", 'VI', '在新窗口编辑VIMRC'],
+    \ ["-"],
+    \ ["Edit &Menu", 'VM', '在新窗口编辑菜单'],
+    \ ["Edit &Navigator", 'VN', '在新窗口编辑导航'],
+    \ ["-"],
+    \ ["Update &plugins", "PlugUpdate", 'update plugins'],
+    \ ["Upgrade &vim-plug", "PlugUpgrade", 'upgrade vim-plug'],
     \ ["Plugin &List", "PlugStatus", 'list available plugins'],
-    \ ["-"],
-    \ ["Update &VIMRC", "call Vimrc#Update()", 'update VIMRC'],
-    \ ["-"],
-    \ ["Edit Menu", 'VM', '在新窗口编辑菜单'],
-    \ ["Edit Navigator", 'VN', '在新窗口编辑导航'],
-    \ ["Edit VIMRC", 'VI', '在新窗口编辑VIMRC'],
     \ ])
 
 " Option -----------------------------------------------------------------{{{1
