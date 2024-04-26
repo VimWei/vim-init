@@ -33,6 +33,8 @@ call quickui#menu#install("&Tools", [
     \ ["Upgrade vim-plug", "PlugUpgrade", 'upgrade vim-plug'],
     \ ["Plugin &List", "PlugStatus", 'list available plugins'],
     \ ["-"],
+    \ ["Update &VIMRC", "call Vimrc#Update()", 'update VIMRC'],
+    \ ["-"],
     \ ["Edit Menu", 'VM', '在新窗口编辑菜单'],
     \ ["Edit Navigator", 'VN', '在新窗口编辑导航'],
     \ ["Edit VIMRC", 'VI', '在新窗口编辑VIMRC'],
@@ -48,25 +50,27 @@ call quickui#menu#install("&Option", [
     \ ])
 
 " Markdown ---------------------------------------------------------------{{{1
-call quickui#menu#install("&Markdown", [
-    \ ['Toggle Todo status done [ ] [X] ', 'VimwikiToggleListItem', '切换 Todo 完成状态'],
-    \ ['Toggle Todo status Reject [ ] [-]', 'VimwikiToggleRejectedListItem', '切换 Todo 启用状态'],
-    \ ['Increase done status [ ] [.] [o]', 'normal gln', '增加 Done 的成熟度'],
-    \ ['Decrease done status [o] [.] [ ]', 'normal glp', '降低 Done 的成熟度'],
-    \ ['Remove checkbox [ ] from list item', 'VimwikiRemoveSingleCB', '移除 Todo checkbox'],
-    \ ['Find next unfinished task', 'VimwikiNextTask', '跳到下一个未完成的任务'],
-    \ ["-"],
-    \ ['Change Symbol To *', 'VimwikiChangeSymbolTo *', '更改当前列表符号为 gl*'],
-    \ ['Change Symbol To -', 'VimwikiChangeSymbolTo -', '更改当前列表符号为 gl-'],
-    \ ['Change Symbol To 1', 'VimwikiChangeSymbolTo 1.', '更改当前列表符号为 gl1'],
-    \ ['Renumber list items', 'VimwikiRenumberList', '重建当前列表编号 glr'],
-    \ ['Renumber All list items', 'VimwikiRenumberAllLists', '重建全文列表编号 glR'],
-    \ ['Increase List Level -->', 'normal gll', '升高当前列表级别 gll'],
-    \ ['Decrease List Level <--', 'normal glh', '降低当前列表级别 glh'],
-    \ ["-"],
-    \ ['Update diary index', 'VimwikiDiaryGenerateLinks', '更新Diary索引目录'],
-    \ ["Rebuild Tags", 'VimwikiRebuildTags!', '重新生成Tags'],
-    \ ], '<auto>', 'markdown')
+if IsInPlugGroup('Notetaking', 'vimwiki')
+    call quickui#menu#install("&Markdown", [
+        \ ['Toggle Todo status done [ ] [X] ', 'VimwikiToggleListItem', '切换 Todo 完成状态'],
+        \ ['Toggle Todo status Reject [ ] [-]', 'VimwikiToggleRejectedListItem', '切换 Todo 启用状态'],
+        \ ['Increase done status [ ] [.] [o]', 'normal gln', '增加 Done 的成熟度'],
+        \ ['Decrease done status [o] [.] [ ]', 'normal glp', '降低 Done 的成熟度'],
+        \ ['Remove checkbox [ ] from list item', 'VimwikiRemoveSingleCB', '移除 Todo checkbox'],
+        \ ['Find next unfinished task', 'VimwikiNextTask', '跳到下一个未完成的任务'],
+        \ ["-"],
+        \ ['Change Symbol To *', 'VimwikiChangeSymbolTo *', '更改当前列表符号为 gl*'],
+        \ ['Change Symbol To -', 'VimwikiChangeSymbolTo -', '更改当前列表符号为 gl-'],
+        \ ['Change Symbol To 1', 'VimwikiChangeSymbolTo 1.', '更改当前列表符号为 gl1'],
+        \ ['Renumber list items', 'VimwikiRenumberList', '重建当前列表编号 glr'],
+        \ ['Renumber All list items', 'VimwikiRenumberAllLists', '重建全文列表编号 glR'],
+        \ ['Increase List Level -->', 'normal gll', '升高当前列表级别 gll'],
+        \ ['Decrease List Level <--', 'normal glh', '降低当前列表级别 glh'],
+        \ ["-"],
+        \ ['Update diary index', 'VimwikiDiaryGenerateLinks', '更新Diary索引目录'],
+        \ ["Rebuild Tags", 'VimwikiRebuildTags!', '重新生成Tags'],
+        \ ], '<auto>', 'markdown')
+endif
 
 " Help -------------------------------------------------------------------{{{1
 call quickui#menu#install('&Help', [

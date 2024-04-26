@@ -22,3 +22,10 @@ function! Vimrc#EditInitVimrc(filename, ...)
     " 设置vim-init/为工作目录
     execute "cd " . s:viminit
 endfunction
+
+function! Vimrc#Update()
+    let l:current_working_directory = getcwd()
+    execute "cd " . s:viminit
+    Git pull
+    execute "cd " . l:current_working_directory
+endfunction

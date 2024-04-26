@@ -34,6 +34,7 @@ let g:navigator.h = {
 " Vimrc -------------------------------------------------------------------{{{1
 let g:navigator.v = {
     \ 'name': '+VIMRC',
+    \ 'u' : ['Vimrc#Update()', 'Update VIMRC'],
     \ 'v' : [':edit $MYVIMRC', 'VIMRC'],
     \ 'i' : ['Vimrc#EditInitVimrc("init.vim")', 'init.vim'],
     \ 'e' : ['Vimrc#EditInitVimrc("essential.vim")', 'essential.vim'],
