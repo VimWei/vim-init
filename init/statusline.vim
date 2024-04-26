@@ -49,7 +49,7 @@ endfunction
 
 " 显示 buffer 号和窗口号 -------------------------------------------------{{{1
 function! BufferWinInfo()
-    if winwidth(0) > 70
+    if winwidth(0) > 50
         return 'b' . bufnr('%') . 'w' . winnr()
     else
         return ''
