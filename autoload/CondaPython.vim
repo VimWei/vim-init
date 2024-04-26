@@ -4,7 +4,7 @@
 " command! YourCommand call CondaPython#CondaEnv("env", "mode", "cmd1", "cmd2", ...)
 function! CondaPython#CondaEnv(...)
     " 切换colorscheme，以适应Terminal
-    execute "LuciusDarkLowContrast"
+    " execute 'colorscheme wildcharm'
 
     " 获取第1个参数作为conda环境，默认 'base'
     let l:env = get(a:, 1, 'base')
