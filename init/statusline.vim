@@ -9,7 +9,7 @@ set statusline+=%(\ %{CurrentMode()}\ \|\ %)    " INSERT/NORMAL/VISUAL
 set statusline+=%(b%nw%{winnr()}\ \|\ %)        " buffer number, winnr
 set statusline+=%f%(\ %m%)                      " 文件名(相对路径)及编辑状态
 set statusline+=%(\ \|\ %{g:Git_status()}%)     " git 状态
-set statusline+=%=                              " 向右对齐
+set statusline+=%=\ %<                          " 向右对齐，且窗口较小时开启截短
 set statusline+=%(%{tolower(&filetype)}\ \|\ %) " 文件类型
 " 最右边显示文件格式、编码和行号等信息，并且固定在一个 group 中，优先占位
 set statusline+=%0(%{&fileformat}\ \|\ %{(&fenc==\"\"?&enc:&fenc).(&bomb?\",BOM\":\"\")}\ \|\ %v:%l/%L=%p%%\ %)
