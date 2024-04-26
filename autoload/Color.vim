@@ -74,7 +74,7 @@ function! RandomGruvbox8()
     let g:gruvbox_italicize_strings = 0
     let backgrounds = ['dark', 'light']
     let &background = backgrounds[rand() % len(backgrounds)]
-    let l:styles = ['gruvbox8', 'gruvbox8_hard', 'gruvbox8_soft']
+    let l:styles = ['gruvbox8', 'gruvbox8_soft']
     execute 'colorscheme ' . l:styles[rand() % len(l:styles)]
 endfunction
 
@@ -135,7 +135,10 @@ function! Color#RandomFavoriteScheme(...)
             \ 'gaea', 'delek', 'eclipse',
             \ 'borland256', 'wildcharm', 'murphy',
             \ ]
-    let l:styles_complex = ['quiet', 'lucius', 'afterglow']
+    let l:styles_complex = [
+            \ 'quiet', 'lucius', 'afterglow',
+            \ 'gruvbox8',
+            \ ]
 
     " 默认行为：采用随机的colorscheme
     let l:styles = []
