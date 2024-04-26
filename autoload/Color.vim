@@ -56,6 +56,7 @@ function! Color#RandomThirdPartyScheme()
         \ 'color landscape',
         \ 'color gotham',
         \ 'color oceanicnext',
+        \ 'color RandomAfterglow()',
         \ ]
     let l:random_third_party_scheme_cmd = l:styles[rand() % len(l:styles)]
     execute l:random_third_party_scheme_cmd
@@ -121,6 +122,12 @@ function! RandomOne()
     execute 'colorscheme one'
 endfunction
 
+function! RandomAfterglow()
+    let g:afterglow_use_italics=0
+    let g:afterglow_blackout=1
+    execute 'colorscheme afterglow'
+endfunction
+
 " Favorite colorscheme ---------------------------------------------------{{{1
 function! Color#RandomFavoriteScheme(...)
     " 配置 favorite colorschemes，按启用复杂度来分类
@@ -128,7 +135,7 @@ function! Color#RandomFavoriteScheme(...)
             \ 'gaea', 'delek', 'eclipse',
             \ 'borland256', 'wildcharm', 'murphy',
             \ ]
-    let l:styles_complex = ['quiet', 'lucius']
+    let l:styles_complex = ['quiet', 'lucius', 'afterglow']
 
     " 默认行为：采用随机的colorscheme
     let l:styles = []
