@@ -345,7 +345,7 @@ endif
 
 if IsInPlugGroup('Notetaking', 'wiki')  " ---------------------------------{{{1
     Plug 'lervag/wiki.vim'
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf'
 
     let g:wiki_root = s:viminitparent . 'wiki/'
 
