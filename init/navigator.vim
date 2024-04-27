@@ -83,6 +83,13 @@ let g:navigator.t = {
     \ '$' : [':tabmove', 'Move tab to the last'],
     \ }
 
+" Edit -------------------------------------------------------------------{{{1
+let g:navigator.e = {
+    \ 'name': '+Edit',
+    \ 't' : ['ReTab#Tab2Space()', 'tab to space'],
+    \ 's' : ['ReTab#Space2Tab()', 'space to tab'],
+    \ }
+
 " Fold --------------------------------------------------------------------{{{1
 let g:navigator.f = {
     \ 'name': '+Fold',
