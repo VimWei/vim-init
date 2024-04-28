@@ -137,6 +137,7 @@ function! CheckAndSetFiletype(timer_id)
 endfunction
 
 " 自动隐藏 markdown 链接
+" src: https://github.com/jakewvincent/mkdnflow.nvim/commits/main/lua/mkdnflow/conceal.lua
 augroup MarkdownLinkConceal
     autocmd!
     autocmd FileType markdown
