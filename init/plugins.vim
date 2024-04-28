@@ -139,6 +139,7 @@ if IsInPlugGroup('basic', 'colorscheme')  " -------------------------------{{{1
     Plug 'adrian5/oceanic-next-vim'
     Plug 'arzg/vim-colors-xcode'
     Plug 'danilo-augusto/vim-afterglow'
+    Plug 'tomasiser/vim-code-dark'
 
     Plug 'zefei/vim-colortuner'
     Plug 'lifepillar/vim-colortemplate'
