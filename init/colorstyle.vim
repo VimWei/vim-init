@@ -18,9 +18,7 @@ if !exists('s:default_colorscheme')
     let s:default_colorscheme += ['quiet']
     let s:default_colorscheme += ['delek']
     let s:default_colorscheme += ['eclipse']
-    " let s:default_colorscheme += ['borland256']
-    " let s:default_colorscheme += ['lucius']
-    " let s:default_colorscheme += ['gaea']
+    let s:default_colorscheme += ['retrobox']
 endif
 if empty(s:default_colorscheme)
     " 如果不指定，则从FavoriteScheme中选随机一个

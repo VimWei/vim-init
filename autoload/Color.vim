@@ -132,7 +132,7 @@ endfunction
 function! Color#RandomFavoriteScheme(...)
     " 配置 favorite colorschemes，按启用复杂度来分类
     let l:styles_simple = [
-            \ 'gaea', 'delek', 'eclipse',
+            \ 'gaea', 'delek', 'eclipse', 'retrobox',
             \ 'borland256', 'wildcharm', 'murphy',
             \ ]
     let l:styles_complex = [
@@ -162,6 +162,12 @@ function! Color#RandomFavoriteScheme(...)
             let l:restChars = strpart(a:1, 1)
             let l:style_ucfirst = l:firstChar . l:restChars
             let l:colorscheme_cmd = 'call Random' . l:style_ucfirst . '()'
+        else
+            let l:colorscheme_path = 'colors/' . a:1 . '.vim'
+            let search_result = globpath(&runtimepath, l:colorscheme_path)
+            if len(search_result) > 0
+                let l:colorscheme_cmd = 'color ' . a:1
+            endif
         endif
     endif
 
