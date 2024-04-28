@@ -96,6 +96,24 @@ $if(linestretch)$
 $endif$
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
+\ifxetex
+  \usepackage{xeCJK}
+  \setCJKmainfont{Microsoft YaHei} % 提供默认中文主字体
+  \setCJKsansfont{SimHei} % 提供默认中文无衬线字体
+  \setCJKmonofont{SimSun} % 提供默认中文等宽字体
+  \XeTeXlinebreaklocale "zh"
+  \XeTeXlinebreakskip = 0pt plus 1pt
+  $if(CJKmainfont)$
+    \setCJKmainfont{$CJKmainfont$} % 使用 Pandoc 变量指定的中文主字体
+  $endif$
+\fi
+\ifluatex
+  \usepackage{luatexja-fontspec}
+  \setmainjfont{Microsoft YaHei}
+  $if(CJKmainfont)$
+    \setmainjfont{$CJKmainfont$} % 使用Pandoc变量指定的中文主字体
+  $endif$
+\fi
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[$if(fontenc)$$fontenc$$else$T1$endif$]{fontenc}
   \usepackage[utf8]{inputenc}
@@ -235,6 +253,8 @@ $if(beamer)$
 $else$
 \usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
 $endif$
+$else$
+\usepackage[margin=1in]{geometry}
 $endif$
 $if(beamer)$
 \newif\ifbibliography
