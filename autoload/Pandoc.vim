@@ -7,11 +7,12 @@
 " command! PandocToDOCX call Pandoc#ToDocx()
 " command! PandocToHTML call Pandoc#ToHtml()
 
+" viminit and output_dir -------------------------------------------------{{{1
+
 " 获取 vim-init 所在目录，末尾带"/"
 let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 let s:viminit = substitute(s:viminit . '/', '\\', '/', 'g')
 
-" pandoc 输出目录，末尾带"/"
 if IsInPlugGroup('Notetaking', 'wiki')
     let s:output_dir = g:wiki_root . "PandocOutput/"
 else
@@ -21,7 +22,7 @@ if !isdirectory(s:output_dir)
     call mkdir(s:output_dir, "p")
 endif
 
-function! Pandoc#ToPdf()
+function! Pandoc#ToPdf() " -----------------------------------------------{{{1
     silent!exe "w"
     silent!exe "cd %:h"
     let l:PandocOutput = s:output_dir . strftime("%Y%m%d.%H%M%S") . "." . expand('%:t:r') . ".pdf"
@@ -34,16 +35,15 @@ function! Pandoc#ToPdf()
     echomsg "Pandoc Output File: " . l:PandocOutput
 endfunction
 
-function! Pandoc#ToDocx()
+function! Pandoc#ToDocx() " ----------------------------------------------{{{1
     silent!exe "w"
     silent!exe "cd %:h"
     let l:PandocOutput = s:output_dir . strftime("%Y%m%d.%H%M%S") . "." . expand('%:t:r') . ".docx"
     exe ':AsyncRun Pandoc "%" -o ' . '"' . l:PandocOutput . '"'
-    " silent!exe '!Pandoc "%" -o ' . '"' . l:PandocOutput . '"'
     echomsg "Pandoc Output File: " . l:PandocOutput
 endfunction
 
-function! Pandoc#ToHtml()
+function! Pandoc#ToHtml() " ----------------------------------------------{{{1
     silent!exe "w"
     silent!exe "cd %:h"
     let l:PandocOutput = s:output_dir . strftime("%Y%m%d.%H%M%S") . "." . expand('%:t:r') . ".html"
