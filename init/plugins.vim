@@ -421,6 +421,17 @@ if IsInPlugGroup('Notetaking', 'wiki')  " ---------------------------------{{{1
         \ '<plug>(wiki-journal-next)' : ']w',
         \}
 
+    let s:TexTemplate = s:viminit . "tools/pandoc/template.latex"
+    let s:pandocargs = '--pdf-engine=xelatex -V CJKmainfont="SimSun" --template="' . s:TexTemplate . '"'
+    let g:wiki_export = {
+          \ 'args' : s:pandocargs,
+          \ 'from_format' : 'markdown',
+          \ 'ext' : 'pdf',
+          \ 'link_ext_replace': v:false,
+          \ 'view' : v:false,
+          \ 'output': 'PandocOutput',
+          \}
+
     let g:markdown_folding = 1
 endif
 
