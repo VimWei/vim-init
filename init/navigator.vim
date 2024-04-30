@@ -43,6 +43,7 @@ let g:navigator.v = {
     \ 'p' : ['Vimrc#EditInitVimrc("plugins.vim")', 'plugins.vim'],
     \ 'k' : ['Vimrc#EditInitVimrc("keymaps.vim")', 'keymaps.vim'],
     \ 'c' : ['Vimrc#EditInitVimrc("colorstyle.vim")', 'colorstyle.vim'],
+    \ 'C' : ['Vimrc#EditInitVimrc("../autoload/Color.vim")', 'Color.vim'],
     \ 'g' : ['Vimrc#EditInitVimrc("guistyle.vim")', 'guistyle.vim'],
     \ 'm' : ['Vimrc#EditInitVimrc("quickmenu.vim")', 'quickmenu.vim'],
     \ 'n' : ['Vimrc#EditInitVimrc("navigator.vim")', 'navigator.vim'],
@@ -67,6 +68,8 @@ let g:navigator.c = {
     \ 'name' : '+Colorscheme',
     \ 'a' : ['Color#RandomColorScheme()', '随机采用所有的colorscheme'],
     \ 'c' : ['Color#RandomFavoriteScheme()', '随机采用最喜欢的colorscheme'],
+    \ 's' : ['Vimrc#EditInitVimrc("colorstyle.vim")', '编辑 colorstyle.vim'],
+    \ 'C' : ['Vimrc#EditInitVimrc("../autoload/Color.vim")', '编辑 Color.vim'],
     \ }
 " tab ---------------------------------------------------------------------{{{1
 let g:navigator.t = {
