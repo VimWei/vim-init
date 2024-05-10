@@ -205,26 +205,20 @@ let g:navigator.w = {
         \ 'u' : [':WikiJournalIndex', 'Update Journal index'],
         \ 't' : ['<key>a<C-R>=strftime("%Y-%m-%d %A %H:%M:%S")<CR><Esc>', 'Insert datetime'],
         \ },
-    \ 'L' : {
-        \ 'name' : '+List',
-        \ '1' : [':VimwikiChangeSymbolTo *', '更改当前列表符号为 *'],
-        \ '2' : [':VimwikiChangeSymbolTo -', '更改当前列表符号为 -'],
-        \ '3' : [':VimwikiChangeSymbolTo 1.', '更改当前列表符号为 1'],
-        \ '4' : [':VimwikiRenumberList', '重建当前列表编号'],
-        \ '5' : [':VimwikiRenumberAllLists', '重建全文列表编号'],
-        \ '6' : [':normal gll', '升高当前列表级别-->'],
-        \ '7' : [':normal glh', '降低当前列表级别<--'],
-        \ },
     \ }
-    " \ 'T' : {
-    "     \ 'name' : '+Todo' ,
-    "     \ '1' : [':VimwikiToggleListItem', '切换 Todo 完成状态 [ ] [X]'],
-    "     \ '2' : [':VimwikiToggleRejectedListItem', '切换 Todo 启用状态 [ ] [-]'],
-    "     \ '3' : [':normal gln', '增加 Done 的成熟度 [ ] [.] [o]'],
-    "     \ '4' : [':normal glp', '降低 Done 的成熟度 [o] [.] [ ]'],
-    "     \ '5' : [':VimwikiNextTask', '跳到下一个未完成的任务'],
-    "     \ '6' : [':VimwikiRemoveSingleCB', '移除 Todo checkbox [ ]'],
-    "     \ },
+
+" List -------------------------------------------------------------------{{{1
+let g:navigator.l = {
+    \ 'name' : '+List',
+    \ '1' : [':normal gl1', '更改当前列表符号为 1.'],
+    \ '2' : [':normal gla', '更改当前列表符号为 a)'],
+    \ '3' : [':normal gl*', '更改当前列表符号为 *'],
+    \ '4' : [':normal gl-', '更改当前列表符号为 -'],
+    \ '5' : [':normal gl+', '更改当前列表符号为 +'],
+    \ '6' : [':normal glr', '重建当前列表编号'],
+    \ '7' : [':normal gl<', '提升当前列表级别<--'],
+    \ '8' : [':normal gl>', '降低当前列表级别-->'],
+    \ }
 
 " git  --------------------------------------------------------------------{{{1
 let g:navigator.g = {

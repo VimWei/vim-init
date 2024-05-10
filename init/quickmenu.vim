@@ -64,13 +64,26 @@ if IsInPlugGroup('Notetaking', 'vimwiki')
         \ ['Change Symbol To 1', 'VimwikiChangeSymbolTo 1.', '更改当前列表符号为 gl1'],
         \ ['Renumber list items', 'VimwikiRenumberList', '重建当前列表编号 glr'],
         \ ['Renumber All list items', 'VimwikiRenumberAllLists', '重建全文列表编号 glR'],
-        \ ['Increase List Level -->', 'normal gll', '升高当前列表级别 gll'],
-        \ ['Decrease List Level <--', 'normal glh', '降低当前列表级别 glh'],
+        \ ['Increase List Level -->', 'normal gll', '降低当前列表级别 gll'],
+        \ ['Decrease List Level <--', 'normal glh', '升高当前列表级别 glh'],
         \ ["-"],
         \ ['Update diary index', 'VimwikiDiaryGenerateLinks', '更新Diary索引目录'],
         \ ["Rebuild Tags", 'VimwikiRebuildTags!', '重新生成Tags'],
         \ ], '<auto>', 'markdown')
 endif
+
+" List -------------------------------------------------------------------{{{1
+call quickui#menu#install("&List", [
+    \ ['Change Symbol To 1.', 'normal gl1', '更改当前列表符号为 1.'],
+    \ ['Change Symbol To a)', 'normal gla', '更改当前列表符号为 a)'],
+    \ ['Change Symbol To *', 'normal gl*', '更改当前列表符号为 *'],
+    \ ['Change Symbol To -', 'normal gl-', '更改当前列表符号为 -'],
+    \ ['Change Symbol To +', 'normal gl+', '更改当前列表符号为 +'],
+    \ ["-"],
+    \ ['Renumber list items', 'normal glr', '重建当前列表编号'],
+    \ ['Demote List Level -->', 'normal gl>', '降低当前列表级别-->'],
+    \ ['promote List Level <--', 'normal gl<', '提升当前列表级别<--'],
+    \ ])
 
 " Help -------------------------------------------------------------------{{{1
 call quickui#menu#install('&Help', [

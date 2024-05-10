@@ -121,10 +121,12 @@ nnoremap <leader>wt :call Wikivim#OpenWikiIndexTab()<CR>
 command! -nargs=? VW call Wikivim#OpenWikiPage(<q-args>)
 command! RS call Wikivim#OpenWikiPage('Research/路演.md')
 
-nnoremap <silent> gl* :<C-u>execute 'call Wikivim#ChangeCurrentLineSymbol(' . v:count . ', "*")'<CR>
-nnoremap <silent> gl- :<C-u>execute 'call Wikivim#ChangeCurrentLineSymbol(' . v:count . ', "-")'<CR>
-nnoremap <silent> gl1 :<C-u>execute 'call Wikivim#ChangeCurrentLineSymbol(' . v:count . ', "1.")'<CR>
-nnoremap <silent> gla :<C-u>execute 'call Wikivim#ChangeCurrentLineSymbol(' . v:count . ', "a)")'<CR>
+" List -------------------------------------------------------------------{{{1
+nnoremap <silent> gl* :<C-u>execute 'call List#ChangeSymbol(' . v:count . ', "*")'<CR>
+nnoremap <silent> gl- :<C-u>execute 'call List#ChangeSymbol(' . v:count . ', "-")'<CR>
+nnoremap <silent> gl+ :<C-u>execute 'call List#ChangeSymbol(' . v:count . ', "+")'<CR>
+nnoremap <silent> gl1 :<C-u>execute 'call List#ChangeSymbol(' . v:count . ', "1.")'<CR>
+nnoremap <silent> gla :<C-u>execute 'call List#ChangeSymbol(' . v:count . ', "a)")'<CR>
 
 " Markdown ----------------------------------------------------------------{{{1
 
