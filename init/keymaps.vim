@@ -121,6 +121,11 @@ nnoremap <leader>wt :call Wikivim#OpenWikiIndexTab()<CR>
 command! -nargs=? VW call Wikivim#OpenWikiPage(<q-args>)
 command! RS call Wikivim#OpenWikiPage('Research/路演.md')
 
+nnoremap <silent> gl* :<C-u>execute 'call Wikivim#ChangeCurrentLineSymbol(' . v:count . ', "*")'<CR>
+nnoremap <silent> gl- :<C-u>execute 'call Wikivim#ChangeCurrentLineSymbol(' . v:count . ', "-")'<CR>
+nnoremap <silent> gl1 :<C-u>execute 'call Wikivim#ChangeCurrentLineSymbol(' . v:count . ', "1.")'<CR>
+nnoremap <silent> gla :<C-u>execute 'call Wikivim#ChangeCurrentLineSymbol(' . v:count . ', "a)")'<CR>
+
 " Markdown ----------------------------------------------------------------{{{1
 
 " 设置新建文档类型为 markdown，从而可以对 list 使用 gqip 格式化命令
