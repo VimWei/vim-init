@@ -166,8 +166,8 @@ augroup END
 nnoremap <leader>mm :set ft=markdown<CR>
 
 " 为选中的Markdown文字加粗，bold
-nnoremap <leader>mb viW"ms **** <Esc>hh"mPe
-vnoremap <leader>mb "ms **** <Esc>hh"mPe
+nnoremap <leader>mb viW"ms****<Esc>h"mPe
+vnoremap <leader>mb "ms****<Esc>h"mPe
 " 为选中的Markdown文字转为斜体，italic
 nnoremap <leader>mi viW"ms____<Esc>h"mPe
 vnoremap <leader>mi "ms____<Esc>h"mPe
