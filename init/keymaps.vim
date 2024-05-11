@@ -117,16 +117,21 @@ function! GqiList()
 endfunction
 
 " wiki.vim -----------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/Wikivim.vim
 nnoremap <leader>wt :call Wikivim#OpenWikiIndexTab()<CR>
 command! -nargs=? VW call Wikivim#OpenWikiPage(<q-args>)
 command! RS call Wikivim#OpenWikiPage('Research/路演.md')
 
 " List -------------------------------------------------------------------{{{1
-nnoremap <silent> gl* :<C-u>execute 'call List#ChangeSymbol(' . v:count . ', "*")'<CR>
-nnoremap <silent> gl- :<C-u>execute 'call List#ChangeSymbol(' . v:count . ', "-")'<CR>
-nnoremap <silent> gl+ :<C-u>execute 'call List#ChangeSymbol(' . v:count . ', "+")'<CR>
-nnoremap <silent> gl1 :<C-u>execute 'call List#ChangeSymbol(' . v:count . ', "1.")'<CR>
-nnoremap <silent> gla :<C-u>execute 'call List#ChangeSymbol(' . v:count . ', "a)")'<CR>
+" 详情查阅 ../autoload/List.vim
+nnoremap <silent> gl* :<C-u>execute 'call List#ChangeSymbol(' . v:count1 . ', "*")'<CR>
+nnoremap <silent> gl- :<C-u>execute 'call List#ChangeSymbol(' . v:count1 . ', "-")'<CR>
+nnoremap <silent> gl+ :<C-u>execute 'call List#ChangeSymbol(' . v:count1 . ', "+")'<CR>
+nnoremap <silent> gl1 :<C-u>execute 'call List#ChangeSymbol(' . v:count1 . ', "1.")'<CR>
+nnoremap <silent> gl2 :<C-u>execute 'call List#ChangeSymbol(' . v:count1 . ', "1)")'<CR>
+nnoremap <silent> glA :<C-u>execute 'call List#ChangeSymbol(' . v:count1 . ', "A.")'<CR>
+nnoremap <silent> gla :<C-u>execute 'call List#ChangeSymbol(' . v:count1 . ', "a)")'<CR>
+nnoremap <silent> gld :<C-u>execute 'call List#ChangeSymbol(' . v:count1 . ', "d")'<CR>
 
 " Markdown ----------------------------------------------------------------{{{1
 

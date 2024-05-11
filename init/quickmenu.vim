@@ -75,14 +75,17 @@ endif
 " List -------------------------------------------------------------------{{{1
 call quickui#menu#install("&List", [
     \ ['Change Symbol To 1.', 'normal gl1', '更改当前列表符号为 1.'],
+    \ ['Change Symbol To 1)', 'normal gl2', '更改当前列表符号为 1)'],
+    \ ['Change Symbol To A.', 'normal glA', '更改当前列表符号为 A.'],
     \ ['Change Symbol To a)', 'normal gla', '更改当前列表符号为 a)'],
     \ ['Change Symbol To *', 'normal gl*', '更改当前列表符号为 *'],
     \ ['Change Symbol To -', 'normal gl-', '更改当前列表符号为 -'],
     \ ['Change Symbol To +', 'normal gl+', '更改当前列表符号为 +'],
     \ ["-"],
-    \ ['Renumber list items', 'normal glr', '重建当前列表编号'],
-    \ ['Demote List Level -->', 'normal gl>', '降低当前列表级别-->'],
-    \ ['promote List Level <--', 'normal gl<', '提升当前列表级别<--'],
+    \ ['Demote List Level -->', 'normal gl>', '降低当前列表级别 -->'],
+    \ ['promote List Level <--', 'normal gl<', '提升当前列表级别 <--'],
+    \ ['Renumber List Items', 'normal glr', '重建当前列表编号 renumber'],
+    \ ['Delete List Symbol', 'normal gld', '删除当前列表编号 delete'],
     \ ])
 
 " Help -------------------------------------------------------------------{{{1
