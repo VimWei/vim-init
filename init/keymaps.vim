@@ -232,8 +232,7 @@ set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的
 " Vim光标所在处的折叠开关
 " nnoremap <expr> <space> (foldlevel(line('.'))>0) ? "za" : "<space>"
 " nnoremap <expr> <S-space> (foldlevel(line('.'))>0) ? "zA" : "<S-space>"
-" nnoremap <M-space> zMzv
-nnoremap <M-space> za
+nnoremap <Leader>z za
 nnoremap <S-space> zMzv
 nnoremap          zv zMzvzz
 nnoremap <silent> zj zcjzOzz

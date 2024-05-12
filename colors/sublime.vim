@@ -27,7 +27,7 @@ if exists('syntax_on')
   syntax reset
 endif
 
-let colors_name = 'sublime'
+let g:colors_name = 'sublime'
 
 fun! s:h(group, style)
   let s:ctermformat = 'NONE'
@@ -482,7 +482,6 @@ hi! link javaUserLabelRef     Normal
 " * No nice highlight groups exist for lambdas yet. Mainline `vim` has one,
 "     but it highlights the entire span of the lambda.
 
-
 "   Mainline vim distro
 
 " Variation: I actually like keeping this a separate color -- it's kind of
@@ -595,7 +594,6 @@ hi! link javaScriptSuper          SublimeContextParam
 hi! link javaScriptThis           SublimeContextParam
 hi! link javaScriptTry            Keyword
 hi! link javaScriptUndefined      Constant
-
 
 " JSON
 
@@ -932,5 +930,3 @@ hi! link VimwikiHeader2 SublimeGreen
 hi! link VimwikiHeader3 SublimePurple
 hi! VimwikiLink ctermfg=81 guifg=#66e9df gui=underline cterm=underline
 hi! link VimwikiPre SublimeWarmGrey
-
-

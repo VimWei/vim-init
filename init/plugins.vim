@@ -16,7 +16,9 @@ if !exists('g:plug_group')
     let g:plug_group['basic'] = []
     let g:plug_group['basic'] += [ 'startup', 'essential' ]
     let g:plug_group['basic'] += [ 'colorscheme' ]
-    let g:plug_group['basic'] += [ 'guistyle' ]
+    if !has('nvim')
+        let g:plug_group['basic'] += [ 'guistyle' ]
+    endif
     let g:plug_group['basic'] += [ 'session' ]
 
     let g:plug_group['search'] = []
@@ -80,7 +82,9 @@ endif
 if IsInPlugGroup('basic', 'startup')  " -----------------------------------{{{1
     " Plug 'mhinz/vim-startify'
     Plug 'dstein64/vim-startuptime'
-    Plug 'yianwillis/vimcdoc'
+    if !has('nvim')
+        Plug 'yianwillis/vimcdoc'
+    end
 endif
 
 if IsInPlugGroup('basic', 'essential')  " ---------------------------------{{{1

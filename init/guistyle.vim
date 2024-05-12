@@ -18,9 +18,7 @@ set showtabline=2   "总是显示标签栏
 
 set lines=18 columns=85    "非最大化时，窗口的高度和宽度
 set guifont=Consolas:h14:cANSI:qDRAFT   "字体及大小
-if !has('nvim')
-    set renderoptions=type:directx,renmode:5    "增强显示
-endif
+set renderoptions=type:directx,renmode:5    "增强显示
 set linespace=7    "行间距
 
 " guifont++ --------------------------------------------------------------{{{1
@@ -125,11 +123,11 @@ endfunc
 
 " 标签栏文字，使用 [1] filename 的模式  ----------------------------------{{{2
 function! Vim_NeatTabLabel(n)
+    let l:num = a:n
     let l:buflist = tabpagebuflist(a:n)
     let l:winnr = tabpagewinnr(a:n)
     let l:bufnr = l:buflist[l:winnr - 1]
     let l:fname = Vim_NeatBuffer(l:bufnr, 0)
-    let l:num = a:n
     let l:bufnum = 'b'.l:bufnr
     let style = get(g:, 'config_vim_tab_style', 0)
     let l:tablabel = ''

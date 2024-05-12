@@ -6,9 +6,14 @@ function! Color#RandomVimInbuiltScheme()
         \ 'blue', 'darkblue', 'default', 'delek', 'desert',
         \ 'elflord', 'evening', 'habamax', 'industry', 'koehler',
         \ 'lunaperche', 'morning', 'murphy', 'pablo', 'peachpuff',
-        \ 'quiet', 'retrobox', 'ron', 'shine', 'slate', 'sorbet',
-        \ 'torte', 'wildcharm', 'zaibatsu', 'zellner',
+        \ 'quiet', 'ron', 'shine', 'slate',
+        \ 'torte', 'zellner',
         \ ]
+    if !has('nvim')
+        let l:styles += [
+            \ 'retrobox',  'sorbet', 'wildcharm', 'zaibatsu',
+            \ ]
+    endif
     let l:random_scheme = l:styles[rand() % len(l:styles)]
     execute 'colorscheme ' . l:random_scheme
 endfunction
@@ -133,9 +138,14 @@ endfunction
 function! Color#RandomFavoriteScheme(...)
     " 配置 favorite colorschemes，按启用复杂度来分类
     let l:styles_simple = [
-            \ 'gaea', 'delek', 'eclipse', 'retrobox',
-            \ 'borland256', 'wildcharm', 'murphy',
+            \ 'gaea', 'delek', 'eclipse',
+            \ 'borland256', 'murphy',
             \ ]
+    if !has('nvim')
+        let l:styles_simple += [
+                \ 'retrobox', 'wildcharm',
+                \ ]
+    endif
     let l:styles_complex = [
             \ 'quiet', 'lucius', 'afterglow',
             \ 'gruvbox8',

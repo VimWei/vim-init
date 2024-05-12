@@ -18,7 +18,9 @@ if !exists('s:default_colorscheme')
     let s:default_colorscheme += ['quiet']
     let s:default_colorscheme += ['delek']
     let s:default_colorscheme += ['eclipse']
-    let s:default_colorscheme += ['retrobox']
+    if !has('nvim')
+        let s:default_colorscheme += ['retrobox']
+    endif
 endif
 if empty(s:default_colorscheme)
     " 如果不指定，则从FavoriteScheme中选随机一个
