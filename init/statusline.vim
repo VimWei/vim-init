@@ -3,6 +3,8 @@
 " Sourced by: ../init.vim
 "===================================================
 
+" Statusline -------------------------------------------------------------{{{1
+
 set laststatus=2                                " 总是显示状态栏
 set statusline=                                 " 清空状态
 set statusline+=%(\ %{CurrentMode()}\ \|\ %)    " Mode：INSERT/NORMAL/VISUAL
@@ -14,7 +16,7 @@ set statusline+=%(%{tolower(&filetype)}\ \|\ %) " 文件类型
 " 最右边显示文件格式、编码和行号等信息，并且固定在一个 group 中，优先占位
 set statusline+=%0(%{&fileformat}\ \|\ %{(&fenc==\"\"?&enc:&fenc).(&bomb?\",BOM\":\"\")}\ \|\ %v:%l/%L=%p%%\ %)
 
-" 返回当前模式的名称 -----------------------------------------------------{{{1
+" 返回当前模式的名称 -----------------------------------------------------{{{2
 function! CurrentMode()
     let l:mode_map = {
                 \ 'n': 'NORMAL',
@@ -47,7 +49,7 @@ function! CurrentMode()
     endif
 endfunction
 
-" 显示 buffer 号和窗口号 -------------------------------------------------{{{1
+" 显示 buffer 号和窗口号 -------------------------------------------------{{{2
 function! BufferWinInfo()
     if winwidth(0) > 50
         return 'b' . bufnr('%') . 'w' . winnr()
@@ -55,3 +57,115 @@ function! BufferWinInfo()
         return ''
     endif
 endfunction
+
+" Tabline ----------------------------------------------------------------{{{1
+" 标签栏文字风格：默认为零，GUI 模式下空间大，按风格 3 显示
+" 0: filename.txt +
+" 1: 1-b1 - filename.txt +
+" 2: [1-b1] filename.txt +
+let g:config_vim_tab_style = 2
+set tabline=%!Vim_NeatTabLine()
+set guitablabel=%{Vim_NeatGuiTabLabel()}
+
+" 终端下的 tabline  ------------------------------------------------------{{{2
+function! Vim_NeatTabLine()
+    let s = ''
+    for i in range(tabpagenr('$'))
+        " select the highlighting
+        if i + 1 == tabpagenr()
+            let s .= '%#TabLineSel#'
+        else
+            let s .= '%#TabLine#'
+        endif
+        let s .= '%' . (i + 1) . 'T'
+        let s .= ' %{Vim_NeatTabLabel(' . (i + 1) . ')} '
+    endfor
+
+    " after the last tab fill with TabLineFill and reset tab page nr
+    let s .= '%#TabLineFill#%T'
+    " right-align the label to close the current tab page
+    if tabpagenr('$') > 1
+        " let s .= '%=%#TabLine#%999XX'
+    endif
+
+    return s
+endfunc
+
+" 需要显示到标签上的文件名  ---------------------------------------------{{{2
+function! Vim_NeatBuffer(bufnr, fullname)
+    let l:name = bufname(a:bufnr)
+    if getbufvar(a:bufnr, '&modifiable')
+        if l:name == ''
+            return 'No Name'
+        else
+            if a:fullname
+                return fnamemodify(l:name, ':p')
+            else
+                let aname = fnamemodify(l:name, ':p')
+                let sname = fnamemodify(aname, ':t')
+                if sname == ''
+                    let test = fnamemodify(aname, ':h:t')
+                    if test != ''
+                        return '<'. test . '>'
+                    endif
+                endif
+                return sname
+            endif
+        endif
+    else
+        let l:buftype = getbufvar(a:bufnr, '&buftype')
+        if l:buftype == 'quickfix'
+            return '[Quickfix]'
+        elseif l:name != ''
+            if a:fullname
+                return '-'.fnamemodify(l:name, ':p')
+            else
+                return '-'.fnamemodify(l:name, ':t')
+            endif
+        else
+        endif
+        return '[No Name]'
+    endif
+endfunc
+
+" 标签栏文字，使用 [1] filename 的模式  ----------------------------------{{{2
+function! Vim_NeatTabLabel(n)
+    let l:num = a:n
+    let l:buflist = tabpagebuflist(a:n)
+    let l:winnr = tabpagewinnr(a:n)
+    let l:bufnr = l:buflist[l:winnr - 1]
+    let l:fname = Vim_NeatBuffer(l:bufnr, 0)
+    let l:bufnum = 'b'.l:bufnr
+    let style = get(g:, 'config_vim_tab_style', 0)
+    let l:tablabel = ''
+    if style == 0
+        let l:tablabel = l:fname
+    elseif style == 1
+        let l:tablabel = l:num." - ".l:bufnum." - ".l:fname
+    elseif style == 2
+        let l:tablabel = "[".l:num."-".l:bufnum."] ".l:fname
+    endif
+    if getbufvar(l:bufnr, '&modified') | let l:tablabel .= ' +' | endif
+    return l:tablabel
+endfunc
+
+" GUI 下的标签文字，使用 [1] filename 的模式  ----------------------------{{{2
+function! Vim_NeatGuiTabLabel()
+    let l:num = v:lnum
+    let l:buflist = tabpagebuflist(l:num)
+    let l:winnr = tabpagewinnr(l:num)
+    let l:bufnr = l:buflist[l:winnr - 1]
+    let l:fname = Vim_NeatBuffer(l:bufnr, 0)
+    let l:bufnum = 'b'.l:bufnr
+    let style = get(g:, 'config_vim_tab_style', 0)
+    let l:tablabel = ''
+    if style == 0
+        let l:tablabel = l:fname
+    elseif style == 1
+        let l:tablabel = l:num." - ".l:bufnum." - ".l:fname
+    elseif style == 2
+        let l:tablabel = "[".l:num."-".l:bufnum."] ".l:fname
+    endif
+    if getbufvar(l:bufnr, '&modified') | let l:tablabel .= ' +' | endif
+    return l:tablabel
+endfunc
