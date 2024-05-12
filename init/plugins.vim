@@ -16,8 +16,11 @@ if !exists('g:plug_group')
     let g:plug_group['basic'] = []
     let g:plug_group['basic'] += [ 'startup', 'essential' ]
     let g:plug_group['basic'] += [ 'colorscheme' ]
-    if !has('nvim')
+    if has("gui_running")
         let g:plug_group['basic'] += [ 'guistyle' ]
+    endif
+    if (has('vim') && has('patch-8.2.1')) || (has('nvim') && luaeval('vim.fn.has("nvim-0.6.0")'))
+        let g:plug_group['basic'] += [ 'quickui' ]
     endif
     let g:plug_group['basic'] += [ 'session' ]
 
@@ -150,10 +153,16 @@ if IsInPlugGroup('basic', 'colorscheme')  " -------------------------------{{{1
     Plug 'skywind3000/vim-color-patch'
     " 按需在cpatch_path目录下构建colorscheme同名的文件
     let g:cpatch_path = s:viminit . 'colors/patch'
+    if has('nvim')
+        Plug 'skywind3000/vim-color-export'
+    endif
 endif
 
 if IsInPlugGroup('basic', 'guistyle') " ----------------------------------{{{1
     Plug 'mattn/vimtweak'
+endif
+
+if IsInPlugGroup('basic', 'quickui') " -----------------------------------{{{1
     Plug 'skywind3000/vim-quickui'
     Plug 'skywind3000/vim-navigator'
 endif

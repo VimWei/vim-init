@@ -28,8 +28,8 @@ LoadScript init/statusline.vim
 LoadScript init/plugins.vim
 LoadScript init/keymaps.vim
 LoadScript init/colorstyle.vim
-if IsInPlugGroup('basic', 'guistyle')
-    LoadScript init/guistyle.vim
+LoadScript init/guistyle.vim
+if IsInPlugGroup('basic', 'quickui')
     LoadScript init/quickmenu.vim
     LoadScript init/navigator.vim
 endif

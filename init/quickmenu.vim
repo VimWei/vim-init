@@ -3,7 +3,7 @@
 " Sourced by: ../init.vim
 "===================================================
 
-if has('patch-8.2.1') == 0 || has('nvim')
+if !IsInPlugGroup('basic', 'quickui')
     finish
 endif
 
