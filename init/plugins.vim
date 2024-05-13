@@ -19,7 +19,12 @@ if !exists('g:plug_group')
     if has("gui_running")
         let g:plug_group['basic'] += [ 'guistyle' ]
     endif
-    if (has('vim') && has('patch-8.2.1')) || (has('nvim') && luaeval('vim.fn.has("nvim-0.6.0")'))
+
+    if has('vim') && ((v:version > 800 && !has('patch-8.2.1')) || (v:version >= 900 && !has('patch-9.0.0001')))
+        " Versions before Vim 8.2.1 and Vim 9.0.1 do not meet the requirements
+    elseif has('nvim') && !has('nvim-0.6')
+        " Neovim versions before 0.6 do not meet the requirements
+    else
         let g:plug_group['basic'] += [ 'quickui' ]
     endif
     let g:plug_group['basic'] += [ 'session' ]
