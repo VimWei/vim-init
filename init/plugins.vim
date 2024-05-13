@@ -95,8 +95,17 @@ if IsInPlugGroup('basic', 'startup')  " -----------------------------------{{{1
     end
 endif
 
-if IsInPlugGroup('basic', 'essential')  " ---------------------------------{{{1
-    " Undotree ----------------------
+if IsInPlugGroup('basic', 'essential') " ---------------------------------{{{1
+
+    " im-select ----------------------------------------------------------{{{2
+    if has('gui_running')
+        autocmd InsertLeave * silent! set iminsert=2
+    else
+        Plug 'brglng/vim-im-select'
+        let g:im_select_command = s:viminit . "tools/IM/im-select.exe"
+    endif
+
+    " Undotree -----------------------------------------------------------{{{2
     Plug 'mbbill/undotree'
     nnoremap <Leader>u :UndotreeToggle<CR>
     " Keep undo history across sessions by storing it in a file
@@ -116,7 +125,7 @@ if IsInPlugGroup('basic', 'essential')  " ---------------------------------{{{1
     let g:undotree_WindowLayout = 3
     let g:undotree_ShortIndicators  = 1
 
-    " Netrw ------------------
+    " Netrw --------------------------------------------------------------{{{2
     " 不显示横幅，可以用I轮换
     let g:netrw_banner = 1
     " 瘦列表 (每个文件一行)，可以用i轮换
@@ -130,12 +139,13 @@ if IsInPlugGroup('basic', 'essential')  " ---------------------------------{{{1
     " 指定新建的 :Lexplore 窗口宽度，单位是屏幕的百分比
     let g:netrw_winsize =20
 
-    " Open browser -----------
+    " Open browser -------------------------------------------------------{{{2
     " gx使用系统默认工具打开光标下的文件、URL等
     Plug 'tyru/open-browser.vim'
     let g:netrw_nogx = 1 " disable netrw's gx mapping.
     nmap gx <Plug>(openbrowser-smart-search)
     vmap gx <Plug>(openbrowser-smart-search)
+
 endif
 
 if IsInPlugGroup('basic', 'colorscheme')  " -------------------------------{{{1

@@ -55,9 +55,6 @@ set formatoptions+=B    "合并两行中文时，不在中间加空格
 set errorformat+=[%f:%l]\ ->\ %m,[%f:%l]:%m     "错误格式
 
 " Editing related ---------------------------------------------------------{{{1
-" 从 normal 进入 edit 模式时，自动激活 Rime 并进入中文输入模式
-" inoremap <ESC> <ESC>:set iminsert=2<CR>
-autocmd InsertLeave * silent! set iminsert=2
 set history=1000    "命令历史的保存数量
 set clipboard=unnamed   "与系统共享剪贴板
 set nrformats-=octal    "CTRL-A增CTRL-X减数字时，以十进制处理0开头的数字
