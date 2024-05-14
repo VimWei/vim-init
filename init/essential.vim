@@ -15,6 +15,10 @@ if has('syntax')
     syntax on   "启用语法高亮，且仅在执行命令时设置一次，之后就不会再改变
 endif
 
+if filereadable(expand("~\\miniconda3\\python3.dll"))
+    let $PYTHONTHREEDLL = expand("~\\miniconda3\\python3.dll")
+endif
+
 " Encoding related --------------------------------------------------------{{{1
 if has('multi_byte')
     set encoding=utf-8  "Vim 内部工作编码
