@@ -103,6 +103,7 @@ if IsInPlugGroup('basic', 'essential') " ---------------------------------{{{1
     else
         Plug 'brglng/vim-im-select'
         let g:im_select_command = s:viminit . "tools/IM/im-select.exe"
+        let g:im_select_enable_cmd_line = 0
     endif
 
     " Undotree -----------------------------------------------------------{{{2
