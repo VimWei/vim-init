@@ -308,7 +308,7 @@ if IsInPlugGroup('Notetaking', 'list')  " ---------------------------------{{{1
         endif
         execute "normal! \<Plug>(bullets-renumber)"
         call setpos('.', [0, l:current_line_num, 0, 0])
-        call feedkeys('A', 'n')
+        call feedkeys('A', 'i')
     endfunction
     let g:bullets_set_mappings = 0
     let g:bullets_custom_mappings = [
