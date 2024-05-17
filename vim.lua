@@ -1,0 +1,1 @@
+-- vim.api.nvim_command("echomsg 'Hello, nvim!'")

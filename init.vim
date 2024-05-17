@@ -33,6 +33,10 @@ LoadScript init/quickmenu.vim
 LoadScript init/navigator.vim
 LoadScript init/autoload.vim
 
+if has('nvim')
+    runtime vim.lua
+endif
+
 " VimrcAutoReload --------------------------------------------------------{{{1
 " 当pwd为vim-init/时，修订并保存相关文件后，系统将自动重新加载
 augroup VimrcAutoReload
