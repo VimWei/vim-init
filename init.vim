@@ -34,7 +34,7 @@ LoadScript init/navigator.vim
 LoadScript init/autoload.vim
 
 if has('nvim')
-    runtime vim.lua
+    runtime neovim.lua
 endif
 
 " VimrcAutoReload --------------------------------------------------------{{{1
