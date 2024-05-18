@@ -18,8 +18,11 @@ set showtabline=2   "总是显示标签栏
 
 set lines=18 columns=85    "非最大化时，窗口的高度和宽度
 set guifont=Consolas:h14:cANSI:qDRAFT   "字体及大小
-set renderoptions=type:directx,renmode:5    "增强显示
 set linespace=7    "行间距
+
+if !has('nvim')
+    set renderoptions=type:directx,renmode:5    "增强显示
+endif
 
 " guifont++ --------------------------------------------------------------{{{1
 "让vim像IDE一样一键放大缩小字号，M即Alt键
@@ -32,6 +35,16 @@ let guifontpp_original_font_map="<M-Home>"
 " 详情查阅 ../autoload/Vimtweak.vim
 
 " 切换窗口透明度
+if exists("g:neovide")
+    let g:neovide_transparency = 0.9
+    for i in range(0, 9)
+        execute 'nnoremap <silent> <leader>tw' . i
+            \ . ' :let g:neovide_transparency = '
+            \ . (1 - i * 0.1) . '<CR>'
+    endfor
+    finish
+else
+
 au GUIEnter * call libcallnr(g:vimtweak_dll_path, "SetAlpha", 230)
 " <Leader>tw[0-9] 设置透明度程度，数字越大越透明
 for i in range(0, 9)

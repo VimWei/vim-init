@@ -98,7 +98,7 @@ endif
 if IsInPlugGroup('basic', 'essential') " ---------------------------------{{{1
 
     " im-select ----------------------------------------------------------{{{2
-    if has('gui_running')
+    if has('gui_running')  && !has('nvim')
         autocmd InsertLeave * silent! set iminsert=2
     else
         Plug 'brglng/vim-im-select'
