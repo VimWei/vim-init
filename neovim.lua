@@ -1,1 +1,5 @@
+-- 为了最大化 Vim 和 Neovim 配置的共享，建议将大部分插件配置保留在 init.vim 中
+-- 只将那些特定于 Neovim 或需要 Lua 进行特殊配置的插件放入 neovim.lua 中
+--
 -- vim.api.nvim_command("echomsg 'Hello, nvim!'")
+-- require('plugins')
