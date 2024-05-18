@@ -43,7 +43,7 @@ if exists("g:neovide")
             \ . (1 - i * 0.1) . '<CR>'
     endfor
     finish
-else
+endif
 
 au GUIEnter * call libcallnr(g:vimtweak_dll_path, "SetAlpha", 230)
 " <Leader>tw[0-9] 设置透明度程度，数字越大越透明

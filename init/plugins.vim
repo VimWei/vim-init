@@ -16,7 +16,7 @@ if !exists('g:plug_group')
     let g:plug_group['basic'] = []
     let g:plug_group['basic'] += [ 'startup', 'essential' ]
     let g:plug_group['basic'] += [ 'colorscheme' ]
-    if has("gui_running")
+    if has("gui_running") && !exists("g:neovide")
         let g:plug_group['basic'] += [ 'guistyle' ]
     endif
 
