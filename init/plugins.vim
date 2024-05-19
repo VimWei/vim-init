@@ -20,8 +20,20 @@ if !exists('g:plug_group')
         let g:plug_group['basic'] += [ 'guistyle' ]
     endif
 
-    if has('vim') && ((v:version > 800 && !has('patch-8.2.1')) || (v:version >= 900 && !has('patch-9.0.0001')))
-        " Versions before Vim 8.2.1 and Vim 9.0.1 do not meet the requirements
+    let s:add_quickui = 0
+    if has('nvim')
+        if has('nvim-0.6')
+            let s:add_quickui = 1
+        endif
+    elseif v:version >= 802 && has('patch-8.2.1')
+        let s:add_quickui = 1
+    endif
+    if s:add_quickui
+        let g:plug_group['basic'] += [ 'quickui' ]
+    endif
+
+    if !has('patch-8.2.1')
+        " Versions before Vim 8.2.1 do not meet the requirements
     elseif has('nvim') && !has('nvim-0.6')
         " Neovim versions before 0.6 do not meet the requirements
     else
