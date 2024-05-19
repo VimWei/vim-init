@@ -2,7 +2,7 @@
 function! Fold#AddMarker()
     let current_line = getline('.')
     let current_line_length = strwidth(current_line)
-    let textwidth = &textwidth
+    let textwidth = 78
     let is_comment_line = current_line =~ '^\s*"'
     let prefix = is_comment_line ? ' ' : ' " '
     let suffix = '{{{1'
