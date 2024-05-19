@@ -1,6 +1,6 @@
 " Vimtweak
 
-" 切换窗口的最大化状态
+" 切换窗口的最大化状态 ---------------------------------------------------{{{1
 function! Vimtweak#ToggleWindowMaximize()
     if !exists('s:window_maximize')
         let s:window_maximize = 1
@@ -14,7 +14,7 @@ function! Vimtweak#ToggleWindowMaximize()
     endif
 endfunction
 
-" 切换窗口的标题栏状态
+" 切换窗口全屏状态 -------------------------------------------------------{{{1
 function! Vimtweak#ToggleWindowCaption()
     if !exists('s:window_caption')
         let s:window_caption = 1
@@ -32,7 +32,7 @@ function! Vimtweak#ToggleWindowCaption()
     endif
 endfunction
 
-" 切换窗口的置顶状态
+" 切换窗口的置顶状态 -----------------------------------------------------{{{1
 function! Vimtweak#ToggleWindowTopMost()
     if !exists('s:window_top_most')
         let s:window_top_most = 0
@@ -43,5 +43,15 @@ function! Vimtweak#ToggleWindowTopMost()
     else
         call libcallnr(g:vimtweak_dll_path, "EnableTopMost", 1)
         let s:window_top_most = 1
+    endif
+endfunction
+
+" 切换 Neovide 全屏状态 --------------------------------------------------{{{1
+
+function! Vimtweak#ToggleNeovideFullscreen()
+    if g:neovide_fullscreen
+        let g:neovide_fullscreen = v:false
+    else
+        let g:neovide_fullscreen = v:true
     endif
 endfunction

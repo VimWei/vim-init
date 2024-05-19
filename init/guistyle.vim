@@ -31,20 +31,33 @@ let guifontpp_smaller_font_map="<M-Down>"
 let guifontpp_larger_font_map="<M-Up>"
 let guifontpp_original_font_map="<M-Home>"
 
-" vimtweak ---------------------------------------------------------------{{{1
+" Neovide ----------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Vimtweak.vim
-
-" 切换窗口透明度
 if exists("g:neovide")
+    " 设置参数
+    let g:neovide_underline_stroke_scale = 0.1
+    let g:neovide_scroll_animation_length = 0.13
+    let g:neovide_cursor_trail_size = 0.3
+
+    " 切换窗口透明度
     let g:neovide_transparency = 0.9
     for i in range(0, 9)
         execute 'nnoremap <silent> <leader>tw' . i
             \ . ' :let g:neovide_transparency = '
             \ . (1 - i * 0.1) . '<CR>'
     endfor
+    let g:neovide_fullscreen = v:false
+
+    " 切换窗口全屏状态
+    nnoremap <leader>twc :call Vimtweak#ToggleNeovideFullscreen()<CR>
+
     finish
 endif
 
+" vimtweak ---------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/Vimtweak.vim
+
+" 切换窗口透明度
 au GUIEnter * call libcallnr(g:vimtweak_dll_path, "SetAlpha", 230)
 " <Leader>tw[0-9] 设置透明度程度，数字越大越透明
 for i in range(0, 9)
@@ -57,7 +70,7 @@ endfor
 au GUIEnter * call libcallnr(g:vimtweak_dll_path, "EnableMaximize", 1)
 nnoremap <silent> <leader>twm :call Vimtweak#ToggleWindowMaximize()<CR>
 
-" 切换窗口的标题栏状态
+" 切换窗口全屏状态
 " au GUIEnter * call libcallnr(g:vimtweak_dll_path, "EnableCaption", 0)
 nnoremap <silent> <leader>twc :call Vimtweak#ToggleWindowCaption()<CR>
 
