@@ -15,8 +15,12 @@ if has('syntax')
     syntax on   "启用语法高亮，且仅在执行命令时设置一次，之后就不会再改变
 endif
 
+" Python -----------------------------------------------------------------{{{1
 if filereadable(expand("~\\miniconda3\\python3.dll"))
     let $PYTHONTHREEDLL = expand("~\\miniconda3\\python3.dll")
+    if has('nvim')
+        let g:python3_host_prog = expand("~\\miniconda3\\python.EXE")
+    endif
 endif
 
 " Encoding related --------------------------------------------------------{{{1
