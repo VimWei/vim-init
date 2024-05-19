@@ -15,7 +15,6 @@ endif
 
 if !exists('s:default_colorscheme')
     let s:default_colorscheme = []
-    let s:default_colorscheme += ['quiet']
     let s:default_colorscheme += ['delek']
     let s:default_colorscheme += ['eclipse']
     if !has('nvim')
