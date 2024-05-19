@@ -97,6 +97,9 @@ call plug#begin()
 
 if IsInPlugGroup('inbox')  " ----------------------------------------------{{{1
     " 插件试验场
+    if has('nvim')
+        Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+    endif
 endif
 
 if IsInPlugGroup('basic', 'startup')  " -----------------------------------{{{1
