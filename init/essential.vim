@@ -18,9 +18,6 @@ endif
 " Python -----------------------------------------------------------------{{{1
 if filereadable(expand("~\\miniconda3\\python3.dll"))
     let $PYTHONTHREEDLL = expand("~\\miniconda3\\python3.dll")
-    if has('nvim')
-        let g:python3_host_prog = expand("~\\miniconda3\\python.EXE")
-    endif
 endif
 
 " Encoding related --------------------------------------------------------{{{1
