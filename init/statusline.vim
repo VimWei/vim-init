@@ -66,6 +66,8 @@ endfunction
 let g:config_vim_tab_style = 2
 set tabline=%!Vim_NeatTabLine()
 set guitablabel=%{Vim_NeatGuiTabLabel()}
+" Always Show Tabline
+set showtabline=2
 
 " 终端下的 tabline  ------------------------------------------------------{{{2
 function! Vim_NeatTabLine()
