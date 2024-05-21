@@ -1,5 +1,6 @@
 " CondaPython
 
+" CondaPython#CondaEnv ---------------------------------------------------{{{1
 " 定义命令时，第1-2个参数是conda env和asyncrun mode，其他多个参数是cmd命令
 " command! YourCommand call CondaPython#CondaEnv("env", "mode", "cmd1", "cmd2", ...)
 function! CondaPython#CondaEnv(...)
@@ -39,6 +40,19 @@ function! CondaPython#CondaEnv(...)
     endif
 endfunction
 
+" GetUniqueBufferName ----------------------------------------------------{{{1
+" 用于生成不重复的名称
+function! GetUniqueBufferName(baseName)
+    let l:counter = 1
+    let l:uniqueName = a:baseName
+    while bufexists(l:uniqueName)
+        let l:uniqueName = a:baseName . ' ' . l:counter
+        let l:counter += 1
+    endwhile
+    return l:uniqueName
+endfunction
+
+" CondaPython#CondaEnvCommand --------------------------------------------{{{1
 " 定义一个公共函数，用于处理可选的 Conda 环境参数
 function! CondaPython#CondaEnvCommand(env, mode, command, ...)
     " a:0 指函数被调用时传递的参数的数量
@@ -82,20 +96,41 @@ function! CondaPython#CondaEnvCommand(env, mode, command, ...)
     endif
 endfunction
 
-" 用于生成不重复的名称
-function! GetUniqueBufferName(baseName)
-    let l:counter = 1
-    let l:uniqueName = a:baseName
-    while bufexists(l:uniqueName)
-        let l:uniqueName = a:baseName . ' ' . l:counter
-        let l:counter += 1
-    endwhile
-    return l:uniqueName
-endfunction
-
+" CondaPython#Help -------------------------------------------------------{{{1
 " 查阅python帮助文档
 function! CondaPython#Help()
     " 若要异步输出结果到在quickfix，则更改 terminal 为 async
     let l:command = "python -c \"help('".expand("<cword>")."')\""
     call CondaPython#CondaEnvCommand('pymotw', 'terminal', l:command)
+endfunction
+
+" SetPythonThreeDllVariable ----------------------------------------------{{{1
+function! CondaPython#SetPythonVariable()
+    " 使用系统命令查找 Python 可执行文件的路径
+    if has('win32') || has('win64')
+        let python_cmd = 'where python'
+        let dll_name = 'python3.dll'
+    else
+        let python_cmd = 'which python3'
+        let dll_name = 'libpython3.so'
+    endif
+    let python_prog = split(trim(system(python_cmd)), "\n")[0]
+    if !empty(python_prog)
+        " 设置 g:python3_host_prog
+        let g:python3_host_prog = python_prog
+
+        " 设置 PYTHONTHREEDLL
+        " 在 Windows 上，DLL 文件通常位于 pythonX.exe 同一个目录
+        " 在 Unix-like 系统上，DLL 文件通常位于系统的库目录中，不需要设置
+        if has('win32') || has('win64')
+            let python_dll = fnamemodify(python_prog, ':h') . '/' . dll_name
+            if filereadable(python_dll)
+                let $PYTHONTHREEDLL = python_dll
+            else
+                echoerr "Warning: " . dll_name . " not found near the python executable"
+            endif
+        endif
+    else
+        echoerr "Warning: Python executable not found"
+    endif
 endfunction

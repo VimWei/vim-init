@@ -16,9 +16,9 @@ if has('syntax')
 endif
 
 " Python -----------------------------------------------------------------{{{1
-if filereadable(expand("~\\miniconda3\\python3.dll"))
-    let $PYTHONTHREEDLL = expand("~\\miniconda3\\python3.dll")
-endif
+
+" 设置 PYTHONTHREEDLL 和 g:python3_host_prog
+call CondaPython#SetPythonVariable()
 
 " Encoding related --------------------------------------------------------{{{1
 if has('multi_byte')
