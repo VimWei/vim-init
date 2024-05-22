@@ -15,11 +15,6 @@ if has('syntax')
     syntax on   "启用语法高亮，且仅在执行命令时设置一次，之后就不会再改变
 endif
 
-" Python -----------------------------------------------------------------{{{1
-
-" 设置 PYTHONTHREEDLL 和 g:python3_host_prog
-call CondaPython#SetPythonVariable()
-
 " Encoding related --------------------------------------------------------{{{1
 if has('multi_byte')
     set encoding=utf-8  "Vim 内部工作编码
