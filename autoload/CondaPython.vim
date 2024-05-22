@@ -104,8 +104,7 @@ function! CondaPython#Help()
     call CondaPython#CondaEnvCommand('pymotw', 'terminal', l:command)
 endfunction
 
-" Python provider --------------------------------------------------------{{{1
-" 在nvim下可以使用 :checkhealth 检查
+" CondaPython#Provider ---------------------------------------------------{{{1
 function! CondaPython#Provider()
     " 使用系统命令查找 Python 可执行文件的路径
     if has('win32') || has('win64')
@@ -118,16 +117,16 @@ function! CondaPython#Provider()
 
     let python_prog = split(trim(system(python_cmd)), "\n")[0]
     if !empty(python_prog)
-        " 设置 g:python3_host_prog
+        " 设置 g:python3_host_prog，可用nvim的 :checkhealth 检查结果
         if has('nvim')
             let g:python3_host_prog = python_prog
         endif
 
-        " 在 Windows 上设置 PYTHONTHREEDLL
-        if has('win32') || has('win64')
+        " 在 Windows 的 gvim 中设置 pythonthreedll，在 Unix-like 系统上不需要设置
+        if !has('nvim') && (has('win32') || has('win64'))
             let python_dll = fnamemodify(python_prog, ':h') . '/' . dll_name
             if filereadable(python_dll)
-                let $PYTHONTHREEDLL = python_dll
+                let $pythonthreedll = python_dll
             else
                 echoerr "Warning: " . dll_name . " not found near the python executable"
             endif
