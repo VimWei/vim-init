@@ -104,24 +104,26 @@ function! CondaPython#Help()
     call CondaPython#CondaEnvCommand('pymotw', 'terminal', l:command)
 endfunction
 
-" SetPythonThreeDllVariable ----------------------------------------------{{{1
-function! CondaPython#SetPythonVariable()
+" Python provider --------------------------------------------------------{{{1
+" 在nvim下可以使用 :checkhealth 检查
+function! CondaPython#Provider()
     " 使用系统命令查找 Python 可执行文件的路径
     if has('win32') || has('win64')
         let python_cmd = 'where python'
         let dll_name = 'python3.dll'
     else
         let python_cmd = 'which python3'
-        let dll_name = 'libpython3.so'
+        let dll_name = has('macunix') ? 'libpython3.dylib' : 'libpython3.so'
     endif
+
     let python_prog = split(trim(system(python_cmd)), "\n")[0]
     if !empty(python_prog)
         " 设置 g:python3_host_prog
-        let g:python3_host_prog = python_prog
+        if has('nvim')
+            let g:python3_host_prog = python_prog
+        endif
 
-        " 设置 PYTHONTHREEDLL
-        " 在 Windows 上，DLL 文件通常位于 pythonX.exe 同一个目录
-        " 在 Unix-like 系统上，DLL 文件通常位于系统的库目录中，不需要设置
+        " 在 Windows 上设置 PYTHONTHREEDLL
         if has('win32') || has('win64')
             let python_dll = fnamemodify(python_prog, ':h') . '/' . dll_name
             if filereadable(python_dll)

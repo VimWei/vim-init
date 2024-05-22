@@ -75,9 +75,10 @@ let s:viminitparent = substitute(s:viminitparent . '/', '\\', '/', 'g')
 let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 let s:viminit = substitute(s:viminit . '/', '\\', '/', 'g')
 
-" Python 3 provider ------------------------------------------------------{{{1
+" Python provider --------------------------------------------------------{{{1
+" 详情查阅 ../autoload/CondaPython.vim
 
-call CondaPython#SetPythonVariable()
+call CondaPython#Provider()
 
 " Packages ----------------------------------------------------------------{{{1
 " 增强%在配对关键字间跳转
