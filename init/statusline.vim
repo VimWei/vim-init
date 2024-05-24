@@ -4,8 +4,12 @@
 "===================================================
 
 " Statusline -------------------------------------------------------------{{{1
+if has('nvim-0.7.0')
+    set laststatus=3    " Global Statusline
+else
+    set laststatus=2    " 总是显示状态栏，但每个窗口一个 Statusline
+endif
 
-set laststatus=2                                " 总是显示状态栏
 set statusline=                                 " 清空状态
 set statusline+=%(\ %{CurrentMode()}\ \|\ %)    " Mode：INSERT/NORMAL/VISUAL
 set statusline+=%(%{BufferWinInfo()}\ \|\ %)    " Info：buffer number, winnr
