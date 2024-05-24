@@ -32,13 +32,6 @@ if !exists('g:plug_group')
         let g:plug_group['basic'] += [ 'quickui' ]
     endif
 
-    if !has('patch-8.2.1')
-        " Versions before Vim 8.2.1 do not meet the requirements
-    elseif has('nvim') && !has('nvim-0.6')
-        " Neovim versions before 0.6 do not meet the requirements
-    else
-        let g:plug_group['basic'] += [ 'quickui' ]
-    endif
     let g:plug_group['basic'] += [ 'session' ]
 
     let g:plug_group['search'] = []
@@ -102,9 +95,6 @@ call plug#begin()
 
 if IsInPlugGroup('inbox')  " ----------------------------------------------{{{1
     " 插件试验场
-    if has('nvim')
-        Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-    endif
 endif
 
 if IsInPlugGroup('basic', 'startup')  " -----------------------------------{{{1
@@ -804,6 +794,7 @@ finish " -----------------------------------------------------------------{{{1
     \   'vimscript': ['vint'],
     \   'python': ['pylint'],
     \}
+
     " Snippets ------------------------------------------------------------{{{2
     " Track the engine.
     Plug 'SirVer/ultisnips'
@@ -818,6 +809,7 @@ finish " -----------------------------------------------------------------{{{1
 
     " If you want :UltiSnipsEdit to split your window.
     let g:UltiSnipsEditSplit="vertical"
+
     " autofmt -------------------------------------------------------------{{{2
     " Vim 8.2.0901 已解决了 uax14 问题，可以不必再使用该插件了
     Plug 'vim-jp/autofmt'
@@ -864,6 +856,7 @@ finish " -----------------------------------------------------------------{{{1
         endif
         return call(s:orig_prop_line_break, [a:char], self)
     endfunction
+
     " Python 补全或提醒 ---------------------------------------------------{{{2
     " 目前对gvim的支持有问题，不能监测vim版本，无法启动
     " Plug 'jayli/vim-easycomplete'
@@ -885,6 +878,7 @@ finish " -----------------------------------------------------------------{{{1
     let g:sneak#map_netrw = 0
     " 提示符
     let g:sneak#prompt = 'sneak> '
+
     " YoudaoDict ----------------------------------------------------------{{{2
     Plug 'iamcco/dict.vim'
     " 翻译光标下/选中的文本，并在命令行回显
@@ -900,6 +894,7 @@ finish " -----------------------------------------------------------------{{{1
     command! -nargs=1 Dict call dict#Search(<q-args>, 'simple')
     " 使用 :DictW hello 在Dict新窗口显示
     command! -nargs=1 DictW call dict#Search(<q-args>, 'complex')
+
     " T.vim -------------------------------------------------------------{{{2
     Plug 'sicong-li/T.vim'
     nnoremap <leader>td :call T#Main(expand('<cword>'))<cr>
@@ -910,6 +905,7 @@ finish " -----------------------------------------------------------------{{{1
     " 使用Conda指定python环境
     Plug 'ubaldot/vim-conda-activate'
     " 命令 :CondaActivate
+
     " SidOfc/mkdx ---------------------------------------------------------{{{2
     " Plug 'SidOfc/mkdx'
     let g:mkdx#settings = {
