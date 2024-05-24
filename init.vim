@@ -14,13 +14,13 @@ endif
 nnoremap <space> <nop>
 let mapleader = "\<space>"
 
-" g:viminitparent and g:viminit ------------------------------------------{{{1
-let g:viminitparent = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
-let g:viminitparent = substitute(g:viminitparent . '/', '\\', '/', 'g')
-
+" g:viminit and g:viminitparent ------------------------------------------{{{1
 let g:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 execute 'set runtimepath+='.g:viminit
 let g:viminit = substitute(g:viminit . '/', '\\', '/', 'g')
+
+let g:viminitparent = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
+let g:viminitparent = substitute(g:viminitparent . '/', '\\', '/', 'g')
 
 " LoadScript -------------------------------------------------------------{{{1
 command! -nargs=1 LoadScript execute 'so ' . g:viminit . '<args>'
