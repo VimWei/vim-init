@@ -1,16 +1,9 @@
-"===================================================
-" Quickui menu settings by W.Chen
-" Sourced by: ../init.vim
-"===================================================
-
-if !IsInPlugGroup('basic', 'quickui')
-    finish
-endif
+" https://www.github.com/skywind3000/vim-quickui
+" manual: https://github.com/skywind3000/vim-quickui/blob/master/MANUAL.md
+" multiple menu namespaces: https://github.com/skywind3000/vim-quickui/wiki/Menu-Namespaces
 
 " clear all the menus ----------------------------------------------------{{{1
 call quickui#menu#reset()
-
-" ref: https://github.com/skywind3000/vim-quickui/blob/master/MANUAL.md
 
 " File -------------------------------------------------------------------{{{1
 call quickui#menu#install('&File', [
@@ -114,6 +107,5 @@ let g:quickui_border_style = 2
 let g:quickui_color_scheme = 'borland'
 
 " open menu
-" multiple menu namespaces: https://github.com/skywind3000/vim-quickui/wiki/Menu-Namespaces
 " The default menus is located in the system namespace.
 noremap <Leader><Leader>m :call quickui#menu#open()<cr>

@@ -1,13 +1,5 @@
-"===================================================
-" Navigator settings by W.Chen
-" Sourced by: ../init.vim
-"===================================================
-
-if !IsInPlugGroup('basic', 'quickui')
-    finish
-endif
-
-" ref: https://github.com/skywind3000/vim-navigator?tab=readme-ov-file#configuration
+" https://www.github.com/skywind3000/vim-navigator
+" doc: https://github.com/skywind3000/vim-navigator?tab=readme-ov-file#configuration
 
 " initialize global keymap and declare prefix key
 let g:navigator = {'prefix':'\'}
@@ -45,9 +37,9 @@ let g:navigator.v = {
     \ 'c' : ['Vimrc#EditInitVimrc("colorstyle.vim")', 'colorstyle.vim'],
     \ 'C' : ['Vimrc#EditInitVimrc("../autoload/Color.vim")', 'Color.vim'],
     \ 'g' : ['Vimrc#EditInitVimrc("guistyle.vim")', 'guistyle.vim'],
-    \ 'm' : ['Vimrc#EditInitVimrc("quickmenu.vim")', 'quickmenu.vim'],
-    \ 'n' : ['Vimrc#EditInitVimrc("navigator.vim")', 'navigator.vim'],
     \ 'a' : ['Vimrc#EditInitVimrc("autoload.vim")', 'autoload.vim'],
+    \ 'm' : ['Vimrc#EditInitVimrc("vim-quickui.vim")', 'vim-quickui#menu.vim'],
+    \ 'n' : ['Vimrc#EditInitVimrc("vim-navigator.vim")', 'vim-navigator.vim'],
     \ }
 
 " buffer ------------------------------------------------------------------{{{1

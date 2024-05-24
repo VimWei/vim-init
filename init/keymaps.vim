@@ -20,8 +20,8 @@ command! VP call Vimrc#EditInitVimrc("plugins.vim")
 command! VK call Vimrc#EditInitVimrc("keymaps.vim")
 command! VC call Vimrc#EditInitVimrc("colorstyle.vim")
 command! VG call Vimrc#EditInitVimrc("guistyle.vim")
-command! VM call Vimrc#EditInitVimrc("quickmenu.vim")
-command! VN call Vimrc#EditInitVimrc("navigator.vim")
+command! VM call Vimrc#EditInitVimrc("vim-quickui.vim")
+command! VN call Vimrc#EditInitVimrc("vim-navigator.vim")
 command! VA call Vimrc#EditInitVimrc("autoload.vim")
 
 " Vim Help -----------------------------------------------------{{{1

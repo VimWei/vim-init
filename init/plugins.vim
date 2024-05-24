@@ -3,7 +3,7 @@
 " Sourced by: ../init.vim
 "===================================================
 
-" plug_group --------------------------------------------------------------{{{1
+" plug_group -------------------------------------------------------------{{{1
 " 定义快速测试分组，将覆盖下面的默认分组
 " let g:plug_group = {}
 " let g:plug_group['Notetaking'] = [ 'wiki' ]
@@ -67,11 +67,11 @@ endfunction
 
 call CondaPython#Provider()
 
-" Packages ----------------------------------------------------------------{{{1
+" Packages ---------------------------------------------------------------{{{1
 " 增强%在配对关键字间跳转
 packadd! matchit
 
-" vim-plug begin ----------------------------------------------------------{{{1
+" vim-plug begin ---------------------------------------------------------{{{1
 " Plug自身是一个自动延时加载函数，可放在任意&rtp/autoload目录中即可生效
 " 在 Windows 下，其所管理的插件安装目录默认为 ~/vimfiles/plugged/
 
@@ -87,12 +87,11 @@ set noshellslash
 
 call plug#begin()
 
-if IsInPlugGroup('inbox')  " ----------------------------------------------{{{1
+if IsInPlugGroup('inbox') " ----------------------------------------------{{{1
     " 插件试验场
 endif
 
-if IsInPlugGroup('basic', 'startup')  " -----------------------------------{{{1
-    " Plug 'mhinz/vim-startify'
+if IsInPlugGroup('basic', 'startup') " -----------------------------------{{{1
     Plug 'dstein64/vim-startuptime'
     if !has('nvim')
         Plug 'yianwillis/vimcdoc'
@@ -100,60 +99,16 @@ if IsInPlugGroup('basic', 'startup')  " -----------------------------------{{{1
 endif
 
 if IsInPlugGroup('basic', 'essential') " ---------------------------------{{{1
-
-    " im-select ----------------------------------------------------------{{{2
+    Plug 'mbbill/undotree'
+    Plug 'tyru/open-browser.vim'
     if has('gui_running')  && !has('nvim')
         autocmd InsertLeave * silent! set iminsert=2
     else
         Plug 'brglng/vim-im-select'
-        let g:im_select_command = s:viminit . "tools/IM/im-select.exe"
-        let g:im_select_enable_cmd_line = 0
     endif
-
-    " Undotree -----------------------------------------------------------{{{2
-    Plug 'mbbill/undotree'
-    nnoremap <Leader>u :UndotreeToggle<CR>
-    " Keep undo history across sessions by storing it in a file
-    if has('persistent_undo')
-        if has('nvim')
-            let s:undotree_dir = expand('~/.local/share/nvim/undodir')
-        else
-            let s:undotree_dir = expand('~/vimfiles/undodir')
-        endif
-        if !isdirectory(s:undotree_dir)
-            call mkdir(s:undotree_dir, "p", 0700)
-        endif
-        let g:undotree_UndoDir = s:undotree_dir
-        let &undodir = g:undotree_UndoDir
-        set undofile
-    endif
-    let g:undotree_WindowLayout = 3
-    let g:undotree_ShortIndicators  = 1
-
-    " Netrw --------------------------------------------------------------{{{2
-    " 不显示横幅，可以用I轮换
-    let g:netrw_banner = 1
-    " 瘦列表 (每个文件一行)，可以用i轮换
-    let g:netrw_liststyle = 0
-    " 排序时忽略大小写，可以用s轮换排序依据
-    let g:netrw_sort_options="i"
-    " 在当前窗口打开当前缓冲区所在目录
-    map - :<C-u>e %:p:h<CR>
-    " 在左侧显示当前缓冲区所在目录
-    map <C-n> :Lexplore %:p:h<CR>
-    " 指定新建的 :Lexplore 窗口宽度，单位是屏幕的百分比
-    let g:netrw_winsize =20
-
-    " Open browser -------------------------------------------------------{{{2
-    " gx使用系统默认工具打开光标下的文件、URL等
-    Plug 'tyru/open-browser.vim'
-    let g:netrw_nogx = 1 " disable netrw's gx mapping.
-    nmap gx <Plug>(openbrowser-smart-search)
-    vmap gx <Plug>(openbrowser-smart-search)
-
 endif
 
-if IsInPlugGroup('basic', 'colorscheme')  " -------------------------------{{{1
+if IsInPlugGroup('basic', 'colorscheme') " -------------------------------{{{1
     Plug 'lifepillar/vim-solarized8'
     Plug 'lifepillar/vim-gruvbox8'
     Plug 'kaicataldo/material.vim'
@@ -171,8 +126,6 @@ if IsInPlugGroup('basic', 'colorscheme')  " -------------------------------{{{1
     Plug 'zefei/vim-colortuner'
     Plug 'lifepillar/vim-colortemplate'
     Plug 'skywind3000/vim-color-patch'
-    " 按需在cpatch_path目录下构建colorscheme同名的文件
-    let g:cpatch_path = g:viminit . 'colors/patch'
     if has('nvim')
         Plug 'skywind3000/vim-color-export'
     endif
@@ -189,80 +142,30 @@ endif
 
 if IsInPlugGroup('basic', 'session') " -----------------------------------{{{1
     Plug 'jamescherti/vim-easysession'
-    let g:easysession_auto_save = 1
-    let g:easysession_auto_load = 0
 endif
 
-if IsInPlugGroup('search', 'auto-popmenu')  " -----------------------------{{{1
+if IsInPlugGroup('search', 'auto-popmenu') " -----------------------------{{{1
     Plug 'skywind3000/vim-auto-popmenu'
-    " ins-completion 相关配置，请查看 search.vim
-    " enable this plugin for filetypes, '*' for all files.
-    let g:apc_enable_ft = {'*':1}
-    let g:apc_enable_tab = 1
-    let g:apc_min_length = 2
 endif
 
-if IsInPlugGroup('search', 'EasyMotion')  " -------------------------------{{{1
-    " 全文快速移动，使用<leader><leader>w/b/s/j/k/l，或者f触发
+if IsInPlugGroup('search', 'EasyMotion')  " ------------------------------{{{1
     Plug 'easymotion/vim-easymotion'
-
-    let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
-    let g:EasyMotion_smartcase = 1
-    let g:EasyMotion_enter_jump_first = 1
-    let g:EasyMotion_use_migemo  = 0
-
-    nmap <leader><leader>l <Plug>(easymotion-bd-jk)
-    nmap f <Plug>(easymotion-sn)
 endif
 
-if IsInPlugGroup('search', 'Leaderf')  " ----------------------------------{{{1
+if IsInPlugGroup('search', 'Leaderf')  " ---------------------------------{{{1
     Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
-    let g:Lf_StlColorscheme = 'gruvbox_material'
-    let g:Lf_HideHelp = 1
-    let g:Lf_WindowHeight = 0.30
-    let g:Lf_ShowDevIcons = 0
-    let g:Lf_PreviewInPopup = 1
-    "F - if the current working directory is not the direct ancestor of current
-    "    file, use the directory of the current file as LeaderF's working
-    "    directory, otherwise, use the current working directory.
-    let g:Lf_WorkingDirectoryMode = 'F'
-    let g:Lf_WildIgnore = {
-        \ 'dir': ['.svn','.git','.hg'],
-        \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]','*.zip']
-        \}
-    let g:Lf_ShortcutF = '<leader>f'
-    let g:Lf_ShortcutB = '<leader>fb'
-    noremap <leader>fm :<C-U>Leaderf mru<CR>
-    noremap <leader>fl :Leaderf line --regexMode<CR>
-    noremap <leader>fc :Leaderf line --regexMode --input \(\s\+\)\@<!\_^#\+\s\+.*<CR>
-    noremap <leader>ft :<C-U>Leaderf tag --regexMode<CR>
-    noremap <leader>fh :<C-U>Leaderf help<CR>
-    noremap <leader>fg :<C-U><C-R>=printf("Leaderf rg %s", "")<CR>
-    noremap <leader>fr :<C-U>Leaderf! --recall<CR>
-    noremap <leader>fs :<C-U>Leaderf! self<CR>
-    noremap ]f :<C-U>Leaderf --next<CR>
-    noremap [f :<C-U>Leaderf --previous<CR>
 endif
 
-if IsInPlugGroup('search', 'pinyin')  " -----------------------------------{{{1
-    " 拼音首字母查询 -----------------------
+if IsInPlugGroup('search', 'pinyin')  " ----------------------------------{{{1
     Plug 'ppwwyyxx/vim-PinyinSearch'
-    let g:PinyinSearch_Dict = $HOME
-                \ . '/vimfiles/plugged/vim-PinyinSearch/PinyinSearch.dict'
-    nnoremap F :call PinyinSearch()<CR>
-    nnoremap <Leader>pn :call PinyinNext()<CR>
 endif
 
-if IsInPlugGroup('search', 'vim-cool')  " ---------------------------------{{{1
+if IsInPlugGroup('search', 'vim-cool')  " --------------------------------{{{1
     Plug 'romainl/vim-cool'
-    " disables search highlighting automate
-    let g:cool_total_matches = 1
 endif
 
-if IsInPlugGroup('Notetaking', 'edit')  " ---------------------------------{{{1
-    " 使用gcc切换注释
+if IsInPlugGroup('Notetaking', 'edit')  " --------------------------------{{{1
     Plug 'tpope/vim-commentary'
-    autocmd FileType autohotkey setlocal commentstring=;\ %s
     " 方便对引号等成对出现的文本进行处理
     Plug 'tpope/vim-surround'
     " 使用[和]作为先导进行导航
@@ -284,312 +187,67 @@ if IsInPlugGroup('Notetaking', 'textobj') " ------------------------------{{{1
     Plug 'bps/vim-textobj-python', {'for': 'python'}
 endif
 
-if IsInPlugGroup('Notetaking', 'table')  " --------------------------------{{{1
+if IsInPlugGroup('Notetaking', 'table')  " -------------------------------{{{1
     " 将文本按{pattern}对齐，使用 :Tabularize /{pattern}
-    " video http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
     Plug 'godlygeek/tabular'
-    if exists(":Tabularize")
-        nmap <leader>a= :Tablularize /=<CR>
-        vmap <leader>a= :Tablularize /=<CR>
-        nmap <leader>a: :Tablularize /:\zs<CR>
-        vmap <leader>a: :Tablularize /:\zs<CR>
-    endif
-
     " 将文本按{pattern}转为表格，使用 :Tableize /{pattern}
     Plug 'dhruvasagar/vim-table-mode'
 endif
 
-if IsInPlugGroup('Notetaking', 'list')  " ---------------------------------{{{1
+if IsInPlugGroup('Notetaking', 'list')  " --------------------------------{{{1
     Plug 'bullets-vim/bullets.vim'
-    let g:bullets_enabled_file_types = [ 'markdown', 'scratch' , 'text', 'wiki' ]
-    let g:bullets_enable_in_empty_buffers = 1
-    function! SmartBulletsNewlineAbove()
-        let l:save_cursor = getcurpos()
-        let l:current_line_num = l:save_cursor[1]
-        execute "normal! \<Plug>(bullets-newline)"
-        if line('.') > l:current_line_num
-            execute line('.') . 'move ' . (l:current_line_num - 1)
-        endif
-        execute "normal! \<Plug>(bullets-renumber)"
-        call setpos('.', [0, l:current_line_num, 0, 0])
-        call feedkeys('A', 'i')
-    endfunction
-    let g:bullets_set_mappings = 0
-    let g:bullets_custom_mappings = [
-        \ ['imap', '<cr>', '<Plug>(bullets-newline)'],
-        \ ['inoremap', '<C-cr>', '<cr>'],
-        \ ['nmap', 'o', '<Plug>(bullets-newline)'],
-        \ ['nmap', 'O', ':call SmartBulletsNewlineAbove()<CR>'],
-        \ ['vmap', 'glr', '<Plug>(bullets-renumber)'],
-        \ ['nmap', 'glr', '<Plug>(bullets-renumber)'],
-        \ ['nmap', 'glx', '<Plug>(bullets-toggle-checkbox)'],
-        \ ['imap', '<C-t>', '<Plug>(bullets-demote)'],
-        \ ['nmap', 'gl>', '<Plug>(bullets-demote)'],
-        \ ['vmap', '>', '<Plug>(bullets-demote)'],
-        \ ['imap', '<C-d>', '<Plug>(bullets-promote)'],
-        \ ['nmap', 'gl<', '<Plug>(bullets-promote)'],
-        \ ['vmap', '<', '<Plug>(bullets-promote)'],
-    \ ]
-
-    let g:bullets_delete_last_bullet_if_empty = 1
-    let g:bullets_line_spacing = 1
-    let g:bullets_pad_right = 0
-    let g:bullets_auto_indent_after_colon = 1
-    let g:bullets_max_alpha_characters = 2
-
-    let g:bullets_outline_levels = []
-    " let g:bullets_outline_levels += ['ROM', 'ABC']
-    let g:bullets_outline_levels += ['num', 'abc', 'rom']
-    let g:bullets_outline_levels += ['std*', 'std-', 'std+']
-
-    let g:bullets_renumber_on_change = 1
-    let g:bullets_nested_checkboxes = 1
-    let g:bullets_checkbox_markers = ' .oOX'
-    let g:bullets_checkbox_partials_toggle = 1
 endif
 
-if IsInPlugGroup('Notetaking', 'vimwiki')  " ------------------------------{{{1
+if IsInPlugGroup('Notetaking', 'vimwiki') " ------------------------------{{{1
     " Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
     " Plug 'vimwiki/vimwiki', { 'tag': 'v2.4.1' }
     Plug 'vimwiki/vimwiki', { 'commit': 'c9e6afe' }
-
-    " def wiki dict
-    let wiki = {}
-    let wiki.name = 'Vimel Vimwiki'
-    let wiki.path = g:viminitparent . 'wiki/'
-    let wiki.ext = '.md'
-    let wiki.syntax = 'markdown'
-    let wiki.nested_syntaxes = {'python': 'python'}
-    let wiki.links_space_char = '_'
-    let wiki.list_margin = 0
-    let wiki.auto_toc = 1
-    let wiki.auto_tags = 1
-    let wiki.auto_generate_tags = 1
-
-    let g:vimwiki_list = [wiki]
-    let g:vimwiki_ext2syntax = {'.md': 'markdown'}
-    let g:vimwiki_global_ext = 1
-    let g:vimwiki_autowriteall = 1
-    let g:vimwiki_auto_chdir = 1
-
-    set nofoldenable
-    set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
-    let g:vimwiki_folding = 'expr'
 endif
 
-if IsInPlugGroup('Notetaking', 'wiki')  " ---------------------------------{{{1
+if IsInPlugGroup('Notetaking', 'wiki') " ---------------------------------{{{1
     Plug 'lervag/wiki.vim'
     Plug 'junegunn/fzf'
-
-    let g:wiki_root = g:viminitparent . 'wiki/'
-
-    " 将wiki链接文本转为合法且清晰的文件名
-    function! MyUrlTransform(text)
-        let l:valid_filename = substitute(a:text, '[:*\?"<>|`：!@#$%&*‘’'']', '', 'g')
-        let l:formatted_filename = substitute(l:valid_filename, '\s\+\|[.。,，/+"“”<>()（）《》]', '-', 'g')
-        let l:formatted_filename = substitute(l:formatted_filename, '-\+', '-', 'g')
-        let l:cleaned_filename = substitute(l:formatted_filename, '^-\|-$', '', 'g')
-        return tolower(l:cleaned_filename)
-    endfunction
-    let g:wiki_link_creation = {
-        \ 'md': {
-            \ 'url_transform': function('MyUrlTransform'),
-        \ },
-    \ }
-
-    " 为新建的各种 wiki page 创建模版
-    function! JournalTemplate(context) abort
-        let today = strftime("%Y-%m-%d")
-        if a:context.name == today
-            call append(0, '# ' . strftime("%Y-%m-%d %A %H:%M:%S"))
-        else
-            let timestamp = wiki#date#strptime("%Y-%m-%d", a:context.name)
-            let formatted_date_with_weekday = strftime("%Y-%m-%d %A", timestamp)
-            call append(0, '# ' . formatted_date_with_weekday)
-        endif
-        call append(1, '')
-        execute "normal! I## "
-    endfunction
-    function! MeetingTemplate(context) abort
-        let title = get(a:context.origin.link, 'text', a:context.name)
-        call append(0, '# ' . title)
-        call append(1, '')
-        call append(2, strftime("%Y-%m-%d %A %H:%M:%S"))
-        call append(3, '')
-        execute "normal! I## "
-    endfunction
-    function! GeneralTemplate(context) abort
-        let title = a:context.name
-        if exists('a:context.origin.link.text')
-          let title = a:context.origin.link.text
-        endif
-        call append(0, '# ' . title)
-        call append(1, '')
-        execute "normal! I## "
-    endfunction
-    let g:wiki_templates = [
-                \ { 'match_re': '^\d\{4\}-\d\{2\}-\d\{2\}$',
-                \   'source_func': function('JournalTemplate') },
-                \ { 'match_re': '\d\{8\}\(-\)\?' .
-                \   '\(周[一二三四五六日]\|' .
-                \   '\|mon\|tue\|wed\|thu\|fri\|sat\|sun' .
-                \   '\|monday\|tuesday\|wednesday\|thursday\|friday\|saturday\|sunday\).*',
-                \   'source_func': function('MeetingTemplate') },
-                \ { 'match_func': { x -> x.path_wiki !~# 'journal' },
-                \   'source_func': function('GeneralTemplate') },
-                \]
-
-    let g:wiki_journal = {
-        \ 'date_format': {
-                \ 'daily' : '%Y/%Y-%m-%d',
-                \ 'weekly' : '%Y/%Y_w%V',
-                \ 'monthly' : '%Y/%Y_m%m',
-                \ },
-        \}
-    let g:wiki_journal_index = {
-        \ 'link_text_parser': { b, d, p -> wiki#toc#get_page_title(p) },
-        \}
-    let g:wiki_mappings_local_journal = {
-        \ '<plug>(wiki-journal-prev)' : '[w',
-        \ '<plug>(wiki-journal-next)' : ']w',
-        \}
-
-    let s:TexTemplate = g:viminit . "tools/pandoc/template.latex"
-    let s:pandocargs = '--pdf-engine=xelatex -V CJKmainfont="SimSun" --template="' . s:TexTemplate . '"'
-    let g:wiki_export = {
-          \ 'args' : s:pandocargs,
-          \ 'from_format' : 'markdown',
-          \ 'ext' : 'pdf',
-          \ 'link_ext_replace': v:false,
-          \ 'view' : v:false,
-          \ 'output': 'PandocOutput',
-          \}
-
-    let g:markdown_folding = 1
 endif
 
-if IsInPlugGroup('Notetaking', 'markdown')  " -----------------------------{{{1
+if IsInPlugGroup('Notetaking', 'markdown') " -----------------------------{{{1
     Plug 'preservim/vim-markdown'
-    let g:vim_markdown_autowrite = 1
-
-    set nofoldenable
-    let g:vim_markdown_folding_disabled = 0
-    set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
-    let g:vim_markdown_folding_level = 2
-    let g:vim_markdown_folding_style_pythonic = 1
-    let g:vim_markdown_override_foldtext = 0
-
-    let g:tex_conceal = ""
-    let g:vim_markdown_math = 1
-    let g:vim_markdown_conceal_code_blocks = 0
-
-    let g:vim_markdown_emphasis_multiline = 1
-    let g:vim_markdown_strikethrough = 1
-    let g:vim_markdown_auto_insert_bullets = 0
-    let g:vim_markdown_new_list_item_indent = 0
-    au FileType markdown setlocal formatlistpat=^\\s*\\d\\+[.\)]\\s\\+\\\|^\\s*[*+~-]\\s\\+\\\|^\\(\\\|[*#]\\)\\[^[^\\]]\\+\\]:\\s | setlocal comments=n:> | setlocal formatoptions+=cn
-
-    let g:vim_markdown_toc_autofit = 1
-
-    let g:vim_markdown_fenced_languages = ['viml=vim', 'python=python', 'ahk=autohotkey']
 endif
 
-if IsInPlugGroup('program', 'git')  " -------------------------------------{{{1
+if IsInPlugGroup('program', 'git') " -------------------------------------{{{1
     Plug 'tpope/vim-fugitive'
-    function! g:Git_status()
-        return fugitive#Head()
-    endfunction
 else
     function! g:Git_status()
         return ''
     endfunction
 endif
 
-if IsInPlugGroup('program', 'terminal')  " --------------------------------{{{1
+if IsInPlugGroup('program', 'terminal')  " -------------------------------{{{1
     Plug 'skywind3000/vim-terminal-help'
-    let g:terminal_cwd = 0
-    let g:terminal_pos = 'vert botright'    " 默认为rightbelow
-    let g:terminal_height = 70  " 设置高度(split，默认10)或宽度(vsplit，建议70)
-    let g:terminal_kill = 'term'
-    let g:terminal_close = 1
-    " 在vim，使用 ALT+= 切换打开/关闭terminal
-    " 在Vim和terminal，ALT+SHIFT+hjkl 用来在终端窗口和其他窗口之间跳转
-    " 在terminal，使用 drop 打开文件
-    " 在terminal，使用 ALT+- 粘贴 0 号复制专用寄存器
-    " 在terminal，使用 ALT+q 进入normal模式，之后用i或a等则进入insert模式
-    " 使用 exit 彻底退出terminal，并关闭窗口
-    " let g:terminal_shell='pwsh'   " 使用PowerShell Core 7.x
 endif
 
-if IsInPlugGroup('program', 'AsyncRun')  " --------------------------------{{{1
+if IsInPlugGroup('program', 'AsyncRun') " --------------------------------{{{1
     Plug 'skywind3000/asyncrun.vim'
-    " set shell encoding if it's different from &encoding
-    let g:asyncrun_encs = 'gbk'
-    " open quickfix window at given height after command starts
-    let g:asyncrun_open = 8
-    " trim the empty lines in the quickfix window
-    let g:asyncrun_trim = 0
-    " Display Progress in Status Line
-    let g:asyncrun_status = "stopped"
-    " let g:asynctasks_term_focus = 1
-    augroup QuickfixStatus
-        au! BufWinEnter quickfix setlocal
-                    \ statusline=%t\ [%{g:asyncrun_status}]\ %{exists('w:quickfix_title')?\ '\ '.w:quickfix_title\ :\ ''}\ %=%-15(%l,%c%V%)\ %P
-    augroup END
 endif
 
-if IsInPlugGroup('program', 'python')  " ----------------------------------{{{1
+if IsInPlugGroup('program', 'python') " ----------------------------------{{{1
     " python 语法文件增强
     Plug 'vim-python/python-syntax', { 'for': ['python'] }
 
     " 即时代码格式化
     Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8' }
-    " By default, it will be triggered by `ENTER` in insert mode.
-    " set this to 1 to use `CTRL+ENTER` instead, and keep the
-    " default `ENTER` behavior unchanged.
-    let g:rtf_ctrl_enter = 0
-    " Enable formatting when leaving insert mode
-    let g:rtf_on_insert_leave = 1
-    " Enable plugin for current buffer:
-    " :RTFormatEnable
 
     " 代码格式化，支持多种语言
     Plug 'Chiel92/vim-autoformat'
 
     " 彩虹括号增强版
     Plug 'luochen1990/rainbow'
-
 endif
 
-if IsInPlugGroup('program', 'REPL')  " ------------------------------------{{{1
-    " REPL（Read-Eval-Print Loop，读取-求值-输出的循环）简单的交互式编程环境
-    " Grab some text and send it to Vim Terminal： VIM --(text)--> Vim Terminal
+if IsInPlugGroup('program', 'REPL') " ------------------------------------{{{1
     Plug 'sillybun/vim-repl'
-    let g:repl_program = {
-                \   'python': 'ipython',
-                \   'default': 'ipython',
-                \   'vim': 'vim -e',
-                \   }
-    let g:repl_predefine_python = {
-                \   'numpy': 'import numpy as np',
-                \   'matplotlib': 'from matplotlib import pyplot as plt'
-                \   }
-    let g:repl_cursor_down = 1
-    let g:repl_python_automerge = 1
-    let g:repl_ipython_version = '7'
-    nnoremap <leader>re :REPLToggle<Cr>
-    " autocmd Filetype python nnoremap <F12> <Esc>:REPLDebugStopAtCurrentLine<Cr>
-    " autocmd Filetype python nnoremap <F10> <Esc>:REPLPDBN<Cr>
-    " autocmd Filetype python nnoremap <F11> <Esc>:REPLPDBS<Cr>
-    let g:repl_position = 3     "0表示出现在下方，1表示出现在上方，2在左边，3在右边
-
-    " Leader + re：打开或关闭REPL窗口，运行iPython，快捷键可配置
-    " 在普通模式下按<leader>w把当前行发送到REPL窗口
-    " 在普通模式下在代码块的第一行按<leader>w，把一块代码发送到REPL窗口
-    " 在选择模式下选中多行代码按<leader>w把一块代码发送到REPL窗口
 endif
 
-" vim-plug end ------------------------------------------------------------{{{1
+" vim-plug end -----------------------------------------------------------{{{1
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -724,27 +382,10 @@ finish " -----------------------------------------------------------------{{{1
     " 提供 uri/url 的文本对象，iu/au 表示
     Plug 'jceb/vim-textobj-uri'
 
-    " Others --------------------------------------------------------------{{{2
-    Plug 'yggdroot/indentline'
-    Plug 'aaronbieber/vim-quicktask'
-    Plug 'hotoo/pangu.vim'
-    Plug 'arecarn/vim-crunch'
-    Plug 'arecarn/vim-selection'
-    Plug 'vim-scripts/VisIncr'
-
     " vim-pandoc ----------------------------------------------------------{{{2
     Plug 'vim-pandoc/vim-pandoc'
     let g:pandoc#spell#enabled = 0
     " let g:pandoc#spell#default_langs = ["en_us","cjk"]
-
-    Plug 'vim-pandoc/vim-pandoc-syntax'
-
-    " Python-mode ---------------------------------------------------------{{{2
-    Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-
-    " SuperTab ------------------------------------------------------------{{{2
-    " use <Tab> for all insert completion needs
-    Plug 'ervandew/supertab'
 
     " Voldikss Translator -------------------------------------------------{{{2
     Plug 'voldikss/vim-translator'
@@ -763,13 +404,6 @@ finish " -----------------------------------------------------------------{{{1
     " ECY-dictionary ------------------------------------------------------{{{2
     Plug 'hy172574895/EasyCompleteYou'
     Plug 'https://gitee.com/Jimmy_Huang/ECY-dictionary'
-
-    " vim-dict ------------------------------------------------------------{{{2
-    Plug 'skywind3000/vim-dict'
-    let g:vim_dict_config = { 'vimwiki':['text'],
-                            \ 'markdown':['text'],
-                            \ 'vim':['vim', 'text'],
-                            \ 'html':['html', 'javascript', 'css', 'text']}
 
     " ALE 语法检查 ----------------------------------------------------{{{2
     Plug 'dense-analysis/ale'
@@ -804,57 +438,6 @@ finish " -----------------------------------------------------------------{{{1
     " If you want :UltiSnipsEdit to split your window.
     let g:UltiSnipsEditSplit="vertical"
 
-    " autofmt -------------------------------------------------------------{{{2
-    " Vim 8.2.0901 已解决了 uax14 问题，可以不必再使用该插件了
-    Plug 'vim-jp/autofmt'
-
-    nnoremap <leader>af :call FormatexprToggle()<CR>
-    function! FormatexprToggle()
-        if &formatexpr == "autofmt#uax14#formatexpr()"
-            setlocal formatexpr=
-            echo "Don't use uax14."
-        else
-            setlocal formatexpr=autofmt#uax14#formatexpr()
-            echo "Use uax14."
-        endif
-    endfunction
-
-    nnoremap <leader>gq :call FormatPara()<CR>
-    function! FormatPara()
-        if &formatexpr != "autofmt#uax14#formatexpr()"
-            setlocal formatexpr=autofmt#uax14#formatexpr()
-        endif
-        normal! vip
-        normal! gq
-        setlocal formatexpr=
-    endfunction
-
-    vnoremap <leader>gq :call FormatSelection()<CR>
-    function! FormatSelection()
-        if &formatexpr != "autofmt#uax14#formatexpr()"
-            setlocal formatexpr=autofmt#uax14#formatexpr()
-        endif
-        normal! gv
-        normal! gq
-        setlocal formatexpr=
-    endfunction
-
-    " 以下要求在plug#end之后
-    let s:unicode = autofmt#unicode#import()
-    let s:orig_prop_line_break = s:unicode.prop_line_break
-    function! s:unicode.prop_line_break(char)
-        if a:char == "\u201c" || a:char == "\u2018"
-            return "OP"   " Open quotations
-        elseif a:char == "\u201d" || a:char == "\u2019"
-            return "CL"   " Close quotations
-        endif
-        return call(s:orig_prop_line_break, [a:char], self)
-    endfunction
-
-    " Python 补全或提醒 ---------------------------------------------------{{{2
-    " 目前对gvim的支持有问题，不能监测vim版本，无法启动
-    " Plug 'jayli/vim-easycomplete'
-
     " vim-sneak -----------------------------------------------------------{{{2
     " 使用两字符跨行搜索
     Plug 'justinmk/vim-sneak'
@@ -873,85 +456,8 @@ finish " -----------------------------------------------------------------{{{1
     " 提示符
     let g:sneak#prompt = 'sneak> '
 
-    " YoudaoDict ----------------------------------------------------------{{{2
-    Plug 'iamcco/dict.vim'
-    " 翻译光标下/选中的文本，并在命令行回显
-    nmap <silent> <Leader>d <Plug>DictSearch
-    vmap <silent> <Leader>d <Plug>DictVSearch
-    " 翻译光标下/选中的文本，并在Dict新窗口显示
-    nmap <silent> <Leader>dw <Plug>DictWSearch
-    vmap <silent> <Leader>dw <Plug>DictWVSearch
-    " 翻译光标下/选中的文本，并替换为翻译的结果
-    nmap <silent> <Leader>dr <Plug>DictRSearch
-    vmap <silent> <Leader>dr <Plug>DictRVSearch
-    " 使用 :Dict hello 在命令行回显
-    command! -nargs=1 Dict call dict#Search(<q-args>, 'simple')
-    " 使用 :DictW hello 在Dict新窗口显示
-    command! -nargs=1 DictW call dict#Search(<q-args>, 'complex')
-
     " T.vim -------------------------------------------------------------{{{2
     Plug 'sicong-li/T.vim'
     nnoremap <leader>td :call T#Main(expand('<cword>'))<cr>
     vnoremap <leader>td :<c-u>call T#VisualSearch(visualmode())<cr>
     nnoremap <leader>tr :call T#DisplayRecent()<cr>
-
-    " Conda activate ------------------------------------------------------{{{2
-    " 使用Conda指定python环境
-    Plug 'ubaldot/vim-conda-activate'
-    " 命令 :CondaActivate
-
-    " SidOfc/mkdx ---------------------------------------------------------{{{2
-    " Plug 'SidOfc/mkdx'
-    let g:mkdx#settings = {
-        \ 'auto_update': { 'enable': 0 },
-        \ 'map': { 'enable': 0, 'prefix': '<leader>' },
-        \ 'tab': { 'enable': 0 },
-        \ 'enter': { 'enable': 1, 'shift': 1, 'o': 1, 'shifto': 1, 'increment': 1 },
-        \ 'checkbox': {
-            \ 'toggles': [' ', '-', 'x'],
-            \ 'update_tree': 2,
-            \ 'initial_state': ' ',
-            \ 'match_attrs': {'mkdxCheckboxEmpty': '', 'mkdxCheckboxPending': '', 'mkdxCheckboxComplete': '' },
-            \},
-        \ 'links': {'conceal': 1, 'external': { 'enable': 0 } },
-        \ 'toc': { 'enable': 0, 'text': 'Table of Contents', 'update_on_write': 1 },
-        \ 'fold': { 'enable': 1, 'components': ['toc', 'fence'] },
-        \ 'insert_indent_mappings' : 1,
-        \'tokens': {
-            \ 'header': '#',
-            \ 'enter': ['-', '*', '>'],
-            \ 'bold': '**', 'list': '-',
-            \ 'fence': ['`', '~'],
-            \},
-        \ 'highlight': { 'enable': 1, 'frontmatter': { 'yaml': 1, 'toml': 1, 'json': 1 } },
-        \ }
-
-    set conceallevel=2
-    set nofoldenable
-    set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
-    let g:markdown_folding = 1
-
-    let g:polyglot_disabled = ['markdown']
-
-    " gabrielelana/Vim-Markdown -------------------------------------------{{{2
-    Plug 'gabrielelana/vim-markdown'
-
-    let g:markdown_enable_mappings = 1
-
-    " let g:markdown_folding = 1
-    set conceallevel=2
-    let g:markdown_enable_conceal = 1
-
-    set nofoldenable
-    set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
-    let g:markdown_enable_folding = 1
-
-    let g:markdown_include_jekyll_support = 0
-    let g:markdown_enable_spell_checking = 0
-
-    let g:markdown_mapping_switch_status = '<Leader>s'
-    " lists.vim -----------------------------------------------------------{{{2
-    Plug 'lervag/lists.vim'
-
-    let g:lists_filetypes = ['markdown', 'scratch' , 'text', 'wiki']
-    let g:lists_maps_default_enable = 1

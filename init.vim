@@ -32,9 +32,8 @@ LoadScript init/statusline.vim
 LoadScript init/keymaps.vim
 LoadScript init/colorstyle.vim
 LoadScript init/guistyle.vim
-LoadScript init/quickmenu.vim
-LoadScript init/navigator.vim
 LoadScript init/autoload.vim
+LoadScript init/plugins.config.vim
 
 if has('nvim')
     runtime neovim.lua

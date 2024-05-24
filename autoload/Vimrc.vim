@@ -1,11 +1,12 @@
 " 打开 vim-init/init.vim 或其子目录下的 VIMRC 文档
-let s:init = g:viminit . 'init/'
 function! Vimrc#EditInitVimrc(filename, ...)
     " 根据文件名称，决定文件所在路径
     if a:filename == "init.vim"
         let l:filepath = g:viminit . a:filename
+    elseif index(["vim-quickui.vim", "vim-navigator.vim"], a:filename) != -1
+        let l:filepath = g:viminit . 'init/plugins.config/' . a:filename
     else
-        let l:filepath = s:init . a:filename
+        let l:filepath = g:viminit . 'init/' . a:filename
     endif
     " 若提供了额外参数，则使用指定方案，否则使用 tabedit 打开
     let splittype = a:0 > 0 ? a:1 : 'tabedit'
