@@ -14,13 +14,16 @@ endif
 nnoremap <space> <nop>
 let mapleader = "\<space>"
 
-" s:viminit and runtimepath ----------------------------------------------{{{1
-let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h')
-execute 'set runtimepath+='.s:viminit
-let s:viminit = substitute(s:viminit . '/', '\\', '/', 'g')
+" g:viminitparent and g:viminit ------------------------------------------{{{1
+let g:viminitparent = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
+let g:viminitparent = substitute(g:viminitparent . '/', '\\', '/', 'g')
+
+let g:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+execute 'set runtimepath+='.g:viminit
+let g:viminit = substitute(g:viminit . '/', '\\', '/', 'g')
 
 " LoadScript -------------------------------------------------------------{{{1
-command! -nargs=1 LoadScript execute 'so '.s:viminit.'<args>'
+command! -nargs=1 LoadScript execute 'so ' . g:viminit . '<args>'
 
 LoadScript init/essential.vim
 LoadScript init/tabsize.vim

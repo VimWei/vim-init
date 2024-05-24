@@ -1,11 +1,9 @@
 " 打开 vim-init/init.vim 或其子目录下的 VIMRC 文档
-let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
-let s:viminit = substitute(s:viminit . '/', '\\', '/', 'g')
-let s:init = s:viminit . 'init/'
+let s:init = g:viminit . 'init/'
 function! Vimrc#EditInitVimrc(filename, ...)
     " 根据文件名称，决定文件所在路径
     if a:filename == "init.vim"
-        let l:filepath = s:viminit . a:filename
+        let l:filepath = g:viminit . a:filename
     else
         let l:filepath = s:init . a:filename
     endif
@@ -20,12 +18,12 @@ function! Vimrc#EditInitVimrc(filename, ...)
         execute "tabedit " . l:filepath
     endif
     " 设置vim-init/为工作目录
-    execute "cd " . s:viminit
+    execute "cd " . g:viminit
 endfunction
 
 function! Vimrc#Update()
     let l:current_working_directory = getcwd()
-    execute "cd " . s:viminit
+    execute "cd " . g:viminit
     Git pull
     execute "cd " . l:current_working_directory
 endfunction

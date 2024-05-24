@@ -62,12 +62,6 @@ function! IsInPlugGroup(group, ...)
     endif
 endfunction
 
-" viminit path ------------------------------------------------------------{{{1
-let s:viminitparent = fnamemodify(resolve(expand('<sfile>:p')), ':h:h:h')
-let s:viminitparent = substitute(s:viminitparent . '/', '\\', '/', 'g')
-let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
-let s:viminit = substitute(s:viminit . '/', '\\', '/', 'g')
-
 " Python provider --------------------------------------------------------{{{1
 " 详情查阅 ../autoload/CondaPython.vim
 
@@ -178,7 +172,7 @@ if IsInPlugGroup('basic', 'colorscheme')  " -------------------------------{{{1
     Plug 'lifepillar/vim-colortemplate'
     Plug 'skywind3000/vim-color-patch'
     " 按需在cpatch_path目录下构建colorscheme同名的文件
-    let g:cpatch_path = s:viminit . 'colors/patch'
+    let g:cpatch_path = g:viminit . 'colors/patch'
     if has('nvim')
         Plug 'skywind3000/vim-color-export'
     endif
@@ -362,7 +356,7 @@ if IsInPlugGroup('Notetaking', 'vimwiki')  " ------------------------------{{{1
     " def wiki dict
     let wiki = {}
     let wiki.name = 'Vimel Vimwiki'
-    let wiki.path = s:viminitparent . 'wiki/'
+    let wiki.path = g:viminitparent . 'wiki/'
     let wiki.ext = '.md'
     let wiki.syntax = 'markdown'
     let wiki.nested_syntaxes = {'python': 'python'}
@@ -387,7 +381,7 @@ if IsInPlugGroup('Notetaking', 'wiki')  " ---------------------------------{{{1
     Plug 'lervag/wiki.vim'
     Plug 'junegunn/fzf'
 
-    let g:wiki_root = s:viminitparent . 'wiki/'
+    let g:wiki_root = g:viminitparent . 'wiki/'
 
     " 将wiki链接文本转为合法且清晰的文件名
     function! MyUrlTransform(text)
@@ -460,7 +454,7 @@ if IsInPlugGroup('Notetaking', 'wiki')  " ---------------------------------{{{1
         \ '<plug>(wiki-journal-next)' : ']w',
         \}
 
-    let s:TexTemplate = s:viminit . "tools/pandoc/template.latex"
+    let s:TexTemplate = g:viminit . "tools/pandoc/template.latex"
     let s:pandocargs = '--pdf-engine=xelatex -V CJKmainfont="SimSun" --template="' . s:TexTemplate . '"'
     let g:wiki_export = {
           \ 'args' : s:pandocargs,

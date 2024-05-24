@@ -7,11 +7,7 @@
 " command! PandocToDOCX call Pandoc#ToDocx()
 " command! PandocToHTML call Pandoc#ToHtml()
 
-" viminit and output_dir -------------------------------------------------{{{1
-
-" 获取 vim-init 所在目录，末尾带"/"
-let s:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
-let s:viminit = substitute(s:viminit . '/', '\\', '/', 'g')
+" output_dir -------------------------------------------------------------{{{1
 
 if IsInPlugGroup('Notetaking', 'wiki')
     let s:output_dir = g:wiki_root . "PandocOutput/"
@@ -26,7 +22,7 @@ function! Pandoc#ToPdf() " -----------------------------------------------{{{1
     silent!exe "w"
     silent!exe "cd %:h"
     let l:PandocOutput = s:output_dir . strftime("%Y%m%d.%H%M%S") . "." . expand('%:t:r') . ".pdf"
-    let l:TexTemplate = s:viminit . "tools/pandoc/template.latex"
+    let l:TexTemplate = g:viminit . "tools/pandoc/template.latex"
     "CMD需要运行`chcp 65001`才能使用UTF-8编码，使用AsyncRun可避免此问题
     "-N,--number-sections; -s, --standalone; --toc, --table-of-contents; -o FILE, --output=FILE
     " 页边距设置：-V geometry:"top=1in, bottom=1in, left=1.25in, right=1.25in"
