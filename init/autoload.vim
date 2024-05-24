@@ -65,10 +65,25 @@ command! -nargs=1 PinyinConfusion call PinYin#Confusion(<f-args>)<CR>
 
 " OpenCC繁简转换 ----------------------------------------------------------{{{1
 " 详情查阅 ../autoload/OpenCC.vim
-" 繁体（台湾正体标准）到简体并转换为中国大陆常用词汇
-command! -range OpenCCTW2SP <line1>,<line2>call OpenCC#OpenCC("tw2sp.json")
-" 简体到繁体（台湾正体标准）并转换为台湾常用词汇
-command! -range OpenCCS2TWP <line1>,<line2>call OpenCC#OpenCC("s2twp.json")
+
+let opencc_configs = [ ]
+" 简繁（OpenCC 标准）单字转换
+" let opencc_configs += [ 's2t.json', 't2s.json' ]
+" 简繁（台湾正体标准）单字转换
+let opencc_configs += [ 's2tw.json', 'tw2s.json' ]
+" 简繁（台湾正体标准）单字及常用词汇转换
+let opencc_configs += [ 's2twp.json', 'tw2sp.json' ]
+" 简繁（香港小学学习字词表标准）单字转换
+" let opencc_configs += [ 's2hk.json', 'hk2s.json' ]
+" 繁体（OpenCC 标准）到繁体（台湾正体标准）
+" let opencc_configs += [ 't2tw.json' ]
+" 繁体（OpenCC 标准）到繁体（香港小学学习字词表标准）
+" let opencc_configs += [ 't2hk.json' ]
+
+for config in opencc_configs
+    let command_name = 'Opencc' . toupper(substitute(config, '\.json$', '', ''))
+    execute 'command! -range ' . command_name . ' <line1>,<line2>call OpenCC#OpenCC("' . config . '")'
+endfor
 
 " ColorColumn -------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/ColorColumn.vim
