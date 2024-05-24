@@ -45,13 +45,3 @@ function! Vimtweak#ToggleWindowTopMost()
         let s:window_top_most = 1
     endif
 endfunction
-
-" 切换 Neovide 全屏状态 --------------------------------------------------{{{1
-
-function! Vimtweak#ToggleNeovideFullscreen()
-    if g:neovide_fullscreen
-        let g:neovide_fullscreen = v:false
-    else
-        let g:neovide_fullscreen = v:true
-    endif
-endfunction

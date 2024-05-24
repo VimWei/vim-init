@@ -32,7 +32,7 @@ let guifontpp_larger_font_map="<M-Up>"
 let guifontpp_original_font_map="<M-Home>"
 
 " Neovide ----------------------------------------------------------------{{{1
-" 详情查阅 ../autoload/Vimtweak.vim
+" 详情查阅 ../autoload/Neovide.vim
 if exists("g:neovide")
     " 设置参数
     let g:neovide_underline_stroke_scale = 0.1
@@ -49,30 +49,5 @@ if exists("g:neovide")
     let g:neovide_fullscreen = v:false
 
     " 切换窗口全屏状态
-    nnoremap <leader>twc :call Vimtweak#ToggleNeovideFullscreen()<CR>
-
-    finish
+    nnoremap <leader>twc :call Neovide#ToggleFullscreen()<CR>
 endif
-
-" vimtweak ---------------------------------------------------------------{{{1
-" 详情查阅 ../autoload/Vimtweak.vim
-
-" 切换窗口透明度
-au GUIEnter * call libcallnr(g:vimtweak_dll_path, "SetAlpha", 230)
-" <Leader>tw[0-9] 设置透明度程度，数字越大越透明
-for i in range(0, 9)
-    execute 'nnoremap <silent> <leader>tw' . i
-          \ . ' :call libcallnr(g:vimtweak_dll_path, "SetAlpha", '
-          \ . (255 - i * 10) . ')<CR>'
-endfor
-
-" 切换窗口的最大化状态
-au GUIEnter * call libcallnr(g:vimtweak_dll_path, "EnableMaximize", 1)
-nnoremap <silent> <leader>twm :call Vimtweak#ToggleWindowMaximize()<CR>
-
-" 切换窗口全屏状态
-" au GUIEnter * call libcallnr(g:vimtweak_dll_path, "EnableCaption", 0)
-nnoremap <silent> <leader>twc :call Vimtweak#ToggleWindowCaption()<CR>
-
-" 切换窗口的置顶状态
-nnoremap <silent> <leader>twt :call Vimtweak#ToggleWindowTopMost()<CR>
