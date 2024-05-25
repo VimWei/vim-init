@@ -13,3 +13,9 @@ let g:netrw_winsize =20
 map - :<C-u>e %:p:h<CR>
 " 在左侧显示当前缓冲区所在目录
 map <C-n> :Lexplore %:p:h<CR>
+
+" 使用Netrw快速进入当前缓冲区所在目录
+map <leader>ew :<C-u>e %%<CR>
+map <leader>es :<C-u>sp %%<CR>
+map <leader>ev :<C-u>vsp %%<CR>
+map <leader>et :<C-u>tabe %%<CR>

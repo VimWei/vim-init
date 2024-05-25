@@ -45,12 +45,6 @@ cnoremap <expr> %% getcmdtype( ) == ':' ? expand('%:p:h').'/' : '%%'
 " 改变当前工作目录为当前缓冲区所在的目录
 command! CD cd %:p:h
 
-" 使用Netrw快速进入当前缓冲区所在目录
-map <leader>ew :<C-u>e %%<CR>
-map <leader>es :<C-u>sp %%<CR>
-map <leader>ev :<C-u>vsp %%<CR>
-map <leader>et :<C-u>tabe %%<CR>
-
 " Buffer -----------------------------------------------------------------{{{1
 " 缓存：插件 unimpaired 中定义了 [b, ]b 来切换缓存
 noremap <silent> <leader>bn :bn<cr>
@@ -169,14 +163,8 @@ command! -nargs=1 WikiGrepTags vimgrep /:<args>:/g **/*.md | copen 8
 
 " VisualStar -------------------------------------------------------------{{{1
 "用*或#对选中文字进行搜索
-xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
-xnoremap # :<C-u>call <SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
-function! s:VSetSearch()
-    let temp = @s
-    norm! gv"sy
-    let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g')
-    let @s = temp
-endfunction
+xnoremap * :<C-u>call Search#VisualStar()<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call Search#VisualStar()<CR>?<C-R>=@/<CR><CR>
 
 " nohlsearch -------------------------------------------------------------{{{1
 " 清屏可以暂时关闭高亮
