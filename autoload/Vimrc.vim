@@ -1,5 +1,5 @@
 " 打开 vim-init/init.vim 或其子目录下的 VIMRC 文档
-function! Vimrc#EditInitVimrc(filename, ...)
+function! Vimrc#EditInitVimrc(filename, ...) " ---------------------------{{{1
     " 根据文件名称，决定文件所在路径
     if a:filename == "init.vim"
         let l:filepath = g:viminit . a:filename
@@ -22,7 +22,17 @@ function! Vimrc#EditInitVimrc(filename, ...)
     execute "cd " . g:viminit
 endfunction
 
-function! Vimrc#Update()
+function! Vimrc#AutoReload(file) " ---------------------------------------{{{1
+    if has('win32') || has('win64')
+        let l:file = substitute(a:file, '\\', '/', 'g')
+    else
+        let l:file = a:file
+    endif
+    execute 'source' l:file
+    echomsg 'Reloaded ' . l:file
+endfunction
+
+function! Vimrc#Update() " -----------------------------------------------{{{1
     let l:current_working_directory = getcwd()
     execute "cd " . g:viminit
     Git pull

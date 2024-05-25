@@ -10,11 +10,11 @@ else
     let s:loaded = 1
 endif
 
-" Use space as leader key ------------------------------------------------{{{1
+" Leader key -------------------------------------------------------------{{{1
 nnoremap <space> <nop>
 let mapleader = "\<space>"
 
-" g:viminit and g:viminitparent ------------------------------------------{{{1
+" g:viminit --------------------------------------------------------------{{{1
 let g:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 execute 'set runtimepath+='.g:viminit
 let g:viminit = substitute(g:viminit . '/', '\\', '/', 'g')
@@ -38,23 +38,13 @@ if has('nvim')
     runtime neovim.lua
 endif
 
-" VimrcAutoReload --------------------------------------------------------{{{1
-" 当pwd为vim-init/时，修订并保存相关文件后，系统将自动重新加载
+" Vimrc#AutoReload -------------------------------------------------------{{{1
+" 当pwd为vim-init/时，修订并保存 *.vim 文件后，系统将自动重新加载
 augroup VimrcAutoReload
     autocmd!
-    function! AutoReloadVimrc(file)
-        if has('win32') || has('win64')
-            let l:file = substitute(a:file, '\\', '/', 'g')
-        else
-            let l:file = a:file
-        endif
-        execute 'source' l:file
-        echomsg 'Reloaded ' . l:file
-    endfunction
-    " 匹配 init.vim 以及 init 和 autoload 目录下的所有 .vim 文件
-    autocmd BufWritePost init.vim call AutoReloadVimrc(expand('<afile>:p'))
-    autocmd BufWritePost init/*.vim call AutoReloadVimrc(expand('<afile>:p'))
-    autocmd BufWritePost autoload/*.vim call AutoReloadVimrc(expand('<afile>:p'))
+    autocmd BufWritePost init.vim call Vimrc#AutoReload(expand('<afile>:p'))
+    autocmd BufWritePost init/*.vim call Vimrc#AutoReload(expand('<afile>:p'))
+    autocmd BufWritePost autoload/*.vim call Vimrc#AutoReload(expand('<afile>:p'))
 augroup END
 
 finish " -----------------------------------------------------------------{{{1
