@@ -10,6 +10,10 @@ set ttimeoutlen=50
 if has('autocmd')
     filetype plugin indent on   "允许Vim自带脚本根据文件类型自动设置缩进等
 endif
+if has('syntax')
+    " syntax enable   "启用语法高亮，但保留:highlight自定义高亮设置
+    syntax on   "启用语法高亮，并重置:highlight自定义高亮设置为默认值
+endif
 
 " Encoding related --------------------------------------------------------{{{1
 if has('multi_byte')
