@@ -24,6 +24,11 @@ function! RandomQuiet()
     execute 'colorscheme quiet'
 endfunction
 
+function! RandomRetrobox()
+    let &background = 'dark'
+    execute 'colorscheme Retrobox'
+endfunction
+
 " VimInit colorscheme ----------------------------------------------------{{{1
 function! Color#RandomVimInitScheme()
     let l:styles = [
@@ -143,13 +148,18 @@ function! Color#RandomFavoriteScheme(...)
             \ ]
     if !has('nvim')
         let l:styles_simple += [
-                \ 'retrobox', 'wildcharm',
+                \ 'wildcharm',
                 \ ]
     endif
     let l:styles_complex = [
             \ 'quiet', 'lucius', 'afterglow',
             \ 'gruvbox8',
             \ ]
+    if !has('nvim')
+        let l:styles_complex += [
+                \ 'retrobox',
+                \ ]
+    endif
 
     " 默认行为：采用随机的colorscheme
     let l:styles = []
