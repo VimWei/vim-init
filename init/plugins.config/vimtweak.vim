@@ -1,10 +1,6 @@
 " https://www.github.com/mattn/vimtweak
 " 详情查阅 ../../autoload/Vimtweak.vim
 
-if !has("gui_running") || exists("g:neovide")
-    finish
-endif
-
 " 切换窗口透明度 ---------------------------------------------------------{{{1
 au GUIEnter * call libcallnr(g:vimtweak_dll_path, "SetAlpha", 230)
 " <Leader>tw[0-9] 设置透明度程度，数字越大越透明

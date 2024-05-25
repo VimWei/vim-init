@@ -1,4 +1,4 @@
-" Vimtweak
+" https://www.github.com/mattn/vimtweak
 
 " 切换窗口的最大化状态 ---------------------------------------------------{{{1
 function! Vimtweak#ToggleWindowMaximize()
