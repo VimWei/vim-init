@@ -27,16 +27,11 @@ if !exists('g:plug_group')
     let g:plug_group['basic'] += [ 'quickui' ]
 
     let g:plug_group['search'] = []
-    let g:plug_group['search'] += [ 'auto-popmenu', 'EasyMotion', 'Leaderf' ]
-    let g:plug_group['search'] += [ 'pinyin', 'vim-cool' ]
 
     let g:plug_group['Notetaking'] = []
     let g:plug_group['Notetaking'] += [ 'edit', 'textobj' ]
     let g:plug_group['Notetaking'] += [ 'table' ]
-    let g:plug_group['Notetaking'] += [ 'list' ]
-    " let g:plug_group['Notetaking'] += [ 'vimwiki' ]
     let g:plug_group['Notetaking'] += [ 'wiki' ]
-    " let g:plug_group['Notetaking'] += [ 'markdown' ]
 
     let g:plug_group['program'] = []
     let g:plug_group['program'] += [ 'git' ]
@@ -126,23 +121,11 @@ if IsInPlugGroup('basic', 'quickui') " -----------------------------------{{{1
     endif
 endif
 
-if IsInPlugGroup('search', 'auto-popmenu') " -----------------------------{{{1
+if IsInPlugGroup('search') " -----------------------------{{{1
     Plug 'skywind3000/vim-auto-popmenu'
-endif
-
-if IsInPlugGroup('search', 'EasyMotion')  " ------------------------------{{{1
     Plug 'easymotion/vim-easymotion'
-endif
-
-if IsInPlugGroup('search', 'Leaderf')  " ---------------------------------{{{1
     Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
-endif
-
-if IsInPlugGroup('search', 'pinyin')  " ----------------------------------{{{1
     Plug 'ppwwyyxx/vim-PinyinSearch'
-endif
-
-if IsInPlugGroup('search', 'vim-cool')  " --------------------------------{{{1
     Plug 'romainl/vim-cool'
 endif
 
@@ -176,23 +159,10 @@ if IsInPlugGroup('Notetaking', 'table')  " -------------------------------{{{1
     Plug 'dhruvasagar/vim-table-mode'
 endif
 
-if IsInPlugGroup('Notetaking', 'list')  " --------------------------------{{{1
-    Plug 'bullets-vim/bullets.vim'
-endif
-
-if IsInPlugGroup('Notetaking', 'vimwiki') " ------------------------------{{{1
-    " Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
-    " Plug 'vimwiki/vimwiki', { 'tag': 'v2.4.1' }
-    Plug 'vimwiki/vimwiki', { 'commit': 'c9e6afe' }
-endif
-
 if IsInPlugGroup('Notetaking', 'wiki') " ---------------------------------{{{1
     Plug 'lervag/wiki.vim'
     Plug 'junegunn/fzf'
-endif
-
-if IsInPlugGroup('Notetaking', 'markdown') " -----------------------------{{{1
-    Plug 'preservim/vim-markdown'
+    Plug 'bullets-vim/bullets.vim'
 endif
 
 if IsInPlugGroup('program', 'git') " -------------------------------------{{{1

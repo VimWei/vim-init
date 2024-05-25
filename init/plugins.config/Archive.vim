@@ -1,5 +1,15 @@
 finish
 
+if IsInPlugGroup('Notetaking', 'vimwiki') " ------------------------------{{{1
+    " Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+    " Plug 'vimwiki/vimwiki', { 'tag': 'v2.4.1' }
+    Plug 'vimwiki/vimwiki', { 'commit': 'c9e6afe' }
+endif
+
+if IsInPlugGroup('Notetaking', 'markdown') " -----------------------------{{{1
+    Plug 'preservim/vim-markdown'
+endif
+
 " vim-vinegar ------------------------------------------------------------{{{1
 " 评论：使用Netrw足以
 Plug 'tpope/vim-vinegar'
