@@ -202,7 +202,7 @@ call ToggleShellslashForVimPlug()
 
 " Inbuilt plugins config -------------------------------------------------{{{1
 let s:plugins_config_path = g:viminit . 'init/plugins.config/'
-let s:inbuiltplugs = [ 'Netrw', 'vim-markdown-tpope' ]
+let s:inbuiltplugs = [ 'netrw', 'vim-markdown-tpope' ]
 if len(get(s:, 'inbuiltplugs', [])) !=# 0
     for plug in s:inbuiltplugs
         let plug_config = s:plugins_config_path . plug . '.vim'
