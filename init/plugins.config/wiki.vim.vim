@@ -1,7 +1,9 @@
 " https://www.github.com/lervag/wiki.vim
 
+" wiki_root --------------------------------------------------------------{{{1
 let g:wiki_root = g:viminitparent . 'wiki/'
 
+" url_transform ----------------------------------------------------------{{{1
 " 将wiki链接文本转为合法且清晰的文件名
 function! MyUrlTransform(text)
     let l:valid_filename = substitute(a:text, '[:*\?"<>|`：!@#$%&*‘’'']', '', 'g')
@@ -16,6 +18,7 @@ let g:wiki_link_creation = {
     \ },
 \ }
 
+" wiki_templates ---------------------------------------------------------{{{1
 " 为新建的各种 wiki page 创建模版
 function! JournalTemplate(context) abort
     let today = strftime("%Y-%m-%d")
@@ -58,6 +61,7 @@ let g:wiki_templates = [
             \   'source_func': function('GeneralTemplate') },
             \]
 
+" wiki_journal -----------------------------------------------------------{{{1
 let g:wiki_journal = {
     \ 'date_format': {
             \ 'daily' : '%Y/%Y-%m-%d',
@@ -73,6 +77,7 @@ let g:wiki_mappings_local_journal = {
     \ '<plug>(wiki-journal-next)' : ']w',
     \}
 
+" wiki_export ------------------------------------------------------------{{{1
 let s:TexTemplate = g:viminit . "tools/pandoc/template.latex"
 let s:pandocargs = '--pdf-engine=xelatex -V CJKmainfont="SimSun" --template="' . s:TexTemplate . '"'
 let g:wiki_export = {
@@ -83,3 +88,9 @@ let g:wiki_export = {
         \ 'view' : v:false,
         \ 'output': 'PandocOutput',
         \}
+
+" open wiki page ---------------------------------------------------------{{{1
+" 详情查阅 ../autoload/Wikivim.vim
+nnoremap <leader>wt :call Wikivim#OpenWikiIndexTab()<CR>
+command! -nargs=? VW call Wikivim#OpenWikiPage(<q-args>)
+command! RS call Wikivim#OpenWikiPage('Research/路演.md')

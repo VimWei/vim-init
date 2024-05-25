@@ -1,5 +1,4 @@
-" fold
-function! Fold#AddMarker()
+function! Fold#AddMarker() " ---------------------------------------------{{{1
     let current_line = getline('.')
     let current_line_length = strwidth(current_line)
     let textwidth = 78
@@ -13,5 +12,13 @@ function! Fold#AddMarker()
         execute "normal! A" . prefix . dashes . suffix
     else
         execute "normal! A" . prefix . suffix
+    endif
+endfunction
+
+function! Fold#ColumnToggle() " ------------------------------------------{{{1
+    if &foldcolumn
+        setlocal foldcolumn=0
+    else
+        setlocal foldcolumn=2
     endif
 endfunction

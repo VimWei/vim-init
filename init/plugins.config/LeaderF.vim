@@ -13,6 +13,7 @@ let g:Lf_WildIgnore = {
     \ 'dir': ['.svn','.git','.hg'],
     \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]','*.zip']
     \}
+
 let g:Lf_ShortcutF = '<leader>f'
 let g:Lf_ShortcutB = '<leader>fb'
 noremap <leader>fm :<C-U>Leaderf mru<CR>

@@ -3,7 +3,7 @@
 " Sourced by: ../init.vim
 "===================================================
 
-" Python ------------------------------------------------------------------{{{1
+" Python -----------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/CondaPython.vim
 
 " 以下4个命令，运行格式一样，第1个参数代表conda env，之后的代表cmd命令
@@ -38,32 +38,85 @@ map <F5> :call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'python "' . ex
 " 查阅python帮助文档
 nnoremap <leader>ph :call CondaPython#Help()<CR>
 
-" translator在线翻译 ------------------------------------------------------{{{1
-" 详情查阅 ../autoload/Translator.vim
-nnoremap <leader>dt :call Translator#Words('n')<CR>
-vnoremap <leader>dt :call Translator#Words('v')<CR>
+" Pandoc -----------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/Pandoc.vim
+command! PandocToPDF call Pandoc#ToPdf()
+command! PandocToDOCX call Pandoc#ToDocx()
+command! PandocToHTML call Pandoc#ToHtml()
 
-" PinYin拼音查询 ----------------------------------------------------------{{{1
-" 详情查阅 ../autoload/PinYin.vim
-" 使用Leaderf查询光标所在位置单字的拼音、双拼、同音字、常用词组
-nnoremap <leader>ps :call PinYin#SingleWord()<CR>
-command! PinYinSingleWord call PinYin#SingleWord()
+" Redir ------------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/Redir.vim
+command! -nargs=1 -complete=command Redir silent call Redir#redir(<q-args>)
 
-" 使用pypinyin查询词汇拼音，并显示在Quickfix
-command! PinYinWords call PinYin#Words('n')
-nnoremap <leader>pw :call PinYin#Words('n')<CR>
-vnoremap <leader>pw :call PinYin#Words('v')<CR>
+" ColorColumn ------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/ColorColumn.vim
+" 切换显示当前所在位置的对齐线
+" 命令行自定义使用 :set cc=  "若值留空，则取消对齐线
+command! CColumn call ColorColumn#ColorColumnSet()
+command! CColumnTextwidth call ColorColumn#ColorColumnTextwidth()
+command! CColumnRemoveAll call ColorColumn#ColorColumnRemoveAll()
 
-" 使用pypinyin查询词汇拼音，并显示在词汇所在行的上方
-nnoremap <leader>pi :call PinYin#Insert('n')<CR>
-vnoremap <leader>pi :call PinYin#Insert('v')<CR>
+" MultiColumn ------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/MultiColumn.vim
+command! MColumn call MultiColumn#Add()
+command! MColumnRemove call MultiColumn#Remove()
 
-" 查询输入的汉语单字或拼音 - 拼音索引
-command! -nargs=1 PinyinIndex call PinYin#Index(<f-args>)<CR>
-" 查询输入的汉语单字或拼音 - 易混拼音
-command! -nargs=1 PinyinConfusion call PinYin#Confusion(<f-args>)<CR>
+" Fold -------------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/Fold.vim
+nnoremap <Leader>am :call Fold#AddMarker()<CR>
 
-" OpenCC繁简转换 ----------------------------------------------------------{{{1
+" 切换是否显示foldcolumn
+command! FoldColumnToggle call Fold#ColumnToggle()
+
+" Spell ------------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/Spell.vim
+" inoremap <Leader>s <C-o>:call Spell#Toggle()<CR>
+nnoremap <Leader>s :call Spell#Toggle()<CR>
+
+" AutoStrip --------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/Strip.vim
+autocmd BufWritePre * call Strip#TrailingWhitespace()
+
+" OCRClean ---------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/OCRmyPDF.vim
+command! OCRClean call OCRmyPDF#Clean()
+
+" HtmlTidy ---------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/HtmlTidy.vim
+" 使用如下命令实施Tidy美化，并输出文件到CWD中
+" nnoremap <leader>ht :call HtmlTidy#Tidy()<CR>
+command! HtmlTidy call HtmlTidy#Tidy()
+" 采用VimScript简化版
+" nnoremap <leader>hp :call HtmlTidy#Prettify()<CR>
+command! HtmlPrettify call HtmlTidy#Prettify()
+
+" TOC --------------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/TOC.vim
+nnoremap <leader><Leader>t :TOC<CR>
+let g:TOC#position = "left"
+let g:TOC#autofit = 1
+let g:TOC#close_after_navigating = 0
+autocmd FileType markdown call TOC#Init()
+
+" Explode2P --------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/Markdown.vim
+nnoremap <leader>me :call Markdown#Explode2P()<CR>
+vnoremap <leader>me :call Markdown#Explode2P()<CR>
+
+" UngqFormat -------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/Markdown.vim
+
+" 恢复被 gq 格式化的文档格式
+" :UngqFormat：处理整个文件。
+" :'<,'>UngqFormat：处理当前选区。
+command! -range=% UngqFormat call Markdown#UngqFormat(<line1>, <line2>)
+
+" 全角数字转半角 ---------------------------------------------------------{{{1
+" 详情查阅 ../autoload/Markdown.vim
+
+command! FullToHalfDigit call Markdown#FullToHalfDigit()
+
+" OpenCC繁简转换 ---------------------------------------------------------{{{1
 " 详情查阅 ../autoload/OpenCC.vim
 
 let opencc_configs = [ ]
@@ -85,35 +138,32 @@ for config in opencc_configs
     execute 'command! -range ' . command_name . ' <line1>,<line2>call OpenCC#OpenCC("' . config . '")'
 endfor
 
-" ColorColumn -------------------------------------------------------------{{{1
-" 详情查阅 ../autoload/ColorColumn.vim
-" 切换显示当前所在位置的对齐线
-" 命令行自定义使用 :set cc=  "若值留空，则取消对齐线
-command! CColumn call ColorColumn#ColorColumnSet()
-command! CColumnTextwidth call ColorColumn#ColorColumnTextwidth()
-command! CColumnRemoveAll call ColorColumn#ColorColumnRemoveAll()
+" translator在线翻译 -----------------------------------------------------{{{1
+" 详情查阅 ../autoload/Translator.vim
+nnoremap <leader>dt :call Translator#Words('n')<CR>
+vnoremap <leader>dt :call Translator#Words('v')<CR>
 
-" MultiColumn -------------------------------------------------------------{{{1
-" 详情查阅 ../autoload/MultiColumn.vim
-command! MColumn call MultiColumn#Add()
-command! MColumnRemove call MultiColumn#Remove()
+" PinYin拼音查询 ---------------------------------------------------------{{{1
+" 详情查阅 ../autoload/PinYin.vim
+" 使用Leaderf查询光标所在位置单字的拼音、双拼、同音字、常用词组
+nnoremap <leader>ps :call PinYin#SingleWord()<CR>
+command! PinYinSingleWord call PinYin#SingleWord()
 
-" Pandoc ------------------------------------------------------------------{{{1
-" 详情查阅 ../autoload/Pandoc.vim
-command! PandocToPDF call Pandoc#ToPdf()
-command! PandocToDOCX call Pandoc#ToDocx()
-command! PandocToHTML call Pandoc#ToHtml()
+" 使用pypinyin查询词汇拼音，并显示在Quickfix
+command! PinYinWords call PinYin#Words('n')
+nnoremap <leader>pw :call PinYin#Words('n')<CR>
+vnoremap <leader>pw :call PinYin#Words('v')<CR>
 
-" HtmlTidy ----------------------------------------------------------------{{{1
-" 详情查阅 ../autoload/HtmlTidy.vim
-" 使用如下命令实施Tidy美化，并输出文件到CWD中
-" nnoremap <leader>ht :call HtmlTidy#Tidy()<CR>
-command! HtmlTidy call HtmlTidy#Tidy()
-" 采用VimScript简化版
-" nnoremap <leader>hp :call HtmlTidy#Prettify()<CR>
-command! HtmlPrettify call HtmlTidy#Prettify()
+" 使用pypinyin查询词汇拼音，并显示在词汇所在行的上方
+nnoremap <leader>pi :call PinYin#Insert('n')<CR>
+vnoremap <leader>pi :call PinYin#Insert('v')<CR>
 
-" Mdict -------------------------------------------------------------------{{{1
+" 查询输入的汉语单字或拼音 - 拼音索引
+command! -nargs=1 PinyinIndex call PinYin#Index(<f-args>)<CR>
+" 查询输入的汉语单字或拼音 - 易混拼音
+command! -nargs=1 PinyinConfusion call PinYin#Confusion(<f-args>)<CR>
+
+" Mdict ------------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Mdict.vim
 " 生成图片词典页码，参数为页码数
 command! -nargs=1 MdictCreatPageNum call Mdict#CreatPageNum(<f-args>)
@@ -125,52 +175,3 @@ command! -nargs=1 MdictItemToMDX call Mdict#ItemToMdx(<f-args>)
 command! MdictMiddlePage call Mdict#MiddlePage()
 " 切换至下一栏
 command! MdictTogglePage call Mdict#TogglePage()
-
-" AutoStrip TrailingWhitespace --------------------------------------------{{{1
-" 详情查阅 ../autoload/Strip.vim
-autocmd BufWritePre * call Strip#TrailingWhitespace()
-
-" Spell -------------------------------------------------------------------{{{1
-" 详情查阅 ../autoload/Spell.vim
-" inoremap <Leader>s <C-o>:call Spell#Toggle()<CR>
-nnoremap <Leader>s :call Spell#Toggle()<CR>
-
-" Markdown ----------------------------------------------------------------{{{1
-
-" TOC ---------------------------------------------------------------------{{{2
-" 详情查阅 ../autoload/TOC.vim
-nnoremap <leader><Leader>t :TOC<CR>
-let g:TOC#position = "left"
-let g:TOC#autofit = 1
-let g:TOC#close_after_navigating = 0
-autocmd FileType markdown call TOC#Init()
-
-" Explode2P ---------------------------------------------------------------{{{2
-" 详情查阅 ../autoload/Markdown.vim
-nnoremap <leader>me :call Markdown#Explode2P()<CR>
-vnoremap <leader>me :call Markdown#Explode2P()<CR>
-
-" UngqFormat --------------------------------------------------------------{{{2
-" 详情查阅 ../autoload/Markdown.vim
-
-" 恢复被 gq 格式化的文档格式
-" :UngqFormat：处理整个文件。
-" :'<,'>UngqFormat：处理当前选区。
-command! -range=% UngqFormat call Markdown#UngqFormat(<line1>, <line2>)
-
-" 全角数字转半角 ----------------------------------------------------------{{{2
-" 详情查阅 ../autoload/Markdown.vim
-
-command! FullToHalfDigit call Markdown#FullToHalfDigit()
-
-" OCRClean ----------------------------------------------------------------{{{2
-" 详情查阅 ../autoload/OCRmyPDF.vim
-command! OCRClean call OCRmyPDF#Clean()
-
-" Redir -------------------------------------------------------------------{{{1
-" 详情查阅 ../autoload/Redir.vim
-command! -nargs=1 -complete=command Redir silent call Redir#redir(<q-args>)
-
-" Fold -------------------------------------------------------------------{{{1
-" 详情查阅 ../autoload/Fold.vim
-nnoremap <Leader>am :call Fold#AddMarker()<CR>
