@@ -1,4 +1,4 @@
-" Netrw
+" :h netrw
 
 " 不显示横幅，可以用I轮换
 let g:netrw_banner = 1
