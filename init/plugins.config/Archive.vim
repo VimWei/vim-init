@@ -1,5 +1,8 @@
 finish
 
+" 自动显示/隐藏 foldcolumn
+Plug 'benknoble/vim-auto-origami'
+
 if IsInPlugGroup('Notetaking', 'vimwiki') " ------------------------------{{{1
     " Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
     " Plug 'vimwiki/vimwiki', { 'tag': 'v2.4.1' }
