@@ -67,6 +67,7 @@ nnoremap <Leader>am :call Fold#AddMarker()<CR>
 
 " 切换是否显示foldcolumn
 command! FoldColumnToggle call Fold#ColumnToggle()
+nnoremap zf :call Fold#ColumnToggle()<CR>
 
 " Spell ------------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Spell.vim
