@@ -38,7 +38,7 @@ augroup MarkdownLinkConceal
         \ contains=@markdownInline,markdownLineStart concealends
 augroup END
 
-" markdown format --------------------------------------------------------{{{1
+" set markdown format ----------------------------------------------------{{{1
 
 " 为选中的Markdown文字加粗，bold
 nnoremap <leader>mb viW"ms****<Esc>h"mPe
@@ -56,3 +56,11 @@ nnoremap <leader>mp viW<ESC>`>a]()<ESC>`<i![<ESC>`>5l
 vnoremap <leader>mp <ESC>`>a]()<ESC>`<i![<ESC>`>5l
 " 删除光标所在处的图片链接，picture delete
 nnoremap <leader>mpd F[h2xf]xda(
+
+" UngqFormat -------------------------------------------------------------{{{1
+" 详情查阅 ../../autoload/Markdown.vim
+
+" 恢复被 gq 格式化的文档格式
+" :UngqFormat：处理整个文件。
+" :'<,'>UngqFormat：处理当前选区。
+command! -range=% UngqFormat call Markdown#UngqFormat(<line1>, <line2>)

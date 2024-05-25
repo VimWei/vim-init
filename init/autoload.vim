@@ -104,14 +104,6 @@ autocmd FileType markdown call TOC#Init()
 nnoremap <leader>me :call Markdown#Explode2P()<CR>
 vnoremap <leader>me :call Markdown#Explode2P()<CR>
 
-" UngqFormat -------------------------------------------------------------{{{1
-" 详情查阅 ../autoload/Markdown.vim
-
-" 恢复被 gq 格式化的文档格式
-" :UngqFormat：处理整个文件。
-" :'<,'>UngqFormat：处理当前选区。
-command! -range=% UngqFormat call Markdown#UngqFormat(<line1>, <line2>)
-
 " 全角数字转半角 ---------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Markdown.vim
 
