@@ -28,12 +28,11 @@ command! -nargs=1 LoadScript execute 'so ' . g:viminit . '<args>'
 LoadScript init/essential.vim
 LoadScript init/tabsize.vim
 LoadScript init/plugins.vim
-LoadScript init/statusline.vim
 LoadScript init/keymaps.vim
-LoadScript init/colorstyle.vim
-LoadScript init/guistyle.vim
 LoadScript init/autoload.vim
-LoadScript init/plugins.config.vim
+LoadScript init/guistyle.vim
+LoadScript init/statusline.vim
+LoadScript init/colorstyle.vim
 
 if has('nvim')
     runtime neovim.lua

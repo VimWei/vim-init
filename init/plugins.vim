@@ -3,6 +3,14 @@
 " Sourced by: ../init.vim
 "===================================================
 
+" Python provider --------------------------------------------------------{{{1
+" 详情查阅 ../autoload/CondaPython.vim
+call CondaPython#Provider()
+
+" Packages ---------------------------------------------------------------{{{1
+" 增强%在配对关键字间跳转
+packadd! matchit
+
 " plug_group -------------------------------------------------------------{{{1
 " 定义快速测试分组，将覆盖下面的默认分组
 " let g:plug_group = {}
@@ -11,28 +19,12 @@
 " 默认情况下的分组，可以在前面覆盖之
 if !exists('g:plug_group')
     let g:plug_group = {}
-    let g:plug_group['inbox'] = []
 
     let g:plug_group['basic'] = []
     let g:plug_group['basic'] += [ 'startup', 'essential' ]
     let g:plug_group['basic'] += [ 'colorscheme' ]
-    if has("gui_running") && !exists("g:neovide")
-        let g:plug_group['basic'] += [ 'guistyle' ]
-    endif
-
-    let s:add_quickui = 0
-    if has('nvim')
-        if has('nvim-0.6')
-            let s:add_quickui = 1
-        endif
-    elseif v:version >= 802 && has('patch-8.2.1')
-        let s:add_quickui = 1
-    endif
-    if s:add_quickui
-        let g:plug_group['basic'] += [ 'quickui' ]
-    endif
-
-    let g:plug_group['basic'] += [ 'session' ]
+    let g:plug_group['basic'] += [ 'guistyle' ]
+    let g:plug_group['basic'] += [ 'quickui' ]
 
     let g:plug_group['search'] = []
     let g:plug_group['search'] += [ 'auto-popmenu', 'EasyMotion', 'Leaderf' ]
@@ -62,34 +54,15 @@ function! IsInPlugGroup(group, ...)
     endif
 endfunction
 
-" Python provider --------------------------------------------------------{{{1
-" 详情查阅 ../autoload/CondaPython.vim
-
-call CondaPython#Provider()
-
-" Packages ---------------------------------------------------------------{{{1
-" 增强%在配对关键字间跳转
-packadd! matchit
-
 " vim-plug begin ---------------------------------------------------------{{{1
 " Plug自身是一个自动延时加载函数，可放在任意&rtp/autoload目录中即可生效
-" 在 Windows 下，其所管理的插件安装目录默认为 ~/vimfiles/plugged/
+" 在 Windows 下，vim的插件安装目录默认为 ~/vimfiles/plugged/
+" 在 Windows 下，Neovim的插件安装目录默认为 ~/AppData/Local/nvim-data/plugged/
 
-" 解决：wiki.vim 要求 set shellslash，但 vim-plug 要求 set noshellslash
-function! ToggleShellslashForVimPlug()
-  if exists('g:plugs')
-    autocmd User PlugBegin set noshellslash
-    autocmd User PlugEnd set shellslash
-  endif
-endfunction
-
+" vim-plug 要求 set noshellslash
 set noshellslash
 
 call plug#begin()
-
-if IsInPlugGroup('inbox') " ----------------------------------------------{{{1
-    " 插件试验场
-endif
 
 if IsInPlugGroup('basic', 'startup') " -----------------------------------{{{1
     Plug 'dstein64/vim-startuptime'
@@ -101,6 +74,7 @@ endif
 if IsInPlugGroup('basic', 'essential') " ---------------------------------{{{1
     Plug 'mbbill/undotree'
     Plug 'tyru/open-browser.vim'
+    Plug 'jamescherti/vim-easysession'
     if has('gui_running')  && !has('nvim')
         autocmd InsertLeave * silent! set iminsert=2
     else
@@ -132,16 +106,24 @@ if IsInPlugGroup('basic', 'colorscheme') " -------------------------------{{{1
 endif
 
 if IsInPlugGroup('basic', 'guistyle') " ----------------------------------{{{1
-    Plug 'mattn/vimtweak'
+    if has("gui_running") && !exists("g:neovide")
+        Plug 'mattn/vimtweak'
+    endif
 endif
 
 if IsInPlugGroup('basic', 'quickui') " -----------------------------------{{{1
-    Plug 'skywind3000/vim-quickui'
-    Plug 'skywind3000/vim-navigator'
-endif
-
-if IsInPlugGroup('basic', 'session') " -----------------------------------{{{1
-    Plug 'jamescherti/vim-easysession'
+    let s:add_quickui = 0
+    if has('nvim')
+        if has('nvim-0.6')
+            let s:add_quickui = 1
+        endif
+    elseif v:version >= 802 && has('patch-8.2.1')
+        let s:add_quickui = 1
+    endif
+    if s:add_quickui
+        Plug 'skywind3000/vim-quickui'
+        Plug 'skywind3000/vim-navigator'
+    endif
 endif
 
 if IsInPlugGroup('search', 'auto-popmenu') " -----------------------------{{{1
@@ -251,5 +233,32 @@ endif
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
-set shellslash
+function! ToggleShellslashForVimPlug()
+  if exists('g:plugs')
+    autocmd User PlugBegin set noshellslash
+    autocmd User PlugEnd set shellslash
+  endif
+endfunction
 call ToggleShellslashForVimPlug()
+
+" Inbuilt plugins config -------------------------------------------------{{{1
+let s:plugins_config_path = g:viminit . 'init/plugins.config/'
+let s:inbuiltplugs = [ 'Netrw', 'vim-markdown-tpope' ]
+if len(get(s:, 'inbuiltplugs', [])) !=# 0
+    for plug in s:inbuiltplugs
+        let plug_config = s:plugins_config_path . plug . '.vim'
+        if filereadable(plug_config)
+            execute 'source ' . plug_config
+        endif
+    endfor
+endif
+
+" Thirdparty plugins config ----------------------------------------------{{{1
+if len(get(g:, 'plugs_order', [])) !=# 0
+    for plug in g:plugs_order
+        let plug_config = s:plugins_config_path . plug . '.vim'
+        if filereadable(plug_config)
+            execute 'source ' . plug_config
+        endif
+    endfor
+endif

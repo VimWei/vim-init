@@ -1,5 +1,8 @@
 " https://www.github.com/lervag/wiki.vim
 
+" shellslash -------------------------------------------------------------{{{1
+set shellslash
+
 " wiki_root --------------------------------------------------------------{{{1
 let g:wiki_root = g:viminitparent . 'wiki/'
 
