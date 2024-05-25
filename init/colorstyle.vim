@@ -3,6 +3,12 @@
 " Sourced by: ../init.vim
 "===================================================
 
+" syntax -----------------------------------------------------------------{{{1
+if has('syntax')
+    syntax enable   "启用语法高亮，但保留:highlight自定义高亮设置
+    " syntax on   "启用语法高亮，并重置:highlight自定义高亮设置为默认值
+endif
+
 " Random colorscheme -----------------------------------------------------{{{1
 " 详情查阅 ../autoload/Color.vim
 nnoremap <silent> <Leader>ca :call Color#RandomColorScheme()<CR>:color<CR>
