@@ -21,7 +21,7 @@ if !exists('g:plug_group')
     let g:plug_group = {}
 
     let g:plug_group['basic'] = []
-    let g:plug_group['basic'] += [ 'startup', 'essential' ]
+    let g:plug_group['basic'] += [ 'essential' ]
     let g:plug_group['basic'] += [ 'colorscheme' ]
     let g:plug_group['basic'] += [ 'guistyle' ]
     let g:plug_group['basic'] += [ 'quickui' ]
@@ -29,14 +29,14 @@ if !exists('g:plug_group')
     let g:plug_group['search'] = []
 
     let g:plug_group['Notetaking'] = []
-    let g:plug_group['Notetaking'] += [ 'edit', 'textobj' ]
+    let g:plug_group['Notetaking'] += [ 'edit' ]
+    let g:plug_group['Notetaking'] += [ 'textobj' ]
     let g:plug_group['Notetaking'] += [ 'table' ]
     let g:plug_group['Notetaking'] += [ 'wiki' ]
 
     let g:plug_group['program'] = []
     let g:plug_group['program'] += [ 'git' ]
-    let g:plug_group['program'] += [ 'terminal', 'AsyncRun' ]
-    let g:plug_group['program'] += [ 'python', 'REPL' ]
+    let g:plug_group['program'] += [ 'python' ]
 endif
 
 function! IsInPlugGroup(group, ...)
@@ -59,14 +59,8 @@ set noshellslash
 
 call plug#begin()
 
-if IsInPlugGroup('basic', 'startup') " -----------------------------------{{{1
-    Plug 'dstein64/vim-startuptime'
-    if !has('nvim')
-        Plug 'yianwillis/vimcdoc'
-    end
-endif
-
 if IsInPlugGroup('basic', 'essential') " ---------------------------------{{{1
+    Plug 'dstein64/vim-startuptime'
     Plug 'mbbill/undotree'
     Plug 'tyru/open-browser.vim'
     Plug 'jamescherti/vim-easysession'
@@ -75,6 +69,9 @@ if IsInPlugGroup('basic', 'essential') " ---------------------------------{{{1
     else
         Plug 'brglng/vim-im-select'
     endif
+    if !has('nvim')
+        Plug 'yianwillis/vimcdoc'
+    end
 endif
 
 if IsInPlugGroup('basic', 'colorscheme') " -------------------------------{{{1
@@ -165,6 +162,11 @@ if IsInPlugGroup('Notetaking', 'wiki') " ---------------------------------{{{1
     Plug 'bullets-vim/bullets.vim'
 endif
 
+if IsInPlugGroup('program') " --------------------------------------------{{{1
+    Plug 'skywind3000/vim-terminal-help'
+    Plug 'skywind3000/asyncrun.vim'
+endif
+
 if IsInPlugGroup('program', 'git') " -------------------------------------{{{1
     Plug 'tpope/vim-fugitive'
 else
@@ -173,29 +175,16 @@ else
     endfunction
 endif
 
-if IsInPlugGroup('program', 'terminal')  " -------------------------------{{{1
-    Plug 'skywind3000/vim-terminal-help'
-endif
-
-if IsInPlugGroup('program', 'AsyncRun') " --------------------------------{{{1
-    Plug 'skywind3000/asyncrun.vim'
-endif
-
 if IsInPlugGroup('program', 'python') " ----------------------------------{{{1
     " python 语法文件增强
     Plug 'vim-python/python-syntax', { 'for': ['python'] }
-
     " 即时代码格式化
     Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8' }
-
     " 代码格式化，支持多种语言
     Plug 'Chiel92/vim-autoformat'
-
     " 彩虹括号增强版
     Plug 'luochen1990/rainbow'
-endif
-
-if IsInPlugGroup('program', 'REPL') " ------------------------------------{{{1
+    " 快速测试代码片段
     Plug 'sillybun/vim-repl'
 endif
 
