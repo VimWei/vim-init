@@ -61,13 +61,26 @@ command! CColumnRemoveAll call ColorColumn#ColorColumnRemoveAll()
 command! MColumn call MultiColumn#Add()
 command! MColumnRemove call MultiColumn#Remove()
 
-" Fold -------------------------------------------------------------------{{{1
+" FoldToggle -------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Fold.vim
+
+" 添加折叠标记
 nnoremap <Leader>am :call Fold#AddMarker()<CR>
 
 " 切换是否显示foldcolumn
 command! FoldColumnToggle call Fold#ColumnToggle()
 nnoremap zf :call Fold#ColumnToggle()<CR>
+nnoremap zm :call Fold#ColumnOn()<CR>zm
+nnoremap zi :call Fold#ColumnOff()<CR>zi
+
+" 常用折叠配置
+set nofoldenable
+set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
+nnoremap <Leader>z za
+nnoremap <S-space> zMzv
+nnoremap          zv zMzvzz
+nnoremap <silent> zj zcjzOzz
+nnoremap <silent> zk zckzOzz
 
 " Spell ------------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Spell.vim

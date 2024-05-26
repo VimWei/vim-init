@@ -22,3 +22,11 @@ function! Fold#ColumnToggle() " ------------------------------------------{{{1
         setlocal foldcolumn=2
     endif
 endfunction
+
+function! Fold#ColumnOn() " ----------------------------------------------{{{1
+    setlocal foldcolumn=2
+endfunction
+
+function! Fold#ColumnOff() " ---------------------------------------------{{{1
+    setlocal foldcolumn=0
+endfunction

@@ -137,19 +137,6 @@ inoremap <M-t> <C-R>=strftime("%Y-%m-%d %A %H:%M:%S")<CR>
 " 开启新行插入时间戳，并在其之后增加空行
 command! Timestamp exe "normal o".strftime("%Y-%m-%d %A %H:%M:%S")."<C-O>o"
 
-" FoldToggle -------------------------------------------------------------{{{1
-set nofoldenable
-set foldlevel=1 "低于或等于的折叠默认展开，高于此折叠级别的折叠会被关闭
-" set foldclose=all " 用于光标移出后，自动关闭高于foldlevel的折叠。
-" Vim光标所在处的折叠开关
-" nnoremap <expr> <space> (foldlevel(line('.'))>0) ? "za" : "<space>"
-" nnoremap <expr> <S-space> (foldlevel(line('.'))>0) ? "zA" : "<S-space>"
-nnoremap <Leader>z za
-nnoremap <S-space> zMzv
-nnoremap          zv zMzvzz
-nnoremap <silent> zj zcjzOzz
-nnoremap <silent> zk zckzOzz
-
 " WikiGrep ---------------------------------------------------------------{{{1
 " 搜索当前工作目录下的所有文件，但只搜索第一个匹配：
 " Vim 8.1 及之前版本为每个文件一个匹配，Vim 8.2 变更为整个范围仅一个匹配
