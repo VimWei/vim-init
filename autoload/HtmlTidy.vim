@@ -7,11 +7,14 @@
 " 打开或切换窗口到拟处理的文件
 " 使用如下命令实施Tidy美化，并输出文件到CWD中
 " nnoremap <leader>ht :call HtmlTidy#Tidy()<CR>
+
 function! HtmlTidy#Tidy() abort
     exe "w"
     silent!exe "cd %:h"
+    let l:tidyExePath = g:viminit . "/tools/Tidy/tidy.exe"
+    let l:configPath = g:viminit . "/tools/Tidy/config.vim"
     let l:TidyOutput = expand('%:t:r') . "." . strftime("%Y%m%d.%H%M%S") . ".html"
-    exe "!tidy -config d:\\WeirdData\\Vim\\Tidy-HTML5\\config.vim \"%\" > \"" . TidyOutput . "\""
+    exe "!\"" . l:tidyExePath . "\" -config \"" . l:configPath . "\" \"%\" > \"" . TidyOutput . "\""
     echo "Please check Tidy Output .html File in CWD: " . getcwd()
 endfunction
 
