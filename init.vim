@@ -18,7 +18,7 @@ let mapleader = "\<space>"
 let g:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 execute 'set runtimepath+='.g:viminit
 let g:viminit = substitute(g:viminit . '/', '\\', '/', 'g')
-let g:viminitparent = fnamemodify(g:viminit, ':h') . '/'
+let g:viminitparent = fnamemodify(g:viminit, ':h:h') . '/'
 
 " LoadScript -------------------------------------------------------------{{{1
 execute 'so ' . g:viminit . 'init/essential.vim'
