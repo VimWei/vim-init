@@ -18,21 +18,17 @@ let mapleader = "\<space>"
 let g:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 execute 'set runtimepath+='.g:viminit
 let g:viminit = substitute(g:viminit . '/', '\\', '/', 'g')
-
-let g:viminitparent = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
-let g:viminitparent = substitute(g:viminitparent . '/', '\\', '/', 'g')
+let g:viminitparent = fnamemodify(g:viminit, ':h') . '/'
 
 " LoadScript -------------------------------------------------------------{{{1
-command! -nargs=1 LoadScript execute 'so ' . g:viminit . '<args>'
-
-LoadScript init/essential.vim
-LoadScript init/tabsize.vim
-LoadScript init/plugins.vim
-LoadScript init/keymaps.vim
-LoadScript init/autoload.vim
-LoadScript init/guistyle.vim
-LoadScript init/statusline.vim
-LoadScript init/colorstyle.vim
+execute 'so ' . g:viminit . 'init/essential.vim'
+execute 'so ' . g:viminit . 'init/tabsize.vim'
+execute 'so ' . g:viminit . 'init/plugins.vim'
+execute 'so ' . g:viminit . 'init/keymaps.vim'
+execute 'so ' . g:viminit . 'init/autoload.vim'
+execute 'so ' . g:viminit . 'init/guistyle.vim'
+execute 'so ' . g:viminit . 'init/statusline.vim'
+execute 'so ' . g:viminit . 'init/colorstyle.vim'
 
 if has('nvim')
     runtime neovim.lua
