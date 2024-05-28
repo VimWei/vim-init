@@ -10,6 +10,9 @@ call CondaPython#Provider()
 " Packages ---------------------------------------------------------------{{{1
 " 增强%在配对关键字间跳转
 packadd! matchit
+if !has('nvim')
+    packadd! comment
+endif
 
 " plug_group -------------------------------------------------------------{{{1
 " 定义快速测试分组，将覆盖下面的默认分组
@@ -25,8 +28,7 @@ if !exists('g:plug_group')
     let g:plug_group['basic'] += [ 'colorscheme' ]
     let g:plug_group['basic'] += [ 'guistyle' ]
     let g:plug_group['basic'] += [ 'quickui' ]
-
-    let g:plug_group['search'] = []
+    let g:plug_group['basic'] += [ 'search' ]
 
     let g:plug_group['Notetaking'] = []
     let g:plug_group['Notetaking'] += [ 'edit' ]
@@ -118,7 +120,7 @@ if IsInPlugGroup('basic', 'quickui') " -----------------------------------{{{1
     endif
 endif
 
-if IsInPlugGroup('search') " -----------------------------{{{1
+if IsInPlugGroup('basic', 'search') " -----------------------------{{{1
     Plug 'skywind3000/vim-auto-popmenu'
     Plug 'easymotion/vim-easymotion'
     Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
@@ -127,7 +129,6 @@ if IsInPlugGroup('search') " -----------------------------{{{1
 endif
 
 if IsInPlugGroup('Notetaking', 'edit')  " --------------------------------{{{1
-    Plug 'tpope/vim-commentary'
     " 方便对引号等成对出现的文本进行处理
     Plug 'tpope/vim-surround'
     " 使用[和]作为先导进行导航
@@ -165,6 +166,9 @@ endif
 if IsInPlugGroup('program') " --------------------------------------------{{{1
     Plug 'skywind3000/vim-terminal-help'
     Plug 'skywind3000/asyncrun.vim'
+    if has('nvim')
+        Plug 'tpope/vim-commentary'
+    endif
 endif
 
 if IsInPlugGroup('program', 'git') " -------------------------------------{{{1
@@ -202,7 +206,7 @@ call ToggleShellslashForVimPlug()
 
 " Inbuilt plugins config -------------------------------------------------{{{1
 let s:plugins_config_path = g:viminit . 'init/plugins.config/'
-let s:inbuiltplugs = [ 'netrw', 'vim-markdown-tpope' ]
+let s:inbuiltplugs = [ 'netrw', 'vim-markdown-tpope', 'comment' ]
 if len(get(s:, 'inbuiltplugs', [])) !=# 0
     for plug in s:inbuiltplugs
         let plug_config = s:plugins_config_path . plug . '.vim'
