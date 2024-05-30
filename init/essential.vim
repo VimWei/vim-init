@@ -13,6 +13,7 @@ endif
 if has('syntax')
     " syntax enable   "启用语法高亮，但保留:highlight自定义高亮设置
     syntax on   "启用语法高亮，并重置:highlight自定义高亮设置为默认值
+    set synmaxcol=200
 endif
 
 " Encoding related --------------------------------------------------------{{{1
