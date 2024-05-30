@@ -102,6 +102,8 @@ nnoremap <Leader>my :ABYank<CR>
 
 " Word Processor ---------------------------------------------------------{{{1
 
+nnoremap Y y$
+
 " 插入模式移动光标 alt + 方向键
 inoremap <M-j> <C-o>gj
 inoremap <M-k> <C-o>gk
