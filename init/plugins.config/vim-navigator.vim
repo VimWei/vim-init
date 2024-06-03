@@ -26,8 +26,9 @@ let g:navigator.h = {
 " Vimrc -------------------------------------------------------------------{{{1
 let g:navigator.v = {
     \ 'name': '+VIMRC',
-    \ '1' : ['PlugUpdate', 'PlugUpdate'],
-    \ '2' : ['PlugUpgrade', 'PlugUpgrade'],
+    \ '1' : ['PlugUpdate', 'Update Plugs'],
+    \ '2' : ['PlugUpgrade', 'Upgrade vim-plug'],
+    \ '3' : ['PlugStatus', 'List available plugins'],
     \ 'u' : ['Vimrc#Update()', 'Update VIMRC'],
     \ 'v' : [':edit $MYVIMRC', 'VIMRC'],
     \ 'i' : ['Vimrc#EditInitVimrc("init.vim")', 'init.vim'],
