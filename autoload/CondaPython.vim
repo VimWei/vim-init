@@ -124,7 +124,7 @@ function! CondaPython#Provider()
 
         " 在 Windows 的 gvim 中设置 pythonthreedll，在 Unix-like 系统上不需要设置
         if !has('nvim') && (has('win32') || has('win64'))
-            let python_dll = fnamemodify(python_prog, ':h') . '/' . dll_name
+            let python_dll = fnamemodify(python_prog, ':h') . '\' . dll_name
             if filereadable(python_dll)
                 let $pythonthreedll = python_dll
             else
