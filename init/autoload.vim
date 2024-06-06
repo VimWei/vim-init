@@ -88,48 +88,19 @@ nnoremap <silent> zk zckzOzz
 nnoremap <Leader>s :call Spell#Toggle()<CR>
 
 " AutoLineNumber ---------------------------------------------------------{{{1
-augroup UserAugLineNumber
+" 详情查阅 ../autoload/AugFunc.vim
+augroup AutoLineNumber
     autocmd!
-    autocmd FocusLost,InsertEnter * call UserFuncAbsNum()
-    autocmd FocusGained,InsertLeave * call UserFuncRelNum()
+    autocmd FocusLost,InsertEnter * call AugFunc#AbsNum()
+    autocmd FocusGained,InsertLeave * call AugFunc#RelNum()
 augroup END
-
-function s:isBackListFiletypes() abort
-    let l:ft = &filetype
-    if l:ft ==# '' || l:ft =~# '\v^(list|LuaTree|coc-explorer|cocactions|any-jump|utools|coctree)$'
-        return v:true
-    endif
-    return v:false
-endfunction
-
-function! UserFuncAbsNum()
-    if s:isBackListFiletypes()
-        return
-    endif
-    setlocal norelativenumber number
-endfunction
-
-function! UserFuncRelNum()
-    if s:isBackListFiletypes()
-        return
-    endif
-    setlocal relativenumber number
-endfunction
 
 " AutoJumpLastPos --------------------------------------------------------{{{1
-augroup UserAugPos
+" 详情查阅 ../autoload/AugFunc.vim
+augroup AutoJumpLastPos
     autocmd!
-    autocmd BufWinEnter * call JumpLastPos()
+    autocmd BufWinEnter * call AugFunc#JumpLastPos()
 augroup END
-function! JumpLastPos()
-    try
-        if line("'\"") <= line('$')
-            normal! g`"
-            return 1
-        endif
-    catch /.*/
-    endtry
-endfunction
 
 " AutoStrip --------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Strip.vim
