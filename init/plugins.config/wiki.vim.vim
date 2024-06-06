@@ -73,6 +73,7 @@ let g:wiki_journal = {
             \ },
     \}
 let g:wiki_journal_index = {
+    \ 'reverse': v:true,
     \ 'link_text_parser': { b, d, p -> wiki#toc#get_page_title(p) },
     \}
 let g:wiki_mappings_local_journal = {
@@ -93,7 +94,8 @@ let g:wiki_export = {
         \}
 
 " open wiki page ---------------------------------------------------------{{{1
-" 详情查阅 ../autoload/Wikivim.vim
-nnoremap <leader>wt :call Wikivim#OpenWikiIndexTab()<CR>
+" 详情查阅 ../../autoload/Wikivim.vim
+nnoremap <Leader>wt :call Wikivim#OpenWikiIndexTab()<CR>
 command! -nargs=? VW call Wikivim#OpenWikiPage(<q-args>)
 command! RS call Wikivim#OpenWikiPage('Research/路演.md')
+nnoremap <Leader>wi :call Wikivim#OpenWikiPage('journal/Journal.md')<CR>
