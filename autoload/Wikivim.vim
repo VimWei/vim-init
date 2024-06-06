@@ -15,6 +15,13 @@ function! Wikivim#OpenWikiPage(filename)
     execute 'cd ' . fnameescape(g:wiki_root)
 endfunction
 
+" Update Journal Index ---------------------------------------------------{{{1
+function! Wikivim#UpdateJournalIndex()
+    execute 'normal! dG'
+    WikiJournalIndex
+    execute 'normal! gg'
+endfunction
+
 finish " -----------------------------------------------------------------{{{1
 
 " 进入 wiki 后，让 pwd 转到 wiki_root
