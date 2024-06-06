@@ -24,13 +24,6 @@ if !has('nvim')
     set renderoptions=type:directx,renmode:5    "增强显示
 endif
 
-" guifont++ --------------------------------------------------------------{{{1
-"让vim像IDE一样一键放大缩小字号，M即Alt键
-let guifontpp_size_increment=1 "每次更改的字号
-let guifontpp_smaller_font_map="<M-Down>"
-let guifontpp_larger_font_map="<M-Up>"
-let guifontpp_original_font_map="<M-Home>"
-
 " Neovide ----------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Neovide.vim
 if exists("g:neovide")

@@ -103,6 +103,9 @@ if IsInPlugGroup('basic', 'guistyle') " ----------------------------------{{{1
     if has("gui_running") && !exists("g:neovide")
         Plug 'mattn/vimtweak'
     endif
+    if has("gui_running")
+        Plug 'mkropat/vim-ezguifont'
+    endif
 endif
 
 if IsInPlugGroup('basic', 'quickui') " -----------------------------------{{{1
