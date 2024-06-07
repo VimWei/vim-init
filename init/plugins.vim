@@ -164,6 +164,10 @@ if IsInPlugGroup('Notetaking', 'wiki') " ---------------------------------{{{1
     Plug 'lervag/wiki.vim'
     Plug 'junegunn/fzf'
     Plug 'bullets-vim/bullets.vim'
+    if has('nvim')
+        Plug 'nvim-lua/plenary.nvim'
+        Plug 'nvim-telescope/telescope.nvim'
+    endif
 endif
 
 if IsInPlugGroup('program') " --------------------------------------------{{{1
