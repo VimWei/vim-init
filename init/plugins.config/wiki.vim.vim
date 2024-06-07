@@ -98,5 +98,5 @@ let g:wiki_export = {
 nnoremap <Leader>wt :call Wikivim#OpenWikiIndexTab()<CR>
 command! -nargs=? VW call Wikivim#OpenWikiPage(<q-args>)
 command! RS call Wikivim#OpenWikiPage('Research/路演.md')
-nnoremap <Leader>wi :call Wikivim#OpenWikiPage('journal/Journal.md')<CR>
+nnoremap <Leader>wi :call Wikivim#OpenWikiPage('journal/index.md')<CR>
 nnoremap <Leader>w<Leader>i :call Wikivim#UpdateJournalIndex()<CR>
