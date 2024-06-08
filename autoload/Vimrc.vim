@@ -50,8 +50,8 @@ function! Vimrc#PluginConfig()
     endif
     let l:config_file = g:plugins_config_path . l:selected_text . '.vim'
     if filereadable(l:config_file)
-        execute 'find ' . l:config_file
+        execute 'vsp ' . l:config_file
     else
-        execute 'new ' . fnameescape(l:config_file)
+        execute 'vnew ' . fnameescape(l:config_file)
     endif
 endfunction
