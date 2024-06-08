@@ -141,10 +141,13 @@ endif
 
 if IsInPlugGroup('Notetaking', 'textobj') " ------------------------------{{{1
     " 基础插件：提供让用户方便的自定义文本对象的接口
-    " 详情查阅 ../plugin/textobjs.vim
     Plug 'kana/vim-textobj-user'
     " indent 文本对象：ii/ai 表示当前缩进，vii 选中当缩进，cii 改写缩进
     Plug 'kana/vim-textobj-indent'
+    " sentence 文本对象：is/as 表示句子，改进了 Mr. 等被错误识别的情形
+    Plug 'preservim/vim-textobj-sentence'
+    " WORD 文本对象：iW/aW，适用于vim移动命令WBE，改进对中日文等标点符号的识别
+    Plug 'fuenor/jpmoveword.vim'
     " 语法文本对象：iy/ay 基于语法的文本对象
     Plug 'kana/vim-textobj-syntax'
     " 函数文本对象：if/af 支持 c/c++/vim/java
@@ -213,7 +216,7 @@ call ToggleShellslashForVimPlug()
 
 " Inbuilt plugins config -------------------------------------------------{{{1
 let s:plugins_config_path = g:viminit . 'init/plugins.config/'
-let s:inbuiltplugs = [ 'netrw', 'vim-markdown-tpope' ]
+let s:inbuiltplugs = [ 'netrw', 'matchit', 'vim-markdown-tpope' ]
 if !has('nvim')
     let s:inbuiltplugs += [ 'comment' ]
 endif
