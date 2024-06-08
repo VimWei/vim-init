@@ -223,14 +223,17 @@ endfunction
 call ToggleShellslashForVimPlug()
 
 " Inbuilt plugins config -------------------------------------------------{{{1
-let s:plugins_config_path = g:viminit . 'init/plugins.config/'
+let g:plugins_config_path = g:viminit . 'init/plugins.config/'
+command! FindPluginConfig call Vimrc#PluginConfig()
+nnoremap <Leader>gf :call Vimrc#PluginConfig()<CR>
+
 let s:inbuiltplugs = [ 'netrw', 'matchit', 'vim-markdown-tpope' ]
 if !has('nvim')
     let s:inbuiltplugs += [ 'comment' ]
 endif
 if len(get(s:, 'inbuiltplugs', [])) !=# 0
     for plug in s:inbuiltplugs
-        let plug_config = s:plugins_config_path . plug . '.vim'
+        let plug_config = g:plugins_config_path . plug . '.vim'
         if filereadable(plug_config)
             execute 'source ' . plug_config
         endif
@@ -240,7 +243,7 @@ endif
 " Thirdparty plugins config ----------------------------------------------{{{1
 if len(get(g:, 'plugs_order', [])) !=# 0
     for plug in g:plugs_order
-        let plug_config = s:plugins_config_path . plug . '.vim'
+        let plug_config = g:plugins_config_path . plug . '.vim'
         if filereadable(plug_config)
             execute 'source ' . plug_config
         endif

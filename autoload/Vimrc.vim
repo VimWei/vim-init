@@ -38,3 +38,27 @@ function! Vimrc#Update() " -----------------------------------------------{{{1
     Git pull
     execute "cd " . l:current_working_directory
 endfunction
+
+" Find Plugin Config -----------------------------------------------------{{{1
+function! Vimrc#PluginConfig()
+    " 获取当前行内容
+    let line = getline('.')
+
+    " 构建正则表达式，匹配任意空白后的 'Plug '，然后是单引号内的内容
+    let pattern = '/\zs[^'']\+\ze'''
+
+    " 使用 matchstr 提取匹配的内容
+    let l:selected_text = matchstr(line, pattern)
+
+    " 拼接完整的配置文件路径
+    let l:config_file = g:plugins_config_path . l:selected_text . '.vim'
+
+    " 使用选中的文本执行 find 命令
+    if filereadable(l:config_file)
+        execute 'find ' . l:config_file
+    else
+        echohl ErrorMsg
+        echom "File does not exist: " . l:config_file
+        echohl None
+    endif
+endfunction
