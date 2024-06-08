@@ -39,6 +39,7 @@ if !exists('g:plug_group')
     let g:plug_group['program'] = []
     let g:plug_group['program'] += [ 'git' ]
     let g:plug_group['program'] += [ 'python' ]
+    let g:plug_group['program'] += [ 'LSP' ]
 endif
 
 function! IsInPlugGroup(group, ...)
@@ -144,12 +145,15 @@ if IsInPlugGroup('Notetaking', 'textobj') " ------------------------------{{{1
     Plug 'kana/vim-textobj-user'
     " indent 文本对象：ii/ai 表示当前缩进，vii 选中当缩进，cii 改写缩进
     Plug 'kana/vim-textobj-indent'
+    " 语法文本对象：iy/ay 基于语法的文本对象
+    Plug 'kana/vim-textobj-syntax'
+
+    " Feat request：https://github.com/vim/vim/issues/14943
     " sentence 文本对象：is/as 表示句子，改进了 Mr. 等被错误识别的情形
     Plug 'preservim/vim-textobj-sentence'
     " WORD 文本对象：iW/aW，适用于vim移动命令WBE，改进对中日文等标点符号的识别
     Plug 'fuenor/jpmoveword.vim'
-    " 语法文本对象：iy/ay 基于语法的文本对象
-    Plug 'kana/vim-textobj-syntax'
+
     " 函数文本对象：if/af 支持 c/c++/vim/java
     Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
     " 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
@@ -200,6 +204,10 @@ if IsInPlugGroup('program', 'python') " ----------------------------------{{{1
     Plug 'luochen1990/rainbow'
     " 快速测试代码片段
     Plug 'sillybun/vim-repl'
+endif
+
+if IsInPlugGroup('program', 'LSP') " -------------------------------------{{{1
+
 endif
 
 " vim-plug end -----------------------------------------------------------{{{1
