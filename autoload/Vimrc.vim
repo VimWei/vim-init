@@ -45,8 +45,14 @@ function! Vimrc#PluginConfig()
     let pattern = '/\zs[^'']\+\ze'''
     let l:selected_text = matchstr(line, pattern)
     if empty(l:selected_text)
-        echom "No plugin project found on the line."
-        return
+        if match(line, 'inbuiltplugs') != -1
+            echom "This is a inbuilt plug"
+            normal! yi'
+            let l:selected_text = getreg('"')
+        else
+            echom "No plugin project found on the line."
+            return
+        endif
     endif
     let l:config_file = g:plugins_config_path . l:selected_text . '.vim'
     if filereadable(l:config_file)

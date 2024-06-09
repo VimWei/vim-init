@@ -224,9 +224,6 @@ call ToggleShellslashForVimPlug()
 
 " Inbuilt plugins config -------------------------------------------------{{{1
 let g:plugins_config_path = g:viminit . 'init/plugins.config/'
-command! FindPluginConfig call Vimrc#PluginConfig()
-nnoremap <Leader>gf :call Vimrc#PluginConfig()<CR>
-
 let s:inbuiltplugs = [ 'netrw', 'matchit', 'vim-markdown-tpope' ]
 if !has('nvim')
     let s:inbuiltplugs += [ 'comment' ]
@@ -249,3 +246,10 @@ if len(get(g:, 'plugs_order', [])) !=# 0
         endif
     endfor
 endif
+
+" open plugin config file ------------------------------------------------{{{1
+" ../autoload/Vimrc.vim
+" open plugin config file with <Leader>gf or :FindPluginConfig
+" or :find pluginname[tab]
+command! FindPluginConfig call Vimrc#PluginConfig()
+nnoremap <Leader>gf :call Vimrc#PluginConfig()<CR>
