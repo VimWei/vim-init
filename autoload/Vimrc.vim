@@ -46,7 +46,6 @@ function! Vimrc#PluginConfig()
     let l:selected_text = matchstr(line, pattern)
     if empty(l:selected_text)
         if match(line, 'inbuiltplugs') != -1
-            echom "This is a inbuilt plug"
             normal! yi'
             let l:selected_text = getreg('"')
         else
