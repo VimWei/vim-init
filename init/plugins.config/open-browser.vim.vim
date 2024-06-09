@@ -7,22 +7,16 @@ nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 
 " Open Plugin in github --------------------------------------------------{{{1
-command! Github call OpenVimPlugGithubProject()
-nnoremap <Leader>gx :call OpenVimPlugGithubProject()<CR>
-function! OpenVimPlugGithubProject()
-    " 保存当前寄存器和光标位置
-    let l:save_reg = getreg('"')
-    let l:save_cursor = getpos('.')
-
-    " 获取当前所在位置的引号中的内容
-    normal! yi'
-    let l:selected_text = getreg('"')
-    let l:selected_text = 'https://github.com/' . l:selected_text
-
-    " 恢复寄存器和光标位置
-    call setreg('"', l:save_reg)
-    call setpos('.', l:save_cursor)
-
-    " 调用 OpenBrowser 命令，并传递 yanked 文本
-    execute 'OpenBrowser' l:selected_text
+command! Github call OpenGithubProject()
+nnoremap <Leader>gx :call OpenGithubProject()<CR>
+function! OpenGithubProject()
+    let line = getline('.')
+    let pattern = '''\zs[^'']\+\ze'''
+    let l:selected_text = matchstr(line, pattern)
+    if empty(l:selected_text)
+        echom "No plugin project found on the line."
+        return
+    endif
+    let l:githubProject = 'https://github.com/' . l:selected_text
+    execute 'OpenBrowser' l:githubProject
 endfunction
