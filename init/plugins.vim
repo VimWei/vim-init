@@ -250,7 +250,7 @@ endif
 
 " Open plugin config file ------------------------------------------------{{{1
 " Open plugins config path with netrw
-nnoremap <leader>pc :execute 'vsp ' . g:plugins_config_path<CR>
+nnoremap <leader>pc :execute 'Lexplore ' . g:plugins_config_path<CR>
 " Open plugin config file with <Leader>gf or :FindPluginConfig
 " Ref: ../autoload/Vimrc.vim
 command! FindPluginConfig call Vimrc#PluginConfig()
