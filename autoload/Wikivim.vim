@@ -17,6 +17,12 @@ endfunction
 
 " Update Journal Index ---------------------------------------------------{{{1
 function! Wikivim#UpdateJournalIndex()
+    execute 'normal! gg'
+    let searchPattern = '#\s\d\d\d\d'
+    let found = search(searchPattern, 'W')
+    if !found
+        execute 'normal! G'
+    endif
     execute 'normal! dG'
     WikiJournalIndex
     execute 'normal! gg'
