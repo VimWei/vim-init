@@ -1,12 +1,12 @@
 " https://www.github.com/tpope/vim-markdown
 " :help ft-markdown-plugin
 
-" g:markdown_folding -----------------------------------------------------{{{1
-
+" default setting --------------------------------------------------------{{{1
 let g:markdown_folding = 1
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
+let g:markdown_minlines = 50
 
 " set filetype markdown --------------------------------------------------{{{1
-
 " 将文档类型设置为markdown
 nnoremap <leader>mm :set ft=markdown<CR>
 
