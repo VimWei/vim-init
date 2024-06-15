@@ -21,6 +21,7 @@ function! Wikivim#UpdateJournalIndex()
     let searchPattern = '#\s\d\d\d\d'
     let found = search(searchPattern, 'W')
     if !found
+        call append(line('$'), ['', ''])
         execute 'normal! G'
     endif
     execute 'normal! dG'
