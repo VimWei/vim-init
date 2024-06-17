@@ -26,9 +26,6 @@ let g:navigator.h = {
 " Vimrc -------------------------------------------------------------------{{{1
 let g:navigator.v = {
     \ 'name': '+VIMRC',
-    \ '1' : ['PlugUpdate', 'Update Plugs'],
-    \ '2' : ['PlugUpgrade', 'Upgrade vim-plug'],
-    \ '3' : ['PlugStatus', 'List available plugins'],
     \ 'u' : ['Vimrc#Update()', 'Update VIMRC'],
     \ 'v' : [':edit $MYVIMRC', 'VIMRC'],
     \ 'i' : ['Vimrc#EditInitVimrc("init.vim")', 'init.vim'],
@@ -164,6 +161,17 @@ let g:navigator.o = {
         \ },
     \ }
 
+" Plugin -----------------------------------------------------------------{{{1
+let g:navigator.p = {
+    \ 'name': '+Plugin',
+    \ '0' : [':PlugUpdate', 'Update Plugs'],
+    \ '1' : [':PlugUpgrade', 'Upgrade vim-plug'],
+    \ '2' : [':PlugStatus', 'List available plugins'],
+    \ 'c' : [':execute "Lexplore " . g:plugins_config_path', 'Explore plugins.config'],
+    \ 'f' : [':FindPluginConfig', 'Find plugin config'],
+    \ 'x' : [':Github', 'Open Github Project'],
+    \ }
+
 " Markdown ----------------------------------------------------------------{{{1
 let g:navigator.m = {
     \ 'name' : '+Markdown',
@@ -193,12 +201,12 @@ let g:navigator.w = {
     \ 'r' : ['<plug>(wiki-page-rename)', 'Rename wiki page'],
     \ 'j' : {
         \ 'name' : '+Journal',
-        \ '0' : ['Wikivim#OpenWikiPage("journal/Journal.md")', 'Open diary index file'],
-        \ '1' : [':WikiJournal', 'Open today diary'],
-        \ '5' : ['<plug>(wiki-journal-next)', 'Open next day diary'],
-        \ '6' : ['<plug>(wiki-journal-prev)', 'Open previous day diary'],
-        \ 'u' : [':WikiJournalIndex', 'Update Journal index'],
-        \ 't' : ['<key>a<C-R>=strftime("%Y-%m-%d %A %H:%M:%S")<CR><Esc>', 'Insert datetime'],
+        \ 'i' : ['Wikivim#OpenWikiPage("journal.md")', 'Open Journal index'],
+        \ 'u' : ['Wikivim#UpdateJournalIndex()', 'Update Journal index'],
+        \ 't' : [':WikiJournal', 'Open today diary'],
+        \ 'n' : ['<plug>(wiki-journal-next)', 'Open next journal'],
+        \ 'p' : ['<plug>(wiki-journal-prev)', 'Open previous journal'],
+        \ 'd' : ['<key>a<C-R>=strftime("%Y-%m-%d %A %H:%M:%S")<CR><Esc>', 'Insert datetime'],
         \ },
     \ }
 
@@ -249,7 +257,7 @@ let g:navigator.g = {
     \ }
 
 " Python ------------------------------------------------------------------{{{1
-let g:navigator.p = {
+let g:navigator.y = {
     \ 'name' : '+Python',
     \ 't' : [':TerminalConda', 'Open Terminal in conda pymotw'],
     \ 'p' : [':Python', 'Open Python in conda pymotw'],
