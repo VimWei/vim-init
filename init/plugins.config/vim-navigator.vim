@@ -181,14 +181,14 @@ let g:navigator.m = {
     \ 'd' : [':FullToHalfDigit', '全角数字转半角'],
     \ 'q' : ['<key>ggVGgq', '全文 gq 格式化'],
     \ 'u' : [':UngqFormat', '恢复 gq 格式化'],
-    \ 'e' : ['Explode2P()', '将全文的行转为段落 explode'],
+    \ 'e' : ['Markdown#Explode2P()', '将全文的行转为段落 explode'],
     \ }
 
 let g:navigator_v.m = {
     \ 'name' : '+Markdown',
     \ 'q' : ['<key>gq', '选区 gq 格式化'],
     \ 'u' : [":UngqFormat", '恢复 gq 格式化'],
-    \ 'e' : ['Explode2P()', '将选区的行转为段落 explode'],
+    \ 'e' : ['Markdown#Explode2P()', '将选区的行转为段落 explode'],
     \ }
 
 " Wiki.vim ----------------------------------------------------------------{{{1
