@@ -58,8 +58,7 @@ command! CColumnRemoveAll call ColorColumn#ColorColumnRemoveAll()
 
 " MultiColumn ------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/MultiColumn.vim
-command! MColumn call MultiColumn#Add()
-command! MColumnRemove call MultiColumn#Remove()
+command! MultiColumnToggle call MultiColumn#Toggle()
 
 " FoldToggle -------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Fold.vim
@@ -84,7 +83,6 @@ nnoremap <silent> zk zckzOzz
 
 " Spell ------------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Spell.vim
-" inoremap <Leader>s <C-o>:call Spell#Toggle()<CR>
 nnoremap <Leader>s :call Spell#Toggle()<CR>
 
 " AutoLineNumber ---------------------------------------------------------{{{1

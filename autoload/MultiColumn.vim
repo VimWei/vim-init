@@ -2,7 +2,7 @@
 
 " noremap <silent> <Leader>vs :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
 
-function! MultiColumn#Add()
+function! MultiColumn#On()
     " clear command line (if in visual mode)
     exe "norm! \<Esc>"
     let @z=&so          " save scrolloff in register z
@@ -20,6 +20,17 @@ function! MultiColumn#Add()
     exe "norm! `nzb`m"
 endfunction
 
-function! MultiColumn#Remove()
+function! MultiColumn#Off()
     wincmd o    "使当前窗口成为屏幕上唯一的窗口。其它窗口都关闭。
+endfunction
+
+function! MultiColumn#Toggle()
+    " 检查当前窗口数量
+    if winnr('$') > 1
+        " 如果窗口数量大于1，假设多列模式已开启，因此关闭它
+        call MultiColumn#Off()
+    else
+        " 如果只有一个窗口，假设多列模式未开启，因此开启它
+        call MultiColumn#On()
+    endif
 endfunction
