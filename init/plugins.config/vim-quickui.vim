@@ -42,28 +42,41 @@ call quickui#menu#install("&Option", [
     \ ["Options help", 'tab help options', '关于 options 的帮助文档'],
     \ ])
 
+" Wiki -------------------------------------------------------------------{{{1
+call quickui#menu#install("&Wiki.vim", [
+    \ ['&Wiki Index', 'WikiIndex', '打开 Wiki Index'],
+    \ ['Wiki Index in Tab', 'call Wikivim#OpenWikiIndexTab()', '打开 Wiki Index in Tab'],
+    \ ['Open RoadShow', 'call Wikivim#OpenWikiPage("Research/路演.md")', '打开 RoadShow'],
+    \ ['&Delete wiki page', 'WikiPageDelete', '删除 wiki page'],
+    \ ['&Rename wiki page', 'WikiPageRename', '重命名 wiki page'],
+    \ ["-"],
+    \ ['&Journal Index', 'call Wikivim#OpenWikiPage("journal.md")', '打开 Journal Index'],
+    \ ['&Update Journal Index', 'call Wikivim#UpdateJournalIndex()', '更新 Journal Index'],
+    \ ['Open &today journal', 'WikiJournal', '打开 today journal'],
+    \ ['Open &next journal', 'WikiJournalNext', '打开 next journal'],
+    \ ['Open &previous journal', 'WikiJournalPrev', '打开 previous journal'],
+    \ ["-"],
+    \ ['WikiTagReload', 'WikiTagReload', 'Source wiki files and reload tags'],
+    \ ['ListWikiTag', 'WikiTagList -output cursor', 'List all tags and the wiki pages'],
+    \ ['WikiTag&Search', 'WikiTagSearch', 'List wiki pages that contain the desired tag'],
+    \ ['WikiTags', 'WikiTags', 'search for and navigate to a tag'],
+    \ ])
+
 " Markdown ---------------------------------------------------------------{{{1
-if IsInPlugGroup('Notetaking', 'vimwiki')
-    call quickui#menu#install("&Markdown", [
-        \ ['Toggle Todo status done [ ] [X] ', 'VimwikiToggleListItem', '切换 Todo 完成状态'],
-        \ ['Toggle Todo status Reject [ ] [-]', 'VimwikiToggleRejectedListItem', '切换 Todo 启用状态'],
-        \ ['Increase done status [ ] [.] [o]', 'normal gln', '增加 Done 的成熟度'],
-        \ ['Decrease done status [o] [.] [ ]', 'normal glp', '降低 Done 的成熟度'],
-        \ ['Remove checkbox [ ] from list item', 'VimwikiRemoveSingleCB', '移除 Todo checkbox'],
-        \ ['Find next unfinished task', 'VimwikiNextTask', '跳到下一个未完成的任务'],
-        \ ["-"],
-        \ ['Change Symbol To *', 'VimwikiChangeSymbolTo *', '更改当前列表符号为 gl*'],
-        \ ['Change Symbol To -', 'VimwikiChangeSymbolTo -', '更改当前列表符号为 gl-'],
-        \ ['Change Symbol To 1', 'VimwikiChangeSymbolTo 1.', '更改当前列表符号为 gl1'],
-        \ ['Renumber list items', 'VimwikiRenumberList', '重建当前列表编号 glr'],
-        \ ['Renumber All list items', 'VimwikiRenumberAllLists', '重建全文列表编号 glR'],
-        \ ['Increase List Level -->', 'normal gll', '降低当前列表级别 gll'],
-        \ ['Decrease List Level <--', 'normal glh', '升高当前列表级别 glh'],
-        \ ["-"],
-        \ ['Update diary index', 'VimwikiDiaryGenerateLinks', '更新Diary索引目录'],
-        \ ["Rebuild Tags", 'VimwikiRebuildTags!', '重新生成Tags'],
-        \ ], '<auto>', 'markdown')
-endif
+call quickui#menu#install("&Markdown", [
+    \ ['set filetype markdown', 'set ft=markdown', '将文件类型设置为markdown'],
+    \ ['TOC', 'TOC', '列出目录 TOC'],
+    \ ['OCRClean', 'OCRClean', '清理 OCR 文档的格式'],
+    \ ['Full To Half Digit', 'FullToHalfDigit', '全角数字转半角'],
+    \ ['Un gqFormat', 'UngqFormat', '恢复 gq 格式化'],
+    \ ['Explode to Paragraph', 'call Explode2P()', '将全文的行转为段落 explode'],
+    \ ])
+
+    " \ ['Toggle Todo status done [ ] [X] ', 'VimwikiToggleListItem', '切换 Todo 完成状态'],
+    " \ ['Toggle Todo status Reject [ ] [-]', 'VimwikiToggleRejectedListItem', '切换 Todo 启用状态'],
+    " \ ['Increase done status [ ] [.] [o]', 'normal gln', '增加 Done 的成熟度'],
+    " \ ['Decrease done status [o] [.] [ ]', 'normal glp', '降低 Done 的成熟度'],
+    " \ ['Remove checkbox [ ] from list item', 'VimwikiRemoveSingleCB', '移除 Todo checkbox'],
 
 " List -------------------------------------------------------------------{{{1
 call quickui#menu#install("&List", [
