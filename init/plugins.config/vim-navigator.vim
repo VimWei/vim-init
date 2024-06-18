@@ -164,9 +164,9 @@ let g:navigator.o = {
 " Plugin -----------------------------------------------------------------{{{1
 let g:navigator.p = {
     \ 'name': '+Plugin',
-    \ '0' : [':PlugUpdate', 'Update Plugs'],
-    \ '1' : [':PlugUpgrade', 'Upgrade vim-plug'],
-    \ '2' : [':PlugStatus', 'List available plugins'],
+    \ 'u' : [':PlugUpdate', 'Update Plugs'],
+    \ 'v' : [':PlugUpgrade', 'Upgrade vim-plug'],
+    \ 's' : [':PlugStatus', 'List available plugins'],
     \ 'c' : [':execute "Lexplore " . g:plugins_config_path', 'Explore plugins.config'],
     \ 'f' : [':FindPluginConfig', 'Find plugin config'],
     \ 'x' : [':Github', 'Open Github Project'],
@@ -187,7 +187,7 @@ let g:navigator.m = {
 let g:navigator_v.m = {
     \ 'name' : '+Markdown',
     \ 'q' : ['<key>gq', '选区 gq 格式化'],
-    \ 'u' : [":UngqFormat", '恢复 gq 格式化'],
+    \ 'u' : [':UngqFormat', '恢复 gq 格式化'],
     \ 'e' : ['Markdown#Explode2P()', '将选区的行转为段落 explode'],
     \ }
 
@@ -197,15 +197,15 @@ let g:navigator.w = {
     \ 'w' : [':WikiIndex', 'Open Wiki index'],
     \ 't' : ['Wikivim#OpenWikiIndexTab()', 'Open Wiki index in a new tab'],
     \ 's' : ['Wikivim#OpenWikiPage("Research/路演.md")', 'Open RoadShow index'],
-    \ 'd' : ['<plug>(wiki-page-delete)', 'Delete wiki page'],
-    \ 'r' : ['<plug>(wiki-page-rename)', 'Rename wiki page'],
+    \ 'd' : [':WikiPageDelete', 'Delete wiki page'],
+    \ 'r' : [':WikiPageRename', 'Rename wiki page'],
     \ 'j' : {
         \ 'name' : '+Journal',
         \ 'i' : ['Wikivim#OpenWikiPage("journal.md")', 'Open Journal index'],
         \ 'u' : ['Wikivim#UpdateJournalIndex()', 'Update Journal index'],
         \ 't' : [':WikiJournal', 'Open today diary'],
-        \ 'n' : ['<plug>(wiki-journal-next)', 'Open next journal'],
-        \ 'p' : ['<plug>(wiki-journal-prev)', 'Open previous journal'],
+        \ 'n' : [':WikiJournalNext', 'Open next journal'],
+        \ 'p' : [':WikiJournalPrev', 'Open previous journal'],
         \ 'd' : ['<key>a<C-R>=strftime("%Y-%m-%d %A %H:%M:%S")<CR><Esc>', 'Insert datetime'],
         \ },
     \ }

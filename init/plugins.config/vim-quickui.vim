@@ -31,16 +31,21 @@ call quickui#menu#install("&Tools", [
     \ ["Edit &Menu", 'VM', '在新窗口编辑菜单'],
     \ ["Edit &Navigator", 'VN', '在新窗口编辑导航'],
     \ ["-"],
+    \ ['Random &ColorScheme Favorite', 'call Color#RandomFavoriteScheme()', '随机采用最喜欢的colorscheme'],
+    \ ['Random ColorScheme &All', 'call Color#RandomColorScheme()', '随机采用所有的colorscheme'],
+    \ ["-"],
+    \ ['Tab to Space', 'call ReTab#Tab2Space()', 'Tab to Space'],
+    \ ['Space to Tab', 'call ReTab#Space2Tab()', 'Space to Tab'],
     \ ['&Translate Word', 'call Translator#Words("n")', '翻译当前词汇'],
     \ ])
 
 " Option -----------------------------------------------------------------{{{1
 " script inside %{...} will be evaluated and expanded in the string
 call quickui#menu#install("&Option", [
-    \ ['Set &Spell %{&spell? "Off":"On"}', 'call Spell#Toggle()', 'Toggle spell check %{&spell? "off" : "on"}'],
+    \ ['Set &Spell %{&spell? "Off":"On"}', 'call Spell#Toggle()', '拼写检查 Toggle'],
     \ ['Set &Number Toggle', 'set number!', '行号 Toggle'],
     \ ['Set &Relativenumber Toggle', 'set relativenumber!', '相对行号 Toggle'],
-    \ ['Set &Wrap Toggle', 'set number!', '行号 Toggle'],
+    \ ['Set &Wrap Toggle', 'set number!', '自动换行 Toggle'],
     \ ["-"],
     \ ['Cursor &Line Toggle', 'set cursorline!', '光标行加亮 Toggle'],
     \ ['&Fold Column Toggle', 'FoldColumnToggle', '折叠栏 Toggle'],
@@ -50,7 +55,7 @@ call quickui#menu#install("&Option", [
     \ ["ColorColumn &Textwidth", 'CColumnTextwidth', '设置 Textwidth 为对齐线'],
     \ ["ColorColumn Remove&All", 'CColumnRemoveAll', '取消所有的对齐线'],
     \ ["-"],
-    \ ["Options &Help", 'tab help options', '关于 options 的帮助文档'],
+    \ ["Options Help", 'tab help options', '关于 options 的帮助文档'],
     \ ])
 
 " Wiki -------------------------------------------------------------------{{{1
@@ -61,7 +66,7 @@ call quickui#menu#install("&Wiki.vim", [
     \ ['&Delete wiki page', 'WikiPageDelete', '删除 wiki page'],
     \ ['&Rename wiki page', 'WikiPageRename', '重命名 wiki page'],
     \ ["-"],
-    \ ['&Journal Index', 'call Wikivim#OpenWikiPage("journal.md")', '打开 Journal Index'],
+    \ ['Journal &Index', 'call Wikivim#OpenWikiPage("journal.md")', '打开 Journal Index'],
     \ ['&Update Journal Index', 'call Wikivim#UpdateJournalIndex()', '更新 Journal Index'],
     \ ['Open &today journal', 'WikiJournal', '打开 today journal'],
     \ ['Open &next journal', 'WikiJournalNext', '打开 next journal'],
