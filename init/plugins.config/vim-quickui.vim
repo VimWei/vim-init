@@ -22,24 +22,35 @@ call quickui#menu#install('&File', [
 
 " Tools ------------------------------------------------------------------{{{1
 call quickui#menu#install("&Tools", [
-    \ ["&Update VIMRC", "call Vimrc#Update()", 'update VIMRC'],
-    \ ["&Edit VIMRC", 'VI', '在新窗口编辑VIMRC'],
+    \ ["Update &plugins", "PlugUpdate", 'Update plugins'],
+    \ ["Upgrade &vim-plug", "PlugUpgrade", 'Upgrade vim-plug'],
+    \ ["Plugin &Status", "PlugStatus", 'List available plugins'],
     \ ["-"],
+    \ ["&Update VIMRC", "call Vimrc#Update()", 'Update VIMRC'],
+    \ ["&Edit VIMRC", 'VI', '在新窗口编辑VIMRC'],
     \ ["Edit &Menu", 'VM', '在新窗口编辑菜单'],
     \ ["Edit &Navigator", 'VN', '在新窗口编辑导航'],
     \ ["-"],
-    \ ["Update &plugins", "PlugUpdate", 'update plugins'],
-    \ ["Upgrade &vim-plug", "PlugUpgrade", 'upgrade vim-plug'],
-    \ ["Plugin &List", "PlugStatus", 'list available plugins'],
+    \ ['&Translate Word', 'call Translator#Words("n")', '翻译当前词汇'],
     \ ])
 
 " Option -----------------------------------------------------------------{{{1
 " script inside %{...} will be evaluated and expanded in the string
 call quickui#menu#install("&Option", [
-    \ ['Set &Spell %{&spell? "Off":"On"}', 'set spell!', 'Toggle spell check %{&spell? "off" : "on"}'],
-    \ ['Set &Cursor Line %{&cursorline? "Off":"On"}', 'set cursorline!', 'Toggle cursor line %{&cursorline? "off" : "on"}'],
+    \ ['Set &Spell %{&spell? "Off":"On"}', 'call Spell#Toggle()', 'Toggle spell check %{&spell? "off" : "on"}'],
+    \ ['Set &Number Toggle', 'set number!', '行号 Toggle'],
+    \ ['Set &Relativenumber Toggle', 'set relativenumber!', '相对行号 Toggle'],
+    \ ['Set &Wrap Toggle', 'set number!', '行号 Toggle'],
     \ ["-"],
-    \ ["Options help", 'tab help options', '关于 options 的帮助文档'],
+    \ ['Cursor &Line Toggle', 'set cursorline!', '光标行加亮 Toggle'],
+    \ ['&Fold Column Toggle', 'FoldColumnToggle', '折叠栏 Toggle'],
+    \ ['&Multi Column Toggle', 'MultiColumnToggle', '多栏模式 Toggle'],
+    \ ["-"],
+    \ ["ColorColumn &CursorPos", 'CColumn', '设置 cursor pos 为对齐线'],
+    \ ["ColorColumn &Textwidth", 'CColumnTextwidth', '设置 Textwidth 为对齐线'],
+    \ ["ColorColumn Remove&All", 'CColumnRemoveAll', '取消所有的对齐线'],
+    \ ["-"],
+    \ ["Options &Help", 'tab help options', '关于 options 的帮助文档'],
     \ ])
 
 " Wiki -------------------------------------------------------------------{{{1
@@ -64,19 +75,20 @@ call quickui#menu#install("&Wiki.vim", [
 
 " Markdown ---------------------------------------------------------------{{{1
 call quickui#menu#install("&Markdown", [
-    \ ['set filetype markdown', 'set ft=markdown', '将文件类型设置为markdown'],
-    \ ['TOC', 'TOC', '列出目录 TOC'],
-    \ ['OCRClean', 'OCRClean', '清理 OCR 文档的格式'],
+    \ ['set filetype &markdown', 'set ft=markdown', '将文件类型设置为markdown'],
+    \ ['Markdown &TOC', 'TOC', '列出 Markdown 目录 TOC'],
+    \ ["-"],
+    \ ['Pandoc To &PDF', 'PandocToPDF', '将 markdwon 转为 PDF'],
+    \ ['Pandoc To &DOCX', 'PandocToDOCX', '将 markdwon 转为 DOCX'],
+    \ ['Pandoc To &HTML', 'PandocToHTML', '将 markdwon 转为 HTML'],
+    \ ["-"],
+    \ ['gq&Format', 'normal! ggVGgq', '全文 gq 格式化'],
+    \ ['&Un gqFormat', 'UngqFormat', '恢复 gq 格式化'],
+    \ ["-"],
+    \ ['&OCRClean', 'OCRClean', '清理 OCR 文档的格式'],
+    \ ['&Explode to Paragraph', 'call Markdown#Explode2P()', '将行转为段落 explode'],
     \ ['Full To Half Digit', 'FullToHalfDigit', '全角数字转半角'],
-    \ ['Un gqFormat', 'UngqFormat', '恢复 gq 格式化'],
-    \ ['Explode to Paragraph', 'call Explode2P()', '将全文的行转为段落 explode'],
     \ ])
-
-    " \ ['Toggle Todo status done [ ] [X] ', 'VimwikiToggleListItem', '切换 Todo 完成状态'],
-    " \ ['Toggle Todo status Reject [ ] [-]', 'VimwikiToggleRejectedListItem', '切换 Todo 启用状态'],
-    " \ ['Increase done status [ ] [.] [o]', 'normal gln', '增加 Done 的成熟度'],
-    " \ ['Decrease done status [o] [.] [ ]', 'normal glp', '降低 Done 的成熟度'],
-    " \ ['Remove checkbox [ ] from list item', 'VimwikiRemoveSingleCB', '移除 Todo checkbox'],
 
 " List -------------------------------------------------------------------{{{1
 call quickui#menu#install("&List", [
@@ -93,6 +105,12 @@ call quickui#menu#install("&List", [
     \ ['Renumber List Items', 'normal glr', '重建当前列表编号 renumber'],
     \ ['Delete List Symbol', 'normal gld', '删除当前列表编号 delete'],
     \ ])
+
+    " \ ['Toggle Todo status done [ ] [X] ', 'VimwikiToggleListItem', '切换 Todo 完成状态'],
+    " \ ['Toggle Todo status Reject [ ] [-]', 'VimwikiToggleRejectedListItem', '切换 Todo 启用状态'],
+    " \ ['Increase done status [ ] [.] [o]', 'normal gln', '增加 Done 的成熟度'],
+    " \ ['Decrease done status [o] [.] [ ]', 'normal glp', '降低 Done 的成熟度'],
+    " \ ['Remove checkbox [ ] from list item', 'VimwikiRemoveSingleCB', '移除 Todo checkbox'],
 
 " Help -------------------------------------------------------------------{{{1
 call quickui#menu#install('&Help', [
