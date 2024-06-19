@@ -11,7 +11,7 @@ call quickui#menu#install('&File', [
     \ [ "&Open File", 'bro edit', '打开...'],
     \ ["-"],
     \ [ "&Save", 'w', '保存'],
-    \ [ "Save &All", 'wa', '保存所有文件'],
+    \ [ "Save All", 'wa', '保存所有文件'],
     \ [ "Save As ...", 'bro w', '另存为...'],
     \ ["-"],
     \ ['Pandoc To &PDF', 'PandocToPDF', '将 markdwon 转为 PDF'],
@@ -21,9 +21,9 @@ call quickui#menu#install('&File', [
     \ [ "&Close Window", 'close', '关闭当前窗口'],
     \ [ "Close &Tab", ':tabclose', '关闭当前标签页'],
     \ ["-"],
-    \ [ "Quit", 'quit', '退出当前窗口'],
-    \ [ "Save All and Quit", 'wqa', '保存并退出'],
-    \ [ "Quit Without Saving", 'quit!', '不保存退出'],
+    \ [ "&Quit", 'quit', '退出当前窗口'],
+    \ [ "Save &All and Quit", 'wqa', '保存并退出'],
+    \ [ "Quit &Without Saving", 'quit!', '不保存退出'],
     \ ])
 
 " Edit -------------------------------------------------------------------{{{1
@@ -31,10 +31,10 @@ call quickui#menu#install("&Edit", [
     \ ['Set Filetype &Markdown', 'set ft=markdown', '将文件类型设置为 Markdown'],
     \ ['Markdown TOC', 'TOC', '列出 Markdown 目录 TOC'],
     \ ["-"],
+    \ ['&OCRClean', 'OCRClean', '清理 OCR 文档的格式'],
     \ ['gq&Format', 'normal! ggVGgq', '全文 gq 格式化'],
     \ ['&Un gqFormat', 'UngqFormat', '恢复 gq 格式化'],
     \ ["-"],
-    \ ['&OCRClean', 'OCRClean', '清理 OCR 文档的格式'],
     \ ['&Explode to Paragraph', 'call Markdown#Explode2P()', '将行转为段落 explode'],
     \ ['Full To Half &Digit', 'FullToHalfDigit', '全角数字转半角'],
     \ ['Tab to Space', 'call ReTab#Tab2Space()', 'Tab to Space'],
