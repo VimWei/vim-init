@@ -46,12 +46,12 @@ let g:navigator.v = {
 let g:navigator.b = {
     \ 'name' : '+Buffer',
     \ 'l' : [':ls', '查看缓存列表'],
+    \ 'b' : [':Leaderf buffer', 'Leaderf b'],
     \ 'd' : [':bd', 'delete-buffer'],
     \ '0' : [':bfirst', 'first-buffer'],
+    \ '$' : [':blast', 'last-buffer'],
     \ 'n' : [':bnext', 'next-buffer'],
     \ 'p' : [':bprevious', 'previous-buffer'],
-    \ '$' : [':blast', 'last-buffer'],
-    \ '?' : [':Leaderf buffer', 'Leaderf b'],
     \ 'o' : ['Buffer#CloseDuplicate()', '关闭 duplicate 窗口'],
     \ }
 
@@ -61,7 +61,7 @@ let g:navigator.c = {
     \ 'a' : ['Color#RandomColorScheme()', '随机采用所有的colorscheme'],
     \ 'c' : ['Color#RandomFavoriteScheme()', '随机采用最喜欢的colorscheme'],
     \ 's' : ['Vimrc#EditInitVimrc("colorstyle.vim")', '编辑 colorstyle.vim'],
-    \ 'C' : ['Vimrc#EditInitVimrc("../autoload/Color.vim")', '编辑 Color.vim'],
+    \ 'o' : ['Vimrc#EditInitVimrc("../autoload/Color.vim")', '编辑 autoload/Color.vim'],
     \ }
 " tab ---------------------------------------------------------------------{{{1
 let g:navigator.t = {
@@ -88,12 +88,12 @@ let g:navigator.e = {
 " Fold --------------------------------------------------------------------{{{1
 let g:navigator.f = {
     \ 'name': '+Fold',
-    \ 'a' : ['<key>za', 'za，<M-space> 切换折叠状态'],
+    \ 'a' : ['<key>za', 'za，切换折叠状态'],
     \ 'A' : ['<key>zA', 'zA，以循环方式切换折叠状态'],
     \ 'm' : ['<key>zm', 'zm，关闭所有折叠'],
     \ 'i' : ['<key>zi', 'zi，展开所有折叠'],
-    \ 'v' : ['<key>zMzv', 'zMzv，<S-space> 打开当前折叠并关闭其他'],
-    \ 'T' : ['FoldColumnToggle()', 'Toggle FoldColumn'],
+    \ 'v' : ['<key>zMzvzz', 'zMzvzz，打开当前折叠并关闭其他'],
+    \ 'f' : [':FoldColumnToggle', 'FoldColumn Toggle'],
     \ }
 
 " vimtweak ---------------------------------------------------------------{{{1

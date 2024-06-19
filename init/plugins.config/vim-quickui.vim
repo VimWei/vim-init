@@ -7,36 +7,97 @@ call quickui#menu#reset()
 
 " File -------------------------------------------------------------------{{{1
 call quickui#menu#install('&File', [
-    \ [ "Quit", 'q', '退出'],
-    \ [ "&Close window", 'close', '关闭窗口'],
-    \ [ "Save all and Quit", 'wqa', '保存并退出'],
-    \ [ "Quit without saving", 'q!', '不保存退出'],
-    \ [ "--", '' ],
-    \ [ "&Save", 'w', '保存'],
-    \ [ "Save &all", 'wa', '保存所有文件'],
-    \ [ "Save as", 'bro w', '另存为...'],
-    \ [ "--", '' ],
     \ [ "&New File", 'tabnew', '新建文档'],
     \ [ "&Open File", 'bro edit', '打开...'],
+    \ ["-"],
+    \ [ "&Save", 'w', '保存'],
+    \ [ "Save &All", 'wa', '保存所有文件'],
+    \ [ "Save As ...", 'bro w', '另存为...'],
+    \ ["-"],
+    \ ['Pandoc To &PDF', 'PandocToPDF', '将 markdwon 转为 PDF'],
+    \ ['Pandoc To &DOCX', 'PandocToDOCX', '将 markdwon 转为 DOCX'],
+    \ ['Pandoc To &HTML', 'PandocToHTML', '将 markdwon 转为 HTML'],
+    \ ["-"],
+    \ [ "&Close Window", 'close', '关闭当前窗口'],
+    \ [ "Close &Tab", ':tabclose', '关闭当前标签页'],
+    \ ["-"],
+    \ [ "Quit", 'quit', '退出当前窗口'],
+    \ [ "Save All and Quit", 'wqa', '保存并退出'],
+    \ [ "Quit Without Saving", 'quit!', '不保存退出'],
     \ ])
+
+" Edit -------------------------------------------------------------------{{{1
+call quickui#menu#install("&Edit", [
+    \ ['Set Filetype &Markdown', 'set ft=markdown', '将文件类型设置为 Markdown'],
+    \ ['Markdown TOC', 'TOC', '列出 Markdown 目录 TOC'],
+    \ ["-"],
+    \ ['gq&Format', 'normal! ggVGgq', '全文 gq 格式化'],
+    \ ['&Un gqFormat', 'UngqFormat', '恢复 gq 格式化'],
+    \ ["-"],
+    \ ['&OCRClean', 'OCRClean', '清理 OCR 文档的格式'],
+    \ ['&Explode to Paragraph', 'call Markdown#Explode2P()', '将行转为段落 explode'],
+    \ ['Full To Half &Digit', 'FullToHalfDigit', '全角数字转半角'],
+    \ ['Tab to Space', 'call ReTab#Tab2Space()', 'Tab to Space'],
+    \ ['Space to Tab', 'call ReTab#Space2Tab()', 'Space to Tab'],
+    \ ["-"],
+    \ ['&Translate Word', 'call Translator#Words("n")', '翻译当前词汇'],
+    \ ])
+
+" Wiki -------------------------------------------------------------------{{{1
+call quickui#menu#install("&Wiki", [
+    \ ['&Wiki Index', 'WikiIndex', '打开 Wiki Index'],
+    \ ['Wiki Index in Tab', 'call Wikivim#OpenWikiIndexTab()', '打开 Wiki Index in Tab'],
+    \ ['Open RoadShow', 'call Wikivim#OpenWikiPage("Research/路演.md")', '打开 RoadShow'],
+    \ ['&Delete wiki page', 'WikiPageDelete', '删除 wiki page'],
+    \ ['&Rename wiki page', 'WikiPageRename', '重命名 wiki page'],
+    \ ["-"],
+    \ ['Journal &Index', 'call Wikivim#OpenWikiPage("journal.md")', '打开 Journal Index'],
+    \ ['&Update Journal Index', 'call Wikivim#UpdateJournalIndex()', '更新 Journal Index'],
+    \ ['Open &today journal', 'WikiJournal', '打开 today journal'],
+    \ ['Open &next journal', 'WikiJournalNext', '打开 next journal'],
+    \ ['Open &previous journal', 'WikiJournalPrev', '打开 previous journal'],
+    \ ["-"],
+    \ ['WikiTagReload', 'WikiTagReload', 'Source wiki files and reload tags'],
+    \ ['ListWikiTag', 'WikiTagList -output cursor', 'List all tags and the wiki pages'],
+    \ ['WikiTag&Search', 'WikiTagSearch', 'List wiki pages that contain the desired tag'],
+    \ ['WikiTags', 'WikiTags', 'search for and navigate to a tag'],
+    \ ])
+
+" Bullet -----------------------------------------------------------------{{{1
+call quickui#menu#install("&Bullet", [
+    \ ['Change Symbol To 1.', 'normal gl1', '更改当前列表符号为 1.'],
+    \ ['Change Symbol To 1)', 'normal gl2', '更改当前列表符号为 1)'],
+    \ ['Change Symbol To A.', 'normal glA', '更改当前列表符号为 A.'],
+    \ ['Change Symbol To a)', 'normal gla', '更改当前列表符号为 a)'],
+    \ ['Change Symbol To *', 'normal gl*', '更改当前列表符号为 *'],
+    \ ['Change Symbol To -', 'normal gl-', '更改当前列表符号为 -'],
+    \ ['Change Symbol To +', 'normal gl+', '更改当前列表符号为 +'],
+    \ ["-"],
+    \ ['Demote List Level -->', 'normal gl>', '降低当前列表级别 -->'],
+    \ ['promote List Level <--', 'normal gl<', '提升当前列表级别 <--'],
+    \ ['Renumber List Items', 'normal glr', '重建当前列表编号 renumber'],
+    \ ['Delete List Symbol', 'normal gld', '删除当前列表编号 delete'],
+    \ ])
+
+    " \ ['Toggle Todo status done [ ] [X] ', 'VimwikiToggleListItem', '切换 Todo 完成状态'],
+    " \ ['Toggle Todo status Reject [ ] [-]', 'VimwikiToggleRejectedListItem', '切换 Todo 启用状态'],
+    " \ ['Increase done status [ ] [.] [o]', 'normal gln', '增加 Done 的成熟度'],
+    " \ ['Decrease done status [o] [.] [ ]', 'normal glp', '降低 Done 的成熟度'],
+    " \ ['Remove checkbox [ ] from list item', 'VimwikiRemoveSingleCB', '移除 Todo checkbox'],
 
 " Tools ------------------------------------------------------------------{{{1
 call quickui#menu#install("&Tools", [
-    \ ["Update &plugins", "PlugUpdate", 'Update plugins'],
-    \ ["Upgrade &vim-plug", "PlugUpgrade", 'Upgrade vim-plug'],
+    \ ["&Update plugins", "PlugUpdate", 'Update plugins'],
+    \ ["Upgrade vim-plug", "PlugUpgrade", 'Upgrade vim-plug'],
     \ ["Plugin &Status", "PlugStatus", 'List available plugins'],
     \ ["-"],
-    \ ["&Update VIMRC", "call Vimrc#Update()", 'Update VIMRC'],
+    \ ["Update &VIMRC", "call Vimrc#Update()", 'Update VIMRC'],
     \ ["&Edit VIMRC", 'VI', '在新窗口编辑VIMRC'],
     \ ["Edit &Menu", 'VM', '在新窗口编辑菜单'],
     \ ["Edit &Navigator", 'VN', '在新窗口编辑导航'],
     \ ["-"],
-    \ ['Random &ColorScheme Favorite', 'call Color#RandomFavoriteScheme()', '随机采用最喜欢的colorscheme'],
+    \ ['Random ColorScheme &Favorite', 'call Color#RandomFavoriteScheme()', '随机采用最喜欢的colorscheme'],
     \ ['Random ColorScheme &All', 'call Color#RandomColorScheme()', '随机采用所有的colorscheme'],
-    \ ["-"],
-    \ ['Tab to Space', 'call ReTab#Tab2Space()', 'Tab to Space'],
-    \ ['Space to Tab', 'call ReTab#Space2Tab()', 'Space to Tab'],
-    \ ['&Translate Word', 'call Translator#Words("n")', '翻译当前词汇'],
     \ ])
 
 " Option -----------------------------------------------------------------{{{1
@@ -58,67 +119,8 @@ call quickui#menu#install("&Option", [
     \ ["Options Help", 'tab help options', '关于 options 的帮助文档'],
     \ ])
 
-" Wiki -------------------------------------------------------------------{{{1
-call quickui#menu#install("&Wiki.vim", [
-    \ ['&Wiki Index', 'WikiIndex', '打开 Wiki Index'],
-    \ ['Wiki Index in Tab', 'call Wikivim#OpenWikiIndexTab()', '打开 Wiki Index in Tab'],
-    \ ['Open RoadShow', 'call Wikivim#OpenWikiPage("Research/路演.md")', '打开 RoadShow'],
-    \ ['&Delete wiki page', 'WikiPageDelete', '删除 wiki page'],
-    \ ['&Rename wiki page', 'WikiPageRename', '重命名 wiki page'],
-    \ ["-"],
-    \ ['Journal &Index', 'call Wikivim#OpenWikiPage("journal.md")', '打开 Journal Index'],
-    \ ['&Update Journal Index', 'call Wikivim#UpdateJournalIndex()', '更新 Journal Index'],
-    \ ['Open &today journal', 'WikiJournal', '打开 today journal'],
-    \ ['Open &next journal', 'WikiJournalNext', '打开 next journal'],
-    \ ['Open &previous journal', 'WikiJournalPrev', '打开 previous journal'],
-    \ ["-"],
-    \ ['WikiTagReload', 'WikiTagReload', 'Source wiki files and reload tags'],
-    \ ['ListWikiTag', 'WikiTagList -output cursor', 'List all tags and the wiki pages'],
-    \ ['WikiTag&Search', 'WikiTagSearch', 'List wiki pages that contain the desired tag'],
-    \ ['WikiTags', 'WikiTags', 'search for and navigate to a tag'],
-    \ ])
-
-" Markdown ---------------------------------------------------------------{{{1
-call quickui#menu#install("&Markdown", [
-    \ ['set filetype &markdown', 'set ft=markdown', '将文件类型设置为markdown'],
-    \ ['Markdown &TOC', 'TOC', '列出 Markdown 目录 TOC'],
-    \ ["-"],
-    \ ['Pandoc To &PDF', 'PandocToPDF', '将 markdwon 转为 PDF'],
-    \ ['Pandoc To &DOCX', 'PandocToDOCX', '将 markdwon 转为 DOCX'],
-    \ ['Pandoc To &HTML', 'PandocToHTML', '将 markdwon 转为 HTML'],
-    \ ["-"],
-    \ ['gq&Format', 'normal! ggVGgq', '全文 gq 格式化'],
-    \ ['&Un gqFormat', 'UngqFormat', '恢复 gq 格式化'],
-    \ ["-"],
-    \ ['&OCRClean', 'OCRClean', '清理 OCR 文档的格式'],
-    \ ['&Explode to Paragraph', 'call Markdown#Explode2P()', '将行转为段落 explode'],
-    \ ['Full To Half Digit', 'FullToHalfDigit', '全角数字转半角'],
-    \ ])
-
-" List -------------------------------------------------------------------{{{1
-call quickui#menu#install("&List", [
-    \ ['Change Symbol To 1.', 'normal gl1', '更改当前列表符号为 1.'],
-    \ ['Change Symbol To 1)', 'normal gl2', '更改当前列表符号为 1)'],
-    \ ['Change Symbol To A.', 'normal glA', '更改当前列表符号为 A.'],
-    \ ['Change Symbol To a)', 'normal gla', '更改当前列表符号为 a)'],
-    \ ['Change Symbol To *', 'normal gl*', '更改当前列表符号为 *'],
-    \ ['Change Symbol To -', 'normal gl-', '更改当前列表符号为 -'],
-    \ ['Change Symbol To +', 'normal gl+', '更改当前列表符号为 +'],
-    \ ["-"],
-    \ ['Demote List Level -->', 'normal gl>', '降低当前列表级别 -->'],
-    \ ['promote List Level <--', 'normal gl<', '提升当前列表级别 <--'],
-    \ ['Renumber List Items', 'normal glr', '重建当前列表编号 renumber'],
-    \ ['Delete List Symbol', 'normal gld', '删除当前列表编号 delete'],
-    \ ])
-
-    " \ ['Toggle Todo status done [ ] [X] ', 'VimwikiToggleListItem', '切换 Todo 完成状态'],
-    " \ ['Toggle Todo status Reject [ ] [-]', 'VimwikiToggleRejectedListItem', '切换 Todo 启用状态'],
-    " \ ['Increase done status [ ] [.] [o]', 'normal gln', '增加 Done 的成熟度'],
-    " \ ['Decrease done status [o] [.] [ ]', 'normal glp', '降低 Done 的成熟度'],
-    " \ ['Remove checkbox [ ] from list item', 'VimwikiRemoveSingleCB', '移除 Todo checkbox'],
-
 " Help -------------------------------------------------------------------{{{1
-call quickui#menu#install('&Help', [
+call quickui#menu#install('Hel&p', [
     \ ["&Help", 'tab help', '帮助文档'],
     \ ["Help help", 'tab help helphelp', '如何使用帮助文档'],
     \ ["&Tutorial", 'tab help tutor', '初学者教程'],
