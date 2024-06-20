@@ -8,7 +8,7 @@ call quickui#menu#reset()
 " File -------------------------------------------------------------------{{{1
 call quickui#menu#install('&File', [
     \ [ "&New File", 'tabnew', '新建文档'],
-    \ [ "&Open File", 'bro edit', '打开...'],
+    \ [ "&Open File ...", 'bro edit', '打开...'],
     \ ["-"],
     \ [ "&Save", 'w', '保存'],
     \ [ "Save All", 'wa', '保存所有文件'],
