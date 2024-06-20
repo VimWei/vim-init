@@ -4,7 +4,7 @@ function! Vimrc#EditInitVimrc(filename, ...) " ---------------------------{{{1
     if a:filename == "init.vim"
         let l:filepath = g:viminit . a:filename
     elseif index(["vim-quickui.vim", "vim-navigator.vim"], a:filename) != -1
-        let l:filepath = g:viminit . 'init/plugins.config/' . a:filename
+        let l:filepath = g:plugins_config_path . a:filename
     else
         let l:filepath = g:viminit . 'init/' . a:filename
     endif
