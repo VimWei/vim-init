@@ -164,6 +164,8 @@ let g:navigator.o = {
 " Plugin -----------------------------------------------------------------{{{1
 let g:navigator.p = {
     \ 'name': '+Plugin',
+    \ 'i' : [':PlugInstall', 'Install Plugs'],
+    \ 'o' : [':PlugClean', 'Clean Plugs'],
     \ 'u' : [':PlugUpdate', 'Update Plugs'],
     \ 'v' : [':PlugUpgrade', 'Upgrade vim-plug'],
     \ 's' : [':PlugStatus', 'List available plugins'],
