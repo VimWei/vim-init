@@ -138,6 +138,7 @@ if IsInPlugGroup('Notetaking', 'edit')  " --------------------------------{{{1
     " 使用[和]作为先导进行导航
     Plug 'tpope/vim-unimpaired'
     Plug 'tpope/vim-repeat'
+    Plug 'skywind3000/vim-text-process'
 endif
 
 if IsInPlugGroup('Notetaking', 'textobj') " ------------------------------{{{1
