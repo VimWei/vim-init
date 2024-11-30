@@ -8,7 +8,7 @@ function! Strip#TrailingWhitespace()
         " 删除重复的多个空行，仅保留一个
         silent! %s/^$\n\(^$\)\@=//
         " 删除文件末尾的所有空行
-        silent! %s/\(\s*\n\)\+\%$//
+        " silent! %s/\(\s*\n\)\+\%$//
         call winrestview(l:winview)
     endif
 endfunction
