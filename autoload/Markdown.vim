@@ -145,3 +145,63 @@ function! Markdown#UngqFormat(start_line, end_line) range
     " 恢复 textwidth 设置
     let &textwidth = textwidth_save
 endfunction
+
+" ViewImage --------------------------------------------------------------{{{1
+
+function! Markdown#ViewImage()
+    let current_line = getline('.')
+    let cursor_col = col('.')
+    let start_pos = 0
+    let img_path = ''
+    
+    " 查找当前行中的所有图片标记
+    while 1
+        " 在当前位置之后查找图片标记的起始位置
+        let img_start = match(current_line, '!\[.\{-}\](', start_pos)
+        if img_start == -1
+            break
+        endif
+        
+        " 找到对应的右括号位置
+        let img_end = match(current_line, ')', img_start)
+        if img_end == -1
+            break
+        endif
+        
+        " 检查光标是否在这个图片标记的范围内
+        if cursor_col > img_start && cursor_col <= img_end + 1
+            " 提取这个图片的路径
+            let img_path = matchstr(current_line[img_start : img_end], '!\[.\{-}\](\zs.\{-}\ze)')
+            break
+        endif
+        
+        let start_pos = img_end + 1
+    endwhile
+
+    if empty(img_path)
+        echohl ErrorMsg | echo "未找到图片路径！" | echohl None | return
+    endif
+
+    " 检查是否是网址
+    if img_path =~? '^https\?://'
+        " 使用 open-browser.vim 打开网址
+        call openbrowser#open(img_path)
+        return
+    endif
+
+    " 检查是否是绝对路径
+    if img_path =~? '^[A-Za-z]:[/\\]'
+        " 如果是绝对路径，直接使用，但需要统一路径分隔符
+        let final_path = substitute(img_path, '/', '\', 'g')
+    else
+        " 如果是相对路径，拼接当前目录
+        let current_dir = substitute(expand('%:p:h'), '/', '\', 'g')
+        let windows_path = substitute(img_path, '/', '\', 'g')
+        let final_path = current_dir . '\' . windows_path
+    endif
+
+    " 添加引号并调用 IrfanView
+    let safe_path = '"' . final_path . '"'
+    let g:irfanview_path = '"C:\Program Files\IrfanView\i_view64.exe"'
+    silent execute "!start " . g:irfanview_path . " " . safe_path
+endfunction

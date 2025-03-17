@@ -130,6 +130,10 @@ autocmd FileType markdown call TOC#Init()
 nnoremap <leader>me :call Markdown#Explode2P()<CR>
 vnoremap <leader>me :call Markdown#Explode2P()<CR>
 
+" View Markdown Image ----------------------------------------------------{{{1
+" 详情查阅 ../autoload/Markdown.vim
+nnoremap <leader>iv :call Markdown#ViewImage()<CR>
+
 " 全角数字转半角 ---------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Markdown.vim
 
