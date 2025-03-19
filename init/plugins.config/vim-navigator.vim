@@ -85,6 +85,13 @@ let g:navigator.e = {
     \ 's' : ['ReTab#Space2Tab()', 'space to tab'],
     \ }
 
+" image ------------------------------------------------------------------{{{1
+let g:navigator.i = {
+    \ 'name': '+Image',
+    \ 'v' : ['Markdown#ViewImage()', 'View Markdown Image'],
+    \ 'p' : ['mdip#MarkdownClipboardImage()', 'Paste Image to Markdown'],
+    \ }
+
 " Fold --------------------------------------------------------------------{{{1
 let g:navigator.f = {
     \ 'name': '+Fold',
