@@ -27,6 +27,7 @@ command! -nargs=* Lua call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'Lu
 " 使用:IPython myEnv "" python，在指定的conda环境myEnv中，打开python
 " 使用:IPython "" "" python，在默认的conda环境pymotw中，运行python
 command! -nargs=* IPython call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'ipython', <f-args>)
+command! -nargs=* JupyterLab call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'jupyter-lab')
 
 " 使用:PyRun 或者 F5，在默认的conda环境pymotw中，使用python执行当前buffer
 " 使用:PyRun myEnv，在指定的conda环境myEnv中，使用python执行当前buffer
