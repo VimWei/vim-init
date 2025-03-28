@@ -69,7 +69,9 @@ endfunction
 " 2: [1-b1] filename.txt +
 let g:config_vim_tab_style = 2
 set tabline=%!Vim_NeatTabLine()
-set guitablabel=%{Vim_NeatGuiTabLabel()}
+if !has('nvim-0.11')
+    set guitablabel=%{Vim_NeatGuiTabLabel()}
+endif
 " Always Show Tabline
 set showtabline=2
 

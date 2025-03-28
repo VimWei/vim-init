@@ -64,7 +64,9 @@ set backspace=indent,eol,start
 " 对某一个或几个按键开启到头后自动折向下一行的功能
 set whichwrap=b,s,<,>,[,]
 set wildmenu    "命令行补全时，使用增强的单行菜单形式显示补全内容
-set browsedir=buffer    "浏览启动目录使用当前缓冲区所在目录
+if !has('nvim-0.11')
+    set browsedir=buffer    "浏览启动目录使用当前缓冲区所在目录
+endif
 set autoread    "自动重新读入被修改的文件
 set mouse=a "在所有模式下允许使用鼠标
 set mousemodel=popup    "右击鼠标时，会显示一个上下文菜单
