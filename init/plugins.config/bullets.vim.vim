@@ -37,7 +37,8 @@ let g:bullets_auto_indent_after_colon = 1
 let g:bullets_max_alpha_characters = 2
 
 let g:bullets_outline_levels = []
-let g:bullets_outline_levels += ['num', 'ABC', 'abc']
+let g:bullets_outline_levels += ['num']
+" let g:bullets_outline_levels += ['ABC', 'abc']
 " let g:bullets_outline_levels += ['ROM', 'rom']
 let g:bullets_outline_levels += ['std*', 'std-', 'std+']
 
