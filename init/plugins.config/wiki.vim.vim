@@ -43,6 +43,24 @@ function! MeetingTemplate(context) abort
     call append(3, '')
     execute "normal! I## "
 endfunction
+function! WeeklyMealCycleTemplate(context) abort
+    let title = a:context.name
+    if exists('a:context.origin.link.text')
+        let title = a:context.origin.link.text
+    endif
+    call append(0, '# ' . title)
+    call append(1, '')
+    call append(2, '* ref: [Cookbook](cookbook.md)')
+    call append(3, '* ref: [Weekly MealCycle](weekly-mealcycle.md)')
+    call append(4, '')
+    call append(5, '## 周一')
+    call append(6, '## 周二')
+    call append(7, '## 周三')
+    call append(8, '## 周四')
+    call append(9, '## 周五')
+    call append(10, '## 周六')
+    call append(11, '## 周日')
+endfunction
 function! GeneralTemplate(context) abort
     let title = a:context.name
     if exists('a:context.origin.link.text')
@@ -55,6 +73,8 @@ endfunction
 let g:wiki_templates = [
             \ { 'match_re': '^\d\{4\}-\d\{2\}-\d\{2\}$',
             \   'source_func': function('JournalTemplate') },
+            \ { 'match_re': '^周膳计划.\d\{8\}$',
+            \   'source_func': function('WeeklyMealCycleTemplate') },
             \ { 'match_re': '\d\{8\}\(-\)\?' .
             \   '\(周[一二三四五六日]\|' .
             \   '\|mon\|tue\|wed\|thu\|fri\|sat\|sun' .
