@@ -33,10 +33,10 @@ if exists("g:neovide")
     let g:neovide_cursor_trail_size = 0.3
 
     " 切换窗口透明度
-    let g:neovide_transparency = 0.9
+    let g:neovide_opacity = 0.9
     for i in range(0, 9)
         execute 'nnoremap <silent> <leader>tw' . i
-            \ . ' :let g:neovide_transparency = '
+            \ . ' :let g:neovide_opacity = '
             \ . (1 - i * 0.1) . '<CR>'
     endfor
     let g:neovide_fullscreen = v:false
