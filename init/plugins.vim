@@ -138,6 +138,8 @@ if IsInPlugGroup('Notetaking', 'edit')  " --------------------------------{{{1
     " 使用[和]作为先导进行导航
     Plug 'tpope/vim-unimpaired'
     Plug 'tpope/vim-repeat'
+    " use CTRL-A/CTRL-X to increment dates, times, and more
+    Plug 'tpope/vim-speeddating'
     Plug 'skywind3000/vim-text-process'
     Plug 'img-paste-devs/img-paste.vim'
 endif
