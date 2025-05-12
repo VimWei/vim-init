@@ -73,7 +73,7 @@ endfunction
 let g:wiki_templates = [
             \ { 'match_re': '^\d\{4\}-\d\{2\}-\d\{2\}$',
             \   'source_func': function('JournalTemplate') },
-            \ { 'match_re': '^周膳计划.\d\{8\}$',
+            \ { 'match_re': '^周膳计划.\d\{4\}.\d\{2\}.\d\{2\}$',
             \   'source_func': function('WeeklyMealCycleTemplate') },
             \ { 'match_re': '\d\{8\}\(-\)\?' .
             \   '\(周[一二三四五六日]\|' .
