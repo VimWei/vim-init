@@ -44,22 +44,36 @@ function! MeetingTemplate(context) abort
     execute "normal! I## "
 endfunction
 function! WeeklyMealCycleTemplate(context) abort
+    " 1. 提取标题和起始日期
     let title = a:context.name
     if exists('a:context.origin.link.text')
         let title = a:context.origin.link.text
     endif
-    call append(0, '# ' . title)
-    call append(1, '')
-    call append(2, '* ref: [Cookbook](cookbook.md)')
-    call append(3, '* ref: [Weekly MealCycle](weekly-mealcycle.md)')
-    call append(4, '')
-    call append(5, '## 周一')
-    call append(6, '## 周二')
-    call append(7, '## 周三')
-    call append(8, '## 周四')
-    call append(9, '## 周五')
-    call append(10, '## 周六')
-    call append(11, '## 周日')
+    let start_date = matchstr(title, '\d\{4}-\d\{2}-\d\{2\}')
+    " 2. 构建文档基础框架
+    let template_lines = [
+        \ '# ' . title,
+        \ '',
+        \ '* ref: [Cookbook](cookbook.md)',
+        \ '* ref: [Weekly MealCycle](weekly-mealcycle.md)',
+        \ ''
+    \ ]
+    " 3. 生成周计划
+    let timestamp = wiki#date#strptime("%Y-%m-%d", start_date)
+    for day in range(0, 6)
+        let current_time = timestamp + day * 86400
+        let date_str = strftime("%a %Y-%m-%d", current_time)
+        call extend(template_lines, [
+            \ '## ' . date_str,
+            \ '* 早餐：',
+            \ '* 午餐：',
+            \ '* 晚餐：',
+            \ ''
+        \ ])
+    endfor
+    " 4. 批量插入，并回到首行
+    call append(0, template_lines)
+    execute 'normal! gg'
 endfunction
 function! GeneralTemplate(context) abort
     let title = a:context.name
