@@ -1,22 +1,21 @@
-if !has('nvim')
-    " 支持“会议预定”中的特定日期格式
-    :10SpeedDatingFormat %Y%m%d%a%H:%M
+" 支持“会议预定”中的特定日期格式
+:10SpeedDatingFormat %Y%m%d%a%H:%M
 
-    " 支持“会议纪要”中的特定日期格式
-    :11SpeedDatingFormat %Y-%m-%d %A %H:%M:%S
+" 支持“会议纪要”中的特定日期格式
+:11SpeedDatingFormat %Y-%m-%d %A %H:%M:%S
 
-    " 支持“周膳计划”中的特定日期格式
-    :12SpeedDatingFormat %a %Y-%m-%d
+" 支持“周膳计划”中的特定日期格式
+:12SpeedDatingFormat %a %Y-%m-%d
 
-    " 调整默认 ISO 格式的优先级（默认10）
-    :13SpeedDatingFormat %Y-%m-%d
+" 调整默认 ISO 格式的优先级（默认10）
+:13SpeedDatingFormat %Y-%m-%d
 
-    " 斜杠分隔格式
-    :14SpeedDatingFormat %Y/%m/%d
+" 斜杠分隔格式
+:14SpeedDatingFormat %Y/%m/%d
 
-    " 中文日期格式
-    :15SpeedDatingFormat %Y年%m月%d日
+" 中文日期格式
+:15SpeedDatingFormat %Y年%m月%d日
 
-    " 点分隔格式
-    :16SpeedDatingFormat %Y.%m.%d
-endif
+" 点分隔格式
+:16SpeedDatingFormat %Y.%m.%d
+
