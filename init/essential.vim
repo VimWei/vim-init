@@ -64,7 +64,9 @@ set backspace=indent,eol,start
 " 对某一个或几个按键开启到头后自动折向下一行的功能
 set whichwrap=b,s,<,>,[,]
 set wildmenu    "命令行补全时，使用增强的单行菜单形式显示补全内容
-set wildoptions=pum     " 在弹出菜单里显示补全匹配，否则在命令行之上方显示
+if v:version >= 900
+    set wildoptions=pum     " 在弹出菜单里显示补全匹配，否则在命令行之上方显示
+endif
 if !has('nvim-0.11')
     set browsedir=buffer    "浏览启动目录使用当前缓冲区所在目录
 endif
