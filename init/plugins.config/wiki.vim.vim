@@ -37,11 +37,14 @@ function! JournalTemplate(context) abort
 endfunction
 function! MeetingTemplate(context) abort
     let title = get(a:context.origin.link, 'text', a:context.name)
-    call append(0, '# ' . title)
-    call append(1, '')
-    call append(2, strftime("%Y-%m-%d %A %H:%M:%S"))
-    call append(3, '')
-    execute "normal! I## "
+    let template_lines = [
+        \ '# ' . title,
+        \ '',
+        \ '* ' . strftime("%Y-%m-%d %A %H:%M:%S"),
+        \ ''
+    \ ]
+    call append(0, template_lines)
+    call cursor(line('$'), 0)
 endfunction
 function! WeeklyMealCycleTemplate(context) abort
     " 1. 提取标题和起始日期
@@ -87,13 +90,13 @@ endfunction
 let g:wiki_templates = [
             \ { 'match_re': '^\d\{4\}-\d\{2\}-\d\{2\}$',
             \   'source_func': function('JournalTemplate') },
-            \ { 'match_re': '^周膳计划.\d\{4\}.\d\{2\}.\d\{2\}$',
-            \   'source_func': function('WeeklyMealCycleTemplate') },
             \ { 'match_re': '\d\{8\}\(-\)\?' .
             \   '\(周[一二三四五六日]\|' .
             \   '\|mon\|tue\|wed\|thu\|fri\|sat\|sun' .
             \   '\|monday\|tuesday\|wednesday\|thursday\|friday\|saturday\|sunday\).*',
             \   'source_func': function('MeetingTemplate') },
+            \ { 'match_re': '^周膳计划.\d\{4\}.\d\{2\}.\d\{2\}$',
+            \   'source_func': function('WeeklyMealCycleTemplate') },
             \ { 'match_func': { x -> x.path_wiki !~# 'journal' },
             \   'source_func': function('GeneralTemplate') },
             \]

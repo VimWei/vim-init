@@ -133,9 +133,17 @@ nnoremap <leader>mh <C-w>ldd<C-w>hpzt4<C-y>
 " 选中全行
 nnoremap vv ^vg_
 
+" Timestamp --------------------------------------------------------------{{{1
+
 " 在光标之后插入时间戳
 nnoremap <leader>ts a<C-R>=strftime("%Y-%m-%d %A %H:%M:%S")<CR><Esc>
 inoremap <M-t> <C-R>=strftime("%Y-%m-%d %A %H:%M:%S")<CR>
+
+" 在光标之后插入时间戳(预定会议格式)
+nnoremap <leader>mt a<C-R>=strftime("%Y%m%d%a%H:%M")<CR><Esc>
+" 在光标之后插入时间戳(周膳计划格式)
+nnoremap <leader>mc a<C-R>="周膳计划 " . strftime("%Y-%m-%d")<CR><Esc>
+
 " 开启新行插入时间戳，并在其之后增加空行
 command! Timestamp exe "normal o".strftime("%Y-%m-%d %A %H:%M:%S")."<C-O>o"
 
