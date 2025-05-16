@@ -26,14 +26,18 @@ let g:wiki_link_creation = {
 function! JournalTemplate(context) abort
     let today = strftime("%Y-%m-%d")
     if a:context.name == today
-        call append(0, '# ' . strftime("%Y-%m-%d %A %H:%M:%S"))
+        let title = strftime("%Y-%m-%d %A %H:%M:%S")
     else
         let timestamp = wiki#date#strptime("%Y-%m-%d", a:context.name)
-        let formatted_date_with_weekday = strftime("%Y-%m-%d %A", timestamp)
-        call append(0, '# ' . formatted_date_with_weekday)
+        let title = strftime("%Y-%m-%d %A", timestamp)
     endif
-    call append(1, '')
-    execute "normal! I## "
+    let template_lines = [
+        \ '# ' . title,
+        \ ''
+    \ ]
+    call append(0, template_lines)
+    execute 'normal! G'
+    " call cursor(line('$'), 0)
 endfunction
 function! MeetingTemplate(context) abort
     let title = get(a:context.origin.link, 'text', a:context.name)
@@ -44,14 +48,11 @@ function! MeetingTemplate(context) abort
         \ ''
     \ ]
     call append(0, template_lines)
-    call cursor(line('$'), 0)
+    execute 'normal! G'
 endfunction
 function! WeeklyMealCycleTemplate(context) abort
     " 1. 提取标题和起始日期
-    let title = a:context.name
-    if exists('a:context.origin.link.text')
-        let title = a:context.origin.link.text
-    endif
+    let title = get(a:context.origin.link, 'text', a:context.name)
     let start_date = matchstr(title, '\d\{4}-\d\{2}-\d\{2\}')
     " 2. 构建文档基础框架
     let template_lines = [
@@ -79,13 +80,13 @@ function! WeeklyMealCycleTemplate(context) abort
     execute 'normal! gg'
 endfunction
 function! GeneralTemplate(context) abort
-    let title = a:context.name
-    if exists('a:context.origin.link.text')
-        let title = a:context.origin.link.text
-    endif
-    call append(0, '# ' . title)
-    call append(1, '')
-    execute "normal! I## "
+    let title = get(a:context.origin.link, 'text', a:context.name)
+    let template_lines = [
+        \ '# ' . title,
+        \ ''
+    \ ]
+    call append(0, template_lines)
+    execute 'normal! G'
 endfunction
 let g:wiki_templates = [
             \ { 'match_re': '^\d\{4\}-\d\{2\}-\d\{2\}$',
@@ -142,5 +143,7 @@ endif
 nnoremap <Leader>wt :call Wikivim#OpenWikiIndexTab()<CR>
 command! -nargs=? VW call Wikivim#OpenWikiPage(<q-args>)
 command! RS call Wikivim#OpenWikiPage('Research/路演.md')
+command! Inbox call Wikivim#OpenWikiPage('Inbox/inbox.md')
+nnoremap <Leader>ib :call Wikivim#OpenWikiPage('Inbox/inbox.md')<CR>
 nnoremap <Leader>wi :call Wikivim#OpenWikiPage('journal.md')<CR>
 nnoremap <Leader>w<Leader>i :call Wikivim#UpdateJournalIndex()<CR>
