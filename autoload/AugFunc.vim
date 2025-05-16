@@ -28,6 +28,9 @@ endfunction
 
 function! AugFunc#JumpLastPos()
     try
+        if &buftype != '' || !filereadable(expand('%'))
+            return 0
+        endif
         if line("'\"") <= line('$')
             normal! g`"
             return 1
