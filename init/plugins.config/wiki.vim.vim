@@ -136,6 +136,8 @@ endif
 " 详情查阅 ../../autoload/Wikivim.vim
 nnoremap <Leader>wt :call Wikivim#OpenWikiIndexTab()<CR>
 command! -nargs=? VW call Wikivim#OpenWikiPage(<q-args>)
+command! GTD call Wikivim#OpenWikiPage('GTD/gtd.md')
+nnoremap <Leader>gtd :call Wikivim#OpenWikiPage('GTD/gtd.md')<CR>
 command! RS call Wikivim#OpenWikiPage('Research/路演.md')
 command! Inbox call Wikivim#OpenWikiPage('Inbox/inbox.md')
 nnoremap <Leader>ib :call Wikivim#OpenWikiPage('Inbox/inbox.md')<CR>
