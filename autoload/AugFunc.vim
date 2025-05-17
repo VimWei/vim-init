@@ -28,6 +28,8 @@ endfunction
 
 function! AugFunc#JumpLastPos()
     try
+        " 排除特殊缓冲区（如终端、Quickfix、帮助页面等）
+        " 排除不可读文件（如新创建的未保存缓冲区、无权限文件等）
         if &buftype != '' || !filereadable(expand('%'))
             return 0
         endif
