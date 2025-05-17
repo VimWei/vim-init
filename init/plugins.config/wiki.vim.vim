@@ -31,10 +31,7 @@ function! JournalTemplate(context) abort
         let timestamp = wiki#date#strptime("%Y-%m-%d", a:context.name)
         let title = strftime("%Y-%m-%d %A", timestamp)
     endif
-    let template_lines = [
-        \ '# ' . title,
-        \ ''
-    \ ]
+    let template_lines = ['# ' . title] + ['']
     call append(0, template_lines)
     execute 'normal! G'
     " call cursor(line('$'), 0)
@@ -81,10 +78,7 @@ function! WeeklyMealCycleTemplate(context) abort
 endfunction
 function! GeneralTemplate(context) abort
     let title = get(a:context.origin.link, 'text', a:context.name)
-    let template_lines = [
-        \ '# ' . title,
-        \ ''
-    \ ]
+    let template_lines = ['# ' . title] + ['']
     call append(0, template_lines)
     execute 'normal! G'
 endfunction
