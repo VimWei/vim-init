@@ -211,7 +211,7 @@ if IsInPlugGroup('program', 'python') " ----------------------------------{{{1
 endif
 
 if IsInPlugGroup('program', 'LSP') " -------------------------------------{{{1
-
+    Plug 'SirVer/ultisnips'
 endif
 
 " vim-plug end -----------------------------------------------------------{{{1
