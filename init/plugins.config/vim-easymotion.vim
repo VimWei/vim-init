@@ -8,6 +8,7 @@ let g:EasyMotion_use_migemo  = 0
 
 nmap <leader><leader>l <Plug>(easymotion-bd-jk)
 
+" 类似vim的 / 检索，但强化了easymotion式快速定位
 nmap f <Plug>(easymotion-sn)
 " for Chinese or anytext
-nmap <leader><leader>c <Plug>(easymotion-sn).\{8}<CR>
+nnoremap <leader><leader>c <Cmd>nohlsearch<CR><Plug>(easymotion-sn)\_.\{8}<CR>
