@@ -7,4 +7,7 @@ let g:EasyMotion_enter_jump_first = 1
 let g:EasyMotion_use_migemo  = 0
 
 nmap <leader><leader>l <Plug>(easymotion-bd-jk)
+
 nmap f <Plug>(easymotion-sn)
+" for Chinese or anytext
+nmap <leader><leader>c <Plug>(easymotion-sn).\{8}<CR>
