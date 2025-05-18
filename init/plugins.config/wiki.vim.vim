@@ -22,7 +22,6 @@ let g:wiki_link_creation = {
 \ }
 
 " wiki_templates ---------------------------------------------------------{{{1
-" 为新建的各种 wiki page 创建模版
 function! JournalTemplate(context) abort
     let today = strftime("%Y-%m-%d")
     if a:context.name == today
@@ -33,25 +32,18 @@ function! JournalTemplate(context) abort
     endif
     let template_lines = ['# ' . title] + ['']
     call append(0, template_lines)
-    execute 'normal! G'
-    " call cursor(line('$'), 0)
 endfunction
 function! MeetingTemplate(context) abort
     let title = get(a:context.origin.link, 'text', a:context.name)
     let template_lines = [
         \ '# ' . title,
         \ '',
-        \ '* ' . strftime("%Y-%m-%d %A %H:%M:%S"),
-        \ ''
+        \ '* ' . strftime("%Y-%m-%d %A %H:%M:%S")
     \ ]
     call append(0, template_lines)
-    execute 'normal! G'
 endfunction
 function! WeeklyMealCycleTemplate(context) abort
-    " 1. 提取标题和起始日期
     let title = get(a:context.origin.link, 'text', a:context.name)
-    let start_date = matchstr(title, '\d\{4}-\d\{2}-\d\{2\}')
-    " 2. 构建文档基础框架
     let template_lines = [
         \ '# ' . title,
         \ '',
@@ -59,7 +51,7 @@ function! WeeklyMealCycleTemplate(context) abort
         \ '* ref: [Weekly MealCycle](weekly-mealcycle.md)',
         \ ''
     \ ]
-    " 3. 生成周计划
+    let start_date = matchstr(title, '\d\{4}-\d\{2}-\d\{2\}')
     let timestamp = wiki#date#strptime("%Y-%m-%d", start_date)
     for day in range(0, 6)
         let current_time = timestamp + day * 86400
@@ -72,15 +64,13 @@ function! WeeklyMealCycleTemplate(context) abort
             \ ''
         \ ])
     endfor
-    " 4. 批量插入，并回到首行
     call append(0, template_lines)
     execute 'normal! gg'
 endfunction
 function! GeneralTemplate(context) abort
     let title = get(a:context.origin.link, 'text', a:context.name)
-    let template_lines = ['# ' . title] + ['']
+    let template_lines = ['# ' . title]
     call append(0, template_lines)
-    execute 'normal! G'
 endfunction
 let g:wiki_templates = [
             \ { 'match_re': '^\d\{4\}-\d\{2\}-\d\{2\}$',
@@ -136,10 +126,10 @@ endif
 " 详情查阅 ../../autoload/Wikivim.vim
 nnoremap <Leader>wt :call Wikivim#OpenWikiIndexTab()<CR>
 command! -nargs=? VW call Wikivim#OpenWikiPage(<q-args>)
+nnoremap <Leader>wi :call Wikivim#OpenWikiPage('journal.md')<CR>
+nnoremap <Leader>w<Leader>i :call Wikivim#UpdateJournalIndex()<CR>
+command! Inbox call Wikivim#OpenWikiPage('Inbox/inbox.md')
+nnoremap <Leader>ib :call Wikivim#OpenWikiPage('Inbox/inbox.md')<CR>
 command! GTD call Wikivim#OpenWikiPage('GTD/gtd.md')
 nnoremap <Leader>gtd :call Wikivim#OpenWikiPage('GTD/gtd.md')<CR>
 command! RS call Wikivim#OpenWikiPage('Research/路演.md')
-command! Inbox call Wikivim#OpenWikiPage('Inbox/inbox.md')
-nnoremap <Leader>ib :call Wikivim#OpenWikiPage('Inbox/inbox.md')<CR>
-nnoremap <Leader>wi :call Wikivim#OpenWikiPage('journal.md')<CR>
-nnoremap <Leader>w<Leader>i :call Wikivim#UpdateJournalIndex()<CR>
