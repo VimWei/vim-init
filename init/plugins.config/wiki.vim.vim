@@ -34,7 +34,8 @@ function! JournalTemplate(context) abort
     call append(0, template_lines)
 endfunction
 function! MeetingTemplate(context) abort
-    let title = get(a:context.origin.link, 'text', a:context.name)
+    let l:link = get(a:context.origin, 'link', {})
+    let title = get(l:link, 'text', a:context.name)
     let template_lines = [
         \ '# ' . title,
         \ '',
@@ -43,7 +44,8 @@ function! MeetingTemplate(context) abort
     call append(0, template_lines)
 endfunction
 function! WeeklyMealCycleTemplate(context) abort
-    let title = get(a:context.origin.link, 'text', a:context.name)
+    let l:link = get(a:context.origin, 'link', {})
+    let title = get(l:link, 'text', a:context.name)
     let template_lines = [
         \ '# ' . title,
         \ '',
@@ -68,7 +70,8 @@ function! WeeklyMealCycleTemplate(context) abort
     execute 'normal! gg'
 endfunction
 function! GeneralTemplate(context) abort
-    let title = get(a:context.origin.link, 'text', a:context.name)
+    let l:link = get(a:context.origin, 'link', {})
+    let title = get(l:link, 'text', a:context.name)
     let template_lines = ['# ' . title]
     call append(0, template_lines)
 endfunction
@@ -82,7 +85,9 @@ let g:wiki_templates = [
             \   'source_func': function('MeetingTemplate') },
             \ { 'match_re': '^周膳计划.\d\{4\}.\d\{2\}.\d\{2\}$',
             \   'source_func': function('WeeklyMealCycleTemplate') },
-            \ { 'match_func': { x -> x.path_wiki !~# 'journal' },
+            \ { 'match_func': {x ->
+            \       x.path_wiki =~# escape(g:wiki_root, '\') &&
+            \       x.path_wiki !~# 'journal' },
             \   'source_func': function('GeneralTemplate') },
             \]
 
