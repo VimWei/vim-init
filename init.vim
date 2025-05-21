@@ -39,7 +39,7 @@ endif
 augroup VimrcAutoReload
     autocmd!
     autocmd BufWritePost init.vim call Vimrc#AutoReload(expand('<afile>:p'))
-    autocmd BufWritePost init/*.vim call Vimrc#AutoReload(expand('<afile>:p'))
+    autocmd BufWritePost init/**/*.vim call Vimrc#AutoReload(expand('<afile>:p'))
     autocmd BufWritePost autoload/*.vim call Vimrc#AutoReload(expand('<afile>:p'))
 augroup END
 
