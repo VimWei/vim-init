@@ -153,7 +153,7 @@ function! Markdown#ViewImage()
     let cursor_col = col('.')
     let start_pos = 0
     let img_path = ''
-    
+
     " 查找当前行中的所有图片标记
     while 1
         " 在当前位置之后查找图片标记的起始位置
@@ -161,20 +161,20 @@ function! Markdown#ViewImage()
         if img_start == -1
             break
         endif
-        
+
         " 找到对应的右括号位置
         let img_end = match(current_line, ')', img_start)
         if img_end == -1
             break
         endif
-        
+
         " 检查光标是否在这个图片标记的范围内
         if cursor_col > img_start && cursor_col <= img_end + 1
             " 提取这个图片的路径
             let img_path = matchstr(current_line[img_start : img_end], '!\[.\{-}\](\zs.\{-}\ze)')
             break
         endif
-        
+
         let start_pos = img_end + 1
     endwhile
 
@@ -204,4 +204,34 @@ function! Markdown#ViewImage()
     let safe_path = '"' . final_path . '"'
     let g:irfanview_path = '"C:\Program Files\IrfanView\i_view64.exe"'
     silent execute "!start " . g:irfanview_path . " " . safe_path
+endfunction
+
+" RemoveLinkAtCursor -----------------------------------------------------{{{1
+
+function! Markdown#RemoveLinkAtCursor()
+  let l:line = getline('.')
+  let l:col = col('.')
+  let l:pattern = '\v(!?)\[(.{-})\]\((.{-})\)'
+  let l:start = 0
+  while 1
+    let l:match = matchstrpos(l:line, l:pattern, l:start)
+    if empty(l:match)
+      break
+    endif
+    let [l:matched, l:mstart, l:mend] = [l:match[0], l:match[1], l:match[2]]
+    " 只在光标严格在链接内容内时才生效
+    if l:col-1 >= l:mstart && l:col-1 < l:mend
+      let l:text = matchstr(l:matched, '\v\[(.{-})\]')
+      let l:text = l:text[1:-2]
+      let l:newline = strpart(l:line, 0, l:mstart) . l:text . strpart(l:line, l:mend)
+      call setline('.', l:newline)
+      call cursor(line('.'), l:mstart+1)
+      return
+    endif
+    " 防止死循环：如果没有前进，break
+    if l:mend <= l:start
+      break
+    endif
+    let l:start = l:mend
+  endwhile
 endfunction

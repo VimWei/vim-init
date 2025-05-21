@@ -51,13 +51,12 @@ vnoremap <leader>mi "ms____<Esc>h"mPe
 " 为选中的内容添加链接，link
 nnoremap <leader>ml viW<ESC>`>a]()<ESC>`<i[<ESC>`>4l
 vnoremap <leader>ml <ESC>`>a]()<ESC>`<i[<ESC>`>4l
-" 删除光标所在处的链接，link delete
-nnoremap <leader>mld F[xf]xda(
 " 为选中的内容添加图片链接，picture
 nnoremap <leader>mp viW<ESC>`>a]()<ESC>`<i![<ESC>`>5l
 vnoremap <leader>mp <ESC>`>a]()<ESC>`<i![<ESC>`>5l
-" 删除光标所在处的图片链接，picture delete
-nnoremap <leader>mpd F[h2xf]xda(
+" 删除光标所在处的链接或图片链接，link picture delete
+" 详情查阅 ../../autoload/Markdown.vim
+nnoremap <leader>mld :call Markdown#RemoveLinkAtCursor()<CR>
 
 " UngqFormat -------------------------------------------------------------{{{1
 " 详情查阅 ../../autoload/Markdown.vim
