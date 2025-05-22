@@ -3,6 +3,15 @@
 " Sourced by: ../init.vim
 "===================================================
 
+" Vimrc#AutoReload -------------------------------------------------------{{{1
+" 当pwd为vim-init/时，修订并保存 *.vim 文件后，系统将自动重新加载
+augroup VimrcAutoReload
+    autocmd!
+    autocmd BufWritePost init.vim call Vimrc#AutoReload(expand('<afile>:p'))
+    autocmd BufWritePost init/*.vim call Vimrc#AutoReload(expand('<afile>:p'))
+    autocmd BufWritePost autoload/*.vim call Vimrc#AutoReload(expand('<afile>:p'))
+augroup END
+
 " Python -----------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/CondaPython.vim
 

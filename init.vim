@@ -19,6 +19,7 @@ let g:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 execute 'set runtimepath+=' . g:viminit . ',' . g:viminit . '/after'
 let g:viminit = substitute(g:viminit . '/', '\\', '/', 'g')
 let g:viminitparent = fnamemodify(g:viminit, ':h:h') . '/'
+let g:plugins_config_path = g:viminit . 'init/plugins.config/'
 
 " LoadScript -------------------------------------------------------------{{{1
 execute 'so ' . g:viminit . 'init/essential.vim'
@@ -27,6 +28,7 @@ execute 'so ' . g:viminit . 'init/keymaps.vim'
 " execute 'so ' . g:viminit . 'init/minimal.vim'
 " finish
 execute 'so ' . g:viminit . 'init/plugins.vim'
+execute 'so ' . g:viminit . 'init/pluginsconfig.vim'
 execute 'so ' . g:viminit . 'init/autoload.vim'
 execute 'so ' . g:viminit . 'init/guistyle.vim'
 execute 'so ' . g:viminit . 'init/statusline.vim'
@@ -35,15 +37,6 @@ execute 'so ' . g:viminit . 'init/colorstyle.vim'
 if has('nvim')
     runtime neovim.lua
 endif
-
-" Vimrc#AutoReload -------------------------------------------------------{{{1
-" 当pwd为vim-init/时，修订并保存 *.vim 文件后，系统将自动重新加载
-augroup VimrcAutoReload
-    autocmd!
-    autocmd BufWritePost init.vim call Vimrc#AutoReload(expand('<afile>:p'))
-    autocmd BufWritePost init/**/*.vim call Vimrc#AutoReload(expand('<afile>:p'))
-    autocmd BufWritePost autoload/*.vim call Vimrc#AutoReload(expand('<afile>:p'))
-augroup END
 
 finish " -----------------------------------------------------------------{{{1
 

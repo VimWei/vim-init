@@ -33,6 +33,7 @@ let g:navigator.v = {
     \ 't' : ['Vimrc#EditInitVimrc("tabsize.vim")', 'tabsize.vim'],
     \ 's' : ['Vimrc#EditInitVimrc("statusline.vim")', 'statusline.vim'],
     \ 'p' : ['Vimrc#EditInitVimrc("plugins.vim")', 'plugins.vim'],
+    \ 'q' : ['Vimrc#EditInitVimrc("pluginsconfig.vim")', 'pluginsconfig.vim'],
     \ 'k' : ['Vimrc#EditInitVimrc("keymaps.vim")', 'keymaps.vim'],
     \ 'c' : ['Vimrc#EditInitVimrc("colorstyle.vim")', 'colorstyle.vim'],
     \ 'C' : ['Vimrc#EditInitVimrc("../autoload/Color.vim")', 'Color.vim'],
