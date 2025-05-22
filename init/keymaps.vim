@@ -82,17 +82,6 @@ nnoremap <M-j> :resize -5<CR>
 nnoremap <M-h> :vertical resize -5<CR>
 nnoremap <M-l> :vertical resize +5<CR>
 
-" List -------------------------------------------------------------------{{{1
-" 详情查阅 ../autoload/List.vim
-nnoremap <silent> gl* :<C-u>execute 'call List#ChangeSymbol(' . v:count1 . ', "*")'<CR>
-nnoremap <silent> gl- :<C-u>execute 'call List#ChangeSymbol(' . v:count1 . ', "-")'<CR>
-nnoremap <silent> gl+ :<C-u>execute 'call List#ChangeSymbol(' . v:count1 . ', "+")'<CR>
-nnoremap <silent> gl1 :<C-u>execute 'call List#ChangeSymbol(' . v:count1 . ', "1.")'<CR>
-nnoremap <silent> gl2 :<C-u>execute 'call List#ChangeSymbol(' . v:count1 . ', "1)")'<CR>
-nnoremap <silent> glA :<C-u>execute 'call List#ChangeSymbol(' . v:count1 . ', "A.")'<CR>
-nnoremap <silent> gla :<C-u>execute 'call List#ChangeSymbol(' . v:count1 . ', "a)")'<CR>
-nnoremap <silent> gld :<C-u>execute 'call List#ChangeSymbol(' . v:count1 . ', "d")'<CR>
-
 " ABDelete and ABYank ----------------------------------------------------{{{1
 " 复制或删除两个标记之间的内容
 command! ABDelete 'a,'bd
@@ -157,11 +146,6 @@ command! -nargs=1 WikiGrepNormal vimgrep /<args>/ **/*.md | copen 8
 command! -nargs=1 WikiGrepVerbal vimgrep /<args>/g **/*.md | copen 8
 " 采用Verbal模式搜索Tags
 command! -nargs=1 WikiGrepTags vimgrep /:<args>:/g **/*.md | copen 8
-
-" VisualStar -------------------------------------------------------------{{{1
-"用*或#对选中文字进行搜索
-xnoremap * :<C-u>call Search#VisualStar()<CR>/<C-R>=@/<CR><CR>
-xnoremap # :<C-u>call Search#VisualStar()<CR>?<C-R>=@/<CR><CR>
 
 " nohlsearch -------------------------------------------------------------{{{1
 " 清屏可以暂时关闭高亮
