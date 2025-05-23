@@ -130,6 +130,7 @@ if IsInPlugGroup('basic', 'search') " ------------------------------------{{{1
     Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
     Plug 'ppwwyyxx/vim-PinyinSearch'
     Plug 'romainl/vim-cool'
+    Plug 't9md/vim-choosewin'
 endif
 
 if IsInPlugGroup('Notetaking', 'edit')  " --------------------------------{{{1
