@@ -108,6 +108,11 @@ let g:wiki_mappings_local_journal = {
     \ '<plug>(wiki-journal-next)' : ']w',
     \}
 
+" wiki_viewer ------------------------------------------------------------{{{1
+let g:wiki_viewer = {
+      \ 'png': 'start',
+      \ }
+
 " wiki_export ------------------------------------------------------------{{{1
 let s:TexTemplate = g:viminit . "tools/pandoc/template.latex"
 let s:pandocargs = '--pdf-engine=xelatex -V CJKmainfont="SimSun" --template="' . s:TexTemplate . '"'
