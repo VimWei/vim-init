@@ -177,3 +177,33 @@ function! Vim_NeatGuiTabLabel()
     if getbufvar(l:bufnr, '&modified') | let l:tablabel .= ' +' | endif
     return l:tablabel
 endfunc
+
+" Tabpanel ---------------------------------------------------------------{{{1
+if !has('nvim') && has('patch-9.1.1391')
+    function! ToggleTabPanel() abort
+        if &showtabpanel == 1
+            set showtabpanel=0
+            set showtabline=2
+        else
+            set showtabpanel=1
+            set showtabline=0
+        endif
+    endfunction
+    nnoremap <leader>tp :call ToggleTabPanel()<CR>
+
+    set tabpanelopt=vert,columns:35,align:left
+    set tabpanel=%!TabPanel()
+    function! TabPanel() abort
+        " return printf("[%1d] %%f", g:actual_curtabpage)
+        let l:num = g:actual_curtabpage
+        let l:buflist = tabpagebuflist(l:num)
+        let l:winnr = tabpagewinnr(l:num)
+        let l:bufnr = l:buflist[l:winnr - 1]
+        let l:fname = Vim_NeatBuffer(l:bufnr, 0)
+        let l:bufnum = 'b'.l:bufnr
+        let l:tabpanel = ''
+        let l:tabpanel = "[".l:num."-".l:bufnum."] ".l:fname
+        if getbufvar(l:bufnr, '&modified') | let l:tabpanel .= ' +' | endif
+        return l:tabpanel
+    endfunction
+endif
