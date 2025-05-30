@@ -1,7 +1,8 @@
 " https://www.github.com/lervag/wiki.vim
 
 " shellslash -------------------------------------------------------------{{{1
-set shellslash
+" 回车直接访问markdown的URL链接，需要禁用；其他情形，又需要启用
+" set shellslash
 
 " wiki_root --------------------------------------------------------------{{{1
 let g:wiki_root = g:viminitparent . 'wiki/'
@@ -109,8 +110,13 @@ let g:wiki_mappings_local_journal = {
     \}
 
 " wiki_viewer ------------------------------------------------------------{{{1
+let s:irfanview_path = '"C:\Program Files\IrfanView\i_view64.exe"'
 let g:wiki_viewer = {
-      \ 'png': 'start',
+      \ 'png': 'start ' . s:irfanview_path,
+      \ 'jpg': 'start ' . s:irfanview_path,
+      \ 'jpeg': 'start ' . s:irfanview_path,
+      \ 'gif': 'start ' . s:irfanview_path,
+      \ 'webp': 'start ' . s:irfanview_path,
       \ }
 
 " wiki_export ------------------------------------------------------------{{{1
