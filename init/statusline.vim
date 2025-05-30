@@ -180,18 +180,7 @@ endfunc
 
 " Tabpanel ---------------------------------------------------------------{{{1
 if !has('nvim') && has('patch-9.1.1391')
-    function! ToggleTabPanel() abort
-        if &showtabpanel == 1
-            set showtabpanel=0
-            set showtabline=2
-        else
-            set showtabpanel=1
-            set showtabline=0
-        endif
-    endfunction
-    nnoremap <leader>tp :call ToggleTabPanel()<CR>
-
-    set tabpanelopt=vert,columns:35,align:left
+    set tabpanelopt=columns:30,align:left
     set tabpanel=%!TabPanel()
     function! TabPanel() abort
         " return printf("[%1d] %%f", g:actual_curtabpage)
@@ -206,4 +195,14 @@ if !has('nvim') && has('patch-9.1.1391')
         if getbufvar(l:bufnr, '&modified') | let l:tabpanel .= ' +' | endif
         return l:tabpanel
     endfunction
+    function! ToggleTabPanel() abort
+        if &showtabpanel == 1
+            set showtabpanel=0
+            set showtabline=2
+        else
+            set showtabpanel=1
+            set showtabline=0
+        endif
+    endfunction
+    nnoremap <leader>tp :call ToggleTabPanel()<CR>
 endif
