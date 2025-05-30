@@ -27,7 +27,7 @@ function! Pandoc#ToPdf() " -----------------------------------------------{{{1
     "-N,--number-sections; -s, --standalone; --toc, --table-of-contents; -o FILE, --output=FILE
     " 页边距设置：-V geometry:"top=1in, bottom=1in, left=1.25in, right=1.25in"
     " 默认字体：-V CJKmainfont="中文字体名"   可选：Microsoft YaHei、SimHei、SimSun
-    exe ':AsyncRun Pandoc "%" -s -o ' . '"' . l:PandocOutput . '"' . ' --pdf-engine=xelatex -V CJKmainfont="SimSun" --template="' . l:TexTemplate . '"'
+    exe ':AsyncRun Pandoc "%" -s -o ' . '"' . l:PandocOutput . '"' . ' --pdf-engine=xelatex -V CJKmainfont="SimSun" -V CJKoptions="BoldFont=SimHei" --template="' . l:TexTemplate . '"'
     echomsg "Pandoc Output File: " . l:PandocOutput
 endfunction
 
@@ -35,7 +35,9 @@ function! Pandoc#ToDocx() " ----------------------------------------------{{{1
     silent!exe "w"
     silent!exe "cd %:h"
     let l:PandocOutput = s:output_dir . strftime("%Y%m%d.%H%M%S") . "." . expand('%:t:r') . ".docx"
-    exe ':AsyncRun Pandoc "%" -o ' . '"' . l:PandocOutput . '"'
+    " exe ':AsyncRun Pandoc "%" -o ' . '"' . l:PandocOutput . '"'
+    let l:ReferenceDoc = g:viminit . "tools/pandoc/reference.docx"
+    exe ':AsyncRun Pandoc "%" -o "' . l:PandocOutput . '" --reference-doc="' . l:ReferenceDoc . '"'
     echomsg "Pandoc Output File: " . l:PandocOutput
 endfunction
 
