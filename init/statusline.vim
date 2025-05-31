@@ -192,7 +192,7 @@ if !has('nvim') && has('patch-9.1.1391')
         let l:bufnum = 'b'.l:bufnr
         let l:tabpanel = ''
         let l:tabpanel = "[".l:num."-".l:bufnum."] ".l:fname
-        if getbufvar(l:bufnr, '&modified') | let l:tabpanel .= ' +' | endif
+        let l:tabpanel .= ' %M'
         return l:tabpanel
     endfunction
     function! ToggleTabPanel() abort
