@@ -29,6 +29,7 @@ if !exists('g:plug_group')
     let g:plug_group['basic'] += [ 'guistyle' ]
     let g:plug_group['basic'] += [ 'quickui' ]
     let g:plug_group['basic'] += [ 'search' ]
+    let g:plug_group['basic'] += [ 'inbox' ]
 
     let g:plug_group['Notetaking'] = []
     let g:plug_group['Notetaking'] += [ 'edit' ]
@@ -131,6 +132,9 @@ if IsInPlugGroup('basic', 'search') " ------------------------------------{{{1
     Plug 'ppwwyyxx/vim-PinyinSearch'
     Plug 'romainl/vim-cool'
     Plug 't9md/vim-choosewin'
+endif
+if IsInPlugGroup('basic', 'inbox') " ------------------------------------{{{1
+    Plug 'mahadevan-k/vimnc'
 endif
 
 if IsInPlugGroup('Notetaking', 'edit')  " --------------------------------{{{1
