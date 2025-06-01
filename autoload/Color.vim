@@ -40,6 +40,7 @@ function! Color#RandomVimInitScheme()
         \ 'color monokai',
         \ 'color monokai-vim',
         \ 'color gaea',
+        \ 'color nordic_electric_ai',
         \ ]
     let l:random_scheme_cmd = l:styles[rand() % len(l:styles)]
     execute l:random_scheme_cmd
@@ -149,15 +150,16 @@ function! Color#RandomFavoriteScheme(...)
     if !has('nvim')
         let l:styles_simple += [
                 \ 'wildcharm',
+                \ 'nordic_electric_ai',
                 \ ]
     endif
     let l:styles_complex = [
             \ 'quiet', 'lucius', 'afterglow',
-            \ 'gruvbox8',
             \ ]
     if !has('nvim')
         let l:styles_complex += [
                 \ 'retrobox',
+                \ 'gruvbox8',
                 \ ]
     endif
 

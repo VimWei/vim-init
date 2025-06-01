@@ -19,6 +19,7 @@ if !exists('s:default_colorscheme')
     let s:default_colorscheme += ['eclipse']
     if !has('nvim')
         let s:default_colorscheme += ['retrobox']
+        let s:default_colorscheme += ['nordic_electric_ai']
     endif
 endif
 if empty(s:default_colorscheme)
