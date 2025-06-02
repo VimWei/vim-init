@@ -155,11 +155,11 @@ function! Color#RandomFavoriteScheme(...)
     endif
     let l:styles_complex = [
             \ 'quiet', 'lucius', 'afterglow',
+            \ 'gruvbox8',
             \ ]
     if !has('nvim')
         let l:styles_complex += [
                 \ 'retrobox',
-                \ 'gruvbox8',
                 \ ]
     endif
 

@@ -79,8 +79,13 @@ if IsInPlugGroup('basic', 'essential') " ---------------------------------{{{1
 endif
 
 if IsInPlugGroup('basic', 'colorscheme') " -------------------------------{{{1
-    Plug 'lifepillar/vim-solarized8'
-    Plug 'lifepillar/vim-gruvbox8'
+    if has('nvim')
+        Plug 'lifepillar/vim-solarized8', { 'branch': 'neovim' }
+        Plug 'lifepillar/vim-gruvbox8', { 'branch': 'neovim' }
+    else
+        Plug 'lifepillar/vim-solarized8'
+        Plug 'lifepillar/vim-gruvbox8'
+    endif
     Plug 'kaicataldo/material.vim'
     Plug 'sainnhe/sonokai'
     Plug 'NLKNguyen/papercolor-theme'
