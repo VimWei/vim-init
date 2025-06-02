@@ -146,6 +146,7 @@ nnoremap <Leader>wi :call Wikivim#OpenWikiPage('journal.md')<CR>
 nnoremap <Leader>w<Leader>i :call Wikivim#UpdateJournalIndex()<CR>
 command! Inbox call Wikivim#OpenWikiPage('Inbox/inbox.md')
 command! GTD call Wikivim#OpenWikiPage('GTD/gtd.md')
+command! Home call Wikivim#OpenWikiPage('Home/home.md')
 command! Cookbook call Wikivim#OpenWikiPage('Health/cookbook.md')
 command! MealCycle call Wikivim#OpenWikiPage('Health/weekly-mealcycle.md')
 command! RS call Wikivim#OpenWikiPage('Research/路演.md')
