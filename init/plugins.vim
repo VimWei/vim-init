@@ -133,6 +133,7 @@ endif
 if IsInPlugGroup('basic', 'search') " ------------------------------------{{{1
     Plug 'skywind3000/vim-auto-popmenu'
     Plug 'easymotion/vim-easymotion'
+    Plug 'VimWei/vim9-stargate',  { 'branch': 'fix-non-overlapping-match' }
     Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
     Plug 'ppwwyyxx/vim-PinyinSearch'
     Plug 'romainl/vim-cool'
