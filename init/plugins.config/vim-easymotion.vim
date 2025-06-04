@@ -14,5 +14,7 @@ nmap <leader><leader>l <Plug>(easymotion-bd-jk)
 nmap f <Plug>(easymotion-sn)
 
 " <leader><leader>c 固定间隔定位跳转，适配中文等情形 ---------------------{{{1
-" nnoremap <leader><leader>c <Cmd>nohlsearch<CR><Plug>(easymotion-sn)\_.\{8}<CR>
-" 在执行后会保持高亮，只能手动取消高亮，建议采用 vim9-stargate 更直接高效
+if has('nvim')
+    " 在执行后会保持高亮，只能手动取消高亮，vim建议采用 vim9-stargate
+    nnoremap <leader><leader>c <Cmd>nohlsearch<CR><Plug>(easymotion-sn)\_.\{5}<CR>
+endif
