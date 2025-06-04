@@ -132,11 +132,11 @@ let g:wiki_export = {
         \}
 
 " fzf --------------------------------------------------------------------{{{1
-" let g:wiki_fzf_pages_opts = '--preview "cat {1}"'
-" let g:wiki_fzf_links_opts = '--preview "cat {1}"'
-" if has('unix')
-"     let g:wiki_fzf_tags_opts = '--preview "bat --color=always {2..}"'
-" endif
+let g:wiki_fzf_pages_opts = '--preview "type {1}"'
+let g:wiki_fzf_links_opts = '--preview "type {1}"'
+if has('unix')
+    let g:wiki_fzf_tags_opts = '--preview "bat --color=always {2..}"'
+endif
 
 " open wiki page ---------------------------------------------------------{{{1
 " 详情查阅 ../../autoload/Wikivim.vim
