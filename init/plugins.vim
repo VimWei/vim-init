@@ -131,12 +131,12 @@ if IsInPlugGroup('basic', 'quickui') " -----------------------------------{{{1
 endif
 
 if IsInPlugGroup('basic', 'search') " ------------------------------------{{{1
+    Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
     Plug 'skywind3000/vim-auto-popmenu'
     Plug 'easymotion/vim-easymotion'
     if !has('nvim')
         Plug 'VimWei/vim9-stargate'
     endif
-    Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
     Plug 'ppwwyyxx/vim-PinyinSearch'
     Plug 'romainl/vim-cool'
     Plug 't9md/vim-choosewin'

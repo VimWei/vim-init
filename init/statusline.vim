@@ -196,11 +196,11 @@ if !has('nvim') && has('patch-9.1.1391')
         return l:tabpanel
     endfunction
     function! ToggleTabPanel() abort
-        if &showtabpanel == 1
+        if &showtabpanel == 2
             set showtabpanel=0
             set showtabline=2
         else
-            set showtabpanel=1
+            set showtabpanel=2
             set showtabline=0
         endif
     endfunction
