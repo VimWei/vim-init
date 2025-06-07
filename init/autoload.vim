@@ -119,7 +119,8 @@ augroup END
 
 " AutoStrip --------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Strip.vim
-autocmd BufWritePre * call Strip#TrailingWhitespace()
+" 使用命令 :ToggleStrip 切换启用状态
+call Strip#Init()
 
 " OCRClean ---------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/OCRmyPDF.vim
