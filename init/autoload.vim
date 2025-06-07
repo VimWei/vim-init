@@ -209,6 +209,12 @@ vnoremap <leader>pw :call PinYin#Words('v')<CR>
 nnoremap <leader>pi :call PinYin#Insert('n')<CR>
 vnoremap <leader>pi :call PinYin#Insert('v')<CR>
 
+" 使用pypinyin查询词汇拼音，并将其附在每行的后面
+" command! -range PyPinyin <line1>,<line2>call PinYin#ConvertLines()
+command! -range -nargs=? PyPinyin <line1>,<line2>call PinYin#ConvertLines(<f-args>)
+nnoremap <silent> <leader>pp :PyPinyin<CR>
+vnoremap <silent> <leader>pp :PyPinyin<CR>
+
 " 查询输入的汉语单字或拼音 - 拼音索引
 command! -nargs=1 PinyinIndex call PinYin#Index(<f-args>)<CR>
 " 查询输入的汉语单字或拼音 - 易混拼音

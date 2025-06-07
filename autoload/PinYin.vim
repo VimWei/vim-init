@@ -79,21 +79,78 @@ function! PinYin#Insert(mode)
     execute "normal! `"
 endfunction
 
-finish
+" <leader>pp :PyPinyin  --------------------------------------------------{{{1
 
-" 旧版参考资料 ------------------------------------------------------------{{{1
-" 使用pypinyin查询拼音
-" pypinyin -s TONE3
-nnoremap <leader>p :AsyncRun -strip pypinyin <C-r><C-w><CR>
-vnoremap <leader>p y:AsyncRun -strip pypinyin <C-r>0<CR>
-nnoremap <leader>pi :-r!pypinyin <C-r><C-w><CR>
-vnoremap <leader>pi y:-r!pypinyin <C-r>0<CR>
+" 拼音风格配置字典（可扩展）
+let s:pinyin_styles = {
+            \ 'n': ['NORMAL', '无声调拼音', 'ni hao'],
+            \ 't': ['TONE', '带声调拼音', 'nǐ hǎo'],
+            \ 'd': ['TONE2', '声调数字后缀', 'ni3 hao3'],
+            \ 'f': ['FIRST_LETTER', '首字母连写', 'nh'],
+            \ 'i': ['INITIALS', '声母', 'n h']
+            \ }
 
-" 使用Leaderf查询拼音
-nnoremap <leader>pp vy:Leaderf! rg -e <C-r>0
-    \ d:\WeirdData\VimwikiMD\汉语拼音索引.md
-    \ d:\WeirdData\VimwikiMD\现代汉语常用词.md
-    \ d:\WeirdData\VimwikiMD\易混拼音识记.md
-    \<CR>
-nnoremap <leader>py :<C-U><C-R>=printf("Leaderf! rg d:/WeirdData/VimwikiMD/汉语拼音索引.md --regexMode -e %s", "")<CR>
-nnoremap <leader>pc :<C-U><C-R>=printf("Leaderf! rg d:/WeirdData/VimwikiMD/易混拼音识记.md --regexMode -e %s", "")<CR>
+" 显示拼音风格选择菜单
+function! PinYin#ShowStyleMenu()
+    " let l:keys = keys(s:pinyin_styles)
+    let l:keys = ['n', 'd', 'f']
+    echo "请选择拼音风格:"
+    for key in l:keys
+        let style = s:pinyin_styles[key]
+        echohl Identifier
+        echo printf("%-2s) ", key)
+        echohl None
+        echon printf("%-14s %-18s 示例: %s", style[0], style[1], style[2])
+    endfor
+    echohl Question
+    echo "输入选择 (默认NORMAL): "
+    echohl None
+endfunction
+
+function! PinYin#ConvertLines(...) range abort
+    let l:conda_python = $USERPROFILE . '\miniconda3\envs\pymotw\python.exe'
+    let l:save_cursor = getpos('.')
+    let l:style_key = 'n' " 默认风格
+
+    " 若无参数则采用NORMAL风格，否则要么指定风格，要么显示选择菜单
+    if a:0 > 0
+        if a:1 ==? 'menu'
+            " 显示风格选择菜单
+            call PinYin#ShowStyleMenu()
+            let l:choice = nr2char(getchar())
+            let l:style_key = tolower(l:choice)
+        else
+            " 直接使用传入的风格参数
+            let l:style_key = tolower(a:1)
+        endif
+    endif
+
+    " 获取风格配置
+    let l:style = get(s:pinyin_styles, l:style_key, s:pinyin_styles['n'])
+    if type(l:style) == type([]) && len(l:style) >= 3
+        " echo "\n选择: " . l:style[1] . " (" . l:style[0] . ")"
+    else
+        let l:style = s:pinyin_styles['n']
+        " echo "\n使用默认风格: NORMAL"
+    endif
+
+    " 遍历目标行
+    for l:lnum in range(a:firstline, a:lastline)
+        let l:line = getline(l:lnum)
+        let l:text = trim(l:line)
+        if empty(l:text) | continue | endif
+
+        " 获取拼音
+        let l:cmd = l:conda_python . ' -m pypinyin -s ' . l:style[0] . ' ' . shellescape(l:text)
+        let l:pinyin = substitute(system(l:cmd), '\n', '', 'g')
+        let l:pinyin = substitute(l:pinyin, 'ü', 'v', 'g')  " ü→v转换
+
+        " 构造新行：原始文本 + Tab + 拼音
+        call setline(l:lnum, l:text . "\t" . l:pinyin)
+    endfor
+    call feedkeys("\<Esc>")  " 强制返回Normal模式
+    redraw!                  " 清除命令行残留显示
+
+    call setpos('.', l:save_cursor)
+endfunction
+
