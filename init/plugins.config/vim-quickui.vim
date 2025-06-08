@@ -109,7 +109,7 @@ call quickui#menu#install("&Option", [
     \ ['Set &Spell %{&spell? "Off":"On"}', 'call Spell#Toggle()', '拼写检查 Toggle'],
     \ ['Set &Number Toggle', 'set number!', '行号 Toggle'],
     \ ['Set &Relativenumber Toggle', 'set relativenumber!', '相对行号 Toggle'],
-    \ ['Set &Wrap Toggle', 'set wrap!', '自动换行 Toggle'],
+    \ ['Set Wrap Toggle', 'set wrap!', '自动换行 Toggle'],
     \ ["-"],
     \ ['Cursor &Line Toggle', 'set cursorline!', '光标行加亮 Toggle'],
     \ ['&Fold Column Toggle', 'FoldColumnToggle', '折叠栏 Toggle'],
@@ -118,6 +118,9 @@ call quickui#menu#install("&Option", [
     \ ["ColorColumn &CursorPos", 'CColumn', '设置 cursor pos 为对齐线'],
     \ ["ColorColumn &Textwidth", 'CColumnTextwidth', '设置 Textwidth 为对齐线'],
     \ ["ColorColumn Remove&All", 'CColumnRemoveAll', '取消所有的对齐线'],
+    \ ["-"],
+    \ ['&Whitespace Stripping Toggle', 'ToggleStrip', '清除多余的空白 Toggle'],
+    \ ['vim-auto-&popmenu Toggle', 'ToggleApc', 'vim-auto-popmenu Toggle'],
     \ ["-"],
     \ ["Options Help", 'tab help options', '关于 options 的帮助文档'],
     \ ])

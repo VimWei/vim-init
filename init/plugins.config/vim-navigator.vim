@@ -151,7 +151,7 @@ let g:navigator.o = {
         \ 'r' : [':set relativenumber', '显示相对行号'],
         \ 'R' : [':set norelativenumber', '不显示相对行号'],
         \ },
-    \ 'w' : {
+    \ 'r' : {
         \ 'name' : '+Wrap',
         \ 'w' : [':set wrap', '自动换行'],
         \ 'W' : [':set nowrap', '关闭自动换行'],
@@ -167,6 +167,8 @@ let g:navigator.o = {
         \ 'w' : ['<key>zw', 'zw 将错词 (wrong) 加入到 spellfile'],
         \ 'v' : ['<key>zuw', 'zuw 撤销zw，从 spellfile 里删除单词'],
         \ },
+    \ 'p' : [':ToggleApc', '开关 vim-auto-popmenu'],
+    \ 'w' : [':ToggleStrip', '开关 Whitespace Stripping'],
     \ }
 
 " Plugin -----------------------------------------------------------------{{{1
