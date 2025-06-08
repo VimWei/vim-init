@@ -63,10 +63,10 @@ noremap <silent><m-left> :call Tab#MoveLeft()<cr>
 noremap <silent><m-right> :call Tab#MoveRight()<cr>
 
 " tab 切换: <leader>+N 或 ALT+N
-let s:array = [')', '!', '@', '#', '$', '%', '^', '&', '*', '(']
-for i in range(10)
-    let x = (i == 0)? 10 : i
-    let c = s:array[i]
+let s:array = ['!', '@', '#', '$', '%', '^', '&', '*', '(']
+for i in range(1, 9)
+    let x = i
+    let c = s:array[i-1]
     exec "noremap <silent><M-".i."> ".x."gt"
     exec "noremap <silent><leader>".i." ".x."gt"
     exec "inoremap <silent><M-".i."> <ESC>".x."gt"
