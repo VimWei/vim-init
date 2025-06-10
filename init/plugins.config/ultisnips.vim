@@ -20,7 +20,8 @@ for dir in g:my_snippet_dirs
     endif
 endfor
 " 保留插件自带snippets（如UltiSnips）的同时，添加自定义目录
-let g:UltiSnipsSnippetDirectories = ['UltiSnips'] + g:my_snippet_dirs
+" let g:UltiSnipsSnippetDirectories = ['UltiSnips'] + g:my_snippet_dirs
+let g:UltiSnipsSnippetDirectories = g:my_snippet_dirs
 
 " 快捷访问存放目录
 nnoremap <leader>us :execute 'Lexplore ' . g:my_snippet_dirs[0]<CR>
