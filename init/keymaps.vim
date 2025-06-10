@@ -62,18 +62,10 @@ noremap <silent><leader>tl :call Tab#MoveRight()<cr>
 noremap <silent><m-left> :call Tab#MoveLeft()<cr>
 noremap <silent><m-right> :call Tab#MoveRight()<cr>
 
-" tab 切换: <leader>+N 或 ALT+N
-let s:array = ['!', '@', '#', '$', '%', '^', '&', '*', '(']
+" tab 切换: <leader>+N
 for i in range(1, 9)
     let x = i
-    let c = s:array[i-1]
-    exec "noremap <silent><M-".i."> ".x."gt"
     exec "noremap <silent><leader>".i." ".x."gt"
-    exec "inoremap <silent><M-".i."> <ESC>".x."gt"
-    if get(g:, 'vim_no_meta_shift_num', 0) == 0
-        exec "noremap <silent><M-".c."> ".x."gt"
-        exec "inoremap <silent><M-".c."> <ESC>".x."gt"
-    endif
 endfor
 
 " Window -----------------------------------------------------------------{{{1
