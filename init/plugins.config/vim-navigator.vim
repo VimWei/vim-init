@@ -140,6 +140,12 @@ let g:navigator.o = {
     \ 'o' : [':tab options', '阅读和设置所有选项'],
     \ 'h' : [':tab help options.txt', 'Options 帮助文档'],
     \ 'c' : {
+        \ 'name' : '+ColorColumn',
+        \ 'c' : [':CColumn', '设置 cursor pos 为对齐线'],
+        \ 't' : [':CColumnTextwidth', '设置 Textwidth 为对齐线'],
+        \ 'r' : ['CColumnRemoveAll', '取消所有的对齐线'],
+        \ },
+    \ 'l' : {
         \ 'name' : '+Cursorline',
         \ 'o' : [':set cursorline', '打开高亮显示 cursorline'],
         \ 'f' : [':set nocursorline', '关闭高亮显示 cursorline'],
