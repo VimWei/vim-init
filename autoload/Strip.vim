@@ -25,8 +25,10 @@ function! Strip#TrailingWhitespace()
         silent! %s/\s\+$//
         " 删除重复的多个空行，仅保留一个
         silent! %s/^$\n\(^$\)\@=//
-        " 删除文件末尾的所有空行
-        " silent! %s/\(\s*\n\)\+\%$//
+        " 删除文件末尾的所有空行，srt 文件除外
+        if &ft !=# 'srt'
+            silent! %s/\(\s*\n\)\+\%$//
+        endif
         call winrestview(l:winview)
     endif
 endfunction
