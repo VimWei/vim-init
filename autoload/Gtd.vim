@@ -20,7 +20,7 @@ let s:markdown_list_pattern = '\v^(' . join(map(copy(s:markdown_list_symbols), '
 
 " ToggleTodoCheckbox -----------------------------------------------------{{{1
 " 切换列表项的 todo checkbox（在普通列表项和 todo 列表项之间切换）
-function! Markdown#ToggleTodoCheckbox() range
+function! Gtd#ToggleTodoCheckbox() range
     " 获取选中的文本
     let lines = getline(a:firstline, a:lastline)
     let result = []
