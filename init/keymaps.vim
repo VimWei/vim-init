@@ -119,10 +119,6 @@ nnoremap vv ^vg_
 
 " 在光标之后插入时间戳（Time Stamp）
 nnoremap <leader>ts a<C-R>=strftime("%Y-%m-%d %A %H:%M:%S")<CR><Esc>
-" 在光标之后插入时间戳(会议安排格式 Meeting Schedule)
-nnoremap <leader>ms a<C-R>=strftime("%Y%m%d%a%H:%M")<CR><Esc>
-" 在光标之后插入时间戳(周膳计划格式 Meal Cycle)
-nnoremap <leader>mc a<C-R>="周膳计划 " . strftime("%Y-%m-%d")<CR><Esc>
 
 " WikiGrep ---------------------------------------------------------------{{{1
 " 搜索当前工作目录下的所有文件，但只搜索第一个匹配：

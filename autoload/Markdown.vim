@@ -235,3 +235,23 @@ function! Markdown#RemoveLinkAtCursor()
     let l:start = l:mend
   endwhile
 endfunction
+
+" WrapInCodeBlock --------------------------------------------------------{{{1
+" 将选中的文本包装在代码块标记中
+function! Markdown#WrapInCodeBlock() range
+    " 获取选中的文本
+    let lines = getline(a:firstline, a:lastline)
+    let result = []
+
+    " 添加开始标记
+    call add(result, '```')
+    " 添加选中的文本
+    call extend(result, lines)
+    " 添加结束标记
+    call add(result, '```')
+
+    " 删除选中的行
+    execute a:firstline . ',' . a:lastline . 'delete'
+    " 在删除的位置插入新的内容
+    call append(a:firstline - 1, result)
+endfunction

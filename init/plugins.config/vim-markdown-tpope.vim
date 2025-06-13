@@ -41,6 +41,7 @@ augroup MarkdownLinkConceal
 augroup END
 
 " set markdown format ----------------------------------------------------{{{1
+" 详情查阅 ../../autoload/Markdown.vim
 
 " 为选中的Markdown文字加粗，bold
 nnoremap <leader>mb viW"ms****<Esc>h"mPe
@@ -54,9 +55,19 @@ vnoremap <leader>ml <ESC>`>a]()<ESC>`<i[<ESC>`>4l
 " 为选中的内容添加图片链接，picture
 nnoremap <leader>mp viW<ESC>`>a]()<ESC>`<i![<ESC>`>5l
 vnoremap <leader>mp <ESC>`>a]()<ESC>`<i![<ESC>`>5l
-" 删除光标所在处的链接或图片链接，link picture delete
-" 详情查阅 ../../autoload/Markdown.vim
-nnoremap <leader>mld :call Markdown#RemoveLinkAtCursor()<CR>
+
+" 删除光标所在处的链接或图片链接，link picture remove
+nnoremap <leader>mlr :call Markdown#RemoveLinkAtCursor()<CR>
+
+" Toggle Todo 状态
+command! -range ToggleTodoCheckbox <line1>,<line2>call Gtd#ToggleTodoCheckbox()
+vnoremap <leader>mtd :ToggleTodoCheckbox<CR>
+nnoremap <leader>mtd :ToggleTodoCheckbox<CR>
+
+" 添加代码块标记
+command! -range WrapInCodeBlock <line1>,<line2>call Markdown#WrapInCodeBlock()
+vnoremap <leader>mcb :WrapInCodeBlock<CR>
+nnoremap <leader>mcb :WrapInCodeBlock<CR>
 
 " UngqFormat -------------------------------------------------------------{{{1
 " 详情查阅 ../../autoload/Markdown.vim
