@@ -195,11 +195,13 @@ let g:navigator.m = {
     \ 'name' : '+Markdown',
     \ 'f' : [':set ft=markdown', '将文件类型设置为markdown'],
     \ 't' : [':TOC', '列出目录 TOC'],
-    \ 'c' : [':OCRClean', '清理 OCR 文档的格式'],
+    \ 'o' : [':OCRClean', '清理 OCR 文档的格式'],
     \ 'd' : [':FullToHalfDigit', '全角数字转半角'],
     \ 'q' : ['<key>ggVGgq', '全文 gq 格式化'],
     \ 'u' : [':UngqFormat', '恢复 gq 格式化'],
     \ 'e' : ['Markdown#Explode2P()', '将全文的行转为段落 explode'],
+    \ 'c' : ['Gtd#ToggleTodoCheckbox()', '切换 Todo checkbox'],
+    \ 'w' : ['Markdown#WrapInCodeBlock()', '添加代码块标记'],
     \ }
 
 let g:navigator_v.m = {
@@ -207,6 +209,8 @@ let g:navigator_v.m = {
     \ 'q' : ['<key>gq', '选区 gq 格式化'],
     \ 'u' : [':UngqFormat', '恢复 gq 格式化'],
     \ 'e' : ['Markdown#Explode2P()', '将选区的行转为段落 explode'],
+    \ 'c' : ['Gtd#ToggleTodoCheckbox()', '切换 Todo checkbox'],
+    \ 'w' : ['Markdown#WrapInCodeBlock()', '添加代码块标记'],
     \ }
 
 " Wiki.vim ----------------------------------------------------------------{{{1

@@ -40,7 +40,7 @@ call quickui#menu#install("&Edit", [
     \ ['Tab to Space', 'call ReTab#Tab2Space()', 'Tab to Space'],
     \ ['Space to Tab', 'call ReTab#Space2Tab()', 'Space to Tab'],
     \ ["-"],
-    \ ['Wrap In Code Block', 'call Markdown#WrapInCodeBlock()', '添加代码块标记'],
+    \ ['&Wrap In Code Block', 'WrapInCodeBlock', '添加代码块标记'],
     \ ["-"],
     \ ['&Translate Word', 'call Translator#Words("n")', '翻译当前词汇'],
     \ ])
@@ -79,11 +79,11 @@ call quickui#menu#install("&Bullet", [
     \ ['Change Symbol To +', 'normal gl+', '更改当前列表符号为 +'],
     \ ["-"],
     \ ['Demote List Level -->', 'normal gl>', '降低当前列表级别 -->'],
-    \ ['promote List Level <--', 'normal gl<', '提升当前列表级别 <--'],
-    \ ['Renumber List Items', 'normal glr', '重建当前列表编号 renumber'],
-    \ ['Delete List Symbol', 'normal gld', '删除当前列表编号 delete'],
+    \ ['&promote List Level <--', 'normal gl<', '提升当前列表级别 <--'],
+    \ ['&Renumber List Items', 'normal glr', '重建当前列表编号 renumber'],
+    \ ['&Delete List Symbol', 'normal gld', '删除当前列表编号 delete'],
     \ ["-"],
-    \ ['Toggle todo checkbox', 'ToggleTodoCheckbox', '切换 todo checkbox'],
+    \ ['Toggle &todo checkbox', 'ToggleTodoCheckbox', '切换 todo checkbox'],
     \ ])
 
     " \ ['Toggle Todo status done [ ] [X] ', 'VimwikiToggleListItem', '切换 Todo 完成状态'],
