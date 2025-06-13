@@ -36,13 +36,16 @@ function! Gtd#ToggleTodoCheckbox() range
             " 是 todo 列表项，转换为普通列表项
             " 获取列表符号（可能是多个字符，如 '1.'）
             let prefix = matchstr(content, s:markdown_list_pattern)
-            " 移除 [ ] 或 [x] 标记及其前后的空格
-            let rest = substitute(content, '^' . escape(prefix, '.*+?^$()[]{}|\\') . '\s*\[\s*[ x]\s*\]\s*', '', '')
+            " 匹配完整的 todo 列表前缀（包括列表符号、[ ] 标记和空格）
+            let full_prefix_match = matchstr(content, s:markdown_list_pattern . '\s*\[\s*[ x]\s*\]\s*')
+            let rest = strpart(content, len(full_prefix_match))
             let new_line = indent . prefix . ' ' . rest
         elseif content =~ s:markdown_list_pattern
             " 是普通列表项，转换为 todo 列表项
             let prefix = matchstr(content, s:markdown_list_pattern)
-            let rest = substitute(content, '^' . escape(prefix, '.*+?^$()[]{}|\\') . '\s*', '', '')
+            " 匹配完整的普通列表前缀（包括列表符号和空格）
+            let full_prefix_match = matchstr(content, s:markdown_list_pattern . '\s*')
+            let rest = strpart(content, len(full_prefix_match))
             let new_line = indent . prefix . ' [ ] ' . rest
         else
             " 不是列表项，转换为带 todo 标记的列表项（使用第一个列表符号，即 *）
@@ -62,13 +65,11 @@ endfunction
 function! Gtd#GenerateTodoString() abort
     " 获取当前行内容
     let l:line = getline('.')
-    echomsg "line: " . l:line
 
     " 获取前导空格
     let l:indent = matchstr(l:line, '^\s*')
     " 去除前导空格后的文本
     let content = substitute(l:line, '^\s*', '', '')
-    echomsg "content: " . content
 
     " 获取本地化的时间戳
     let l:timestamp = strftime("%Y-%m-%d %A")
@@ -92,9 +93,6 @@ function! Gtd#GenerateTodoString() abort
         let rest = substitute(content, '^\s*', '', '')
         let todo_replacement = prefix . ' [ ] ' . l:timestamp
     endif
-    echomsg "prefix: " . prefix
-    echomsg "rest: " . rest
-    echomsg "todo_replacement: " . todo_replacement
 
     return todo_replacement
 endfunction
