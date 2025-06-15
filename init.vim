@@ -16,7 +16,9 @@ let mapleader = "\<space>"
 
 " g:viminit --------------------------------------------------------------{{{1
 let g:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h')
-execute 'set runtimepath+=' . g:viminit . ',' . g:viminit . '/after'
+execute 'set runtimepath+=' . g:viminit
+execute 'set runtimepath+=' . g:viminit . '/after'
+execute 'set packpath+=' . g:viminit
 let g:viminit = substitute(g:viminit . '/', '\\', '/', 'g')
 let g:viminitparent = fnamemodify(g:viminit, ':h:h') . '/'
 let g:plugins_config_path = g:viminit . 'init/plugins.config/'
