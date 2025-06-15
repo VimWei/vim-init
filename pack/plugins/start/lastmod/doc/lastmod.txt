@@ -1,0 +1,35 @@
+*lastmod.txt*  Update a last modified timestamp when writing changes
+
+Author:  Jeremy Cantrell <jmcantrell@gmail.com>         *lastmod-author*
+License: Same terms as Vim itself (see |license|)
+
+INTRODUCTION                                       *lastmod* *lastmod.vim*
+
+Update a last modified timestamp when writing changes.
+
+COMMANDS                                              *lastmod-commands*
+
+:LastModUpdate    Manually update the last modified timestamp.
+
+CONFIGURATION                                    *lastmod-configuration*
+
+let g:lastmod_loaded = 0                              *g:lastmod_loaded*
+    If set in your |vimrc|, lastmod.vim is not loaded.
+
+let g:lastmod_lines = 20                               *g:lastmod_lines*
+    Look at the first n lines of the file.
+
+let g:lastmod_format = '%a %Y-%m-%d %H:%M:%S (%z)'    *g:lastmod_format*
+    This is used as the format for the timestamp.
+    For more information, see |strftime()|
+
+let g:lastmod_prefix = 'Last Modified: '              *g:lastmod_prefix*
+    This is prepended to the timestamp.
+
+let g:lastmod_suffix = ''                             *g:lastmod_suffix*
+    This is appended to the timestamp.
+
+let g:lastmod_commented = 1                        *g:lastmod_commented*
+    If set, the whole line will be commented.
+
+vim:tw=78:et:ft=help:norl:

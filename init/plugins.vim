@@ -144,7 +144,7 @@ if IsInPlugGroup('basic', 'search') " ------------------------------------{{{1
     Plug 'VimWei/vimnc', { 'branch': 'fix-path-handling' }
 endif
 if IsInPlugGroup('basic', 'inbox') " ------------------------------------{{{1
-    Plug 'inkarkat/ingo-library'
+    Plug 'inkarkat/vim-ingo-library'
     Plug 'inkarkat/vim-AutoAdapt'
 endif
 
