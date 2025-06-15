@@ -140,9 +140,10 @@ if IsInPlugGroup('basic', 'search') " ------------------------------------{{{1
     Plug 'ppwwyyxx/vim-PinyinSearch'
     Plug 'romainl/vim-cool'
     Plug 't9md/vim-choosewin'
+    " Plug 'mahadevan-k/vimnc'
+    Plug 'VimWei/vimnc', { 'branch': 'fix-path-handling' }
 endif
 if IsInPlugGroup('basic', 'inbox') " ------------------------------------{{{1
-    Plug 'mahadevan-k/vimnc'
 endif
 
 if IsInPlugGroup('Notetaking', 'edit')  " --------------------------------{{{1

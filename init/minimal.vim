@@ -3,7 +3,5 @@
 "===================================================
 
 call plug#begin()
-Plug 'lervag/wiki.vim'
-let g:wiki_root = 'd:/WeirdData/wiki/'
-set shellslash
+Plug 'mahadevan-k/vimnc'
 call plug#end()
