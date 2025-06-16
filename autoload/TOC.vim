@@ -1,5 +1,9 @@
 " vim: set fdm=marker et ts=4 sw=4 sts=4:
 
+"===================================================
+" TOC.vim - Help Table of Contents functions
+"===================================================
+
 " Init(): set up defaults, create TOC command {{{1
 function! TOC#Init() abort
     " set up defaults {{{2
@@ -127,4 +131,16 @@ function! TOC#ReDisplay(bufname) abort
     noremap <buffer> q :lclose<CR>
     noremap <buffer> <expr> <CR> g:TOC#close_after_navigating == 1 ? '<CR>:lclose<CR>:normal! zt<CR>' : '<CR>:normal! zt<CR>'
     noremap <buffer> <expr> <C-CR> g:TOC#close_after_navigating == 1 ? '<CR>:normal! zt<CR>': '<CR>:lclose<CR>:normal! zt<CR>'
+endfunction
+
+" Load helptoc and open help table of contents ---------------------------{{{1
+function! TOC#HelpToc() abort
+    if v:version < 901 || (v:version == 901 && !has('patch1230'))
+        echohl WarningMsg
+        echo "helptoc package requires Vim 9.1.1230 or later"
+        echohl None
+        return
+    endif
+    packadd helptoc
+    HelpToc
 endfunction

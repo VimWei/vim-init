@@ -54,6 +54,7 @@ let g:navigator.b = {
     \ 'n' : [':bnext', 'next-buffer'],
     \ 'p' : [':bprevious', 'previous-buffer'],
     \ 'o' : ['Buffer#CloseDuplicate()', '关闭 duplicate 窗口'],
+    \ 't' : ['TOC#HelpToc()', '打开目录'],
     \ }
 
 " Colorscheme ------------------------------------------------------------{{{1

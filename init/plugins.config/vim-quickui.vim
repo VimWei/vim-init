@@ -29,7 +29,6 @@ call quickui#menu#install('&File', [
 " Edit -------------------------------------------------------------------{{{1
 call quickui#menu#install("&Edit", [
     \ ['Set Filetype &Markdown', 'set ft=markdown', '将文件类型设置为 Markdown'],
-    \ ['Markdown TOC', 'TOC', '列出 Markdown 目录 TOC'],
     \ ["-"],
     \ ['&OCRClean', 'OCRClean', '清理 OCR 文档的格式'],
     \ ['gq&Format', 'normal! ggVGgq', '全文 gq 格式化'],
@@ -47,9 +46,10 @@ call quickui#menu#install("&Edit", [
 
 " Wiki -------------------------------------------------------------------{{{1
 call quickui#menu#install("&Wiki", [
+    \ ['HelpToc', 'call TOC#HelpToc()', '打开目录'],
+    \ ["-"],
     \ ['&Wiki Index', 'WikiIndex', '打开 Wiki Index'],
     \ ['Wiki Index in Tab', 'call Wikivim#OpenWikiIndexTab()', '打开 Wiki Index in Tab'],
-    \ ['Open RoadShow', 'call Wikivim#OpenWikiPage("Research/路演.md")', '打开 RoadShow'],
     \ ['&Delete wiki page', 'WikiPageDelete', '删除 wiki page'],
     \ ['&Rename wiki page', 'WikiPageRename', '重命名 wiki page'],
     \ ["-"],
