@@ -1,18 +1,7 @@
 "===================================================
-" Packages & Plugins by W.Chen
+" Plugins by W.Chen
 " Sourced by: ../init.vim
 "===================================================
-
-" Python provider --------------------------------------------------------{{{1
-" 详情查阅 ../autoload/CondaPython.vim
-call CondaPython#Provider()
-
-" Packages ---------------------------------------------------------------{{{1
-" 增强%在配对关键字间跳转
-packadd! matchit
-if !has('nvim')
-    packadd! comment
-endif
 
 " plug_group -------------------------------------------------------------{{{1
 " 定义快速测试分组，将覆盖下面的默认分组
@@ -241,3 +230,13 @@ function! ToggleShellslashForVimPlug()
   endif
 endfunction
 call ToggleShellslashForVimPlug()
+
+" source plugins config --------------------------------------------------{{{1
+if len(get(g:, 'plugs_order', [])) !=# 0
+    for plug in g:plugs_order
+        let plug_config = g:plugins_config_path . plug . '.vim'
+        if filereadable(plug_config)
+            execute 'source ' . plug_config
+        endif
+    endfor
+endif

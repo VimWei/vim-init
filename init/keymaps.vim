@@ -9,22 +9,6 @@ set winaltkeys=no
 " 避免误操作进入 Ex 模式
 nnoremap Q <nop>
 
-" VIMRC ------------------------------------------------------------------{{{1
-" 详情查阅 ../autoload/Vimrc.vim
-command! VI call Vimrc#EditInitVimrc("init.vim")
-command! VV call Vimrc#EditInitVimrc("init.vim", "vsp")
-command! VE call Vimrc#EditInitVimrc("essential.vim")
-command! VT call Vimrc#EditInitVimrc("tabsize.vim")
-command! VS call Vimrc#EditInitVimrc("statusline.vim")
-command! VP call Vimrc#EditInitVimrc("plugins.vim")
-command! VPC call Vimrc#EditInitVimrc("pluginsconfig.vim")
-command! VK call Vimrc#EditInitVimrc("keymaps.vim")
-command! VC call Vimrc#EditInitVimrc("colorstyle.vim")
-command! VG call Vimrc#EditInitVimrc("guistyle.vim")
-command! VM call Vimrc#EditInitVimrc("vim-quickui.vim")
-command! VN call Vimrc#EditInitVimrc("vim-navigator.vim")
-command! VA call Vimrc#EditInitVimrc("autoload.vim")
-
 " Vim Help ---------------------------------------------------------------{{{1
 " 垂直右侧窗口打开help
 cabbrev vh vert botright help

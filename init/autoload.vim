@@ -3,6 +3,31 @@
 " Sourced by: ../init.vim
 "===================================================
 
+" Vimrc#EditInitVimrc ----------------------------------------------------{{{1
+" 详情查阅 ../autoload/Vimrc.vim
+command! VI call Vimrc#EditInitVimrc("init.vim")
+command! VV call Vimrc#EditInitVimrc("init.vim", "vsp")
+command! VE call Vimrc#EditInitVimrc("essential.vim")
+command! VT call Vimrc#EditInitVimrc("tabsize.vim")
+command! VS call Vimrc#EditInitVimrc("statusline.vim")
+command! VP call Vimrc#EditInitVimrc("plugins.vim")
+command! VPK call Vimrc#EditInitVimrc("packages.vim")
+command! VK call Vimrc#EditInitVimrc("keymaps.vim")
+command! VC call Vimrc#EditInitVimrc("colorstyle.vim")
+command! VG call Vimrc#EditInitVimrc("guistyle.vim")
+command! VM call Vimrc#EditInitVimrc("vim-quickui.vim")
+command! VN call Vimrc#EditInitVimrc("vim-navigator.vim")
+command! VA call Vimrc#EditInitVimrc("autoload.vim")
+
+" Vimrc#PluginConfig -----------------------------------------------------{{{1
+" Open plugin/package config path with netrw
+nnoremap <leader>pc :execute 'Lexplore ' . g:plugins_config_path<CR>
+" Open plugin config file with <Leader>gf or :FindPluginConfig
+" Ref: ../autoload/Vimrc.vim
+command! FindPluginConfig call Vimrc#PluginConfig()
+nnoremap <Leader>gf :call Vimrc#PluginConfig()<CR>
+" Open plugin config file with :find pluginname[tab]
+
 " Vimrc#AutoReload -------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Vimrc.vim
 " 当pwd为vim-init/时，修订并保存 *.vim 文件后，系统将自动重新加载
@@ -15,6 +40,9 @@ augroup END
 
 " Python -----------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/CondaPython.vim
+
+" Load Python provider
+call CondaPython#Provider()
 
 " 以下4个命令，运行格式一样，第1个参数代表conda env，之后的代表cmd命令
 " command! YourCommand call CondaPython#CondaEnv("env", "mode"，"cmd1", "cmd2", ...)

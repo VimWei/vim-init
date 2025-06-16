@@ -30,7 +30,7 @@ execute 'so ' . g:viminit . 'init/keymaps.vim'
 " execute 'so ' . g:viminit . 'init/minimal.vim'
 " finish
 execute 'so ' . g:viminit . 'init/plugins.vim'
-execute 'so ' . g:viminit . 'init/pluginsconfig.vim'
+execute 'so ' . g:viminit . 'init/packages.vim'
 execute 'so ' . g:viminit . 'init/autoload.vim'
 execute 'so ' . g:viminit . 'init/guistyle.vim'
 execute 'so ' . g:viminit . 'init/statusline.vim'
