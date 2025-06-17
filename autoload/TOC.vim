@@ -133,14 +133,36 @@ function! TOC#ReDisplay(bufname) abort
     noremap <buffer> <expr> <C-CR> g:TOC#close_after_navigating == 1 ? '<CR>:normal! zt<CR>': '<CR>:lclose<CR>:normal! zt<CR>'
 endfunction
 
-" Load helptoc and open help table of contents ---------------------------{{{1
+" Smart table of contents handler for both helptoc and TOC -----------------{{{1
+" This function intelligently handles table of contents based on:
+" - Vim version (uses helptoc for Vim 9.1.1230+)
+" - File type (uses TOC for markdown files in older Vim or Neovim)
 function! TOC#HelpToc() abort
-    if v:version < 901 || (v:version == 901 && !has('patch1230'))
+    " Check if current file is markdown
+    let is_markdown = &filetype ==# 'markdown'
+
+    " For Vim 9.1.1230 or later, use helptoc
+    if v:version > 901 || (v:version == 901 && has('patch1230'))
+        packadd helptoc
+        HelpToc
+    " For Neovim or older Vim versions, use TOC for markdown files
+    elseif is_markdown
+        " Initialize TOC configuration if not already done
+        if !exists('g:TOC#initialized')
+            let g:TOC#position = "left"
+            let g:TOC#autofit = 1
+            let g:TOC#close_after_navigating = 0
+            let g:TOC#initialized = 1
+            call TOC#Init()
+        endif
+        TOC
+    else
         echohl WarningMsg
-        echo "helptoc package requires Vim 9.1.1230 or later"
+        if !is_markdown
+            echo "TOC does not support the current file format"
+        else
+            echo "helptoc requires Vim 9.1.1230 or later"
+        endif
         echohl None
-        return
     endif
-    packadd helptoc
-    HelpToc
 endfunction

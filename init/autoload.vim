@@ -163,13 +163,10 @@ command! HtmlTidy call HtmlTidy#Tidy()
 " nnoremap <leader>hp :call HtmlTidy#Prettify()<CR>
 command! HtmlPrettify call HtmlTidy#Prettify()
 
-" TOC --------------------------------------------------------------------{{{1
+" HelpToc and TOC --------------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/TOC.vim
-nnoremap <leader><Leader>t :TOC<CR>
-let g:TOC#position = "left"
-let g:TOC#autofit = 1
-let g:TOC#close_after_navigating = 0
-autocmd FileType markdown call TOC#Init()
+" 打开文档目录
+nnoremap <leader>ht :call TOC#HelpToc()<CR>
 
 " List -------------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/List.vim

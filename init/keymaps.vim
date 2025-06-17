@@ -23,9 +23,6 @@ vnoremap <leader>h y:tab help <C-R>*<CR>
 " 查询当前光标下word的帮助
 nnoremap <leader><leader>h :tab help <C-R><C-W><CR>
 
-" 加载 helptoc 并打开帮助目录
-nnoremap <leader>ht :call TOC#HelpToc()<CR>
-
 " CD ---------------------------------------------------------------------{{{1
 " 命令行中将 %% 展开为活动缓冲区所在目录的路径，相当于 %:h<Tab>
 cnoremap <expr> %% getcmdtype( ) == ':' ? expand('%:p:h').'/' : '%%'

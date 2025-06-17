@@ -195,7 +195,6 @@ let g:navigator.p = {
 let g:navigator.m = {
     \ 'name' : '+Markdown',
     \ 'f' : [':set ft=markdown', '将文件类型设置为markdown'],
-    \ 't' : [':TOC', '列出目录 TOC'],
     \ 'o' : [':OCRClean', '清理 OCR 文档的格式'],
     \ 'd' : [':FullToHalfDigit', '全角数字转半角'],
     \ 'q' : ['<key>ggVGgq', '全文 gq 格式化'],
