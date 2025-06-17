@@ -4,39 +4,50 @@
 " TOC.vim - Help Table of Contents functions
 "===================================================
 
-" Init(): set up defaults, create TOC command {{{1
-function! TOC#Init() abort
-    " set up defaults {{{2
-    " where to open the location list
-    if !exists('g:TOC#position')
-        let g:TOC#position = 'right'
+" Configuration management -----------------------------------------------{{{1
+function! s:init_config() abort
+    if !exists('s:initialized')
+        " Default settings
+        let s:position = get(g:, 'TOC#position', 'right')
+        let s:close_after_navigating = get(g:, 'TOC#close_after_navigating', 1)
+        let s:shift = get(g:, 'TOC#shift', 2)
+        let s:autofit = get(g:, 'TOC#autofit', 0)
+        let s:initialized = 1
     endif
-    if !exists('g:TOC#close_after_navigating')
-        let g:TOC#close_after_navigating = 1
-    endif
-    " the number of spaces per level in toc
-    if !exists('g:TOC#shift')
-        let g:TOC#shift = 2
-    endif
-    " create :TOC command {{{2
-    command! -buffer TOC call TOC#Show()
-    "}}}
+endfunction
+
+" Version compatibility check --------------------------------------------{{{1
+function! s:is_helptoc_supported() abort
+    return v:version > 901 || (v:version == 901 && has('patch1230'))
+endfunction
+
+" File type check -------------------------------------------------------{{{1
+function! s:is_markdown() abort
+    return &filetype ==# 'markdown'
+endfunction
+
+" Error handling --------------------------------------------------------{{{1
+function! s:show_error(message) abort
+    echohl WarningMsg
+    echo a:message
+    echohl None
 endfunction
 
 " Show(): show a table of contents using the quickfix window. {{{1
 " based on plasticboy/vim-markdown implementation by cirosantilli
 function! TOC#Show() abort
+    call s:init_config()  " Ensure config is initialized
     let bufname=expand('%')
 
     " prepare the location-list buffer
     call TOC#Update()
-    if g:TOC#position ==# 'right'
+    if s:position ==# 'right'
         let toc_pos = 'rightb vertical'
-    elseif g:TOC#position ==# 'left'
+    elseif s:position ==# 'left'
         let toc_pos = 'topleft vertical'
-    elseif g:TOC#position ==# 'top'
+    elseif s:position ==# 'top'
         let toc_pos = 'topleft'
-    elseif g:TOC#position ==# 'bottom'
+    elseif s:position ==# 'bottom'
         let toc_pos = 'botright'
     else
         let toc_pos = 'vertical'
@@ -44,9 +55,7 @@ function! TOC#Show() abort
     try
         exe toc_pos . ' lopen'
     catch /E776/ " no location list
-        echohl ErrorMsg
-        echom 'toc: no places to show'
-        echohl None
+        call s:show_error('toc: no places to show')
         return
     endtry
 
@@ -64,8 +73,22 @@ function! TOC#Update() abort
     endtry
 endfunction
 
+" Set up key mappings for the TOC window {{{1
+function! s:setup_mappings() abort
+    call s:init_config()  " Ensure config is initialized
+    noremap <buffer> q :lclose<CR>
+    if s:close_after_navigating
+        noremap <buffer> <CR> <CR>:lclose<CR>:normal! zt<CR>
+        noremap <buffer> <C-CR> <CR>:normal! zt<CR>
+    else
+        noremap <buffer> <CR> <CR>:normal! zt<CR>
+        noremap <buffer> <C-CR> <CR>:lclose<CR>:normal! zt<CR>
+    endif
+endfunction
+
 " ReDisplay(bufname): Prepare the location list window for our uses {{{1
 function! TOC#ReDisplay(bufname) abort
+    call s:init_config()  " Ensure config is initialized
     if len(getloclist(0)) == 0
         lclose
         return
@@ -103,7 +126,7 @@ function! TOC#ReDisplay(bufname) abort
             endif
             " let d.text = '· '.d.text
         endif
-        call setline(l, repeat(' ', g:TOC#shift*l:level). d.text)
+        call setline(l, repeat(' ', s:shift*l:level). d.text)
 
         " keep track of the longest header size (heading level + title)
         let l:lineraw = getline(l)
@@ -115,8 +138,7 @@ function! TOC#ReDisplay(bufname) abort
     endfor
 
     " auto-fit toc window when possible to shrink it
-    let l:toc_autofit = get(g:, "TOC#autofit", 0)
-    if (&columns/2) > l:header_max_len && l:toc_autofit == 1
+    if (&columns/2) > l:header_max_len && s:autofit == 1
         execute 'vertical resize ' . (l:header_max_len + 5)
     else
         execute 'vertical resize ' . (&columns/4)
@@ -128,9 +150,7 @@ function! TOC#ReDisplay(bufname) abort
     setlocal nowrap
     normal! gg
 
-    noremap <buffer> q :lclose<CR>
-    noremap <buffer> <expr> <CR> g:TOC#close_after_navigating == 1 ? '<CR>:lclose<CR>:normal! zt<CR>' : '<CR>:normal! zt<CR>'
-    noremap <buffer> <expr> <C-CR> g:TOC#close_after_navigating == 1 ? '<CR>:normal! zt<CR>': '<CR>:lclose<CR>:normal! zt<CR>'
+    call s:setup_mappings()
 endfunction
 
 " Smart table of contents handler for both helptoc and TOC -----------------{{{1
@@ -138,31 +158,16 @@ endfunction
 " - Vim version (uses helptoc for Vim 9.1.1230+)
 " - File type (uses TOC for markdown files in older Vim or Neovim)
 function! TOC#HelpToc() abort
-    " Check if current file is markdown
-    let is_markdown = &filetype ==# 'markdown'
-
-    " For Vim 9.1.1230 or later, use helptoc
-    if v:version > 901 || (v:version == 901 && has('patch1230'))
+    call s:init_config()
+    
+    if s:is_helptoc_supported()
         packadd helptoc
         HelpToc
-    " For Neovim or older Vim versions, use TOC for markdown files
-    elseif is_markdown
-        " Initialize TOC configuration if not already done
-        if !exists('g:TOC#initialized')
-            let g:TOC#position = "left"
-            let g:TOC#autofit = 1
-            let g:TOC#close_after_navigating = 0
-            let g:TOC#initialized = 1
-            call TOC#Init()
-        endif
-        TOC
+    elseif s:is_markdown()
+        call TOC#Show()
     else
-        echohl WarningMsg
-        if !is_markdown
-            echo "TOC does not support the current file format"
-        else
-            echo "helptoc requires Vim 9.1.1230 or later"
-        endif
-        echohl None
+        call s:show_error(s:is_markdown() 
+            \ ? "helptoc requires Vim 9.1.1230 or later"
+            \ : "TOC does not support the current file format")
     endif
 endfunction
