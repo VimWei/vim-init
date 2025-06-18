@@ -1,0 +1,3 @@
+[submodule "pack/mydev/start/vimnc"]
+	path = pack/mydev/start/vimnc
+	url = https://github.com/VimWei/vimnc
