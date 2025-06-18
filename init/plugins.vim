@@ -120,7 +120,7 @@ if IsInPlugGroup('basic', 'quickui') " -----------------------------------{{{1
 endif
 
 if IsInPlugGroup('basic', 'search') " ------------------------------------{{{1
-    if CondaPython#Provider()
+    if g:python_available
         Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
     endif
     Plug 'skywind3000/vim-auto-popmenu'
@@ -168,7 +168,7 @@ if IsInPlugGroup('Notetaking', 'textobj') " ------------------------------{{{1
     " 函数文本对象：if/af 支持 c/c++/vim/java
     Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
     " 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
-    if CondaPython#Provider()
+    if g:python_available
         Plug 'bps/vim-textobj-python', {'for': 'python'}
     endif
 endif
@@ -182,7 +182,7 @@ endif
 
 if IsInPlugGroup('Notetaking', 'wiki') " ---------------------------------{{{1
     Plug 'lervag/wiki.vim'
-    if CondaPython#Provider()
+    if g:python_available
         Plug 'junegunn/fzf'
     endif
     Plug 'bullets-vim/bullets.vim'
@@ -213,7 +213,7 @@ else
 endif
 
 if IsInPlugGroup('program', 'python') " ----------------------------------{{{1
-    if CondaPython#Provider()
+    if g:python_available
         " python 语法文件增强
         Plug 'vim-python/python-syntax', { 'for': ['python'] }
         " 即时代码格式化
@@ -224,7 +224,7 @@ if IsInPlugGroup('program', 'python') " ----------------------------------{{{1
 endif
 
 if IsInPlugGroup('program', 'LSP') " -------------------------------------{{{1
-    if CondaPython#Provider()
+    if g:python_available
         Plug 'SirVer/ultisnips'
     endif
 endif

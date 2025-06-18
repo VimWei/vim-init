@@ -41,13 +41,10 @@ augroup END
 " Python -----------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/CondaPython.vim
 
-" Load Python provider
-call CondaPython#Provider()
-
 " 以下4个命令，运行格式一样，第1个参数代表conda env，之后的代表cmd命令
 " command! YourCommand call CondaPython#CondaEnv("env", "mode"，"cmd1", "cmd2", ...)
 
-if CondaPython#Provider()
+if g:python_available
     " 使用:TerminalConda，打开默认的conda环境pymotw
     " 使用:TerminalConda myEnv，打开指定的conda环境myEnv
     " 使用:TerminalConda myEnv "" ipython，打开指定的conda环境myEnv，并执行ipython
@@ -192,7 +189,6 @@ nnoremap <leader>iv :call Markdown#ViewImage()<CR>
 
 " 全角数字转半角 ---------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Markdown.vim
-
 command! FullToHalfDigit call Markdown#FullToHalfDigit()
 
 " OpenCC繁简转换 ---------------------------------------------------------{{{1
@@ -224,29 +220,31 @@ vnoremap <leader>dt :call Translator#Words('v')<CR>
 
 " PinYin拼音查询 ---------------------------------------------------------{{{1
 " 详情查阅 ../autoload/PinYin.vim
-" 使用Leaderf查询光标所在位置单字的拼音、双拼、同音字、常用词组
-nnoremap <leader>ps :call PinYin#SingleWord()<CR>
-command! PinYinSingleWord call PinYin#SingleWord()
+if g:python_available
+    " 使用Leaderf查询光标所在位置单字的拼音、双拼、同音字、常用词组
+    nnoremap <leader>ps :call PinYin#SingleWord()<CR>
+    command! PinYinSingleWord call PinYin#SingleWord()
 
-" 使用pypinyin查询词汇拼音，并显示在Quickfix
-command! PinYinWords call PinYin#Words('n')
-nnoremap <leader>pw :call PinYin#Words('n')<CR>
-vnoremap <leader>pw :call PinYin#Words('v')<CR>
+    " 使用pypinyin查询词汇拼音，并显示在Quickfix
+    command! PinYinWords call PinYin#Words('n')
+    nnoremap <leader>pw :call PinYin#Words('n')<CR>
+    vnoremap <leader>pw :call PinYin#Words('v')<CR>
 
-" 使用pypinyin查询词汇拼音，并显示在词汇所在行的上方
-nnoremap <leader>pi :call PinYin#Insert('n')<CR>
-vnoremap <leader>pi :call PinYin#Insert('v')<CR>
+    " 使用pypinyin查询词汇拼音，并显示在词汇所在行的上方
+    nnoremap <leader>pi :call PinYin#Insert('n')<CR>
+    vnoremap <leader>pi :call PinYin#Insert('v')<CR>
 
-" 使用pypinyin查询词汇拼音，并将其附在每行的后面
-" command! -range PyPinyin <line1>,<line2>call PinYin#ConvertLines()
-command! -range -nargs=? PyPinyin <line1>,<line2>call PinYin#ConvertLines(<f-args>)
-nnoremap <silent> <leader>pp :PyPinyin<CR>
-vnoremap <silent> <leader>pp :PyPinyin<CR>
+    " 使用pypinyin查询词汇拼音，并将其附在每行的后面
+    " command! -range PyPinyin <line1>,<line2>call PinYin#ConvertLines()
+    command! -range -nargs=? PyPinyin <line1>,<line2>call PinYin#ConvertLines(<f-args>)
+    nnoremap <silent> <leader>pp :PyPinyin<CR>
+    vnoremap <silent> <leader>pp :PyPinyin<CR>
 
-" 查询输入的汉语单字或拼音 - 拼音索引
-command! -nargs=1 PinyinIndex call PinYin#Index(<f-args>)<CR>
-" 查询输入的汉语单字或拼音 - 易混拼音
-command! -nargs=1 PinyinConfusion call PinYin#Confusion(<f-args>)<CR>
+    " 查询输入的汉语单字或拼音 - 拼音索引
+    command! -nargs=1 PinyinIndex call PinYin#Index(<f-args>)<CR>
+    " 查询输入的汉语单字或拼音 - 易混拼音
+    command! -nargs=1 PinyinConfusion call PinYin#Confusion(<f-args>)<CR>
+endif
 
 " Mdict ------------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Mdict.vim

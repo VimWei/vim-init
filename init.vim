@@ -23,6 +23,9 @@ let g:viminit = substitute(g:viminit . '/', '\\', '/', 'g')
 let g:viminitparent = fnamemodify(g:viminit, ':h:h') . '/'
 let g:plugins_config_path = g:viminit . 'init/plugins.config/'
 
+" Load Python provider ---------------------------------------------------{{{1
+call CondaPython#Provider()
+
 " LoadScript -------------------------------------------------------------{{{1
 execute 'so ' . g:viminit . 'init/essential.vim'
 execute 'so ' . g:viminit . 'init/tabsize.vim'
