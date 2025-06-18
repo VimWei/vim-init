@@ -2,4 +2,3 @@ reference/
 autoload/plug.vim.old
 *.swp
 tools/UltiSnips/
-pack/**/.git/
