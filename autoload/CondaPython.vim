@@ -106,23 +106,31 @@ endfunction
 
 " CondaPython#Provider ---------------------------------------------------{{{1
 function! CondaPython#Provider()
-    " 使用系统命令查找 Python 可执行文件的路径
-    if has('win32') || has('win64')
-        let python_cmd = 'where python'
-        let dll_name = 'python3.dll'
-    else
-        let python_cmd = 'which python3'
-        let dll_name = has('macunix') ? 'libpython3.dylib' : 'libpython3.so'
+    " 如果已经检查过，直接返回缓存的结果
+    if exists('g:conda_python_available')
+        return g:conda_python_available
     endif
 
     try
-        let python_prog = split(trim(system(python_cmd)), "\n")[0]
-        if empty(python_prog)
+        " 使用 executable() 检查 Python 是否可用
+        if has('win32') || has('win64')
+            let python_exe = 'python.exe'
+            let dll_name = 'python3.dll'
+        else
+            let python_exe = 'python3'
+            let dll_name = has('macunix') ? 'libpython3.dylib' : 'libpython3.so'
+        endif
+
+        if !executable(python_exe)
             echohl WarningMsg
             echom "Warning: Python executable not found"
             echohl None
+            let g:conda_python_available = v:false
             return v:false
         endif
+
+        " 获取 Python 可执行文件的完整路径
+        let python_prog = exepath(python_exe)
 
         " 设置 g:python3_host_prog，可用nvim的 :checkhealth 检查结果
         if has('nvim')
@@ -136,16 +144,19 @@ function! CondaPython#Provider()
                 echohl WarningMsg
                 echom "Warning: " . dll_name . " not found near the python executable"
                 echohl None
+                let g:conda_python_available = v:false
                 return v:false
             endif
             let $pythonthreedll = python_dll
         endif
 
+        let g:conda_python_available = v:true
         return v:true
     catch
         echohl WarningMsg
         echom "Error setting up Python provider: " . v:exception
         echohl None
+        let g:conda_python_available = v:false
         return v:false
     endtry
 endfunction
