@@ -107,8 +107,8 @@ endfunction
 " CondaPython#Provider ---------------------------------------------------{{{1
 function! CondaPython#Provider()
     " 如果已经检查过，直接返回缓存的结果
-    if exists('g:conda_python_available')
-        return g:conda_python_available
+    if exists('g:python_available')
+        return g:python_available
     endif
 
     try
@@ -125,7 +125,7 @@ function! CondaPython#Provider()
             echohl WarningMsg
             echom "Warning: Python executable not found"
             echohl None
-            let g:conda_python_available = v:false
+            let g:python_available = v:false
             return v:false
         endif
 
@@ -144,19 +144,19 @@ function! CondaPython#Provider()
                 echohl WarningMsg
                 echom "Warning: " . dll_name . " not found near the python executable"
                 echohl None
-                let g:conda_python_available = v:false
+                let g:python_available = v:false
                 return v:false
             endif
             let $pythonthreedll = python_dll
         endif
 
-        let g:conda_python_available = v:true
+        let g:python_available = v:true
         return v:true
     catch
         echohl WarningMsg
         echom "Error setting up Python provider: " . v:exception
         echohl None
-        let g:conda_python_available = v:false
+        let g:python_available = v:false
         return v:false
     endtry
 endfunction
