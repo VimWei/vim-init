@@ -1,14 +1,15 @@
 " https://github.com/SirVer/ultisnips
 
 " 配置 -------------------------------------------------------------------{{{1
+
+let g:UltiSnipsEditSplit="vertical"
+
 " 避免与vim-auto-popmenu、YouCompleteMe、completion-nvim的<tab>冲突
 " let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsListSnippets="<C-tab>"
-let g:UltiSnipsJumpForwardTrigger="<C-j>"
-let g:UltiSnipsJumpBackwardTrigger="<C-k>"
-
-let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsJumpForwardTrigger="<C-f>"
+let g:UltiSnipsJumpBackwardTrigger="<C-b>"
 
 " 设置snippets存放目录 ---------------------------------------------------{{{1
 " 自定义的存放目录，可以多个

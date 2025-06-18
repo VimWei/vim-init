@@ -120,7 +120,9 @@ if IsInPlugGroup('basic', 'quickui') " -----------------------------------{{{1
 endif
 
 if IsInPlugGroup('basic', 'search') " ------------------------------------{{{1
-    Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
+    if CondaPython#Provider()
+        Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
+    endif
     Plug 'skywind3000/vim-auto-popmenu'
     Plug 'easymotion/vim-easymotion'
     if !has('nvim')
@@ -166,7 +168,9 @@ if IsInPlugGroup('Notetaking', 'textobj') " ------------------------------{{{1
     " 函数文本对象：if/af 支持 c/c++/vim/java
     Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
     " 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
-    Plug 'bps/vim-textobj-python', {'for': 'python'}
+    if CondaPython#Provider()
+        Plug 'bps/vim-textobj-python', {'for': 'python'}
+    endif
 endif
 
 if IsInPlugGroup('Notetaking', 'table')  " -------------------------------{{{1
@@ -178,7 +182,9 @@ endif
 
 if IsInPlugGroup('Notetaking', 'wiki') " ---------------------------------{{{1
     Plug 'lervag/wiki.vim'
-    Plug 'junegunn/fzf'
+    if CondaPython#Provider()
+        Plug 'junegunn/fzf'
+    endif
     Plug 'bullets-vim/bullets.vim'
     if has('nvim')
         Plug 'nvim-lua/plenary.nvim'
@@ -192,6 +198,10 @@ if IsInPlugGroup('program') " --------------------------------------------{{{1
     if has('nvim')
         Plug 'tpope/vim-commentary'
     endif
+    " 代码格式化，支持多种语言
+    Plug 'Chiel92/vim-autoformat'
+    " 彩虹括号增强版
+    Plug 'luochen1990/rainbow'
 endif
 
 if IsInPlugGroup('program', 'git') " -------------------------------------{{{1
@@ -203,20 +213,20 @@ else
 endif
 
 if IsInPlugGroup('program', 'python') " ----------------------------------{{{1
-    " python 语法文件增强
-    Plug 'vim-python/python-syntax', { 'for': ['python'] }
-    " 即时代码格式化
-    Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8' }
-    " 代码格式化，支持多种语言
-    Plug 'Chiel92/vim-autoformat'
-    " 彩虹括号增强版
-    Plug 'luochen1990/rainbow'
-    " 快速测试代码片段
-    Plug 'sillybun/vim-repl'
+    if CondaPython#Provider()
+        " python 语法文件增强
+        Plug 'vim-python/python-syntax', { 'for': ['python'] }
+        " 即时代码格式化
+        Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8' }
+        " 快速测试代码片段
+        Plug 'sillybun/vim-repl'
+    endif
 endif
 
 if IsInPlugGroup('program', 'LSP') " -------------------------------------{{{1
-    Plug 'SirVer/ultisnips'
+    if CondaPython#Provider()
+        Plug 'SirVer/ultisnips'
+    endif
 endif
 
 " vim-plug end -----------------------------------------------------------{{{1

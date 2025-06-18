@@ -47,32 +47,34 @@ call CondaPython#Provider()
 " 以下4个命令，运行格式一样，第1个参数代表conda env，之后的代表cmd命令
 " command! YourCommand call CondaPython#CondaEnv("env", "mode"，"cmd1", "cmd2", ...)
 
-" 使用:TerminalConda，打开默认的conda环境pymotw
-" 使用:TerminalConda myEnv，打开指定的conda环境myEnv
-" 使用:TerminalConda myEnv "" ipython，打开指定的conda环境myEnv，并执行ipython
-" 使用:TerminalConda "" "" ipython，在默认的conda环境pymotw中，运行ipython
-command! -nargs=* TerminalConda call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'PASS', <f-args>)
+if CondaPython#Provider()
+    " 使用:TerminalConda，打开默认的conda环境pymotw
+    " 使用:TerminalConda myEnv，打开指定的conda环境myEnv
+    " 使用:TerminalConda myEnv "" ipython，打开指定的conda环境myEnv，并执行ipython
+    " 使用:TerminalConda "" "" ipython，在默认的conda环境pymotw中，运行ipython
+    command! -nargs=* TerminalConda call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'PASS', <f-args>)
 
-" 使用:Python，在默认的conda环境pymotw中，运行python
-" 使用:Python myEnv，在指定的conda环境myEnv中，运行python
-" 使用:Python myEnv "" ipython，在指定的conda环境myEnv中，运行ipython
-" 使用:Python "" "" ipython，在默认的conda环境pymotw中，运行ipython
-command! -nargs=* Python call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'python', <f-args>)
-command! -nargs=* Lua call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'Lua', <f-args>)
+    " 使用:Python，在默认的conda环境pymotw中，运行python
+    " 使用:Python myEnv，在指定的conda环境myEnv中，运行python
+    " 使用:Python myEnv "" ipython，在指定的conda环境myEnv中，运行ipython
+    " 使用:Python "" "" ipython，在默认的conda环境pymotw中，运行ipython
+    command! -nargs=* Python call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'python', <f-args>)
+    command! -nargs=* Lua call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'Lua', <f-args>)
 
-" 使用:IPython，在默认的conda环境pymotw中，打开IPython
-" 使用:IPython myEnv，在指定的conda环境myEnv中，打开IPython
-" 使用:IPython myEnv "" python，在指定的conda环境myEnv中，打开python
-" 使用:IPython "" "" python，在默认的conda环境pymotw中，运行python
-command! -nargs=* IPython call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'ipython', <f-args>)
-command! -nargs=* JupyterLab call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'jupyter-lab')
+    " 使用:IPython，在默认的conda环境pymotw中，打开IPython
+    " 使用:IPython myEnv，在指定的conda环境myEnv中，打开IPython
+    " 使用:IPython myEnv "" python，在指定的conda环境myEnv中，打开python
+    " 使用:IPython "" "" python，在默认的conda环境pymotw中，运行python
+    command! -nargs=* IPython call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'ipython', <f-args>)
+    command! -nargs=* JupyterLab call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'jupyter-lab')
 
-" 使用:PyRun 或者 F5，在默认的conda环境pymotw中，使用python执行当前buffer
-" 使用:PyRun myEnv，在指定的conda环境myEnv中，使用python执行当前buffer
-" 使用:PyRun myEnv "" ipython，在指定的conda环境myEnv中，运行ipython
-" 使用:PyRun "" "" ipython，在默认的conda环境pymotw中，运行ipython
-command! -nargs=* PyRun call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'python "' . expand('%:p') . '"', <f-args>)
-map <F5> :call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'python "' . expand('%:p') . '"')<CR>
+    " 使用:PyRun 或者 F5，在默认的conda环境pymotw中，使用python执行当前buffer
+    " 使用:PyRun myEnv，在指定的conda环境myEnv中，使用python执行当前buffer
+    " 使用:PyRun myEnv "" ipython，在指定的conda环境myEnv中，运行ipython
+    " 使用:PyRun "" "" ipython，在默认的conda环境pymotw中，运行ipython
+    command! -nargs=* PyRun call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'python "' . expand('%:p') . '"', <f-args>)
+    map <F5> :call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'python "' . expand('%:p') . '"')<CR>
+endif
 
 " 查阅python帮助文档
 nnoremap <leader>ph :call CondaPython#Help()<CR>

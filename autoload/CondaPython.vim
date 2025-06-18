@@ -115,8 +115,15 @@ function! CondaPython#Provider()
         let dll_name = has('macunix') ? 'libpython3.dylib' : 'libpython3.so'
     endif
 
-    let python_prog = split(trim(system(python_cmd)), "\n")[0]
-    if !empty(python_prog)
+    try
+        let python_prog = split(trim(system(python_cmd)), "\n")[0]
+        if empty(python_prog)
+            echohl WarningMsg
+            echom "Warning: Python executable not found"
+            echohl None
+            return v:false
+        endif
+
         " 设置 g:python3_host_prog，可用nvim的 :checkhealth 检查结果
         if has('nvim')
             let g:python3_host_prog = python_prog
@@ -125,13 +132,20 @@ function! CondaPython#Provider()
         " 在 Windows 的 gvim 中设置 pythonthreedll，在 Unix-like 系统上不需要设置
         if !has('nvim') && (has('win32') || has('win64'))
             let python_dll = fnamemodify(python_prog, ':h') . '\' . dll_name
-            if filereadable(python_dll)
-                let $pythonthreedll = python_dll
-            else
-                echoerr "Warning: " . dll_name . " not found near the python executable"
+            if !filereadable(python_dll)
+                echohl WarningMsg
+                echom "Warning: " . dll_name . " not found near the python executable"
+                echohl None
+                return v:false
             endif
+            let $pythonthreedll = python_dll
         endif
-    else
-        echoerr "Warning: Python executable not found"
-    endif
+
+        return v:true
+    catch
+        echohl WarningMsg
+        echom "Error setting up Python provider: " . v:exception
+        echohl None
+        return v:false
+    endtry
 endfunction
