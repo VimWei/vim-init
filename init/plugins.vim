@@ -130,7 +130,7 @@ if IsInPlugGroup('basic', 'search') " ------------------------------------{{{1
     Plug 'romainl/vim-cool'
     Plug 't9md/vim-choosewin'
     " Plug 'mahadevan-k/vimnc'
-    Plug 'VimWei/vimnc', { 'branch': 'fix-path-handling' }
+    " Plug 'VimWei/vimnc', { 'branch': 'fix-path-handling' }
 endif
 if IsInPlugGroup('basic', 'inbox') " ------------------------------------{{{1
     Plug 'inkarkat/vim-ingo-library'
