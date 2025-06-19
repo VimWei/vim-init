@@ -18,6 +18,11 @@ if has('patch-9.1.0375')
     let s:packages += [ 'comment' ]
 endif
 
+if has('patch-9.0.0000') && !has('nvim')
+    packadd! vim9-stargate
+    let s:packages += [ 'vim9-stargate' ]
+endif
+
 " source packages config -------------------------------------------------{{{1
 if len(get(s:, 'packages', [])) !=# 0
     for pack in s:packages

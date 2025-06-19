@@ -125,9 +125,6 @@ if IsInPlugGroup('basic', 'search') " ------------------------------------{{{1
     endif
     Plug 'skywind3000/vim-auto-popmenu'
     Plug 'easymotion/vim-easymotion'
-    if has('patch-9.0.0000') && !has('nvim')
-        Plug 'VimWei/vim9-stargate'
-    endif
     Plug 'ppwwyyxx/vim-PinyinSearch'
     Plug 'romainl/vim-cool'
     if !has('nvim')
