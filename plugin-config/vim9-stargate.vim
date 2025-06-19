@@ -1,4 +1,5 @@
 " https://github.com/monkoose/vim9-stargate
+" fork: https://github.com/VimWei/vim9-stargate
 
 let g:stargate_chars = 'abcdefghijklmnopqrstuvwxyz'
 " for the start of a line
