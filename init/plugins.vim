@@ -125,12 +125,14 @@ if IsInPlugGroup('basic', 'search') " ------------------------------------{{{1
     endif
     Plug 'skywind3000/vim-auto-popmenu'
     Plug 'easymotion/vim-easymotion'
-    if !has('nvim')
+    if has('patch-9.0.0000') && !has('nvim')
         Plug 'VimWei/vim9-stargate'
-        Plug 't9md/vim-choosewin'
     endif
     Plug 'ppwwyyxx/vim-PinyinSearch'
     Plug 'romainl/vim-cool'
+    if !has('nvim')
+        Plug 't9md/vim-choosewin'
+    endif
 endif
 if IsInPlugGroup('basic', 'inbox') " ------------------------------------{{{1
     Plug 'inkarkat/vim-ingo-library'
@@ -179,7 +181,9 @@ if IsInPlugGroup('Notetaking', 'table')  " -------------------------------{{{1
 endif
 
 if IsInPlugGroup('Notetaking', 'wiki') " ---------------------------------{{{1
-    Plug 'lervag/wiki.vim'
+    if (has('nvim-0.10') || (v:version >= 901))
+        Plug 'lervag/wiki.vim'
+    endif
     if g:python_available
         Plug 'junegunn/fzf'
     endif
@@ -193,7 +197,7 @@ endif
 if IsInPlugGroup('program') " --------------------------------------------{{{1
     Plug 'skywind3000/vim-terminal-help'
     Plug 'skywind3000/asyncrun.vim'
-    if has('nvim')
+    if has('nvim') || !has('patch-9.1.0375')
         Plug 'tpope/vim-commentary'
     endif
     if g:python_available
