@@ -46,11 +46,11 @@ function! Vimrc#PluginConfig()
     let pattern = '/\zs[^'']\+\ze'''
     let l:selected_text = matchstr(line, pattern)
     if empty(l:selected_text)
-        if match(line, 'inbuiltplugs') != -1
+        if match(line, 'packages') != -1
             normal! yi'
             let l:selected_text = getreg('"')
         else
-            echom "No plugin project found on the line."
+            echom "No plugin or package found on the line."
             return
         endif
     endif
