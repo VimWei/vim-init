@@ -181,14 +181,12 @@ if IsInPlugGroup('Notetaking', 'wiki') " ---------------------------------{{{1
     if (has('nvim-0.10') || (v:version >= 901))
         Plug 'lervag/wiki.vim'
     endif
-    if g:python_available
-        Plug 'junegunn/fzf'
-    endif
-    Plug 'bullets-vim/bullets.vim'
+    Plug 'junegunn/fzf'
     if has('nvim')
         Plug 'nvim-lua/plenary.nvim'
         Plug 'nvim-telescope/telescope.nvim'
     endif
+    Plug 'bullets-vim/bullets.vim'
 endif
 
 if IsInPlugGroup('program') " --------------------------------------------{{{1
