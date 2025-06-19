@@ -127,12 +127,10 @@ if IsInPlugGroup('basic', 'search') " ------------------------------------{{{1
     Plug 'easymotion/vim-easymotion'
     if !has('nvim')
         Plug 'VimWei/vim9-stargate'
+        Plug 't9md/vim-choosewin'
     endif
     Plug 'ppwwyyxx/vim-PinyinSearch'
     Plug 'romainl/vim-cool'
-    Plug 't9md/vim-choosewin'
-    " Plug 'mahadevan-k/vimnc'
-    " Plug 'VimWei/vimnc', { 'branch': 'fix-path-handling' }
 endif
 if IsInPlugGroup('basic', 'inbox') " ------------------------------------{{{1
     Plug 'inkarkat/vim-ingo-library'
@@ -198,6 +196,9 @@ if IsInPlugGroup('program') " --------------------------------------------{{{1
     if has('nvim')
         Plug 'tpope/vim-commentary'
     endif
+    if g:python_available
+        Plug 'SirVer/ultisnips'
+    endif
     " 代码格式化，支持多种语言
     Plug 'Chiel92/vim-autoformat'
     " 彩虹括号增强版
@@ -224,9 +225,6 @@ if IsInPlugGroup('program', 'python') " ----------------------------------{{{1
 endif
 
 if IsInPlugGroup('program', 'LSP') " -------------------------------------{{{1
-    if g:python_available
-        Plug 'SirVer/ultisnips'
-    endif
 endif
 
 " vim-plug end -----------------------------------------------------------{{{1
@@ -244,7 +242,7 @@ call ToggleShellslashForVimPlug()
 " source plugins config --------------------------------------------------{{{1
 if len(get(g:, 'plugs_order', [])) !=# 0
     for plug in g:plugs_order
-        let plug_config = g:plugins_config_path . plug . '.vim'
+        let plug_config = g:plugin_config_path . plug . '.vim'
         if filereadable(plug_config)
             execute 'source ' . plug_config
         endif

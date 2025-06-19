@@ -186,7 +186,7 @@ let g:navigator.p = {
     \ 'u' : [':PlugUpdate', 'Update Plugs'],
     \ 'v' : [':PlugUpgrade', 'Upgrade vim-plug'],
     \ 's' : [':PlugStatus', 'List available plugins'],
-    \ 'c' : [':execute "Lexplore " . g:plugins_config_path', 'Explore plugins.config'],
+    \ 'c' : [':execute "Lexplore " . g:plugin_config_path', 'Explore plugin-config'],
     \ 'f' : [':FindPluginConfig', 'Find plugin config'],
     \ 'x' : [':Github', 'Open Github Project'],
     \ }

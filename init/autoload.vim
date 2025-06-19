@@ -21,7 +21,7 @@ command! VA call Vimrc#EditInitVimrc("autoload.vim")
 
 " Vimrc#PluginConfig -----------------------------------------------------{{{1
 " Open plugin/package config path with netrw
-nnoremap <leader>pc :execute 'Lexplore ' . g:plugins_config_path<CR>
+nnoremap <leader>pc :execute 'Lexplore ' . g:plugin_config_path<CR>
 " Open plugin config file with <Leader>gf or :FindPluginConfig
 " Ref: ../autoload/Vimrc.vim
 command! FindPluginConfig call Vimrc#PluginConfig()
