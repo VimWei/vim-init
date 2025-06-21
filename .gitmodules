@@ -1,6 +1,3 @@
-[submodule "pack/mydev/start/vimnc"]
-	path = pack/mydev/start/vimnc
-	url = https://github.com/VimWei/vimnc
 [submodule "pack/mydev/opt/vim9-stargate"]
 	path = pack/mydev/opt/vim9-stargate
 	url = https://github.com/VimWei/vim9-stargate
@@ -10,3 +7,6 @@
 [submodule "pack/mydev/opt/vim-markdown-plus"]
 	path = pack/mydev/opt/vim-markdown-plus
 	url = https://github.com/VimWei/vim-markdown-plus
+[submodule "pack/mydev/opt/vimnc"]
+	path = pack/mydev/opt/vimnc
+	url = https://github.com/VimWei/vimnc

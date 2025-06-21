@@ -6,8 +6,6 @@
 " Packages ---------------------------------------------------------------{{{1
 " vim 内置并自动启用的packages
 let s:packages = [ 'netrw', 'vim-markdown-tpope' ]
-" vim-init/pack/.../start/下的packages
-let s:packages += [ 'vimnc' ]
 
 " 增强%在配对关键字间跳转
 packadd! matchit
@@ -22,6 +20,12 @@ if has('patch-9.0.0000') && !has('nvim')
     packadd! vim9-stargate
     let s:packages += [ 'vim9-stargate' ]
 endif
+
+packadd! vimnc
+let s:packages += [ 'vimnc' ]
+
+" packadd! vim-markdown-plus
+" let s:packages += [ 'vim-markdown-plus' ]
 
 " source packages config -------------------------------------------------{{{1
 if len(get(s:, 'packages', [])) !=# 0
