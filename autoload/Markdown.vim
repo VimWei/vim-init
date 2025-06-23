@@ -236,6 +236,8 @@ function! Markdown#RemoveLinkAtCursor()
   endwhile
 endfunction
 
+finish
+
 " WrapInCodeBlock --------------------------------------------------------{{{1
 " 将选中的文本包装在代码块标记中
 function! Markdown#WrapInCodeBlock() range

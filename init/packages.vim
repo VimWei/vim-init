@@ -24,8 +24,8 @@ endif
 packadd! vimnc
 let s:packages += [ 'vimnc' ]
 
-" packadd! vim-markdown-plus
-" let s:packages += [ 'vim-markdown-plus' ]
+packadd! vim-markdown-plus
+let s:packages += [ 'vim-markdown-plus' ]
 
 " source packages config -------------------------------------------------{{{1
 if len(get(s:, 'packages', [])) !=# 0
