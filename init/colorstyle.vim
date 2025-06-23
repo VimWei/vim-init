@@ -15,8 +15,11 @@ endif
 
 if !exists('s:default_colorscheme')
     let s:default_colorscheme = []
-    let s:default_colorscheme += ['delek']
-    let s:default_colorscheme += ['eclipse']
+    " 浅色主题，在21:00-06:00禁用
+    if ((strftime('%H') + 3) % 24) > 15
+        let s:default_colorscheme += ['delek']
+        let s:default_colorscheme += ['eclipse']
+    endif
     if !has('nvim')
         let s:default_colorscheme += ['retrobox']
         let s:default_colorscheme += ['nordic_electric_ai']
