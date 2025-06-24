@@ -8,6 +8,6 @@ setlocal formatoptions-=r
 setlocal formatoptions-=o
 setlocal formatoptions-=2
 setlocal formatoptions+=n
-setlocal formatlistpat=^\\s*\\%(\\(-\\\|\\*\\\|+\\)\\\|\\(\\C\\%(\\d\\+\\.\\)\\)\\)\\s\\+\\%(\\[\\([\ .oOX-]\\)\\]\\s\\)\\?
+setlocal formatlistpat=^\\s*\\%(\\(-\\\|\\*\\\|+\\)\\\|\\(\\C\\%(\\d\\+\\.\\)\\)\\)\\s\\+\\%(\\[\\([\ .oOxX-]\\)\\]\\s\\)\\?
 
 setlocal conceallevel=2

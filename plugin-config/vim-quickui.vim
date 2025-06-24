@@ -39,7 +39,7 @@ call quickui#menu#install("&Edit", [
     \ ['Tab to Space', 'call ReTab#Tab2Space()', 'Tab to Space'],
     \ ['Space to Tab', 'call ReTab#Space2Tab()', 'Space to Tab'],
     \ ["-"],
-    \ ['&Wrap In Code Block', 'WrapInCodeBlock', '添加代码块标记'],
+    \ ['Toggle &Code Block', 'ToggleCodeBlock', '切换代码块标记'],
     \ ["-"],
     \ ['&Translate Word', 'call Translator#Words("n")', '翻译当前词汇'],
     \ ])
@@ -69,7 +69,7 @@ call quickui#menu#install("&Wiki", [
     \ ])
 
 " Bullet -----------------------------------------------------------------{{{1
-call quickui#menu#install("&Bullet", [
+call quickui#menu#install("&List", [
     \ ['Change Symbol To 1.', 'normal gl1', '更改当前列表符号为 1.'],
     \ ['Change Symbol To 1)', 'normal gl2', '更改当前列表符号为 1)'],
     \ ['Change Symbol To A.', 'normal glA', '更改当前列表符号为 A.'],
@@ -81,19 +81,20 @@ call quickui#menu#install("&Bullet", [
     \ ['Demote List Level -->', 'normal gl>', '降低当前列表级别 -->'],
     \ ['&promote List Level <--', 'normal gl<', '提升当前列表级别 <--'],
     \ ['&Renumber List Items', 'normal glr', '重建当前列表编号 renumber'],
-    \ ['&Delete List Symbol', 'normal gld', '删除当前列表编号 delete'],
-    \ ["-"],
-    \ ['Toggle &todo checkbox', 'ToggleTodoCheckbox', '切换 todo checkbox'],
+    \ ['Delete List Symbol', 'normal gld', '删除当前列表编号 delete'],
     \ ])
 
-    " \ ['Toggle Todo status done [ ] [X] ', 'VimwikiToggleListItem', '切换 Todo 完成状态'],
-    " \ ['Toggle Todo status Reject [ ] [-]', 'VimwikiToggleRejectedListItem', '切换 Todo 启用状态'],
-    " \ ['Increase done status [ ] [.] [o]', 'normal gln', '增加 Done 的成熟度'],
-    " \ ['Decrease done status [o] [.] [ ]', 'normal glp', '降低 Done 的成熟度'],
-    " \ ['Remove checkbox [ ] from list item', 'VimwikiRemoveSingleCB', '移除 Todo checkbox'],
+" Todo -------------------------------------------------------------------{{{1
+call quickui#menu#install("&Todo", [
+    \ ['Toggle &Checkbox [ ] <-> none', 'TodoCheckboxToggle', '切换 [ ] <-> none'],
+    \ ['Toggle &Done     [ ] <-> [x]', 'TodoDoneToggle', '切换 [ ] <-> [x]'],
+    \ ['Toggle &Suspend  [ ] <-> [-]', 'TodoSuspendToggle', '切换 [ ] <-> [-]'],
+    \ ['Maturity &Next   [ ] -> [.] -> [o] -> [O] -> [x]', 'TodoMaturityNext', '增加成熟度'],
+    \ ['Maturity &Pre    [x] -> [O] -> [o] -> [.] -> [ ]', 'TodoMaturityPrevious', '降低成熟度'],
+    \ ])
 
-" Tools ------------------------------------------------------------------{{{1
-call quickui#menu#install("&Tools", [
+" Vimrc ------------------------------------------------------------------{{{1
+call quickui#menu#install("&Vimrc", [
     \ ["&Update plugins", "PlugUpdate", 'Update plugins'],
     \ ["Upgrade vim-plug", "PlugUpgrade", 'Upgrade vim-plug'],
     \ ["Plugin &Status", "PlugStatus", 'List available plugins'],

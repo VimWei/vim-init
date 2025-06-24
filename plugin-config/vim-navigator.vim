@@ -106,7 +106,7 @@ let g:navigator.f = {
     \ }
 
 " vimtweak ---------------------------------------------------------------{{{1
-let g:navigator.t = {
+let g:navigator.0 = {
     \ 'name': '+vimTweak',
     \ '0' : [':VimTweakSetAlpha 250', '不透明'],
     \ '1' : [':VimTweakSetAlpha 240', '透明度+10'],
@@ -146,11 +146,7 @@ let g:navigator.o = {
         \ 't' : [':CColumnTextwidth', '设置 Textwidth 为对齐线'],
         \ 'r' : ['CColumnRemoveAll', '取消所有的对齐线'],
         \ },
-    \ 'l' : {
-        \ 'name' : '+Cursorline',
-        \ 'o' : [':set cursorline', '打开高亮显示 cursorline'],
-        \ 'f' : [':set nocursorline', '关闭高亮显示 cursorline'],
-        \ },
+    \ 'l' : [':set cursorline!', '切换 cursorline 高亮显示'],
     \ 'n' : {
         \ 'name' : '+Number',
         \ 'n' : [':set number', '显示行号'],
@@ -178,6 +174,12 @@ let g:navigator.o = {
     \ 'w' : [':ToggleStrip', '开关 Whitespace Stripping'],
     \ }
 
+    " \ 'l' : {
+    "     \ 'name' : '+Cursorline',
+    "     \ 'o' : [':set cursorline', '打开高亮显示 cursorline'],
+    "     \ 'f' : [':set nocursorline', '关闭高亮显示 cursorline'],
+    "     \ },
+
 " Plugin -----------------------------------------------------------------{{{1
 let g:navigator.p = {
     \ 'name': '+Plugin',
@@ -200,8 +202,7 @@ let g:navigator.m = {
     \ 'q' : ['<key>ggVGgq', '全文 gq 格式化'],
     \ 'u' : [':UngqFormat', '恢复 gq 格式化'],
     \ 'e' : ['Markdown#Explode2P()', '将全文的行转为段落 explode'],
-    \ 'c' : ['Gtd#ToggleTodoCheckbox()', '切换 Todo checkbox'],
-    \ 'w' : ['Markdown#WrapInCodeBlock()', '添加代码块标记'],
+    \ 'w' : [':ToggleCodeBlock', '切换代码块标记'],
     \ }
 
 let g:navigator_v.m = {
@@ -209,8 +210,7 @@ let g:navigator_v.m = {
     \ 'q' : ['<key>gq', '选区 gq 格式化'],
     \ 'u' : [':UngqFormat', '恢复 gq 格式化'],
     \ 'e' : ['Markdown#Explode2P()', '将选区的行转为段落 explode'],
-    \ 'c' : ['Gtd#ToggleTodoCheckbox()', '切换 Todo checkbox'],
-    \ 'w' : ['Markdown#WrapInCodeBlock()', '添加代码块标记'],
+    \ 'w' : [':ToggleCodeBlock', '切换代码块标记'],
     \ }
 
 " Wiki.vim ----------------------------------------------------------------{{{1
@@ -246,6 +246,25 @@ let g:navigator.l = {
     \ '9' : [':normal gl>', '降低当前列表级别 -->'],
     \ 'r' : [':normal glr', '重建当前列表编号 renumber'],
     \ 'd' : [':normal gld', '删除当前列表编号 delete'],
+    \ }
+
+" Todo -------------------------------------------------------------------{{{1
+let g:navigator.t = {
+    \ 'name' : '+Todo',
+    \ 'c' : [':TodoCheckboxToggle', 'TodoCheckboxToggle，切换 [ ] <-> none'],
+    \ 'd' : [':TodoDoneToggle', 'TodoDoneToggle，切换 [ ] <-> [x]'],
+    \ 's' : [':TodoSuspendToggle', 'TodoSuspendToggle，切换 [ ] <-> [-]'],
+    \ 'n' : [':TodoMaturityNext', 'TodoMaturityNext，轮换 [ ] -> [.] -> [o] -> [O] -> [x]'],
+    \ 'p' : [':TodoMaturityPrevious', 'TodoMaturityPrevious，轮换 [x] -> [O] -> [o] -> [.] -> [ ]'],
+    \ }
+
+let g:navigator_v.t = {
+    \ 'name' : '+Todo',
+    \ 'c' : [':TodoCheckboxToggle', 'TodoCheckboxToggle，切换 [ ] <-> none'],
+    \ 'd' : [':TodoDoneToggle', 'TodoDoneToggle，切换 [ ] <-> [x]'],
+    \ 's' : [':TodoSuspendToggle', 'TodoSuspendToggle，切换 [ ] <-> [-]'],
+    \ 'n' : [':TodoMaturityNext', 'TodoMaturityNext，轮换 [ ] -> [.] -> [o] -> [O] -> [x]'],
+    \ 'p' : [':TodoMaturityPrevious', 'TodoMaturityPrevious，轮换 [x] -> [O] -> [o] -> [.] -> [ ]'],
     \ }
 
 " git  --------------------------------------------------------------------{{{1
