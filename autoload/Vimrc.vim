@@ -36,8 +36,6 @@ function! Vimrc#Update() " -----------------------------------------------{{{1
     let l:current_working_directory = getcwd()
     execute "cd " . g:viminit
     call Redir#redir('Git pull | Git submodule update --init --recursive')
-    " Git pull
-    " Git submodule update --init --recursive
     execute "cd " . l:current_working_directory
 endfunction
 
