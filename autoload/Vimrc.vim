@@ -35,14 +35,10 @@ endfunction
 function! Vimrc#Update() " -----------------------------------------------{{{1
     let l:current_working_directory = getcwd()
     execute "cd " . g:viminit
-
-    let l:pull_output = system('git pull')
-    let l:submodule_output = system('git submodule update --init --recursive')
-
+    call Redir#redir('Git pull | Git submodule update --init --recursive')
+    " Git pull
+    " Git submodule update --init --recursive
     execute "cd " . l:current_working_directory
-
-    echom "git pull:\n" . l:pull_output
-    echom "git submodule update:\n" . l:submodule_output
 endfunction
 
 " Find Plugin Config -----------------------------------------------------{{{1
