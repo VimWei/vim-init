@@ -84,11 +84,9 @@ command! PandocToHTML call Pandoc#ToHtml()
 
 " Redir ------------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Redir.vim
-command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
-command! -nargs=1 -complete=command -range Redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
-
-command! -nargs=1 -complete=command Redir silent call Redir#redir(<q-args>)
-command! MessageRedir silent call Redir#redir('message')
+command! -nargs=1 -complete=command -bar -range Redir silent call Redir#redir(<q-args>, <range>, <line1>, <line2>)
+command! -nargs=1 -complete=command -range Redir silent call Redir#redir(<q-args>, <range>, <line1>, <line2>)
+command! RedirMessage silent Redir messages
 
 " VisualStar -------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Search.vim
