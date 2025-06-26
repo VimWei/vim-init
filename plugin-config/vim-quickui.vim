@@ -157,4 +157,4 @@ let g:quickui_color_scheme = 'borland'
 
 " open menu
 " The default menus is located in the system namespace.
-noremap <Leader><Leader>m :call quickui#menu#open()<cr>
+nnoremap <Leader><Leader>m :call quickui#menu#open()<cr>
