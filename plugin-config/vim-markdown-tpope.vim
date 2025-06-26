@@ -6,8 +6,9 @@ let g:markdown_folding = 1
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
 let g:markdown_minlines = 50
 
-" set markdown format ----------------------------------------------------{{{1
+finish " -----------------------------------------------------------------{{{1
 
+" set markdown format ----------------------------------------------------{{{1
 " 为选中的Markdown文字加粗，bold
 nnoremap <leader>mb viW"ms****<Esc>h"mPe
 vnoremap <leader>mb "ms****<Esc>h"mPe
@@ -46,8 +47,6 @@ endfunction
 " :UngqFormat：处理整个文件。
 " :'<,'>UngqFormat：处理当前选区。
 command! -range=% UngqFormat call Markdown#UngqFormat(<line1>, <line2>)
-
-finish " -----------------------------------------------------------------{{{1
 
 " Toggle Todo checkbox ---------------------------------------------------{{{1
 " 详情查阅 ../../autoload/Gtd.vim
