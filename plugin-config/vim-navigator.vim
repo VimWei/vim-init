@@ -291,6 +291,7 @@ let g:navigator.g = {
         \ 'g' : [':Git log --graph --oneline --all --decorate', '显示提交历史记录，每个一行，以图形方式显示提交关系'],
         \ 'o' : [':Git log --oneline', '显示提交历史记录，每个一行'],
         \ 'q' : [':Gclog', '显示提交历史记录，加载到 quickfix'],
+        \ 'v' : [':Gclog %', '显示当前文件的提交历史记录，加载到 quickfix'],
         \ },
     \ 'r' : [':Git reset --hard HEAD', '丢弃所有的本地修改'],
     \ 's' : [':Git checkout .', '放弃工作目录中的未暂存更改，但保留暂存区'],
