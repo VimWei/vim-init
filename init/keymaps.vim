@@ -30,6 +30,18 @@ cnoremap <expr> %% getcmdtype( ) == ':' ? expand('%:p:h').'/' : '%%'
 " 改变当前工作目录为当前缓冲区所在的目录
 command! CD cd %:p:h
 
+" Gemini CLI -------------------------------------------------------------{{{1
+if has('win32')
+  " For Windows: 使用 start 命令在新窗口中启动 gemini
+  command! Gemini !start gemini
+elseif has('macunix')
+  " For macOS: 使用 open 命令在新 Terminal.app 窗口中启动 gemini
+  command! Gemini !open -a Terminal.app 'gemini' &
+else
+  " For Linux: 使用 gnome-terminal (或你偏好的终端模拟器) 在新窗口中启动 gemini
+  command! Gemini !gnome-terminal -- bash -c 'gemini' &
+endif
+
 " Buffer -----------------------------------------------------------------{{{1
 " 缓存：插件 unimpaired 中定义了 [b, ]b 来切换缓存
 noremap <silent> <leader>bn :bn<cr>
