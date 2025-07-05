@@ -10,6 +10,3 @@
 [submodule "pack/mydev/opt/vimnc"]
 	path = pack/mydev/opt/vimnc
 	url = https://github.com/VimWei/vimnc
-[submodule "pack/mydev/opt/wiki.vim"]
-	path = pack/mydev/opt/wiki.vim
-	url = https://github.com/lervag/wiki.vim.git
