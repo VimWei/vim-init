@@ -4,7 +4,7 @@
 " 初始化窗口设置 ---------------------------------------------------------{{{1
 augroup VimTweakInit
     autocmd!
-    au GUIEnter * call libcallnr(g:vimtweak_dll_path, "SetAlpha", 230)
+    au GUIEnter * call libcallnr(g:vimtweak_dll_path, "SetAlpha", 255)
     au GUIEnter * call libcallnr(g:vimtweak_dll_path, "EnableMaximize", 1)
     " au GUIEnter * call libcallnr(g:vimtweak_dll_path, "EnableCaption", 0)
 augroup END

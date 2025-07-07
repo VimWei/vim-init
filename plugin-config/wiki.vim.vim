@@ -73,8 +73,17 @@ endfunction
 function! GeneralTemplate(context) abort
     let l:link = get(a:context.origin, 'link', {})
     let title = get(l:link, 'text', a:context.name)
-    let template_lines = ['# ' . title]
+    " let template_lines = ['# ' . title]
+    let template_lines = [
+        \ '# ' . title,
+        \ '',
+        \ '',
+        \ '',
+        \ '* Created:  ' . strftime("%Y/%m/%d %H:%M:%S"),
+        \ '* Modified: ' . strftime("%Y/%m/%d %H:%M:%S")
+    \ ]
     call append(0, template_lines)
+    execute 'normal! Gdd3G'
 endfunction
 let g:wiki_templates = [
             \ { 'match_re': '^\d\{4\}-\d\{2\}-\d\{2\}$',
