@@ -80,6 +80,7 @@ nnoremap <leader>ph :call CondaPython#Help()<CR>
 " 详情查阅 ../autoload/Pandoc.vim
 command! PandocToPDF call Pandoc#ToPdf()
 command! PandocToDOCX call Pandoc#ToDocx()
+command! PandocToDOCXWithEmptyLines call Pandoc#ToDocxWithEmptyLines()
 command! PandocToHTML call Pandoc#ToHtml()
 
 " Redir ------------------------------------------------------------------{{{1
