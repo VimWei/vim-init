@@ -19,8 +19,8 @@ if !isdirectory(s:output_dir)
 endif
 
 function! Pandoc#ToPdf() " -----------------------------------------------{{{1
-    silent!exe "w"
-    silent!exe "cd %:h"
+    silent! w
+    silent! exe "cd %:h"
     let l:PandocOutput = s:output_dir . strftime("%Y%m%d.%H%M%S") . "." . expand('%:t:r') . ".pdf"
     let l:TexTemplate = g:viminit . "tools/pandoc/template.latex"
     "CMD需要运行`chcp 65001`才能使用UTF-8编码，使用AsyncRun可避免此问题
@@ -33,8 +33,8 @@ endfunction
 
 function! Pandoc#ToDocx() " ----------------------------------------------{{{1
     " 1. 预处理
-    silent!exe "w"
-    silent!exe "cd %:h"
+    silent! w
+    silent! exe "cd %:h"
     " 2. 生成输出文件名
     let l:PandocOutput = s:output_dir . strftime("%Y%m%d.%H%M%S") . "." . expand('%:t:r') . ".docx"
     let l:ReferenceDoc = g:viminit . "tools/pandoc/reference.docx"
@@ -44,27 +44,26 @@ function! Pandoc#ToDocx() " ----------------------------------------------{{{1
     echomsg "Pandoc Output File: " . l:PandocOutput
 endfunction
 
-function! Pandoc#ToDocxWithEmptyLines() " ----------------------------------------------{{{1
+function! Pandoc#ToDocxWithEmptyLines() " --------------------------------{{{1
     " 1. 预处理：将空行替换为 THISIS__EMPTYLINE
     silent! keeppatterns %s/^\s*$/\rTHISIS__EMPTYLINE\r/e
-    silent!exe "w"
-    silent!exe "cd %:h"
+    silent! w
+    silent! exe "cd %:h"
     " 2. 生成输出文件名
     let l:PandocOutput = s:output_dir . strftime("%Y%m%d.%H%M%S") . "." . expand('%:t:r') . ".docx"
     let l:ReferenceDoc = g:viminit . "tools/pandoc/reference.docx"
     let l:LuaFilter = g:viminit . "tools/pandoc/preserve-empty-lines.lua"
     " 3. 调用 Pandoc
     exe ':AsyncRun Pandoc "%" -o "' . l:PandocOutput . '" --reference-doc="' . l:ReferenceDoc . '" --lua-filter="' . l:LuaFilter . '"'
-    " 4. 还原：将 THISIS__EMPTYLINE 还原为空行
-    silent! keeppatterns %s/\n^THISIS__EMPTYLINE$\n//e
+    " 4. 立即撤销预处理，让用户看到原文
+    silent! undo
     echomsg "Pandoc Output File: " . l:PandocOutput
 endfunction
 
 function! Pandoc#ToHtml() " ----------------------------------------------{{{1
-    silent!exe "w"
-    silent!exe "cd %:h"
+    silent! w
+    silent! exe "cd %:h"
     let l:PandocOutput = s:output_dir . strftime("%Y%m%d.%H%M%S") . "." . expand('%:t:r') . ".html"
     exe ':AsyncRun Pandoc "%" -o ' . '"' . l:PandocOutput . '"'
-    " silent!exe '!Pandoc "%" -o ' . '"' . l:PandocOutput . '"'
     echomsg "Pandoc Output File: " . l:PandocOutput
 endfunction
