@@ -57,6 +57,7 @@ function! Pandoc#ToDocxWithEmptyLines() " --------------------------------{{{1
     exe ':AsyncRun Pandoc "%" -o "' . l:PandocOutput . '" --reference-doc="' . l:ReferenceDoc . '" --lua-filter="' . l:LuaFilter . '"'
     " 4. 立即撤销预处理，让用户看到原文
     silent! undo
+    execute 'normal! gg'
     echomsg "Pandoc Output File: " . l:PandocOutput
 endfunction
 
