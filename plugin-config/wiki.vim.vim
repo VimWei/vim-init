@@ -118,15 +118,54 @@ let g:wiki_mappings_local_journal = {
     \ '<plug>(wiki-journal-next)' : ']w',
     \}
 
+" wiki_link_schemes  -----------------------------------------------------{{{1
+function! WikiFileHandler(resolved, ...) abort
+    if has_key(a:resolved, 'path') && filereadable(a:resolved.path)
+        let ext = tolower(fnamemodify(a:resolved.path, ':e'))
+        " 1. 文本类文件直接用 :edit
+        if ext =~# '^\(vim\|py\|lua\|txt\|md\|json\|sh\|bat\)$'
+            execute 'edit' fnameescape(a:resolved.path)
+            return
+        " 2. 图片用 IrfanView 打开（Windows 下）
+        elseif ext =~# '^\(png\|jpg\|jpeg\|gif\|webp\)$'
+            let viewer = '"C:\Program Files\IrfanView\i_view64.exe"'
+            let cmd = 'start ' . viewer . ' ' . shellescape(a:resolved.path)
+            silent execute '!' . cmd
+            return
+        " 3. PDF 用 SumatraPDF 打开
+        elseif ext ==# 'pdf'
+            let viewer = '"c:\Apps\SumatraPDF\SumatraPDF.exe"'
+            let cmd = 'start ' . viewer . ' ' . shellescape(a:resolved.path)
+            silent execute '!' . cmd
+            return
+        endif
+        " 4. 其它类型 fallback
+        echohl WarningMsg
+        echomsg 'No handler for filetype: ' . ext
+        echohl None
+        return
+    endif
+    echohl WarningMsg
+    echomsg 'File not found: ' . get(a:resolved, 'path', a:resolved.url)
+    echohl None
+endfunction
+
+let g:wiki_link_schemes = {
+        \ 'file': {
+        \   'resolver': function('wiki#url#resolvers#file'),
+        \   'handler': function('WikiFileHandler'),
+        \ }
+        \ }
+
 " wiki_viewer ------------------------------------------------------------{{{1
 let s:irfanview_path = '"C:\Program Files\IrfanView\i_view64.exe"'
 let g:wiki_viewer = {
-      \ 'png': 'start ' . s:irfanview_path,
-      \ 'jpg': 'start ' . s:irfanview_path,
-      \ 'jpeg': 'start ' . s:irfanview_path,
-      \ 'gif': 'start ' . s:irfanview_path,
-      \ 'webp': 'start ' . s:irfanview_path,
-      \ }
+        \ 'png': 'start ' . s:irfanview_path,
+        \ 'jpg': 'start ' . s:irfanview_path,
+        \ 'jpeg': 'start ' . s:irfanview_path,
+        \ 'gif': 'start ' . s:irfanview_path,
+        \ 'webp': 'start ' . s:irfanview_path,
+        \ }
 
 " wiki_export ------------------------------------------------------------{{{1
 let s:TexTemplate = g:viminit . "tools/pandoc/template.latex"
