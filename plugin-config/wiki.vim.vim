@@ -114,28 +114,16 @@ let g:wiki_mappings_local_journal = {
 function! WikiFileHandler(resolved, ...) abort
     if has_key(a:resolved, 'path') && filereadable(a:resolved.path)
         let ext = tolower(fnamemodify(a:resolved.path, ':e'))
-        " 1. 文本类文件直接用 :edit
         if ext =~# '^\(vim\|py\|lua\|txt\|md\|json\|sh\|bat\)$'
+            " 1. Open text-like files directly with :edit
             execute 'edit' fnameescape(a:resolved.path)
             return
-        " 2. 图片用 IrfanView 打开（Windows 下）
-        elseif ext =~# '^\(png\|jpg\|jpeg\|gif\|webp\)$'
-            let viewer = '"C:\Program Files\IrfanView\i_view64.exe"'
-            let cmd = 'start ' . viewer . ' ' . shellescape(a:resolved.path)
-            silent execute '!' . cmd
-            return
-        " 3. PDF 用 SumatraPDF 打开
-        elseif ext ==# 'pdf'
-            let viewer = '"c:\Apps\SumatraPDF\SumatraPDF.exe"'
-            let cmd = 'start ' . viewer . ' ' . shellescape(a:resolved.path)
+        else
+            " 2. Open all other files with default associated application
+            let cmd = 'start ' . shellescape(a:resolved.path, 1)
             silent execute '!' . cmd
             return
         endif
-        " 4. 其它类型 fallback
-        echohl WarningMsg
-        echomsg 'No handler for filetype: ' . ext
-        echohl None
-        return
     endif
     echohl WarningMsg
     echomsg 'File not found: ' . get(a:resolved, 'path', a:resolved.url)
