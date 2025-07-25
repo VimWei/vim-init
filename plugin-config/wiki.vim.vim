@@ -8,17 +8,9 @@
 let g:wiki_root = g:viminitparent . 'wiki/'
 
 " url_transform ----------------------------------------------------------{{{1
-" 将wiki链接文本转为合法且清晰的文件名
-function! MyUrlTransform(text)
-    let l:valid_filename = substitute(a:text, '[:*\?"<>|`：!@#$%&*‘’'']', '', 'g')
-    let l:formatted_filename = substitute(l:valid_filename, '\s\+\|[.。,，/+"“”<>()（）《》]', '-', 'g')
-    let l:formatted_filename = substitute(l:formatted_filename, '-\+', '-', 'g')
-    let l:cleaned_filename = substitute(l:formatted_filename, '^-\|-$', '', 'g')
-    return tolower(l:cleaned_filename)
-endfunction
 let g:wiki_link_creation = {
     \ 'md': {
-        \ 'url_transform': function('MyUrlTransform'),
+        \ 'url_transform': function('Wikivim#MyUrlTransform'),
     \ },
 \ }
 
