@@ -138,7 +138,8 @@ function! CondaPython#Provider()
         endif
 
         " 在 Windows 的 gvim 中设置 pythonthreedll，在 Unix-like 系统上不需要设置
-        if !has('nvim') && (has('win32') || has('win64'))
+        " 仅 Vim 8.1.0057 及以上支持 pythonthreedll 选项
+        if !has('nvim') && (has('win32') || has('win64')) && has('patch-8.1.57')
             let python_dll = fnamemodify(python_prog, ':h') . '\' . dll_name
             if !filereadable(python_dll)
                 echohl WarningMsg
