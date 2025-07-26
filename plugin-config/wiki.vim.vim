@@ -138,14 +138,14 @@ let g:wiki_link_schemes = {
         \ }
 
 " wiki_viewer ------------------------------------------------------------{{{1
-let s:irfanview_path = '"C:\Program Files\IrfanView\i_view64.exe"'
-let g:wiki_viewer = {
-        \ 'png': 'start ' . s:irfanview_path,
-        \ 'jpg': 'start ' . s:irfanview_path,
-        \ 'jpeg': 'start ' . s:irfanview_path,
-        \ 'gif': 'start ' . s:irfanview_path,
-        \ 'webp': 'start ' . s:irfanview_path,
-        \ }
+" let s:irfanview_path = '"C:\Program Files\IrfanView\i_view64.exe"'
+" let g:wiki_viewer = {
+"         \ 'png': 'start ' . s:irfanview_path,
+"         \ 'jpg': 'start ' . s:irfanview_path,
+"         \ 'jpeg': 'start ' . s:irfanview_path,
+"         \ 'gif': 'start ' . s:irfanview_path,
+"         \ 'webp': 'start ' . s:irfanview_path,
+"         \ }
 
 " wiki_export ------------------------------------------------------------{{{1
 let s:TexTemplate = g:viminit . "tools/pandoc/template.latex"
