@@ -75,8 +75,8 @@ nnoremap <M-l> :vertical resize +5<CR>
 " 复制或删除两个标记之间的内容
 command! ABDelete 'a,'bd
 command! ABYank 'a,'by
-nnoremap <Leader>md :ABDelete<CR>
-nnoremap <Leader>my :ABYank<CR>
+nnoremap <Leader>abd :ABDelete<CR>
+nnoremap <Leader>aby :ABYank<CR>
 
 " Word Processor ---------------------------------------------------------{{{1
 
