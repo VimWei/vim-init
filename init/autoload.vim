@@ -175,10 +175,6 @@ nnoremap <leader>ht :call TOC#HelpToc()<CR>
 nnoremap <leader>me :call Markdown#Explode2P()<CR>
 vnoremap <leader>me :call Markdown#Explode2P()<CR>
 
-" View Markdown Image ----------------------------------------------------{{{1
-" 详情查阅 ../autoload/Markdown.vim
-nnoremap <leader>iv :call Markdown#ViewImage()<CR>
-
 " 全角数字转半角 ---------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Markdown.vim
 command! FullToHalfDigit call Markdown#FullToHalfDigit()

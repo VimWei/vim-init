@@ -55,6 +55,8 @@ function! Markdown#Explode2P() abort range
     execute l:cmd_format
 endfunction
 
+" finish -----------------------------------------------------------------{{{1
+
 " ViewImage --------------------------------------------------------------{{{1
 
 function! Markdown#ViewImage()

@@ -147,17 +147,17 @@ let g:wiki_link_schemes = {
 "         \ 'webp': 'start ' . s:irfanview_path,
 "         \ }
 
-" wiki_export ------------------------------------------------------------{{{1
-let s:TexTemplate = g:viminit . "tools/pandoc/template.latex"
-let s:pandocargs = '--pdf-engine=xelatex -V CJKmainfont="SimSun" --template="' . s:TexTemplate . '"'
-let g:wiki_export = {
-        \ 'args' : s:pandocargs,
-        \ 'from_format' : 'markdown',
-        \ 'ext' : 'pdf',
-        \ 'link_ext_replace': v:false,
-        \ 'view' : v:false,
-        \ 'output': 'PandocOutput',
-        \}
+" " wiki_export ------------------------------------------------------------{{{1
+" let s:TexTemplate = g:viminit . "tools/pandoc/template.latex"
+" let s:pandocargs = '--pdf-engine=xelatex -V CJKmainfont="SimSun" --template="' . s:TexTemplate . '"'
+" let g:wiki_export = {
+"         \ 'args' : s:pandocargs,
+"         \ 'from_format' : 'markdown',
+"         \ 'ext' : 'pdf',
+"         \ 'link_ext_replace': v:false,
+"         \ 'view' : v:false,
+"         \ 'output': 'PandocOutput',
+"         \}
 
 " fzf --------------------------------------------------------------------{{{1
 let g:wiki_fzf_pages_opts = '--preview "type {1}"'
