@@ -75,7 +75,7 @@ function! GeneralTemplate(context) abort
         \ '* Modified: ' . strftime("%Y/%m/%d %H:%M:%S")
     \ ]
     call append(0, template_lines)
-    execute 'normal! Gdd3G'
+    execute 'normal! G"_dd3G'
 endfunction
 let g:wiki_templates = [
             \ { 'match_re': '^\d\{4\}-\d\{2\}-\d\{2\}$',
