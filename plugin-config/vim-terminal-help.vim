@@ -9,6 +9,6 @@
 
 let g:terminal_cwd = 0
 let g:terminal_pos = 'vert botright'    " 默认为rightbelow
-let g:terminal_height = 70  " 设置高度(split，默认10)或宽度(vsplit，建议70)
+let g:terminal_height = 80  " 设置高度(split，默认10)或宽度(vsplit，建议70)
 let g:terminal_kill = 'term'
 let g:terminal_close = 1
