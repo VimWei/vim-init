@@ -31,16 +31,24 @@ cnoremap <expr> %% getcmdtype( ) == ':' ? expand('%:p:h').'/' : '%%'
 command! CD cd %:p:h
 
 " Gemini CLI -------------------------------------------------------------{{{1
-if has('win32')
-  " For Windows: 使用 start 命令在新窗口中启动 gemini
-  command! Gemini !start gemini
-elseif has('macunix')
-  " For macOS: 使用 open 命令在新 Terminal.app 窗口中启动 gemini
-  command! Gemini !open -a Terminal.app 'gemini' &
-else
-  " For Linux: 使用 gnome-terminal (或你偏好的终端模拟器) 在新窗口中启动 gemini
-  command! Gemini !gnome-terminal -- bash -c 'gemini' &
-endif
+function! s:GeminiCommand(args)
+    if empty(a:args)
+        " No arguments, run gemini in external terminal window
+        if has('win32')
+            execute '!start gemini'
+        elseif has('macunix')
+            execute "!open -a Terminal.app 'gemini' &"
+        else
+            execute "!gnome-terminal -- bash -c 'gemini' &"
+        endif
+    else
+        " With arguments, run gemini in internal terminal window
+        execute 'AsyncRun -mode=terminal -pos=thelp -raw cmd /k gemini -i "' . a:args . '"'
+    endif
+endfunction
+
+command! -nargs=* -complete=file Gemini call <SID>GeminiCommand(<q-args>)
+command! -nargs=* -complete=file GeminiGitmessage call <SID>GeminiCommand("Please draft a git commit message in English that summarizes the latest changes in this project.")
 
 " Buffer -----------------------------------------------------------------{{{1
 " 缓存：插件 unimpaired 中定义了 [b, ]b 来切换缓存
