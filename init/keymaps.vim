@@ -43,7 +43,7 @@ function! s:GeminiCommand(args)
         endif
     else
         " With arguments, run gemini in internal terminal window
-        execute 'AsyncRun -mode=terminal -pos=thelp -raw cmd /k gemini -i "' . a:args . '"'
+        execute 'AsyncRun -mode=terminal -pos=thelp gemini -i "' . a:args . '"'
     endif
 endfunction
 
