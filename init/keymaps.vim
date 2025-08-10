@@ -48,7 +48,7 @@ function! s:GeminiCommand(args)
 endfunction
 
 command! -nargs=* -complete=file Gemini call <SID>GeminiCommand(<q-args>)
-command! -nargs=* -complete=file GeminiGitmessage call <SID>GeminiCommand("Please draft a git commit message in English that summarizes the latest changes in this project.")
+command! -nargs=* -complete=file GeminiGitmessage call <SID>GeminiCommand("Generate git commit message, for my changes.")
 
 " Buffer -----------------------------------------------------------------{{{1
 " 缓存：插件 unimpaired 中定义了 [b, ]b 来切换缓存
