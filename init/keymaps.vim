@@ -139,10 +139,3 @@ command! -nargs=1 WikiGrepTags vimgrep /:<args>:/g **/*.md | copen 8
 " 清屏可以暂时关闭高亮
 " nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>:diffupdate<CR>:syntax sync fromstart<CR>:ccl<CR><C-l>
-
-" GoldenDict -------------------------------------------------------------{{{1
-"nnoremap <c-c> <esc>muhebyiw`u
-nnoremap <c-c> <esc>muyiw`u
-"inoremap <c-c> <esc>muhebyiw`ua
-inoremap <c-c> <esc>muyiw`ua
-vnoremap <c-c> ygv

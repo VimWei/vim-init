@@ -206,6 +206,11 @@ endfor
 nnoremap <leader>dt :call Translator#Words('n')<CR>
 vnoremap <leader>dt :call Translator#Words('v')<CR>
 
+" GoldenDict -------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/GoldenDict.vim
+nnoremap <silent> <M-d> :call GoldenDict#Lookup('n')<CR>
+vnoremap <silent> <M-d> :call GoldenDict#Lookup('v')<CR>
+
 " PinYin拼音查询 ---------------------------------------------------------{{{1
 " 详情查阅 ../autoload/PinYin.vim
 if g:python_available
