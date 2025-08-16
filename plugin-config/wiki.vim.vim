@@ -88,7 +88,7 @@ let g:wiki_templates = [
             \ { 'match_re': '^周膳计划.\d\{4\}.\d\{2\}.\d\{2\}$',
             \   'source_func': function('WeeklyMealCycleTemplate') },
             \ { 'match_func': {x ->
-            \       x.path_wiki !~# 'fugitive://' &&
+            \       x.path_wiki !~# '^fugitive:' &&
             \       x.path_wiki !~# 'journal' },
             \   'source_func': function('GeneralTemplate') },
             \]
