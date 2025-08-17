@@ -18,7 +18,8 @@ if !exists('g:plug_group')
     let g:plug_group['basic'] += [ 'guistyle' ]
     let g:plug_group['basic'] += [ 'quickui' ]
     let g:plug_group['basic'] += [ 'search' ]
-    let g:plug_group['basic'] += [ 'inbox' ]
+
+    let g:plug_group['inbox'] = []
 
     let g:plug_group['Notetaking'] = []
     let g:plug_group['Notetaking'] += [ 'edit' ]
@@ -28,6 +29,7 @@ if !exists('g:plug_group')
 
     let g:plug_group['program'] = []
     let g:plug_group['program'] += [ 'git' ]
+    let g:plug_group['program'] += [ 'snippet' ]
     let g:plug_group['program'] += [ 'python' ]
     let g:plug_group['program'] += [ 'LSP' ]
 endif
@@ -131,9 +133,8 @@ if IsInPlugGroup('basic', 'search') " ------------------------------------{{{1
         Plug 't9md/vim-choosewin'
     endif
 endif
-if IsInPlugGroup('basic', 'inbox') " ------------------------------------{{{1
-    Plug 'inkarkat/vim-ingo-library'
-    Plug 'inkarkat/vim-AutoAdapt'
+if IsInPlugGroup('inbox') " ------------------------------------{{{1
+
 endif
 
 if IsInPlugGroup('Notetaking', 'edit')  " --------------------------------{{{1
@@ -195,9 +196,6 @@ if IsInPlugGroup('program') " --------------------------------------------{{{1
     if has('nvim') || !has('patch-9.1.0375')
         Plug 'tpope/vim-commentary'
     endif
-    if g:python_available
-        Plug 'SirVer/ultisnips'
-    endif
     " 代码格式化，支持多种语言
     Plug 'Chiel92/vim-autoformat'
     " 彩虹括号增强版
@@ -210,6 +208,14 @@ else
     function! g:Git_status()
         return ''
     endfunction
+endif
+
+if IsInPlugGroup('program', 'snippet') " ---------------------------------{{{1
+    if g:python_available
+        Plug 'SirVer/ultisnips'
+    endif
+    Plug 'inkarkat/vim-ingo-library'
+    Plug 'inkarkat/vim-AutoAdapt'
 endif
 
 if IsInPlugGroup('program', 'python') " ----------------------------------{{{1
