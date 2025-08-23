@@ -188,6 +188,7 @@ if IsInPlugGroup('Notetaking', 'wiki') " ---------------------------------{{{1
         Plug 'nvim-telescope/telescope.nvim'
     endif
     Plug 'bullets-vim/bullets.vim'
+    Plug 'hotoo/pangu.vim'
 endif
 
 if IsInPlugGroup('program') " --------------------------------------------{{{1
