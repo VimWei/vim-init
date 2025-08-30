@@ -7,6 +7,3 @@
 [submodule "pack/mydev/opt/vimnc"]
 	path = pack/mydev/opt/vimnc
 	url = https://github.com/VimWei/vimnc
-[submodule "pack/mydev/opt/SimpylFold"]
-	path = pack/mydev/opt/SimpylFold
-	url = https://github.com/tmhedberg/SimpylFold
