@@ -165,10 +165,6 @@ if IsInPlugGroup('Notetaking', 'textobj') " ------------------------------{{{1
 
     " 函数文本对象：if/af 支持 c/c++/vim/java
     Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
-    " 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
-    if g:python_available
-        Plug 'bps/vim-textobj-python', {'for': 'python'}
-    endif
 endif
 
 if IsInPlugGroup('Notetaking', 'table')  " -------------------------------{{{1
@@ -205,10 +201,6 @@ endif
 
 if IsInPlugGroup('program', 'git') " -------------------------------------{{{1
     Plug 'tpope/vim-fugitive'
-else
-    function! g:Git_status()
-        return ''
-    endfunction
 endif
 
 if IsInPlugGroup('program', 'snippet') " ---------------------------------{{{1
@@ -222,7 +214,9 @@ endif
 if IsInPlugGroup('program', 'python') " ----------------------------------{{{1
     if g:python_available
         " python 语法文件增强
-        Plug 'vim-python/python-syntax', { 'for': ['python'] }
+        Plug 'vim-python/python-syntax', { 'for': 'python' }
+        " 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
+        Plug 'bps/vim-textobj-python', { 'for': 'python' }
         " 即时代码格式化
         Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8' }
         " 快速测试代码片段
