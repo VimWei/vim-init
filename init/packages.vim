@@ -29,6 +29,9 @@ endif
 packadd! vimnc
 let s:packages += [ 'vimnc' ]
 
+packadd! SimpylFold
+let s:packages += [ 'SimpylFold' ]
+
 " source packages config -------------------------------------------------{{{1
 if len(get(s:, 'packages', [])) !=# 0
     for pack in s:packages

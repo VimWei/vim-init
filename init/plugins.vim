@@ -213,8 +213,6 @@ endif
 
 if IsInPlugGroup('program', 'python') " ----------------------------------{{{1
     if g:python_available
-        " python 语法文件增强
-        Plug 'vim-python/python-syntax', { 'for': 'python' }
         " 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
         Plug 'bps/vim-textobj-python', { 'for': 'python' }
         " 即时代码格式化
