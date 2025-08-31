@@ -116,8 +116,8 @@ nnoremap <Leader>am :call Fold#AddMarker()<CR>
 " 切换是否显示foldcolumn
 command! FoldColumnToggle call Fold#ColumnToggle()
 nnoremap zf :call Fold#ColumnToggle()<CR>
-nnoremap zm :call Fold#ColumnOn()<CR>zm
-nnoremap zi :call Fold#ColumnOff()<CR>zi
+nnoremap zm :call Fold#ColumnOn()<CR><Cmd>normal! zm<CR>
+nnoremap zi :call Fold#ColumnOff()<CR><Cmd>normal! zi<CR>
 
 " 常用折叠配置
 set nofoldenable
@@ -127,6 +127,14 @@ nnoremap <S-space> zMzv
 nnoremap          zv zMzvzz
 nnoremap <silent> zj zcjzOzz
 nnoremap <silent> zk zckzOzz
+
+" Alt+0: 展开所有折叠
+nnoremap <M-0> zR
+" Alt+1-9: 变更折叠层级
+for i in range(1, 9)
+    let level = i-1
+    exec "nnoremap <M-".i."> :call Fold#Level(".level.")<CR>"
+endfor
 
 " Spell ------------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Spell.vim

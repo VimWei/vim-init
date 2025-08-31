@@ -30,23 +30,6 @@ function! Fold#AddMarker() " ---------------------------------------------{{{1
     endif
 endfunction
 
-" function! Fold#AddMarker() " ---------------------------------------------{{{1
-"     let current_line = getline('.')
-"     let current_line_length = strwidth(current_line)
-"     let textwidth = 78
-"     let is_comment_line = current_line =~ '^\s*"'
-"     let prefix = is_comment_line ? ' ' : ' " '
-"     let suffix = '{{{1'
-"     let fix_length = strlen(prefix) + strlen(suffix)
-"     let fill_length = textwidth - current_line_length - fix_length
-"     if fill_length > 0
-"         let dashes = repeat('-', fill_length)
-"         execute "normal! A" . prefix . dashes . suffix
-"     else
-"         execute "normal! A" . prefix . suffix
-"     endif
-" endfunction
-
 function! Fold#ColumnToggle() " ------------------------------------------{{{1
     if &foldcolumn
         setlocal foldcolumn=0
@@ -61,4 +44,20 @@ endfunction
 
 function! Fold#ColumnOff() " ---------------------------------------------{{{1
     setlocal foldcolumn=0
+endfunction
+
+function! Fold#Level(level) " --------------------------------------------{{{1
+    " 先关闭所有折叠（这会自动启用折叠功能）
+    normal! zM
+    call Fold#ColumnOn()
+
+    " 设置折叠参数
+    let max_nest = a:level + 1
+    execute 'setlocal foldnestmax=' . max_nest
+    execute 'setlocal foldlevel=' . a:level
+
+    " 显示当前折叠状态，注意：
+    " 若 foldmethod 为 indent 或 marker，则 foldnestmax 起作用
+    " 若 foldmethod 为 syntax 或 expr，则 foldnestmax 不起作用
+    echo "set foldnestmax=" . (a:level + 1) . ", foldlevel=" . a:level
 endfunction
