@@ -27,7 +27,10 @@ function! Pandoc#ToPdf() " -----------------------------------------------{{{1
     "-N,--number-sections; -s, --standalone; --toc, --table-of-contents; -o FILE, --output=FILE
     " 页边距设置：-V geometry:"top=1in, bottom=1in, left=1.25in, right=1.25in"
     " 默认字体：-V CJKmainfont="中文字体名"   可选：Microsoft YaHei、SimHei、SimSun
-    exe ':AsyncRun Pandoc "%" -s -o ' . '"' . l:PandocOutput . '"' . ' --pdf-engine=xelatex -V CJKmainfont="SimSun" -V CJKoptions="BoldFont=SimHei" --template="' . l:TexTemplate . '"'
+    let l:InFileEsc = shellescape(expand('%:p'))
+    let l:OutFileEsc = shellescape(l:PandocOutput)
+    let l:TexTemplateEsc = shellescape(l:TexTemplate)
+    exe ':AsyncRun Pandoc ' . l:InFileEsc . ' -s -o ' . l:OutFileEsc . ' --pdf-engine=xelatex -V CJKmainfont="SimSun" -V CJKoptions="BoldFont=SimHei" --template=' . l:TexTemplateEsc
     echomsg "Pandoc Output File: " . l:PandocOutput
 endfunction
 
@@ -40,7 +43,10 @@ function! Pandoc#ToDocx() " ----------------------------------------------{{{1
     let l:ReferenceDoc = g:viminit . "tools/pandoc/reference.docx"
     " 3. 调用 Pandoc
     " exe ':AsyncRun Pandoc "%" -o ' . '"' . l:PandocOutput . '"'
-    exe ':AsyncRun Pandoc "%" -o "' . l:PandocOutput . '" --reference-doc="' . l:ReferenceDoc . '"'
+    let l:InFileEsc = shellescape(expand('%:p'))
+    let l:OutFileEsc = shellescape(l:PandocOutput)
+    let l:RefDocEsc = shellescape(l:ReferenceDoc)
+    exe ':AsyncRun Pandoc ' . l:InFileEsc . ' -o ' . l:OutFileEsc . ' --reference-doc=' . l:RefDocEsc
     echomsg "Pandoc Output File: " . l:PandocOutput
 endfunction
 
@@ -54,7 +60,11 @@ function! Pandoc#ToDocxWithEmptyLines() " --------------------------------{{{1
     let l:ReferenceDoc = g:viminit . "tools/pandoc/reference.docx"
     let l:LuaFilter = g:viminit . "tools/pandoc/preserve-empty-lines.lua"
     " 3. 调用 Pandoc
-    exe ':AsyncRun Pandoc "%" -o "' . l:PandocOutput . '" --reference-doc="' . l:ReferenceDoc . '" --lua-filter="' . l:LuaFilter . '"'
+    let l:InFileEsc = shellescape(expand('%:p'))
+    let l:OutFileEsc = shellescape(l:PandocOutput)
+    let l:RefDocEsc = shellescape(l:ReferenceDoc)
+    let l:LuaFilterEsc = shellescape(l:LuaFilter)
+    exe ':AsyncRun Pandoc ' . l:InFileEsc . ' -o ' . l:OutFileEsc . ' --reference-doc=' . l:RefDocEsc . ' --lua-filter=' . l:LuaFilterEsc
     " 4. 立即撤销预处理，让用户看到原文
     silent! undo
     execute 'normal! gg'
@@ -65,6 +75,8 @@ function! Pandoc#ToHtml() " ----------------------------------------------{{{1
     silent! w
     silent! exe "cd %:h"
     let l:PandocOutput = s:output_dir . strftime("%Y%m%d.%H%M%S") . "." . expand('%:t:r') . ".html"
-    exe ':AsyncRun Pandoc "%" -o ' . '"' . l:PandocOutput . '"'
+    let l:InFileEsc = shellescape(expand('%:p'))
+    let l:OutFileEsc = shellescape(l:PandocOutput)
+    exe ':AsyncRun Pandoc ' . l:InFileEsc . ' -o ' . l:OutFileEsc
     echomsg "Pandoc Output File: " . l:PandocOutput
 endfunction
