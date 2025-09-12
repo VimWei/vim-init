@@ -259,3 +259,6 @@ command! -nargs=1 MdictItemToMDX call Mdict#ItemToMdx(<f-args>)
 command! MdictMiddlePage call Mdict#MiddlePage()
 " 切换至下一栏
 command! MdictTogglePage call Mdict#TogglePage()
+
+" MarkURLdown ------------------------------------------------------------{{{1
+command! MarkURLdownConcatenateLog call MarkURLdown#ConcatenateLogFiles()

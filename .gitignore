@@ -1,4 +1,5 @@
 reference/
-autoload/plug.vim.old
-*.swp
 tools/UltiSnips/
+*.swp
+GEMINI.md
+autoload/plug.vim.old
