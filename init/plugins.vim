@@ -215,6 +215,8 @@ if IsInPlugGroup('program', 'python') " ----------------------------------{{{1
     if g:python_available
         " 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
         Plug 'bps/vim-textobj-python', { 'for': 'python' }
+        " 代码折叠
+        Plug 'tmhedberg/SimpylFold'
         " 即时代码格式化
         Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8' }
         " 快速测试代码片段
