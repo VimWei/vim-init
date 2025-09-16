@@ -21,6 +21,11 @@ if has('patch-9.0.0000') && !has('nvim')
     let s:packages += [ 'vim9-stargate' ]
 endif
 
+if (has('nvim-0.10') || (v:version >= 901))
+    packadd! wiki.vim
+    let s:packages += [ 'wiki.vim' ]
+endif
+
 if has('patch-9.1.1270')
     packadd! vim-markdown-plus
     let s:packages += [ 'vim-markdown-plus' ]

@@ -175,9 +175,9 @@ if IsInPlugGroup('Notetaking', 'table')  " -------------------------------{{{1
 endif
 
 if IsInPlugGroup('Notetaking', 'wiki') " ---------------------------------{{{1
-    if (has('nvim-0.10') || (v:version >= 901))
-        Plug 'lervag/wiki.vim'
-    endif
+    " if (has('nvim-0.10') || (v:version >= 901))
+    "     Plug 'lervag/wiki.vim'
+    " endif
     Plug 'junegunn/fzf'
     if has('nvim')
         Plug 'nvim-lua/plenary.nvim'
