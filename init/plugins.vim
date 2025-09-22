@@ -134,7 +134,6 @@ if IsInPlugGroup('basic', 'search') " ------------------------------------{{{1
     endif
 endif
 if IsInPlugGroup('inbox') " ------------------------------------{{{1
-
 endif
 
 if IsInPlugGroup('Notetaking', 'edit')  " --------------------------------{{{1
@@ -185,6 +184,8 @@ if IsInPlugGroup('Notetaking', 'wiki') " ---------------------------------{{{1
     endif
     Plug 'bullets-vim/bullets.vim'
     Plug 'hotoo/pangu.vim'
+    Plug 'mracos/mermaid.vim'
+    Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 endif
 
 if IsInPlugGroup('program') " --------------------------------------------{{{1
