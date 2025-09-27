@@ -114,7 +114,7 @@ let g:wiki_mappings_local_journal = {
 function! WikiFileHandler(resolved, ...) abort
     if has_key(a:resolved, 'path') && filereadable(a:resolved.path)
         let ext = tolower(fnamemodify(a:resolved.path, ':e'))
-        if ext =~# '^\(vim\|py\|lua\|txt\|md\|json\|sh\|bat\)$'
+        if ext =~# '^\(vim\|ahk\|py\|lua\|txt\|md\|json\|sh\|bat\)$'
             " 1. Open text-like files directly with :edit
             execute 'edit' fnameescape(a:resolved.path)
             return
