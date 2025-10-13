@@ -4,7 +4,7 @@
 " il：匹配 markdown 链接的名称部分，不包括后缀名.md，方便复制并更名wiki链接页面等
 call textobj#user#plugin('markdown', {
             \     'list_item_text': {
-            \         'pattern': '^\s*\([*-]\|\d\+\.\)\s\+\(\[\(\s\+\|[.oOxX]\)\]\)\?\s*\zs.*$',
+            \         'pattern': '^\s*\([*-+]\|\d\+\.\)\s\+\(\[\(\s\+\|[.oOxX]\)\]\)\?\s*\zs.*$',
             \         'select': ['al'],
             \         'scan': 'line',
             \     },
