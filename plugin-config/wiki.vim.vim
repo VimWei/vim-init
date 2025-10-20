@@ -20,7 +20,7 @@ function! JournalTemplate(context) abort
     if a:context.name == today
         let title = strftime("%Y-%m-%d %A %H:%M:%S")
     else
-        let timestamp = wiki#date#strptime("%Y-%m-%d", a:context.name)
+        let timestamp = date#strptime#strptime("%Y-%m-%d", a:context.name)
         let title = strftime("%Y-%m-%d %A", timestamp)
     endif
     let template_lines = ['# ' . title] + ['']
@@ -47,7 +47,7 @@ function! WeeklyMealCycleTemplate(context) abort
         \ ''
     \ ]
     let start_date = matchstr(title, '\d\{4}-\d\{2}-\d\{2\}')
-    let timestamp = wiki#date#strptime("%Y-%m-%d", start_date)
+    let timestamp = date#strptime#strptime('%Y-%m-%d', start_date)
     for day in range(0, 6)
         let current_time = timestamp + day * 86400
         let date_str = strftime("%a %Y-%m-%d", current_time)
@@ -59,6 +59,10 @@ function! WeeklyMealCycleTemplate(context) abort
             \ ''
         \ ])
     endfor
+    call extend(template_lines, [
+        \ '* Created:  ' . strftime("%Y/%m/%d %H:%M:%S"),
+        \ '* Modified: ' . strftime("%Y/%m/%d %H:%M:%S")
+    \ ])
     call append(0, template_lines)
     execute 'normal! gg'
 endfunction

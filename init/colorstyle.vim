@@ -15,8 +15,8 @@ endif
 
 if !exists('s:default_colorscheme')
     let s:default_colorscheme = []
-    " 浅色主题，在21:00-06:00禁用
-    if time#IsTimeInRange('21:00', '06:00') == 0
+    " 在 06:00-21:00 启用浅色主题
+    if date#time#IsTimeInRange('06:00', '21:00') 
         let s:default_colorscheme += ['delek']
         let s:default_colorscheme += ['eclipse']
     endif
