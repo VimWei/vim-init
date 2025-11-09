@@ -129,7 +129,8 @@ endfunction
 
 function! RandomOne()
     let g:one_allow_italics = 0
-    let backgrounds = ['dark', 'light']
+    " let backgrounds = ['dark', 'light']
+    let backgrounds = ['dark']
     let &background = backgrounds[rand() % len(backgrounds)]
     execute 'colorscheme one'
 endfunction
