@@ -34,9 +34,6 @@ endif
 packadd! vimnc
 let s:packages += [ 'vimnc' ]
 
-packadd! vim-git-diffview
-let s:packages += [ 'vim-git-diffview' ]
-
 " source packages config -------------------------------------------------{{{1
 if len(get(s:, 'packages', [])) !=# 0
     for pack in s:packages

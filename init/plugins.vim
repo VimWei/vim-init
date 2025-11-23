@@ -202,6 +202,7 @@ endif
 
 if IsInPlugGroup('program', 'git') " -------------------------------------{{{1
     Plug 'tpope/vim-fugitive'
+    Plug 'skywind3000/vim-git-diffview'
 endif
 
 if IsInPlugGroup('program', 'snippet') " ---------------------------------{{{1
