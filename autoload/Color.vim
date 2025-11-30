@@ -41,6 +41,7 @@ function! Color#RandomVimInitScheme()
         \ 'color monokai-vim',
         \ 'color gaea',
         \ 'color nordic_electric_ai',
+        \ 'color quack',
         \ ]
     let l:random_scheme_cmd = l:styles[rand() % len(l:styles)]
     execute l:random_scheme_cmd
@@ -147,6 +148,7 @@ function! Color#RandomFavoriteScheme(...)
     let l:styles_simple = [
             \ 'gaea', 'delek', 'eclipse',
             \ 'borland256', 'murphy',
+            \ 'quack',
             \ ]
     if !has('nvim')
         let l:styles_simple += [

@@ -16,7 +16,7 @@ endif
 if !exists('s:default_colorscheme')
     let s:default_colorscheme = []
     " 在 06:00-21:00 启用浅色主题
-    if date#time#IsTimeInRange('06:00', '21:00') 
+    if date#time#IsTimeInRange('06:00', '21:00')
         let s:default_colorscheme += ['delek']
         let s:default_colorscheme += ['eclipse']
     endif
@@ -25,6 +25,7 @@ if !exists('s:default_colorscheme')
         let s:default_colorscheme += ['nordic_electric_ai']
     endif
     let s:default_colorscheme += ['one']
+    let s:default_colorscheme += ['quack']
 endif
 if empty(s:default_colorscheme)
     " 如果不指定，则从FavoriteScheme中选随机一个
