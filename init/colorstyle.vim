@@ -26,6 +26,7 @@ if !exists('s:default_colorscheme')
     endif
     let s:default_colorscheme += ['one']
     let s:default_colorscheme += ['quack']
+    let s:default_colorscheme += ['iceberg']
 endif
 if empty(s:default_colorscheme)
     " 如果不指定，则从FavoriteScheme中选随机一个

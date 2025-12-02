@@ -88,6 +88,7 @@ if IsInPlugGroup('basic', 'colorscheme') " -------------------------------{{{1
     Plug 'arzg/vim-colors-xcode'
     Plug 'danilo-augusto/vim-afterglow'
     Plug 'tomasiser/vim-code-dark'
+    Plug 'cocopon/iceberg.vim'
 
     Plug 'zefei/vim-colortuner'
     Plug 'lifepillar/vim-colortemplate'

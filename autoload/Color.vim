@@ -66,6 +66,7 @@ function! Color#RandomThirdPartyScheme()
         \ 'call RandomNord()',
         \ 'call RandomOne()',
         \ 'call RandomAfterglow()',
+        \ 'call RandomIceberg()',
         \ 'color landscape',
         \ 'color gotham',
         \ 'color oceanicnext',
@@ -142,6 +143,12 @@ function! RandomAfterglow()
     execute 'colorscheme afterglow'
 endfunction
 
+function! RandomIceberg()
+    let backgrounds = ['dark', 'light']
+    let &background = backgrounds[rand() % len(backgrounds)]
+    execute 'colorscheme iceberg'
+endfunction
+
 " Favorite colorscheme ---------------------------------------------------{{{1
 function! Color#RandomFavoriteScheme(...)
     " 配置 favorite colorschemes，按启用复杂度来分类
@@ -158,7 +165,7 @@ function! Color#RandomFavoriteScheme(...)
     endif
     let l:styles_complex = [
             \ 'quiet', 'lucius', 'afterglow',
-            \ 'gruvbox8', 'one',
+            \ 'gruvbox8', 'one', 'iceberg',
             \ ]
     if !has('nvim')
         let l:styles_complex += [
