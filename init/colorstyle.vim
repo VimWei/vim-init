@@ -27,6 +27,7 @@ if !exists('s:default_colorscheme')
     let s:default_colorscheme += ['one']
     let s:default_colorscheme += ['quack']
     let s:default_colorscheme += ['iceberg']
+    let s:default_colorscheme += ['codedark']
 endif
 if empty(s:default_colorscheme)
     " 如果不指定，则从FavoriteScheme中选随机一个

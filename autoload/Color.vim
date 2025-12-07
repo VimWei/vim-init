@@ -155,7 +155,7 @@ function! Color#RandomFavoriteScheme(...)
     let l:styles_simple = [
             \ 'gaea', 'delek', 'eclipse',
             \ 'borland256', 'murphy',
-            \ 'quack',
+            \ 'quack', 'codedark',
             \ ]
     if !has('nvim')
         let l:styles_simple += [
