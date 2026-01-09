@@ -173,7 +173,7 @@ command! HtmlTidy call HtmlTidy#Tidy()
 " nnoremap <leader>hp :call HtmlTidy#Prettify()<CR>
 command! HtmlPrettify call HtmlTidy#Prettify()
 
-" HelpToc and TOC --------------------------------------------------------------------{{{1
+" HelpToc and TOC --------------------------------------------------------{{{1
 " 详情查阅 ../autoload/TOC.vim
 " 打开文档目录
 nnoremap <leader>ht :call TOC#HelpToc()<CR>

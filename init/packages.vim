@@ -11,6 +11,12 @@ let s:packages = [ 'netrw', 'vim-markdown-tpope' ]
 packadd! matchit
 let s:packages += [ 'matchit' ]
 
+" 短暂地高亮最近的 yank 命令影响的区域
+if has('patch-9.1.1230')
+    packadd! hlyank
+    let s:packages += [ 'hlyank' ]
+endif
+
 if has('patch-9.1.0375')
     packadd! comment
     let s:packages += [ 'comment' ]
