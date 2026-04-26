@@ -32,8 +32,8 @@ endfunction
 " MyUrlTransform ---------------------------------------------------------{{{1
 " 将wiki链接文本转为合法且清晰的文件名
 function! Wikivim#MyUrlTransform(text)
-    let l:valid_filename = substitute(a:text, '[:*\?"<>|`：!@#$%&*‘’'']', '', 'g')
-    let l:formatted_filename = substitute(l:valid_filename, '\s\+\|[.。,，/+"“”<>()（）《》]', '-', 'g')
+    let l:valid_filename = substitute(a:text, '[*\?"<>|`!@#$%&*‘’'']', '', 'g')
+    let l:formatted_filename = substitute(l:valid_filename, '\s\+\|[.。,，/+"“”<>()（）《》:：]', '-', 'g')
     let l:formatted_filename = substitute(l:formatted_filename, '-\+', '-', 'g')
     let l:cleaned_filename = substitute(l:formatted_filename, '^-\|-$', '', 'g')
     return tolower(l:cleaned_filename)
