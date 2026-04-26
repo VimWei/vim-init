@@ -166,7 +166,7 @@ command! OCRClean call OCRmyPDF#Clean()
 
 " LLMClean ---------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/LLMClean.vim
-command! LLMClean call LLMClean#Run()
+command! -range LLMClean call LLMClean#Run()
 
 " HtmlTidy ---------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/HtmlTidy.vim
