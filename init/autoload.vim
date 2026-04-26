@@ -164,6 +164,10 @@ call Strip#Init()
 " 详情查阅 ../autoload/OCRmyPDF.vim
 command! OCRClean call OCRmyPDF#Clean()
 
+" LLMClean ---------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/LLMClean.vim
+command! LLMClean call LLMClean#Run()
+
 " HtmlTidy ---------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/HtmlTidy.vim
 " 使用如下命令实施Tidy美化，并输出文件到CWD中
