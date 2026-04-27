@@ -83,7 +83,8 @@ function! s:ExecuteItems(items, range, start_line, end_line)
                 " 全文模式：全选
                 silent! execute 'normal! ggVG'
             endif
-            call feedkeys("\<Plug>MarkdownRemoveAll", 'x')
+            silent! execute 'normal <Plug>MarkdownRemoveAll'
+            redraw!
             let executed += 1
         elseif idx == 2
             " Special handling: Add empty line after ## headings
