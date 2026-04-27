@@ -31,7 +31,7 @@ call quickui#menu#install("&Edit", [
     \ ['Set Filetype &Markdown', 'set ft=markdown', '将文件类型设置为 Markdown'],
     \ ["-"],
     \ ['&OCRClean', 'OCRClean', '清理 OCR 文档的格式'],
-    \ ['&LLMClean', 'LLMClean', '清理 Gemini Markdown 格式'],
+    \ ['&LLMClean', 'LLMClean', '清理 AI Markdown 格式'],
     \ ['gq&Format', 'normal! ggVGgq', '全文 gq 格式化'],
     \ ['&Un gqFormat', 'UngqFormat', '恢复 gq 格式化'],
     \ ["-"],

@@ -1,4 +1,4 @@
-" 清理 Gemini 生成的 Markdown 文档格式
+" 清理 AI 生成的 Markdown 文档格式
 
 let s:items = [
     \ {'label': 'Delete lines starting with ---', 'cmd': '', 'enabled': 1},
@@ -6,11 +6,12 @@ let s:items = [
     \ {'label': 'Add empty line after ## headings', 'cmd': '', 'enabled': 1},
     \ {'label': 'Remove leading 2 spaces', 'cmd': '{range}s/^  //g', 'enabled': 1},
     \ {'label': 'Fix Chinese colon spacing', 'cmd': '{range}s/： /：/g', 'enabled': 1},
+    \ {'label': 'Clean redundant spaces after numbered list', 'cmd': '{range}s/\(\d\.\)\s\+/\1 /g', 'enabled': 1},
     \ {'label': 'Remove all text style (requires markdown)', 'cmd': '', 'enabled': 1},
-\ ]
+\]
 
-" 执行顺序: 按界面显示顺序 1→2→3→4→5→6
-let s:exec_order = [0, 1, 2, 3, 4, 5]
+" 执行顺序: 按界面显示顺序 1→2→3→4→5→6→7
+let s:exec_order = [0, 1, 2, 3, 4, 5, 6]
 
 function! LLMClean#Run() range
     let items = deepcopy(s:items)
@@ -39,7 +40,6 @@ function! LLMClean#Run() range
             call add(choices, printf('%d. %s %s', i+1, mark, items[i].label))
         endfor
         call add(choices, printf('%d. [Execute selected operations]', len(items)+1))
-        call add(choices, 'Type number and press Enter (0 to cancel):')
         
         let choice = inputlist(choices)
         
@@ -70,7 +70,7 @@ function! s:ExecuteItems(items, range, start_line, end_line)
         " 记录操作前的总行数
         let l:lines_before = line('$')
         
-        if idx == 5
+        if idx == 6
             " Special handling: Remove all text style (requires markdown)
             if &filetype != 'markdown'
                 continue
@@ -83,7 +83,7 @@ function! s:ExecuteItems(items, range, start_line, end_line)
                 " 全文模式：全选
                 silent! execute 'normal! ggVG'
             endif
-            silent! execute 'normal <Plug>MarkdownRemoveAll'
+            silent! execute "normal \<Plug>MarkdownRemoveAll"
             redraw!
             let executed += 1
         elseif idx == 2
