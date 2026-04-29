@@ -123,7 +123,7 @@ if IsInPlugGroup('basic', 'quickui') " -----------------------------------{{{1
 endif
 
 if IsInPlugGroup('basic', 'search') " ------------------------------------{{{1
-    if g:python_available
+    if get(g:, 'python_available', v:false)
         Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
     endif
     Plug 'skywind3000/vim-auto-popmenu'
@@ -207,7 +207,7 @@ if IsInPlugGroup('program', 'git') " -------------------------------------{{{1
 endif
 
 if IsInPlugGroup('program', 'snippet') " ---------------------------------{{{1
-    if g:python_available
+    if get(g:, 'python_available', v:false)
         Plug 'SirVer/ultisnips'
     endif
     Plug 'inkarkat/vim-ingo-library'
@@ -215,7 +215,7 @@ if IsInPlugGroup('program', 'snippet') " ---------------------------------{{{1
 endif
 
 if IsInPlugGroup('program', 'python') " ----------------------------------{{{1
-    if g:python_available
+    if get(g:, 'python_available', v:false)
         " 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
         Plug 'bps/vim-textobj-python', { 'for': 'python' }
         " 代码折叠

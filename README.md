@@ -6,13 +6,13 @@ Vimel 个性化的 Vim 配置
 
 * 适用于Windows
 
-1. 新建 `d:\WeirdData\` 目录，把项目克隆到 `d:\WeirdData\vim-init` 下面：
+1. 选择一个目录存放项目，例如 `d:\YourPath\vim-init`：
     * 项目位置可以保存到任意位置，这里仅表达目录关系
     * 该保存位置将在第3步中用到
 
     ```batch
     d:
-    cd \WeirdData
+    cd \YourPath
     git clone https://github.com/VimWei/vim-init.git
     ```
 
@@ -30,7 +30,7 @@ Vimel 个性化的 Vim 配置
     * 根据步骤1修订vim-init\init.vim的存放路径
 
     ```VimL
-    source d:\WeirdData\vim-init\init.vim
+    source d:\YourPath\vim-init\init.vim
     ```
 
 4. 打开vim，并安装包：
@@ -38,6 +38,16 @@ Vimel 个性化的 Vim 配置
 
     ```VimCMD
     :PlugInstall
+    ```
+
+5. 设置 Python 环境：
+    * 部分插件（如 LeaderF 等）需要 Python 支持
+    * 需要先安装 [uv](https://docs.astral.sh/uv/getting-started/installation/)
+
+    ```batch
+    cd d:\YourPath\vim-init
+    uv venv
+    uv sync
     ```
 
 ## 使用 Tips

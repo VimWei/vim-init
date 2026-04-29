@@ -35,15 +35,29 @@ Personalized Vim/Neovim configuration for Windows. Primary language is VimL; Neo
 
 ## Load Order
 
-`init.vim` → `init/essential.vim` → `init/tabsize.vim` → `init/keymaps.vim` → `init/plugins.vim` → `init/packages.vim` → etc.
+`init.vim` → `init/python.vim` → `init/essential.vim` → `init/tabsize.vim` → `init/keymaps.vim` → `init/plugins.vim` → `init/packages.vim` → etc.
 
 ## Plugin System
 
 Uses vim-plug. Plugin configs are loaded from `plugin-config/{plugin-name}.vim` AFTER `plug#end()`.
 
-## Python/Conda
+## Python/uv
 
-Python detection via `CondaPython#Provider()`. Sets `$pythonthreedll` on Windows GVim. Falls back to `g:python_available = v:false` if not found.
+Python detection via `python#Provider()`. Sets `$pythonthreedll` on Windows GVim. Falls back to `g:python_available = v:false` if not found.
+
+Python dependencies are managed via `uv` and declared in `pyproject.toml`.
+
+### Setup
+
+```bash
+cd d:\WeirdData\vim-init
+uv venv
+uv sync
+```
+
+### Commands
+
+- `:PyRun` or `<F5>` - Run current buffer with `uv run python`
 
 ## Testing Changes
 

@@ -39,42 +39,13 @@ augroup VimrcAutoReload
 augroup END
 
 " Python -----------------------------------------------------------------{{{1
-" 详情查阅 ../autoload/CondaPython.vim
+" 详情查阅 ../autoload/python.vim
 
-" 以下4个命令，运行格式一样，第1个参数代表conda env，之后的代表cmd命令
-" command! YourCommand call CondaPython#CondaEnv("env", "mode"，"cmd1", "cmd2", ...)
-
-if g:python_available
-    " 使用:TerminalConda，打开默认的conda环境pymotw
-    " 使用:TerminalConda myEnv，打开指定的conda环境myEnv
-    " 使用:TerminalConda myEnv "" ipython，打开指定的conda环境myEnv，并执行ipython
-    " 使用:TerminalConda "" "" ipython，在默认的conda环境pymotw中，运行ipython
-    command! -nargs=* TerminalConda call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'PASS', <f-args>)
-
-    " 使用:Python，在默认的conda环境pymotw中，运行python
-    " 使用:Python myEnv，在指定的conda环境myEnv中，运行python
-    " 使用:Python myEnv "" ipython，在指定的conda环境myEnv中，运行ipython
-    " 使用:Python "" "" ipython，在默认的conda环境pymotw中，运行ipython
-    command! -nargs=* Python call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'python', <f-args>)
-    command! -nargs=* Lua call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'Lua', <f-args>)
-
-    " 使用:IPython，在默认的conda环境pymotw中，打开IPython
-    " 使用:IPython myEnv，在指定的conda环境myEnv中，打开IPython
-    " 使用:IPython myEnv "" python，在指定的conda环境myEnv中，打开python
-    " 使用:IPython "" "" python，在默认的conda环境pymotw中，运行python
-    command! -nargs=* IPython call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'ipython', <f-args>)
-    command! -nargs=* JupyterLab call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'jupyter-lab')
-
-    " 使用:PyRun 或者 F5，在默认的conda环境pymotw中，使用python执行当前buffer
-    " 使用:PyRun myEnv，在指定的conda环境myEnv中，使用python执行当前buffer
-    " 使用:PyRun myEnv "" ipython，在指定的conda环境myEnv中，运行ipython
-    " 使用:PyRun "" "" ipython，在默认的conda环境pymotw中，运行ipython
-    command! -nargs=* PyRun call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'python "' . expand('%:p') . '"', <f-args>)
-    map <F5> :call CondaPython#CondaEnvCommand('pymotw', 'terminal', 'python "' . expand('%:p') . '"')<CR>
+if get(g:, 'python_available', v:false)
+    " 使用:PyRun 或者 F5，使用 python 执行当前 buffer
+    command! PyRun call python#RunFile()
+    nnoremap <F5> :PyRun<CR>
 endif
-
-" 查阅python帮助文档
-nnoremap <leader>ph :call CondaPython#Help()<CR>
 
 " Pandoc -----------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Pandoc.vim
@@ -225,7 +196,7 @@ vnoremap <silent> <M-d> :call GoldenDict#Lookup('v')<CR>
 
 " PinYin拼音查询 ---------------------------------------------------------{{{1
 " 详情查阅 ../autoload/PinYin.vim
-if g:python_available
+if get(g:, 'python_available', v:false)
     " 使用Leaderf查询光标所在位置单字的拼音、双拼、同音字、常用词组
     nnoremap <leader>ps :call PinYin#SingleWord()<CR>
     command! PinYinSingleWord call PinYin#SingleWord()

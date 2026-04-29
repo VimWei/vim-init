@@ -16,17 +16,19 @@ let mapleader = "\<space>"
 
 " g:viminit --------------------------------------------------------------{{{1
 let g:viminit = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+let g:viminit = substitute(g:viminit, '\\', '/', 'g')
+if g:viminit !~ '/$'
+    let g:viminit = g:viminit . '/'
+endif
 execute 'set runtimepath+=' . g:viminit
-execute 'set runtimepath+=' . g:viminit . '/after'
+execute 'set runtimepath+=' . g:viminit . 'after'
 execute 'set packpath+=' . g:viminit
-let g:viminit = substitute(g:viminit . '/', '\\', '/', 'g')
 let g:viminitparent = fnamemodify(g:viminit, ':h:h') . '/'
 let g:plugin_config_path = g:viminit . 'plugin-config/'
 
-" Load Python provider ---------------------------------------------------{{{1
-call CondaPython#Provider()
 
 " LoadScript -------------------------------------------------------------{{{1
+execute 'so ' . g:viminit . 'init/python.vim'
 execute 'so ' . g:viminit . 'init/essential.vim'
 execute 'so ' . g:viminit . 'init/tabsize.vim'
 execute 'so ' . g:viminit . 'init/keymaps.vim'

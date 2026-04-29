@@ -1,0 +1,11 @@
+[project]
+name = "vim-init"
+version = "0.1.0"
+description = "Python dependencies for vim-init plugins"
+requires-python = ">=3.13"
+dependencies = [
+    "pypinyin>=0.50.0",
+]
+
+[tool.uv]
+link-mode = "copy"

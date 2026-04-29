@@ -59,13 +59,11 @@ function! PinYin#Words(mode)
     else
         let l:text = expand('<cword>')
     endif
-    let l:command = 'pypinyin -s TONE3 ' . l:text
-    call CondaPython#CondaEnvCommand('pymotw', 'async', l:command)
+    let l:cmd = g:python_venv_prog . ' -m pypinyin -s TONE3 ' . l:text
+    execute 'AsyncRun! -mode=async -strip cmd /c "' . l:cmd . '"'
 endfunction
 
 function! PinYin#Insert(mode)
-    " 设置 Conda 环境中的 Python 路径
-    let l:conda_python = $USERPROFILE . '\miniconda3\envs\pymotw\python.exe'
     if a:mode == 'v'
         let l:original_reg = getreg('z')
         normal! gv"zy
@@ -75,7 +73,7 @@ function! PinYin#Insert(mode)
         let l:text = expand('<cword>')
     endif
     execute "normal! m`"
-    execute ":-r!" . l:conda_python . " -m pypinyin " . shellescape(l:text, 1)
+    execute ":-r!" . g:python_venv_prog . " -m pypinyin " . shellescape(l:text, 1)
     execute "normal! `"
 endfunction
 
@@ -108,7 +106,6 @@ function! PinYin#ShowStyleMenu()
 endfunction
 
 function! PinYin#ConvertLines(...) range abort
-    let l:conda_python = $USERPROFILE . '\miniconda3\envs\pymotw\python.exe'
     let l:save_cursor = getpos('.')
     let l:style_key = 'n' " 默认风格
 
@@ -141,7 +138,7 @@ function! PinYin#ConvertLines(...) range abort
         if empty(l:text) | continue | endif
 
         " 获取拼音
-        let l:cmd = l:conda_python . ' -m pypinyin -s ' . l:style[0] . ' ' . shellescape(l:text)
+        let l:cmd = g:python_venv_prog . ' -m pypinyin -s ' . l:style[0] . ' ' . shellescape(l:text)
         let l:pinyin = substitute(system(l:cmd), '\n', '', 'g')
         let l:pinyin = substitute(l:pinyin, 'ü', 'v', 'g')  " ü→v转换
 

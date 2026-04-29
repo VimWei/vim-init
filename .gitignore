@@ -3,3 +3,5 @@ tools/UltiSnips/
 *.swp
 GEMINI.md
 autoload/plug.vim.old
+.venv/
+uv.lock
