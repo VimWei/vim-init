@@ -18,10 +18,10 @@ Select LLMClean operations:
 1. [x] Delete lines starting with ---
 2. [x] Convert ### to ##
 3. [x] Add empty line after ## headings
-4. [x] Remove leading 2 spaces
-5. [x] Fix Chinese colon spacing
-6. [x] Clean redundant spaces after numbered list
-7. [x] Remove all text style (requires markdown)
+4. [x] Remove all text style (requires markdown)
+5. [x] Remove leading 2 spaces
+6. [x] Fix Chinese colon spacing
+7. [x] Clean redundant spaces after numbered list
 8. [Execute selected operations]
 Type number and press Enter (0 to cancel):
 ```
@@ -36,10 +36,10 @@ Type number and press Enter (0 to cancel):
 1. 删除以 `---` 开头的行（全文或选区），使用从下往上遍历删除，确保范围追踪准确
 2. `:%s/###/##/g` 或 `:'<,'>s/###/##/g` — 将 `###` 转换为 `##`
 3. 在二级标题（`## ` 开头）之后添加一行空行（如果下一行非空），仅限指定范围，使用从下往上遍历插入
-4. `:%s/^  //g` 或 `:'<,'>s/^  //g` — 删除行首的 2 个空格
-5. `:%s/： /：/g` 或 `:'<,'>s/： /：/g` — 修复中文冒号后的多余空格
-6. `:%s/\(\d\.\)\s\+/\1 /g` 或 `:'<,'>s/\(\d\.\)\s\+/\1 /g` — 清理有序列表序号后的多余空格，仅保留一个空格
-7. `gv<Plug>MarkdownRemoveAll`（选区）或 `ggVG<Plug>MarkdownRemoveAll`（全文） — 移除所有 Markdown 文本格式（粗体、斜体、删除线、行内代码等）。仅在 `filetype=markdown` 时执行，否则静默跳过。
+4. `gv<Plug>MarkdownRemoveAll`（选区）或 `ggVG<Plug>MarkdownRemoveAll`（全文） — 移除所有 Markdown 文本格式（粗体、斜体、删除线、行内代码等）。仅在 `filetype=markdown` 时执行，否则静默跳过
+5. `:%s/^  //g` 或 `:'<,'>s/^  //g` — 删除行首的 2 个空格
+6. `:%s/： /：/g` 或 `:'<,'>s/： /：/g` — 修复中文冒号后的多余空格
+7. `:%s/\(\d\.\)\s\+/\1 /g` 或 `:'<,'>s/\(\d\.\)\s\+/\1 /g` — 清理有序列表序号后的多余空格，仅保留一个空格。
 
 ## 文件变更
 
@@ -50,7 +50,7 @@ Type number and press Enter (0 to cancel):
   - 接收范围参数，动态追踪行变化（删除/插入行后调整范围）
   - 第1项特殊处理：使用 `s:DeleteLinesStartingWith()` 从下往上遍历删除，避免 `:g` 命令的范围漂移问题
   - 第3项特殊处理：使用 `s:AddEmptyLineAfterH2()` 从下往上遍历插入，避免插入行影响未处理行
-  - 第7项特殊处理：检查 `&filetype == 'markdown'`，选区模式通过具体行号选中，全文模式通过 `normal! ggVG` 全选，后执行 `<Plug>MarkdownRemoveAll`，非 markdown 文件类型时静默跳过
+  - 第4项特殊处理：检查 `&filetype == 'markdown'`，选区模式通过具体行号选中，全文模式通过 `normal! ggVG` 全选，后执行 `<Plug>MarkdownRemoveAll`，非 markdown 文件类型时静默跳过
 
 ### 2. 修改 `init/autoload.vim`
 在适当位置添加：

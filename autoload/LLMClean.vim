@@ -4,10 +4,10 @@ let s:items = [
     \ {'label': 'Delete lines starting with ---', 'cmd': '', 'enabled': 1},
     \ {'label': 'Convert ### to ##', 'cmd': '{range}s/###/##/g', 'enabled': 1},
     \ {'label': 'Add empty line after ## headings', 'cmd': '', 'enabled': 1},
+    \ {'label': 'Remove all text style (requires markdown)', 'cmd': '', 'enabled': 1},
     \ {'label': 'Remove leading 2 spaces', 'cmd': '{range}s/^  //g', 'enabled': 1},
     \ {'label': 'Fix Chinese colon spacing', 'cmd': '{range}s/： /：/g', 'enabled': 1},
     \ {'label': 'Clean redundant spaces after numbered list', 'cmd': '{range}s/\(\d\.\)\s\+/\1 /g', 'enabled': 1},
-    \ {'label': 'Remove all text style (requires markdown)', 'cmd': '', 'enabled': 1},
 \]
 
 " 执行顺序: 按界面显示顺序 1→2→3→4→5→6→7
@@ -70,7 +70,7 @@ function! s:ExecuteItems(items, range, start_line, end_line)
         " 记录操作前的总行数
         let l:lines_before = line('$')
         
-        if idx == 6
+        if idx == 3
             " Special handling: Remove all text style (requires markdown)
             if &filetype != 'markdown'
                 continue
