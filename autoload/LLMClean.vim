@@ -2,25 +2,24 @@
 
 let s:items = [
     \ {'label': 'Delete lines starting with ---', 'cmd': '', 'enabled': 1},
-    \ {'label': 'Convert ### to ##', 'cmd': '{range}s/###/##/g', 'enabled': 1},
-    \ {'label': 'Add empty line after ## headings', 'cmd': '', 'enabled': 1},
-    \ {'label': 'Remove all text style (requires markdown)', 'cmd': '', 'enabled': 1},
+    \ {'label': 'Promote H3+ headings by one level', 'cmd': '{range}s/###/##/g', 'enabled': 1},
+    \ {'label': 'Add empty line after H2+ headings', 'cmd': '', 'enabled': 1},
+    \ {'label': 'Remove all markdown text style', 'cmd': '', 'enabled': 1},
     \ {'label': 'Remove leading 2 spaces', 'cmd': '{range}s/^  //g', 'enabled': 1},
-    \ {'label': 'Fix Chinese colon spacing', 'cmd': '{range}s/： /：/g', 'enabled': 1},
-    \ {'label': 'Clean redundant spaces after numbered list', 'cmd': '{range}s/\(\d\.\)\s\+/\1 /g', 'enabled': 1},
+    \ {'label': 'Remove spaces after Chinese colon', 'cmd': '{range}s/： /：/g', 'enabled': 1},
+    \ {'label': 'Remove redundant spaces after numbered list', 'cmd': '{range}s/\(\d\.\)\s\+/\1 /g', 'enabled': 1},
+    \ {'label': 'Remove backslash in numbered lists', 'cmd': '{range}s/\(\d\+\)\\\(\.\)/\1\2/g', 'enabled': 1},
 \]
 
-" 执行顺序: 按界面显示顺序 1→2→3→4→5→6→7
-let s:exec_order = [0, 1, 2, 3, 4, 5, 6]
+" 执行顺序: 按界面显示顺序 1→2→3→4→5→6→7→8
+let s:exec_order = [0, 1, 2, 3, 4, 5, 6, 7]
 
 function! LLMClean#Run() range
-    let items = deepcopy(s:items)
-    
     " 检测是否有范围传入
     " 优先使用 '< 和 '> 标记（可视模式选区）
     let l:visual_start = line("'<")
     let l:visual_end = line("'>")
-    
+
     if l:visual_start > 0 && l:visual_end > 0 && (l:visual_start != l:visual_end || mode() =~# "[vV\<>]")
         let l:range = "'<,'>"
         let l:start_line = l:visual_start
@@ -31,29 +30,42 @@ function! LLMClean#Run() range
         let l:start_line = 1
         let l:end_line = line('$')
     endif
-    
+
     while 1
-        let choices = []
-        call add(choices, 'Select LLMClean operations:')
-        for i in range(len(items))
-            let mark = items[i].enabled ? '[x]' : '[ ]'
-            call add(choices, printf('%d. %s %s', i+1, mark, items[i].label))
+        let l:dialog_items = []
+        for i in range(len(s:items))
+            call add(l:dialog_items, {
+                \ 'type': 'check',
+                \ 'name': 'op_' . i,
+                \ 'text': s:items[i].label,
+                \ 'value': s:items[i].enabled,
+                \ })
         endfor
-        call add(choices, printf('%d. [Execute selected operations]', len(items)+1))
-        
-        let choice = inputlist(choices)
-        
-        if choice == 0
-            echo 'Cancelled.'
+        call add(l:dialog_items, {
+            \ 'type': 'button',
+            \ 'name': 'action',
+            \ 'items': [' &Execute ', ' &Reset ', ' &Cancel '],
+            \ })
+
+        let l:result = quickui#dialog#open(l:dialog_items, {'title': 'LLMClean', 'focus': 'action'})
+
+        if l:result.button_index < 0 || l:result.button_index == 2
             return
-        elseif choice >= 1 && choice <= len(items)
-            let items[choice-1].enabled = !items[choice-1].enabled
-        elseif choice == len(items) + 1
-            call s:ExecuteItems(items, l:range, l:start_line, l:end_line)
-            return
-        else
-            echo 'Invalid choice.'
         endif
+
+        if l:result.button_index == 1
+            for item in s:items
+                let item.enabled = 1
+            endfor
+            continue
+        endif
+
+        for i in range(len(s:items))
+            let s:items[i].enabled = l:result['op_' . i]
+        endfor
+
+        call s:ExecuteItems(s:items, l:range, l:start_line, l:end_line)
+        break
     endwhile
 endfunction
 
@@ -71,7 +83,7 @@ function! s:ExecuteItems(items, range, start_line, end_line)
         let l:lines_before = line('$')
         
         if idx == 3
-            " Special handling: Remove all text style (requires markdown)
+            " Special handling: Remove all markdown text style
             if &filetype != 'markdown'
                 continue
             endif
@@ -87,8 +99,8 @@ function! s:ExecuteItems(items, range, start_line, end_line)
             redraw!
             let executed += 1
         elseif idx == 2
-            " Special handling: Add empty line after ## headings
-            call s:AddEmptyLineAfterH2(l:current_start, l:current_end)
+            " Special handling: Add empty line after headings (except H1)
+            call s:AddEmptyLineAfterHeadings(l:current_start, l:current_end)
             let executed += 1
         elseif idx == 0
             " Special handling: Delete lines starting with ---
@@ -127,11 +139,12 @@ function! s:DeleteLinesStartingWith(start_line, end_line, pattern)
     endwhile
 endfunction
 
-function! s:AddEmptyLineAfterH2(start_line, end_line)
+function! s:AddEmptyLineAfterHeadings(start_line, end_line)
     " 从下往上遍历，避免插入行影响未处理的行
+    " 匹配除 H1 外的所有标题 (## 到 ######)
     let l:lnum = a:end_line
     while l:lnum >= a:start_line
-        if getline(l:lnum) =~ '^## '
+        if getline(l:lnum) =~ '^##'
             let nextline = getline(l:lnum + 1)
             if nextline !~ '^$'
                 call append(l:lnum, '')
