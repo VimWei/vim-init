@@ -147,6 +147,7 @@ if IsInPlugGroup('Notetaking', 'edit')  " --------------------------------{{{1
     Plug 'tpope/vim-speeddating'
     Plug 'skywind3000/vim-text-process'
     Plug 'img-paste-devs/img-paste.vim'
+    Plug 'tommcdo/vim-exchange'
 endif
 
 if IsInPlugGroup('Notetaking', 'textobj') " ------------------------------{{{1
