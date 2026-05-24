@@ -125,14 +125,21 @@ endfunction
 
 " Linux / Debian 探测逻辑
 function! s:detect_linux() abort
-    " 1. 优先检查 uv 全局环境
+    " 1. 优先检查 uv tool 沙盒环境（带有 pypinyin 等依赖的 vim-init 专属沙盒）
+    let l:uv_tool_py = expand('~/.local/share/uv/tools/vim-init/bin/python3')
+    if filereadable(l:uv_tool_py)
+        let g:python3_host_prog = l:uv_tool_py
+        return
+    endif
+
+    " 2. 检查 uv 全局环境
     let l:uv_global_py = expand('~/.local/py-global/bin/python3')
     if filereadable(l:uv_global_py)
         let g:python3_host_prog = l:uv_global_py
         return
     endif
 
-    " 2. 扫描 uv 下载的 CPython 路径（按版本倒序，新版本优先）
+    " 3. 扫描 uv 下载的 CPython 路径（按版本倒序，新版本优先）
     let l:uv_matches = glob(expand('~/.local/share/uv/python/cpython-*/bin/python3'), 0, 1)
     if !empty(l:uv_matches)
         let l:sorted_uv = reverse(sort(l:uv_matches))
@@ -142,14 +149,14 @@ function! s:detect_linux() abort
         endif
     endif
 
-    " 3. 扫描 pyenv 路径
+    " 4. 扫描 pyenv 路径
     let l:pyenv_py = expand('~/.pyenv/shims/python3')
     if filereadable(l:pyenv_py)
         let g:python3_host_prog = l:pyenv_py
         return
     endif
 
-    " 4. 保底：使用系统 python3
+    " 5. 保底：使用系统 python3
     if executable('python3')
         let g:python3_host_prog = exepath('python3')
     endif

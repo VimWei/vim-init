@@ -46,13 +46,13 @@ endfunction
 
 " vim-plug begin ---------------------------------------------------------{{{1
 " Plug自身是一个自动延时加载函数，可放在任意&rtp/autoload目录中即可生效
-" 在 Windows 下，vim的插件安装目录默认为 ~/vimfiles/plugged/
-" 在 Windows 下，Neovim的插件安装目录默认为 ~/AppData/Local/nvim-data/plugged/
+" 插件安装目录与配置文件(.config/vim)物理隔离，保持仓库纯净
+" Linux: ~/.vim/plugged  |  Windows: ~/vimfiles/plugged
 
 " vim-plug 要求 set noshellslash
 set noshellslash
 
-call plug#begin()
+call plug#begin(g:vim_data_dir . 'plugged')
 
 if IsInPlugGroup('basic', 'essential') " ---------------------------------{{{1
     Plug 'dstein64/vim-startuptime'

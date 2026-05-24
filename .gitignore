@@ -1,3 +1,6 @@
+# 运行时数据已通过 g:vim_data_dir 隔离到 ~/.vim/ (Linux) 或 ~/vimfiles/ (Windows)
+# 此 .gitignore 仅防护仓库内可能产生的临时文件
+
 reference/
 tools/UltiSnips/
 *.swp

@@ -1,54 +1,66 @@
 # Vim-init
 
-Vimel 个性化的 Vim 配置
+Vimel 个性化的跨平台 Vim 配置（Linux 遵循 XDG 规范，Windows 遵循平台惯例）
 
-## 安装
+## 安装与配置
 
-* 适用于Windows
+### 1. 克隆仓库到配置目录
 
-1. 选择一个目录存放项目，例如 `d:\YourPath\vim-init`：
-    * 项目位置可以保存到任意位置，这里仅表达目录关系
-    * 该保存位置将在第3步中用到
+打开终端，先回到用户主目录，后续所有操作均基于此使用相对路径：
+
+* **Linux / Debian:**
+
+    ```bash
+    cd ~
+    mkdir -p .config
+    ```
+
+* **Windows (CMD):**
 
     ```batch
-    d:
-    cd \YourPath
-    git clone https://github.com/VimWei/vim-init.git
+    cd /d %USERPROFILE%
+    mkdir .config
     ```
 
-2. 新建 `c:\Users\YourName\vimfiles\` 目录：
+* **统一克隆命令 (跨平台一致):**
+
+    ```bash
+    git clone https://github.com/VimWei/vim-init.git .config/vim
+    ```
+
+* **Windows (CMD) 额外步骤：** 创建符号链接让 Vim 找到配置文件：
 
     ```batch
-    c:
-    cd \Users\YourName
-    mkdir vimfiles
+    if not exist vimfiles mkdir vimfiles
+    if exist vimfiles\vimrc del vimfiles\vimrc
+    mklink vimfiles\vimrc .config\vim\vimrc
     ```
 
-3. 编辑 `$HOME/vimfiles/vimrc` 文件，里面加一行：
-    * 具体位置：`c:\Users\YourName\vimfiles\vimrc`
-    * vimrc文件可从本 项目根目录中复制
-    * 根据步骤1修订vim-init\init.vim的存放路径
+### 2. 设置 Python 环境
 
-    ```VimL
-    source d:\YourPath\vim-init\init.vim
-    ```
+```bash
+# 安装 uv
+# Linux / macOS:
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
-4. 打开vim，并安装包：
-    * 需要先安装并配置好git
+# Windows (WinGet，CMD/PowerShell 通用):
+winget install --id=astral-sh.uv -e
 
-    ```VimCMD
-    :PlugInstall
-    ```
+# 安装 python 环境及依赖
+uv pip install --python 3.13 --requirement .config/vim/pyproject.toml --target .local/share/uv/tools/vim-init
+```
 
-5. 设置 Python 环境：
-    * 部分插件（如 LeaderF 等）需要 Python 支持
-    * 需要先安装 [uv](https://docs.astral.sh/uv/getting-started/installation/)
+### 3. 激活插件安装
 
-    ```batch
-    cd d:\YourPath\vim-init
-    uv venv
-    uv sync
-    ```
+打开 Vim，在命令行模式下执行以下命令完成所有插件的组装：
+
+```VimCMD
+:PlugInstall
+```
+
+> 📂 **目录隔离说明：** 配置文件存放于配置目录 `.config/vim/`，而插件源码、undo 历史、swap 临时文件等运行时数据会自动隔离到独立目录，不污染配置仓库：
+> * **Linux:** `~/.vim/`（含 `plugged/`、`undodir/`、`swap/`、`backup/`）
+> * **Windows:** `%USERPROFILE%\vimfiles\`（含 `plugged/`、`undodir/`、`swap/`、`backup/`）
 
 ## 使用 Tips
 
