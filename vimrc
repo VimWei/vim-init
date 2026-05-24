@@ -1,1 +1,1 @@
-source d:\WeirdData\vim-init\init.vim
+source ~/.config/vim/init.vim
