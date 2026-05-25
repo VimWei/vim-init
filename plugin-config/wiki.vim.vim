@@ -5,7 +5,15 @@
 " set shellslash
 
 " wiki_root --------------------------------------------------------------{{{1
-let g:wiki_root = g:viminitparent . 'wiki/'
+let g:wiki_root = ''
+let s:host = tolower(hostname())
+if s:host ==# 'vimelnuc'
+  let g:wiki_root = 'c:/Vimel/wiki/'
+elseif s:host ==# 'joycex13'
+  let g:wiki_root = 'c:/Vimel/wiki/'
+elseif s:host ==# 'vimelsp3'
+  let g:wiki_root = 'c:/Vimel/wiki/'
+endif
 
 " url_transform ----------------------------------------------------------{{{1
 let g:wiki_link_creation = {

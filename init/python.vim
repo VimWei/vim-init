@@ -3,9 +3,8 @@
 " Sourced by: ../init.vim
 "===================================================
 
-" 记录项目 venv 的 python 路径，供内部插件（如 PinYin）使用
-" 注意：不设置 $VIRTUAL_ENV，以免污染用户其他项目的 uv 环境
-let g:python_venv_prog = g:viminit . '.venv/Scripts/python.exe'
+" 不再硬编码 g:python_venv_prog
+" python#Provider() 会通过 python#Detect() 动态探测 Python 路径
 
 " Load Python provider ---------------------------------------------------{{{1
 " Explicitly source to avoid autoload resolution issues during startup

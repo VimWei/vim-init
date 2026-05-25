@@ -47,7 +47,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 winget install --id=astral-sh.uv -e
 
 # 安装 python 环境及依赖
-uv pip install --python 3.13 --requirement .config/vim/pyproject.toml --target .local/share/uv/tools/vim-init
+uv pip install --requirement .config/vim/pyproject.toml --target .local/share/uv/tools/vim-init
 ```
 
 ### 3. 激活插件安装
@@ -58,7 +58,7 @@ uv pip install --python 3.13 --requirement .config/vim/pyproject.toml --target .
 :PlugInstall
 ```
 
-> 📂 **目录隔离说明：** 配置文件存放于配置目录 `.config/vim/`，而插件源码、undo 历史、swap 临时文件等运行时数据会自动隔离到独立目录，不污染配置仓库：
+> 📂 **目录隔离说明：**配置文件存放于配置目录 `.config/vim/`，而插件源码、undo 历史、swap 临时文件等运行时数据会自动隔离到独立目录，不污染配置仓库：
 > * **Linux:** `~/.vim/`（含 `plugged/`、`undodir/`、`swap/`、`backup/`）
 > * **Windows:** `%USERPROFILE%\vimfiles\`（含 `plugged/`、`undodir/`、`swap/`、`backup/`）
 

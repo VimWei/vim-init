@@ -56,7 +56,16 @@ function! python#SetupDLL()
             return " Already set
         endif
 
-        let python_dir = fnamemodify(g:python_venv_prog, ':h')
+        if exists('g:python_venv_prog') && executable(g:python_venv_prog)
+            let python_dir = fnamemodify(g:python_venv_prog, ':h')
+        else
+            call python#Detect()
+            if exists('g:python3_host_prog')
+                let python_dir = fnamemodify(g:python3_host_prog, ':h')
+            else
+                return
+            endif
+        endif
         let python_dll = ''
         
         " 1. 尝试从 pyvenv.cfg 获取 base Python 路径（uv 管理 venv 最可靠）
