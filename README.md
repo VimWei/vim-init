@@ -58,6 +58,11 @@ uv pip install --requirement .config/vim/pyproject.toml --target .local/share/uv
 :PlugInstall
 ```
 
+然后安装插件的 git submodule（也可在终端中执行）：
+
+- **Vim 内：** `<Leader><Leader>m` 打开菜单，选 `vv`（内部执行 git pull + git submodule update --init --recursive）
+- **终端：** `cd ~/.config/vim && git submodule update --init --recursive`
+
 > 📂 **目录隔离说明：**配置文件存放于配置目录 `.config/vim/`，而插件源码、undo 历史、swap 临时文件等运行时数据会自动隔离到独立目录，不污染配置仓库：
 > * **Linux:** `~/.vim/`（含 `plugged/`、`undodir/`、`swap/`、`backup/`）
 > * **Windows:** `%USERPROFILE%\vimfiles\`（含 `plugged/`、`undodir/`、`swap/`、`backup/`）
