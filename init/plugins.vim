@@ -67,6 +67,9 @@ if IsInPlugGroup('basic', 'essential') " ---------------------------------{{{1
     if !has('nvim')
         Plug 'yianwillis/vimcdoc'
     end
+    if !has('gui_running') && !has('nvim')
+        Plug 'ojroques/vim-oscyank'
+    endif
 endif
 
 if IsInPlugGroup('basic', 'colorscheme') " -------------------------------{{{1
