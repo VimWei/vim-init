@@ -21,7 +21,9 @@ if !exists('s:default_colorscheme')
         let s:default_colorscheme += ['eclipse']
     endif
     if !has('nvim')
-        let s:default_colorscheme += ['retrobox']
+        if !empty(globpath(&rtp, 'colors/retrobox.vim'))
+            let s:default_colorscheme += ['retrobox']
+        endif
         let s:default_colorscheme += ['nordic_electric_ai']
     endif
     let s:default_colorscheme += ['one']

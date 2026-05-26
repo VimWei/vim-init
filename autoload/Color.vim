@@ -1,5 +1,10 @@
 " colorscheme
 
+" Check if a colorscheme file exists in runtimepath
+function! Color#SchemeExists(name)
+    return !empty(globpath(&runtimepath, 'colors/' . a:name . '.vim'))
+endfunction
+
 " Vim inbuilt colorscheme ------------------------------------------------{{{1
 function! Color#RandomVimInbuiltScheme()
     let l:styles = [
@@ -10,9 +15,11 @@ function! Color#RandomVimInbuiltScheme()
         \ 'torte', 'zellner',
         \ ]
     if !has('nvim')
-        let l:styles += [
-            \ 'retrobox',  'sorbet', 'wildcharm', 'zaibatsu',
-            \ ]
+        for l:s in ['retrobox', 'sorbet', 'wildcharm', 'zaibatsu']
+            if Color#SchemeExists(l:s)
+                call add(l:styles, l:s)
+            endif
+        endfor
     endif
     let l:random_scheme = l:styles[rand() % len(l:styles)]
     execute 'colorscheme ' . l:random_scheme
@@ -25,8 +32,10 @@ function! RandomQuiet()
 endfunction
 
 function! RandomRetrobox()
-    let &background = 'dark'
-    execute 'colorscheme Retrobox'
+    if Color#SchemeExists('Retrobox')
+        let &background = 'dark'
+        execute 'colorscheme Retrobox'
+    endif
 endfunction
 
 " VimInit colorscheme ----------------------------------------------------{{{1
@@ -158,19 +167,20 @@ function! Color#RandomFavoriteScheme(...)
             \ 'quack', 'codedark',
             \ ]
     if !has('nvim')
-        let l:styles_simple += [
-                \ 'wildcharm',
-                \ 'nordic_electric_ai',
-                \ ]
+        for l:s in ['wildcharm', 'nordic_electric_ai']
+            if Color#SchemeExists(l:s)
+                call add(l:styles_simple, l:s)
+            endif
+        endfor
     endif
     let l:styles_complex = [
             \ 'quiet', 'lucius', 'afterglow',
             \ 'gruvbox8', 'one', 'iceberg',
             \ ]
     if !has('nvim')
-        let l:styles_complex += [
-                \ 'retrobox',
-                \ ]
+        if Color#SchemeExists('retrobox')
+            call add(l:styles_complex, 'retrobox')
+        endif
     endif
 
     " 默认行为：采用随机的colorscheme
