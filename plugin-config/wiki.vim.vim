@@ -5,7 +5,7 @@
 " set shellslash
 
 " wiki_root --------------------------------------------------------------{{{1
-let g:wiki_root = '~/wiki/'
+let g:wiki_root = expand('~/wiki/')
 let s:host = tolower(hostname())
 if s:host ==# 'vimelnuc'
   let g:wiki_root = 'c:/Vimel/wiki/'
@@ -13,6 +13,9 @@ elseif s:host ==# 'joycex13'
   let g:wiki_root = 'c:/Vimel/wiki/'
 elseif s:host ==# 'vimelsp3'
   let g:wiki_root = 'c:/Vimel/wiki/'
+endif
+if !isdirectory(g:wiki_root)
+  call mkdir(g:wiki_root, 'p')
 endif
 
 " url_transform ----------------------------------------------------------{{{1

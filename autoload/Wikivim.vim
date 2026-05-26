@@ -1,5 +1,13 @@
+" 确保 wiki_root 目录存在（按需创建）-------------------------------------{{{1
+function! s:EnsureWikiRoot()
+    if !isdirectory(g:wiki_root)
+        call mkdir(g:wiki_root, 'p')
+    endif
+endfunction
+
 " 在新窗口打开 WikiIndex -------------------------------------------------{{{1
 function! Wikivim#OpenWikiIndexTab()
+    call s:EnsureWikiRoot()
     tabnew
     WikiIndex
     execute 'cd ' . fnameescape(g:wiki_root)
@@ -7,6 +15,7 @@ endfunction
 
 " 不同于WikiOpen：采用相对 wikiroot 的路径，tab 打开 ---------------------{{{1
 function! Wikivim#OpenWikiPage(filename)
+    call s:EnsureWikiRoot()
     let l:file_to_open = g:wiki_root . a:filename
     if empty(a:filename) || !filereadable(l:file_to_open)
         let l:file_to_open = g:wiki_root . "index.md"
