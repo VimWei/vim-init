@@ -1,13 +1,31 @@
 "===================================================
-" GUI settings by W.Chen
+" GUI/Terminal style settings by W.Chen
 " Sourced by: ../init.vim
 "===================================================
+
+" Terminal cursor shape ----------------------------------------------------{{{1
+" Match gvim behavior: block in normal mode, I-beam in insert mode
+" Only applies when running in a terminal (not gvim/neovide)
+if !has("gui_running")
+    " Neovim uses guicursor for cursor shape
+    if has('nvim')
+        set guicursor=n-v-c:block-Cursor,i-ci-ve:ver25-Cursor2,r-cr:hor20,o:hor20
+        set guicursor+=n-v-c:blinkon0,i-ci:blinkon0
+    else
+        " Vim (non-GUI): use terminal escape sequences for cursor shape
+        " t_SI = sequence sent when entering Insert mode
+        " t_EI = sequence sent when exiting Insert mode
+        let &t_SI = "\e[5 q"  " I-beam (vertical bar)
+        let &t_SR = "\e[4 q"  " Underline
+        let &t_EI = "\e[1 q"  " Block (reset to default)
+    endif
+endif
+
+" guioptions -------------------------------------------------------------{{{1
 
 if !has("gui_running")
     finish
 endif
-
-" guioptions -------------------------------------------------------------{{{1
 
 set guioptions-=m   "隐藏菜单
 set guioptions-=T   "隐藏工具栏
