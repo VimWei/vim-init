@@ -1,63 +1,71 @@
 " colorscheme
 
+" colorscheme helper -----------------------------------------------------{{{1
 " Check if a colorscheme file exists in runtimepath
 function! Color#SchemeExists(name)
     return !empty(globpath(&runtimepath, 'colors/' . a:name . '.vim'))
 endfunction
 
+" 根据 colorscheme 名构建命令：有对应 Random* 函数则 call，否则直接 color
+function! Color#SchemeCommand(scheme_name)
+    let l:func_name = 'Random' . toupper(a:scheme_name[0]) . a:scheme_name[1:]
+    if exists('*' . l:func_name)
+        return 'call ' . l:func_name . '()'
+    endif
+    return 'color ' . a:scheme_name
+endfunction
+
+" 根据时段返回 background：06:00-21:00 随机，其他时段固定 dark
+function! Color#RandomBackground()
+    if date#time#IsTimeInRange('06:00', '21:00')
+        return ['dark', 'light'][rand() % 2]
+    endif
+    return 'dark'
+endfunction
+
 " Vim inbuilt colorscheme ------------------------------------------------{{{1
 function! Color#RandomVimInbuiltScheme()
-    let l:styles = [
-        \ 'blue', 'darkblue', 'default', 'delek', 'desert',
-        \ 'elflord', 'evening', 'habamax', 'industry', 'koehler',
-        \ 'lunaperche', 'morning', 'murphy', 'pablo', 'peachpuff',
-        \ 'quiet', 'ron', 'shine', 'slate',
-        \ 'torte', 'zellner',
-        \ ]
-    if !has('nvim')
-        for l:s in ['retrobox', 'sorbet', 'wildcharm', 'zaibatsu']
-            if Color#SchemeExists(l:s)
-                call add(l:styles, l:s)
-            endif
-        endfor
+    let l:styles = map(
+        \ globpath($VIMRUNTIME, 'colors/*.vim', 0, 1),
+        \ 'fnamemodify(v:val, ":t:r")'
+        \ )
+    if empty(l:styles)
+        return
     endif
-    let l:random_scheme = l:styles[rand() % len(l:styles)]
-    execute 'colorscheme ' . l:random_scheme
+    let l:commands = map(l:styles, 'Color#SchemeCommand(v:val)')
+    let l:random_scheme_cmd = l:commands[rand() % len(l:commands)]
+    execute l:random_scheme_cmd
 endfunction
 
 function! RandomQuiet()
-    let backgrounds = ['dark', 'light']
-    let &background = backgrounds[rand() % len(backgrounds)]
+    let &background = Color#RandomBackground()
     execute 'colorscheme quiet'
 endfunction
 
 function! RandomRetrobox()
-    if Color#SchemeExists('Retrobox')
-        let &background = 'dark'
-        execute 'colorscheme Retrobox'
-    endif
+    let &background = 'dark'
+    execute 'colorscheme retrobox'
 endfunction
 
 " VimInit colorscheme ----------------------------------------------------{{{1
 function! Color#RandomVimInitScheme()
-    let l:styles = [
-        \ 'call RandomLucius()',
-        \ 'color borland256',
-        \ 'color borlandc',
-        \ 'color eclipse',
-        \ 'color sublime',
-        \ 'color monokai',
-        \ 'color monokai-vim',
-        \ 'color gaea',
-        \ 'color nordic_electric_ai',
-        \ 'color quack',
-        \ ]
+    let l:schemes = map(
+        \ globpath(g:viminit, 'colors/*.vim', 0, 1),
+        \ 'fnamemodify(v:val, ":t:r")'
+        \ )
+    if empty(l:schemes)
+        return
+    endif
+    let l:styles = map(l:schemes, 'Color#SchemeCommand(v:val)')
     let l:random_scheme_cmd = l:styles[rand() % len(l:styles)]
     execute l:random_scheme_cmd
 endfunction
 
 function! RandomLucius()
     let l:styles = ['LuciusLightHighContrast', 'LuciusDarkLowContrast']
+    if !date#time#IsTimeInRange('06:00', '21:00')
+        let l:styles = ['LuciusDarkLowContrast']
+    endif
     let l:style_cmd = l:styles[rand() % len(l:styles)]
     execute 'color lucius'
     execute l:style_cmd
@@ -65,47 +73,37 @@ endfunction
 
 " Third party colorscheme ------------------------------------------------{{{1
 function! Color#RandomThirdPartyScheme()
-    let l:styles = [
-        \ 'call RandomXcode()',
-        \ 'call RandomGruvbox8()',
-        \ 'call RandomSolarized8()',
-        \ 'call RandomMaterial()',
-        \ 'call RandomPaperColor()',
-        \ 'call RandomSonokai()',
-        \ 'call RandomNord()',
-        \ 'call RandomOne()',
-        \ 'call RandomAfterglow()',
-        \ 'call RandomIceberg()',
-        \ 'color landscape',
-        \ 'color gotham',
-        \ 'color oceanicnext',
-        \ 'color codedark',
-        \ ]
-    let l:random_third_party_scheme_cmd = l:styles[rand() % len(l:styles)]
-    execute l:random_third_party_scheme_cmd
+    let l:all = globpath(&rtp, 'colors/*.vim', 0, 1)
+    let l:builtin = globpath($VIMRUNTIME, 'colors/*.vim', 0, 1)
+    let l:viminit_colors = globpath(g:viminit, 'colors/*.vim', 0, 1)
+    let l:third_party = filter(copy(l:all), 'index(l:builtin, v:val) < 0 && index(l:viminit_colors, v:val) < 0')
+    if empty(l:third_party)
+        return
+    endif
+    let l:schemes = map(l:third_party, 'fnamemodify(v:val, ":t:r")')
+    let l:styles = map(l:schemes, 'Color#SchemeCommand(v:val)')
+    let l:random_scheme_cmd = l:styles[rand() % len(l:styles)]
+    execute l:random_scheme_cmd
 endfunction
 
 function! RandomXcode()
-    let backgrounds = ['dark', 'light']
-    let &background = backgrounds[rand() % len(backgrounds)]
     let l:styles = ['xcode', 'xcodehc']
+    let &background = Color#RandomBackground()
     execute 'colorscheme ' . l:styles[rand() % len(l:styles)]
 endfunction
 
 function! RandomGruvbox8()
     let g:gruvbox_italics = 0
     let g:gruvbox_italicize_strings = 0
-    let backgrounds = ['dark', 'light']
-    let &background = backgrounds[rand() % len(backgrounds)]
     let l:styles = ['gruvbox8', 'gruvbox8_soft']
+    let &background = Color#RandomBackground()
     execute 'colorscheme ' . l:styles[rand() % len(l:styles)]
 endfunction
 
 function! RandomSolarized8()
     let g:solarized_italics = 0
-    let backgrounds = ['dark', 'light']
-    let &background = backgrounds[rand() % len(backgrounds)]
     let l:styles = ['solarized8', 'solarized8_high', 'solarized8_low', 'solarized8_flat']
+    let &background = Color#RandomBackground()
     execute 'colorscheme ' . l:styles[rand() % len(l:styles)]
 endfunction
 
@@ -116,8 +114,7 @@ function! RandomMaterial()
 endfunction
 
 function! RandomPaperColor()
-    let backgrounds = ['dark', 'light']
-    let &background = backgrounds[rand() % len(backgrounds)]
+    let &background = Color#RandomBackground()
     execute 'colorscheme PaperColor'
 endfunction
 
@@ -153,64 +150,36 @@ function! RandomAfterglow()
 endfunction
 
 function! RandomIceberg()
-    let backgrounds = ['dark', 'light']
-    let &background = backgrounds[rand() % len(backgrounds)]
+    let &background = Color#RandomBackground()
     execute 'colorscheme iceberg'
 endfunction
 
 " Favorite colorscheme ---------------------------------------------------{{{1
 function! Color#RandomFavoriteScheme(...)
-    " 配置 favorite colorschemes，按启用复杂度来分类
-    let l:styles_simple = [
+    " 配置 favorite colorschemes
+    let l:favorites = [
             \ 'gaea', 'delek', 'eclipse',
             \ 'borland256', 'murphy',
             \ 'quack', 'codedark',
-            \ ]
-    if !has('nvim')
-        for l:s in ['wildcharm', 'nordic_electric_ai']
-            if Color#SchemeExists(l:s)
-                call add(l:styles_simple, l:s)
-            endif
-        endfor
-    endif
-    let l:styles_complex = [
+            \ 'wildcharm', 'nordic_electric_ai',
             \ 'quiet', 'lucius', 'afterglow',
             \ 'gruvbox8', 'one', 'iceberg',
+            \ 'retrobox',
             \ ]
-    if !has('nvim')
-        if Color#SchemeExists('retrobox')
-            call add(l:styles_complex, 'retrobox')
-        endif
-    endif
+    " 过滤掉当前环境中不存在的 colorscheme
+    let l:favorites = filter(l:favorites, 'Color#SchemeExists(v:val)')
 
     " 默认行为：采用随机的colorscheme
-    let l:styles = []
-    for l:style in l:styles_simple
-        call add(l:styles, 'color ' . l:style)
-    endfor
-    for l:style in l:styles_complex
-        let l:firstChar = toupper(strpart(l:style, 0, 1))
-        let l:restChars = strpart(l:style, 1)
-        let l:style_ucfirst = l:firstChar . l:restChars
-        call add(l:styles, 'call Random' . l:style_ucfirst . '()')
-    endfor
+    let l:styles = map(copy(l:favorites), 'Color#SchemeCommand(v:val)')
+    if empty(l:styles)
+        return
+    endif
     let l:colorscheme_cmd = l:styles[rand() % len(l:styles)]
 
     " 若指定了有效的 colorscheme，则采用该 colorscheme
     if a:0 > 0 && !empty(a:1)
-        if index(l:styles_simple, a:1) >= 0
-            let l:colorscheme_cmd = 'color ' . a:1
-        elseif index(l:styles_complex, a:1) >= 0
-            let l:firstChar = toupper(strpart(a:1, 0, 1))
-            let l:restChars = strpart(a:1, 1)
-            let l:style_ucfirst = l:firstChar . l:restChars
-            let l:colorscheme_cmd = 'call Random' . l:style_ucfirst . '()'
-        else
-            let l:colorscheme_path = 'colors/' . a:1 . '.vim'
-            let search_result = globpath(&runtimepath, l:colorscheme_path)
-            if len(search_result) > 0
-                let l:colorscheme_cmd = 'color ' . a:1
-            endif
+        if !empty(globpath(&runtimepath, 'colors/' . a:1 . '.vim'))
+            let l:colorscheme_cmd = Color#SchemeCommand(a:1)
         endif
     endif
 

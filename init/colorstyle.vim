@@ -20,17 +20,15 @@ if !exists('s:default_colorscheme')
         let s:default_colorscheme += ['delek']
         let s:default_colorscheme += ['eclipse']
     endif
-    if !has('nvim')
-        if !empty(globpath(&rtp, 'colors/retrobox.vim'))
-            let s:default_colorscheme += ['retrobox']
-        endif
-        let s:default_colorscheme += ['nordic_electric_ai']
-    endif
+    let s:default_colorscheme += ['retrobox']
+    let s:default_colorscheme += ['nordic_electric_ai']
     let s:default_colorscheme += ['one']
     let s:default_colorscheme += ['quack']
     let s:default_colorscheme += ['iceberg']
     let s:default_colorscheme += ['codedark']
 endif
+" 过滤掉当前环境中不存在的 colorscheme
+let s:default_colorscheme = filter(s:default_colorscheme, 'Color#SchemeExists(v:val)')
 if empty(s:default_colorscheme)
     " 如果不指定，则从FavoriteScheme中选随机一个
     call Color#RandomFavoriteScheme()
