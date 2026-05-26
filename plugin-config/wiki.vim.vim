@@ -5,7 +5,7 @@
 " set shellslash
 
 " wiki_root --------------------------------------------------------------{{{1
-let g:wiki_root = ''
+let g:wiki_root = '~/wiki/'
 let s:host = tolower(hostname())
 if s:host ==# 'vimelnuc'
   let g:wiki_root = 'c:/Vimel/wiki/'
