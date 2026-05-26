@@ -4,10 +4,10 @@
 " default setting --------------------------------------------------------{{{1
 let g:markdown_folding = 1
 let g:markdown_fenced_languages = ['vim', 'lua', 'python', 'html']
-let g:markdown_fenced_languages = ['ahk=autohotkey']
+let g:markdown_fenced_languages += ['ahk=autohotkey']
 let g:markdown_fenced_languages += ['sh=sh', 'bash=sh', 'git=sh']
 let g:markdown_fenced_languages += ['powershell=ps1', 'ps=ps1']
 let g:markdown_fenced_languages += ['json', 'toml', 'yaml']
-let g:markdown_fenced_languages += ['SQL']
+let g:markdown_fenced_languages += ['sql']
 let g:markdown_fenced_languages += ['mermaid']
 let g:markdown_minlines = 50
