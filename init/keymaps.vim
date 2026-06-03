@@ -104,9 +104,12 @@ nnoremap vv ^vg_
 " 在光标之后插入时间戳（Time Stamp）
 nnoremap <leader>ts a<C-R>=strftime("%Y-%m-%d %A %H:%M:%S")<CR><Esc>
 
-" Src --------------------------------------------------------------------{{{1
-" 详情查阅 ../autoload/Src.vim
-command! Src call Src#AddSrc()
+" Label ------------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/Label.vim
+command! Src call Label#AddLabel("src")
+command! Ref call Label#AddLabel("ref")
+command! Website call Label#AddLabel("website")
+command! -nargs=1 Label call Label#AddLabel(<f-args>)
 
 " WikiGrep ---------------------------------------------------------------{{{1
 " 搜索当前工作目录下的所有文件，但只搜索第一个匹配：
