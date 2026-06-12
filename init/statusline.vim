@@ -53,7 +53,7 @@ function! CurrentMode()
     endif
 endfunction
 
-" 获取 git 状态 ---------------------------------------------------------{{{2
+" 获取 git 状态 ----------------------------------------------------------{{{2
 function! GetGitStatus()
     return exists('g:loaded_fugitive') && g:loaded_fugitive == 1 ? fugitive#Head() : ''
 endfunction
@@ -104,7 +104,7 @@ function! Vim_NeatTabLine()
     return s
 endfunc
 
-" 需要显示到标签上的文件名  ---------------------------------------------{{{2
+" 需要显示到标签上的文件名 -----------------------------------------------{{{2
 function! Vim_NeatBuffer(bufnr, fullname)
     let l:name = bufname(a:bufnr)
     if getbufvar(a:bufnr, '&modifiable')

@@ -44,8 +44,3 @@ command! WhichColor echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") .
     \ "> trans<" . synIDattr(synID(line("."),col("."),0),"name") .
     \ "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") .
     \ "> fg:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")
-
-finish " -----------------------------------------------------------------{{{1
-
-colorscheme lucius
-exe (strftime('%H') % 18) >= 6 ? 'LuciusLightHighContrast' : 'LuciusDarkLowContrast'

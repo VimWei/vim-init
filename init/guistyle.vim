@@ -3,7 +3,7 @@
 " Sourced by: ../init.vim
 "===================================================
 
-" Non-GUI settings --------------------------------------------------------{{{1
+" Non-GUI settings -------------------------------------------------------{{{1
 " Terminal cursor shape, Neovide config — only relevant outside gvim.
 if !has("gui_running")
     " Terminal cursor shape ----------------------------------------------{{{2
@@ -52,7 +52,7 @@ EOF
         let &t_EI = "\e[2 q"  " Block (steady block)
     endif
 
-    " Neovide -----------------------------------------------------------{{{2
+    " Neovide ------------------------------------------------------------{{{2
     " 详情查阅 ../autoload/Neovide.vim
     if exists("g:neovide")
         let g:neovide_underline_stroke_scale = 0.1
@@ -73,7 +73,7 @@ EOF
     finish
 endif
 
-" GUI-only settings -------------------------------------------------------{{{1
+" GUI-only settings ------------------------------------------------------{{{1
 
 set guioptions-=m   "隐藏菜单
 set guioptions-=T   "隐藏工具栏

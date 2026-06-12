@@ -185,11 +185,6 @@ endfor
 nnoremap <leader>dt :call Translator#Words('n')<CR>
 vnoremap <leader>dt :call Translator#Words('v')<CR>
 
-" GoldenDict -------------------------------------------------------------{{{1
-" 详情查阅 ../autoload/GoldenDict.vim
-nnoremap <silent> <M-d> :call GoldenDict#Lookup('n')<CR>
-vnoremap <silent> <M-d> :call GoldenDict#Lookup('v')<CR>
-
 " PinYin拼音查询 ---------------------------------------------------------{{{1
 " 详情查阅 ../autoload/PinYin.vim
 if get(g:, 'python_available', v:false)
@@ -217,6 +212,11 @@ if get(g:, 'python_available', v:false)
     " 查询输入的汉语单字或拼音 - 易混拼音
     command! -nargs=1 PinyinConfusion call PinYin#Confusion(<f-args>)<CR>
 endif
+
+" GoldenDict -------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/GoldenDict.vim
+nnoremap <silent> <M-d> :call GoldenDict#Lookup('n')<CR>
+vnoremap <silent> <M-d> :call GoldenDict#Lookup('v')<CR>
 
 " Mdict ------------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Mdict.vim
