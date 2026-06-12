@@ -36,10 +36,6 @@ execute 'so ' . g:viminit . 'init/guistyle.vim'
 execute 'so ' . g:viminit . 'init/statusline.vim'
 execute 'so ' . g:viminit . 'init/colorstyle.vim'
 
-if has('nvim')
-    runtime neovim.lua
-endif
-
 finish " -----------------------------------------------------------------{{{1
 
 导航Tips：
