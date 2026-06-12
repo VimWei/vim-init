@@ -12,9 +12,9 @@ nnoremap Q <nop>
 " Vim Help ---------------------------------------------------------------{{{1
 " 垂直右侧窗口打开help
 cabbrev vh vert botright help
-cabbrev th tab help
 
 "在新标签页打开帮助
+cabbrev th tab help
 nnoremap <leader>h :tab help<CR>
 
 " 查询加亮内容的帮助，适用于比word更复杂的情形
