@@ -1,0 +1,24 @@
+" Minimal vimrc for git difftool (vimdiff)
+set nocompatible
+filetype plugin on
+syntax on
+
+" Add vim-init to runtimepath for colorschemes
+let &runtimepath .= ',c:/Apps/vim-init'
+
+if has('termguicolors')
+    set termguicolors
+endif
+
+set background=dark
+
+" Use a high-contrast colorscheme
+colorscheme sublime
+
+" Diff-friendly settings
+set number
+set relativenumber
+set cursorline
+set scrolloff=3
+set foldmethod=syntax
+set foldlevel=99
