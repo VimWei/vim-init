@@ -215,8 +215,10 @@ endif
 
 " GoldenDict -------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/GoldenDict.vim
-nnoremap <silent> <M-d> :call GoldenDict#Lookup('n')<CR>
-vnoremap <silent> <M-d> :call GoldenDict#Lookup('v')<CR>
+if has("win32") || has("win64")
+    nnoremap <silent> <M-d> :call GoldenDict#Lookup('n')<CR>
+    vnoremap <silent> <M-d> :call GoldenDict#Lookup('v')<CR>
+endif
 
 " Mdict ------------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Mdict.vim

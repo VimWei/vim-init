@@ -20,51 +20,47 @@ function! GoldenDict#Lookup(mode)
     " Restore registers
     call setreg('"', save_reg, save_reg_type)
 
-    " Clean word: remove extra spaces and symbols at both ends
-    let word = substitute(word, '\_s\+', ' ', 'g')
-    let word = substitute(word, '^\W*\(.\{-}\)\W*$', '\1', '')
-
-    if word == ""
+    " Skip empty
+    if empty(word)
         echohl ErrorMsg | echo "No content available for lookup" | echohl None
         return
     endif
 
-    " Prepare system command
-    let cmd = ""
-    if has("win32") || has("win64")
-        " Try common GoldenDict installation locations
-        let possible_paths = [
-            \ 'd:\PortableApps\PortableApps\GoldenDict\GoldenDict.exe',
-            \ 'C:\Apps\GoldenDict\GoldenDict.exe',
-            \ 'C:\Program Files\GoldenDict\GoldenDict.exe',
-            \ 'C:\Program Files (x86)\GoldenDict\GoldenDict.exe'
-            \ ]
-        
-        let gd_path = ""
-        try
-            for path in possible_paths
-                if filereadable(path)
-                    let gd_path = path
-                    break
-                endif
-            endfor
-        catch /.*/
-            " If path detection fails, gd_path remains empty
-        endtry
-        
-        if gd_path == ""
-            echohl ErrorMsg | echo "GoldenDict not found in default installation locations" | echohl None
-            return
-        endif
-        
-        let cmd = 'start /B "" "' . gd_path . '" "' . word . '"'
-    elseif has("mac")
-        let cmd = 'open -a GoldenDict --args "' . word . '"'
-    else
-        let cmd = 'goldendict "' . word . '" &'
+    " Escape double quotes for command-line argument
+    let word_escaped = substitute(word, '"', '""', 'g')
+
+    " Find AutoHotkey v2 executable
+    let ahk_path = ""
+    let ahk_paths = [
+        \ 'C:\Program Files\AutoHotkey\v2\AutoHotkey64.exe',
+        \ 'C:\Program Files\AutoHotkey\v2\AutoHotkey.exe',
+        \ ]
+
+    try
+        for path in ahk_paths
+            if filereadable(path)
+                let ahk_path = path
+                break
+            endif
+        endfor
+    catch /.*/
+    endtry
+
+    if ahk_path == ""
+        echohl ErrorMsg | echo "AutoHotkey v2 not found" | echohl None
+        return
     endif
 
-    " Execute command (asynchronous)
+    " Locate VimReader's lookup bridge script
+    let lookup_script = 'C:\Apps\VimReader\lib\GoldenDict\VimLookup.ahk'
+
+    if !filereadable(lookup_script)
+        echohl ErrorMsg | echo "VimLookup.ahk not found: " . lookup_script | echohl None
+        return
+    endif
+
+    " Execute via AHK (asynchronous)
+    let cmd = 'start /B "" "' . ahk_path . '" "' . lookup_script . '" "' . word_escaped . '"'
     silent! call system(cmd)
     echo "Looking up: " . word
 endfunction
