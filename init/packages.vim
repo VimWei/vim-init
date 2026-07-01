@@ -37,8 +37,11 @@ if has('patch-9.1.1270')
     let s:packages += [ 'vim-markdown-plus' ]
 endif
 
-packadd! vimnc
-let s:packages += [ 'vimnc' ]
+" packadd! vimnc
+" let s:packages += [ 'vimnc' ]
+
+packadd! vim-im-select
+let s:packages += [ 'vim-im-select' ]
 
 " source packages config -------------------------------------------------{{{1
 if len(get(s:, 'packages', [])) !=# 0

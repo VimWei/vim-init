@@ -59,11 +59,12 @@ if IsInPlugGroup('basic', 'essential') " ---------------------------------{{{1
     Plug 'mbbill/undotree'
     Plug 'tyru/open-browser.vim'
     Plug 'jamescherti/vim-easysession'
-    if has('gui_running')  && !has('nvim')
-        autocmd InsertLeave * silent! set iminsert=2
-    else
-        Plug 'brglng/vim-im-select'
-    endif
+    " if has('gui_running')  && !has('nvim')
+    "     autocmd InsertLeave * silent! set iminsert=2
+    " else
+    "     Plug 'brglng/vim-im-select'
+    " endif
+    " Plug 'brglng/vim-im-select'
     if !has('nvim')
         Plug 'yianwillis/vimcdoc'
     end
