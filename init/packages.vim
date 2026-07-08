@@ -40,8 +40,11 @@ endif
 " packadd! vimnc
 " let s:packages += [ 'vimnc' ]
 
-packadd! vim-im-select
-let s:packages += [ 'vim-im-select' ]
+" Im-select: IME auto switch via im-control (TSF)
+if filereadable('c:/Apps/VimReader/lib/utils/im-control/im-control.exe')
+  packadd! vim-im-select
+  let s:packages += [ 'vim-im-select' ]
+endif
 
 " source packages config -------------------------------------------------{{{1
 if len(get(s:, 'packages', [])) !=# 0
