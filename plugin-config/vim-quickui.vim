@@ -112,23 +112,24 @@ call quickui#menu#install("&Vimrc", [
 " Option -----------------------------------------------------------------{{{1
 " script inside %{...} will be evaluated and expanded in the string
 call quickui#menu#install("&Option", [
-    \ ['Set &Spell %{&spell? "Off":"On"}', 'call Spell#Toggle()', '拼写检查 Toggle'],
-    \ ['Set &Number Toggle', 'set number!', '行号 Toggle'],
-    \ ['Set &Relativenumber Toggle', 'set relativenumber!', '相对行号 Toggle'],
-    \ ['Set Wrap Toggle', 'set wrap!', '自动换行 Toggle'],
+    \ ['Toggle &Tab/Space %{&expandtab? "(Space)":"(Tab)"}', 'set expandtab!', 'Tab 与 Space 切换'],
+    \ ['Toggle Spell (%{&spell? "On":"Off"})', 'call Spell#Toggle()', '拼写检查 Toggle'],
+    \ ['Toggle &Number (%{&number? "On":"Off"})', 'set number!', '行号 Toggle'],
+    \ ['Toggle &Relativenumber (%{&relativenumber? "On":"Off"})', 'set relativenumber!', '相对行号 Toggle'],
+    \ ['Toggle Wrap (%{&wrap? "On":"Off"})', 'set wrap!', '自动换行 Toggle'],
     \ ["-"],
-    \ ['Cursor &Line Toggle', 'set cursorline!', '光标行加亮 Toggle'],
-    \ ['&Fold Column Toggle', 'FoldColumnToggle', '折叠栏 Toggle'],
-    \ ['&Multi Column Toggle', 'MultiColumnToggle', '多栏模式 Toggle'],
+    \ ['Toggle Cursor &Line (%{&cursorline? "On":"Off"})', 'set cursorline!', '光标行加亮 Toggle'],
+    \ ['Toggle &Fold Column (%{&foldcolumn? "On":"Off"})', 'FoldColumnToggle', '折叠栏 Toggle'],
+    \ ['Toggle &Multi Column', 'MultiColumnToggle', '多栏模式 Toggle'],
+    \ ["-"],
+    \ ['Toggle Whitespace &Stripping (%{g:strip_trailing_enabled? "On":"Off"})', 'ToggleStrip', '清除多余的空白 Toggle'],
+    \ ['Toggle vim-auto-&popmenu (%{g:apc_enabled? "On":"Off"})', 'ToggleApc', 'vim-auto-popmenu Toggle'],
     \ ["-"],
     \ ["ColorColumn &CursorPos", 'CColumn', '设置 cursor pos 为对齐线'],
-    \ ["ColorColumn &Textwidth", 'CColumnTextwidth', '设置 Textwidth 为对齐线'],
+    \ ["ColorColumn Text&width", 'CColumnTextwidth', '设置 Textwidth 为对齐线'],
     \ ["ColorColumn Remove&All", 'CColumnRemoveAll', '取消所有的对齐线'],
     \ ["-"],
-    \ ['&Whitespace Stripping Toggle', 'ToggleStrip', '清除多余的空白 Toggle'],
-    \ ['vim-auto-&popmenu Toggle', 'ToggleApc', 'vim-auto-popmenu Toggle'],
-    \ ["-"],
-    \ ["Options Help", 'tab help options', '关于 options 的帮助文档'],
+    \ ["&Options Help", 'tab help options', '关于 options 的帮助文档'],
     \ ])
 
 " Help -------------------------------------------------------------------{{{1
