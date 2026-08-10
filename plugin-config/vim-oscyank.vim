@@ -3,6 +3,10 @@
 " 适用于终端 Vim（非 gvim、非 neovim），如 SSH 远程服务器
 "===================================================
 
+if has('gui_running')
+    finish
+endif
+
 augroup osc_yank
     autocmd!
     autocmd TextYankPost * call s:OSCYankPost()
