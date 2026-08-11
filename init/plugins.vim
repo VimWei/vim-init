@@ -121,7 +121,7 @@ if IsInPlugGroup('basic', 'quickui') " -----------------------------------{{{1
         let s:add_quickui = 1
     endif
     if s:add_quickui
-        Plug 'VimWei/vim-quickui'
+        Plug 'skywind3000/vim-quickui'
         Plug 'skywind3000/vim-navigator'
     endif
 endif
