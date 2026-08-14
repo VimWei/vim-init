@@ -60,8 +60,8 @@ let g:navigator.b = {
 " Colorscheme ------------------------------------------------------------{{{1
 let g:navigator.c = {
     \ 'name' : '+Colorscheme',
-    \ 'a' : ['Color#RandomColorScheme()', '随机采用所有的colorscheme'],
-    \ 'c' : ['Color#RandomFavoriteScheme()', '随机采用最喜欢的colorscheme'],
+    \ 'a' : ['Color#RandomColorScheme()', '随机采用所有的 colorscheme'],
+    \ 'c' : ['Color#RandomFavoriteScheme()', '随机采用最喜欢的 colorscheme'],
     \ 's' : ['Vimrc#EditInitVimrc("colorstyle.vim")', '编辑 colorstyle.vim'],
     \ 'o' : ['Vimrc#EditInitVimrc("../autoload/Color.vim")', '编辑 autoload/Color.vim'],
     \ }
@@ -129,7 +129,7 @@ let g:navigator.0 = {
 " Session ----------------------------------------------------------------{{{1
 let g:navigator.s = {
     \ 'name': '+session',
-    \ 'e' : [':EasySessionLoad', 'EasySessionLoad：加载默认的session'],
+    \ 'e' : [':EasySessionLoad', 'EasySessionLoad：加载默认的 session'],
     \ 'm' : ['Session#MK("mk")', '保存 session：mksession'],
     \ 's' : ['Session#MK("so")', '加载 session: so session'],
     \ }
@@ -147,6 +147,8 @@ let g:navigator.o = {
         \ 'r' : ['CColumnRemoveAll', '取消所有的对齐线'],
         \ },
     \ 'l' : [':set cursorline!', '切换 cursorline 高亮显示'],
+    \ 'm' : [':MultiColumnToggle', '切换多栏模式'],
+    \ 't' : [':set expandtab!', '切换 Tab 与 Space 缩进'],
     \ 'n' : {
         \ 'name' : '+Number',
         \ 'n' : [':set number', '显示行号'],
