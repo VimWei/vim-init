@@ -47,7 +47,7 @@ call quickui#menu#install("&Edit", [
 
 " Wiki -------------------------------------------------------------------{{{1
 call quickui#menu#install("&Wiki", [
-    \ ['HelpToc', 'call TOC#HelpToc()', '打开目录'],
+    \ ['Toc', 'Toc', '打开目录'],
     \ ["-"],
     \ ['&Wiki Index', 'WikiIndex', '打开 Wiki Index'],
     \ ['Wiki Index in Tab', 'call Wikivim#OpenWikiIndexTab()', '打开 Wiki Index in Tab'],

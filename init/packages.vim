@@ -37,6 +37,12 @@ if has('patch-9.1.1270')
     let s:packages += [ 'vim-markdown-plus' ]
 endif
 
+" 统一目录入口：helptoc 原生类型委托内置 helptoc，其余走 fold/缩进
+if has('popupwin')
+    packadd! vim9-toc
+    let s:packages += [ 'vim9-toc' ]
+endif
+
 " packadd! vimnc
 " let s:packages += [ 'vimnc' ]
 

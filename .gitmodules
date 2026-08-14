@@ -10,3 +10,6 @@
 [submodule "pack/mydev/opt/vim-im-select"]
 	path = pack/mydev/opt/vim-im-select
 	url = git@github.com:VimWei/vim-im-select.git
+[submodule "pack/mydev/opt/vim9-toc"]
+	path = pack/mydev/opt/vim9-toc
+	url = git@github.com:VimWei/vim9-toc.git
