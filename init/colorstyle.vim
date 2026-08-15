@@ -23,7 +23,7 @@ if !exists('s:default_colorscheme')
     let s:default_colorscheme += ['retrobox']
     let s:default_colorscheme += ['nordic_electric_ai']
     let s:default_colorscheme += ['one']
-    let s:default_colorscheme += ['quack']
+    let s:default_colorscheme += ['novum']
     let s:default_colorscheme += ['iceberg']
     let s:default_colorscheme += ['codedark']
 endif

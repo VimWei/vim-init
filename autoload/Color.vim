@@ -47,6 +47,11 @@ function! RandomRetrobox()
     execute 'colorscheme retrobox'
 endfunction
 
+function! RandomNovum()
+    let &background = Color#RandomBackground()
+    execute 'colorscheme novum'
+endfunction
+
 " VimInit colorscheme ----------------------------------------------------{{{1
 function! Color#RandomVimInitScheme()
     let l:schemes = map(
@@ -160,7 +165,7 @@ function! Color#RandomFavoriteScheme(...)
     let l:favorites = [
             \ 'gaea', 'delek', 'eclipse',
             \ 'borland256', 'murphy',
-            \ 'quack', 'codedark',
+            \ 'novum', 'codedark',
             \ 'wildcharm', 'nordic_electric_ai',
             \ 'quiet', 'lucius', 'afterglow',
             \ 'gruvbox8', 'one', 'iceberg',
