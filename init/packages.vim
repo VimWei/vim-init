@@ -43,6 +43,14 @@ if has('popupwin')
     let s:packages += [ 'vim9-toc' ]
 endif
 
+" if has('patch-9.1.0497')
+"     packadd! nohlsearch
+"     let s:packages += [ 'nohlsearch' ]
+" endif
+
+packadd! vim-cool
+let s:packages += [ 'vim-cool' ]
+
 " packadd! vimnc
 " let s:packages += [ 'vimnc' ]
 

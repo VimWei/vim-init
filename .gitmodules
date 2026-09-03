@@ -13,3 +13,6 @@
 [submodule "pack/mydev/opt/vim9-toc"]
 	path = pack/mydev/opt/vim9-toc
 	url = git@github.com:VimWei/vim9-toc.git
+[submodule "pack/mydev/opt/vim-cool"]
+	path = pack/mydev/opt/vim-cool
+	url = https://github.com/VimWei/vim-cool

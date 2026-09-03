@@ -133,7 +133,7 @@ if IsInPlugGroup('basic', 'search') " ------------------------------------{{{1
     Plug 'skywind3000/vim-auto-popmenu'
     Plug 'easymotion/vim-easymotion'
     Plug 'ppwwyyxx/vim-PinyinSearch'
-    Plug 'romainl/vim-cool'
+    " Plug 'romainl/vim-cool'
     if !has('nvim')
         Plug 't9md/vim-choosewin'
     endif
