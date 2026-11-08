@@ -8,11 +8,12 @@
 " command! PandocToHTML call Pandoc#ToHtml()
 
 " output_dir -------------------------------------------------------------{{{1
+" 与 DachuBook 统一：wiki 下用 .output/，否则用 Downloads 下的同名目录。
 
 if IsInPlugGroup('Notetaking', 'wiki')
-    let s:output_dir = g:wiki_root . "PandocOutput/"
+    let s:output_dir = substitute(g:wiki_root, '[/\\]$', '', '') . "/.output/"
 else
-    let s:output_dir = "C:/Downloads/PandocOutput/"
+    let s:output_dir = "C:/Downloads/.output/"
 endif
 if !isdirectory(s:output_dir)
     call mkdir(s:output_dir, "p")

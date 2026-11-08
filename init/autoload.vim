@@ -54,6 +54,14 @@ command! PandocToDOCX call Pandoc#ToDocx()
 command! PandocToDOCXWithEmptyLines call Pandoc#ToDocxWithEmptyLines()
 command! PandocToHTML call Pandoc#ToHtml()
 
+" DachuBook --------------------------------------------------------------{{{1
+" 详情查阅 ../autoload/DachuBook.vim
+" 当前文件 → 单页 PDF（无封面目录，快速模式）
+command! DachuBookPage call DachuBook#Page()
+" 当前文件作为入口 → 目录树 PDF（完整出书）
+command! DachuBookTree call DachuBook#Tree()
+" 打开生成的 PDF
+
 " Redir ------------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/Redir.vim
 command! -nargs=1 -complete=command -bar -range Redir silent call Redir#redir(<q-args>, <range>, <line1>, <line2>)
