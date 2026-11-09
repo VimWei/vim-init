@@ -71,8 +71,8 @@ function! WeeklyMealCycleTemplate(context) abort
         \ ])
     endfor
     call extend(template_lines, [
-        \ '* Created:  ' . strftime("%Y/%m/%d %H:%M:%S"),
-        \ '* Modified: ' . strftime("%Y/%m/%d %H:%M:%S")
+        \ '* Created:  ' . strftime("%Y/%m/%d %H:%M:%S %z"),
+        \ '* Modified: ' . strftime("%Y/%m/%d %H:%M:%S %z")
     \ ])
     call append(0, template_lines)
     execute 'normal! gg'
@@ -86,8 +86,8 @@ function! GeneralTemplate(context) abort
         \ '',
         \ '',
         \ '',
-        \ '* Created:  ' . strftime("%Y/%m/%d %H:%M:%S"),
-        \ '* Modified: ' . strftime("%Y/%m/%d %H:%M:%S")
+        \ '* Created:  ' . strftime("%Y/%m/%d %H:%M:%S %z"),
+        \ '* Modified: ' . strftime("%Y/%m/%d %H:%M:%S %z")
     \ ]
     call append(0, template_lines)
     execute 'normal! G"_dd3G'
