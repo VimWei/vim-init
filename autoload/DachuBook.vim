@@ -10,9 +10,17 @@
 "
 " 配置（vimrc，都可选）：
 "   g:dachubook_cmd       DachuBook 可执行文件，默认 "dachubook"
-"   g:dachubook_config    基础配置，默认 <配置目录>/config.yaml
-"                         配置目录由 `dachubook config-dir` 给出（~/.config/dachubook）
 "   g:dachubook_output    产物目录，默认 <wiki_root>/.output
+"
+" 默认配置固定为 <配置目录>/config.yaml，配置目录由 `dachubook config-dir`
+" 给出（~/.config/dachubook）。某个笔记集要换一套配置，就把配置放进
+" 配置目录，再把名字交给命令：
+"
+"   :DachuBookTree cookbook   → ~/.config/dachubook/cookbook.yaml
+"   :DachuBookPage cookbook   → 同一份配置（纸张、封面等都生效）
+"   :DachuBookTree ~/x.yaml   → 带路径就直接用这份
+"
+" 配置文件**不放进 wiki**，笔记目录保持纯笔记。
 "
 " 产物路径：<output>/<文件名>.pdf，**不再嵌套目录**。
 "   例如 Health/香煎羊排.md → c:/Vimel/wiki/.output/香煎羊排.pdf
@@ -33,9 +41,6 @@ function! s:ConfigDir() abort
 endfunction
 
 function! s:ConfigPath() abort
-    if exists('g:dachubook_config') && !empty(g:dachubook_config)
-        return expand(g:dachubook_config)
-    endif
     let l:dir = s:ConfigDir()
     return empty(l:dir) ? '' : l:dir . '/config.yaml'
 endfunction
@@ -79,9 +84,13 @@ function! s:OutputPath() abort
 endfunction
 
 " 拼命令行 -------------------------------------------------------------{{{1
-function! s:BuildArgs(config, mode, out) abort
+" `profile` 为空 → 不带配置参数，CLI 用 <配置目录>/config.yaml；
+" 非空 → 原样交给 --profile，由 CLI 区分「配置名」与「路径」。
+function! s:BuildArgs(profile, mode, out) abort
     let l:parts = [s:cmd, 'build']
-    let l:parts += ['-c', shellescape(a:config)]
+    if !empty(a:profile)
+        let l:parts += ['--profile', shellescape(a:profile)]
+    endif
     let l:parts += ['--entry', shellescape(expand('%:p'))]
     let l:parts += ['--mode', a:mode]
     let l:parts += ['--out', shellescape(a:out)]
@@ -89,19 +98,21 @@ function! s:BuildArgs(config, mode, out) abort
 endfunction
 
 " 执行 -------------------------------------------------------------{{{1
-function! s:Run(mode, label) abort
+function! s:Run(mode, label, profile) abort
     if expand('%:e') !=# 'md'
         echohl WarningMsg | echomsg 'DachuBook: 当前文件不是 .md' | echohl None
         return
     endif
-    let l:config = s:EnsureConfig()
-    if empty(l:config)
+    " 不给 profile 时，确保默认配置存在；给了就交给 CLI 报错，
+    " **不要**因为名字拼错而自动生成一份空配置。
+    if empty(a:profile) && empty(s:EnsureConfig())
         return
     endif
     silent! write
     let l:out = s:OutputPath()
-    let l:cmdline = s:BuildArgs(l:config, a:mode, l:out)
-    echomsg 'DachuBook: ' . a:label . ' → ' . l:out
+    let l:cmdline = s:BuildArgs(a:profile, a:mode, l:out)
+    let l:which = empty(a:profile) ? '' : '（配置 ' . a:profile . '）'
+    echomsg 'DachuBook: ' . a:label . l:which . ' → ' . l:out
 
     " Vim 按系统代码页读子进程输出，UTF-8 会显示成乱码。
     " 让程序改用系统代码页输出（见 src/dachubook/cli.py 的 DACHUBOOK_ANSI）。
@@ -124,12 +135,13 @@ function! s:Run(mode, label) abort
 endfunction
 
 " 对外接口 -------------------------------------------------------------{{{1
-function! DachuBook#Page() abort
-    call s:Run('page', '单页')
+" 参数可选：配置名（配置目录里的文件）或配置路径。
+function! DachuBook#Page(...) abort
+    call s:Run('page', '单页', a:0 ? a:1 : '')
 endfunction
 
-function! DachuBook#Tree() abort
-    call s:Run('tree', '目录树')
+function! DachuBook#Tree(...) abort
+    call s:Run('tree', '目录树', a:0 ? a:1 : '')
 endfunction
 
 " vim: foldmethod=marker

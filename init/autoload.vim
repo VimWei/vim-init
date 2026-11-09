@@ -57,9 +57,9 @@ command! PandocToHTML call Pandoc#ToHtml()
 " DachuBook --------------------------------------------------------------{{{1
 " 详情查阅 ../autoload/DachuBook.vim
 " 当前文件 → 单页 PDF（无封面目录，快速模式）
-command! DachuBookPage call DachuBook#Page()
+command! -nargs=? -complete=file DachuBookPage call DachuBook#Page(<q-args>)
 " 当前文件作为入口 → 目录树 PDF（完整出书）
-command! DachuBookTree call DachuBook#Tree()
+command! -nargs=? -complete=file DachuBookTree call DachuBook#Tree(<q-args>)
 " 打开生成的 PDF
 
 " Redir ------------------------------------------------------------------{{{1
