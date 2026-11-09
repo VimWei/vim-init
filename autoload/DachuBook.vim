@@ -22,8 +22,9 @@
 "
 " 配置文件**不放进 wiki**，笔记目录保持纯笔记。
 "
-" 产物路径：<output>/<文件名>.pdf，**不再嵌套目录**。
-"   例如 Health/香煎羊排.md → c:/Vimel/wiki/.output/香煎羊排.pdf
+" 产物：<output>/<文件名>，文件名由配置决定。
+"   配置写了 output.name 就用它；留空则用入口文件名。
+"   例如 Health/香煎羊排.md 默认 → c:/Vimel/wiki/.output/香煎羊排.pdf
 "   同名文件会互相覆盖——wiki 里的文件名本来就要求唯一。
 "
 " 依赖：DachuBook（uv 安装）、Chrome/Edge。
@@ -68,9 +69,10 @@ function! s:EnsureConfig() abort
     return ''
 endfunction
 
-" 产物路径 -------------------------------------------------------------{{{1
-" <output>/<文件名>.pdf，不嵌套目录。
-function! s:OutputPath() abort
+" 产物目录 -------------------------------------------------------------{{{1
+" 只给目录，文件名由 CLI 决定：配置里的 output.name，留空则用入口文件名。
+" 插件不再拼 `<入口名>.pdf`——否则会盖掉 profile 里配的文件名。
+function! s:OutputDir() abort
     let l:dir = get(g:, 'dachubook_output', '')
     if empty(l:dir)
         let l:root = get(g:, 'wiki_root', expand('~/wiki/'))
@@ -80,20 +82,20 @@ function! s:OutputPath() abort
     if !isdirectory(l:dir)
         call mkdir(l:dir, 'p')
     endif
-    return l:dir . '/' . expand('%:t:r') . '.pdf'
+    return l:dir
 endfunction
 
 " 拼命令行 -------------------------------------------------------------{{{1
 " `profile` 为空 → 不带配置参数，CLI 用 <配置目录>/config.yaml；
 " 非空 → 原样交给 --profile，由 CLI 区分「配置名」与「路径」。
-function! s:BuildArgs(profile, mode, out) abort
+function! s:BuildArgs(profile, mode, dir) abort
     let l:parts = [s:cmd, 'build']
     if !empty(a:profile)
         let l:parts += ['--profile', shellescape(a:profile)]
     endif
     let l:parts += ['--entry', shellescape(expand('%:p'))]
     let l:parts += ['--mode', a:mode]
-    let l:parts += ['--out', shellescape(a:out)]
+    let l:parts += ['--output-dir', shellescape(a:dir)]
     return join(l:parts, ' ')
 endfunction
 
@@ -109,10 +111,10 @@ function! s:Run(mode, label, profile) abort
         return
     endif
     silent! write
-    let l:out = s:OutputPath()
-    let l:cmdline = s:BuildArgs(a:profile, a:mode, l:out)
+    let l:dir = s:OutputDir()
+    let l:cmdline = s:BuildArgs(a:profile, a:mode, l:dir)
     let l:which = empty(a:profile) ? '' : '（配置 ' . a:profile . '）'
-    echomsg 'DachuBook: ' . a:label . l:which . ' → ' . l:out
+    echomsg 'DachuBook: ' . a:label . l:which . ' → ' . l:dir . '/'
 
     " Vim 按系统代码页读子进程输出，UTF-8 会显示成乱码。
     " 让程序改用系统代码页输出（见 src/dachubook/cli.py 的 DACHUBOOK_ANSI）。
@@ -127,7 +129,7 @@ function! s:Run(mode, label, profile) abort
     else
         call system(l:env . l:cmdline)
         if v:shell_error == 0
-            echomsg 'DachuBook: 完成 → ' . l:out
+            echomsg 'DachuBook: 完成 → ' . l:dir . '/'
         else
             echohl ErrorMsg | echomsg 'DachuBook: 失败，见 :messages' | echohl None
         endif
