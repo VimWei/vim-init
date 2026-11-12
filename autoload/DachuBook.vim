@@ -22,12 +22,16 @@
 "
 " 配置文件**不放进 wiki**，笔记目录保持纯笔记。
 "
+" 入口正文印不印由配置的 source.entry_content 决定（默认 keep）：纯索引页
+" （只有链接列表的入口，如 `土豆丝.md`）在配置里写 drop，免得索引与目录重复；
+" 文章型入口（如 `vimel-org.md`）保持 keep，正文与链接注解才不会丢。
+"
 " 产物：<output>/<文件名>，文件名由配置决定。
 "   配置写了 output.name 就用它；留空则用入口文件名。
 "   例如 Health/香煎羊排.md 默认 → c:/Vimel/wiki/.output/香煎羊排.pdf
 "   同名文件会互相覆盖——wiki 里的文件名本来就要求唯一。
 "
-" 依赖：DachuBook（uv 安装）、Chrome/Edge。
+" 依赖：DachuBook（uv 安装）；排版运行时 Pango / GTK 随 WeasyPrint 一起装。
 " 见 https://gitea.vimel.org/Vimel/DachuBook
 
 let s:cmd = get(g:, 'dachubook_cmd', 'dachubook')
