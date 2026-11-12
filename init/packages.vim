@@ -43,6 +43,10 @@ if has('popupwin')
     let s:packages += [ 'vim9-toc' ]
 endif
 
+" Markdown 笔记 → PDF 书（DachuBook CLI 的薄封装）
+packadd! vim-dachubook
+let s:packages += [ 'vim-dachubook' ]
+
 " if has('patch-9.1.0497')
 "     packadd! nohlsearch
 "     let s:packages += [ 'nohlsearch' ]

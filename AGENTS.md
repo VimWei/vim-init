@@ -20,7 +20,7 @@ On Windows, link `vimfiles\vimrc` to `.config\vim\vimrc` (`vimrc` sources `~/.co
 |-----------|---------|
 | `init/` | Core config files (loaded by `init.vim`) |
 | `plugin-config/` | Plugin/package configs, named per plugin (`wiki.vim.vim` → `wiki.vim`) |
-| `autoload/` | Custom autoload functions (`python.vim`, `DachuBook.vim`, `Vimrc.vim`, …) |
+| `autoload/` | Custom autoload functions (`python.vim`, `Pandoc.vim`, `Vimrc.vim`, …) |
 | `ftplugin/` | Filetype plugins (markdown, toml, yaml, javascript, …) |
 | `colors/` | Color schemes |
 | `after/plugin/` | Late-loaded overrides (e.g. `speeddating.vim`) |
@@ -70,11 +70,12 @@ uv pip install --requirement pyproject.toml --target ~/.local/share/uv/tools/vim
 
 ## DachuBook
 
-`:DachuBookPage [profile]` and `:DachuBookTree [profile]` render the current Markdown note to PDF through the external [DachuBook](https://gitea.vimel.org/Vimel/DachuBook) CLI. `autoload/DachuBook.vim` is a thin wrapper: it builds the command line and runs it through `AsyncRun` when available. The optional argument is a config profile name (`~/.config/dachubook/<name>.yaml`) or a path.
+`:DachuBookPage [profile]` and `:DachuBookTree [profile]` render the current Markdown note to PDF through the external [DachuBook](https://gitea.vimel.org/Vimel/DachuBook) CLI. They come from the **`vim-dachubook` plugin**, a git submodule at `pack/mydev/opt/vim-dachubook`, which registers its own commands in `plugin/dachubook.vim`; `init/packages.vim` loads it with `packadd!`. The plugin is a thin wrapper: it builds the command line and runs it through `AsyncRun` when available. The optional argument is a config profile name (`~/.config/dachubook/<name>.yaml`) or a path.
 
 - `g:dachubook_cmd` (default `dachubook`), `g:dachubook_output` (default `<wiki_root>/.output`)
 - Output filename is decided by the CLI (`output.name`, else the entry filename)
 - Requires Pango/GTK at runtime (installed with WeasyPrint)
+- Plugin options documented in `pack/mydev/opt/vim-dachubook/doc/dachubook.txt`
 
 ## Testing Changes
 
